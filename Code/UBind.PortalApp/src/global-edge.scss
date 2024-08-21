@@ -1,0 +1,163 @@
+@supports (-ms-ime-align: auto) {
+
+    :root * {
+        form {
+            button {
+                span {
+                    color: #fff !important;
+                }
+            }
+            ion-button.ion-color-light {
+                button {
+                    span {
+                        color: #000 !important;
+                    }
+                }
+            }
+        }
+    }
+
+    ion-split-pane {
+        app-login {
+            .account-card {
+                margin-top: 8% !important;
+            }
+        }
+
+        ion-toolbar {
+            .toolbar-container {
+                padding-top: 0 !important;
+
+                .toolbar-content {
+                    ion-buttons[slot="start"] {
+                        float: left;
+                        text-align: left !important;
+                    }
+                    ion-title {
+                        float: left;
+                    }
+                    ion-buttons[slot="end"] {
+                        float: right;
+                        text-align: right !important;
+                    }
+                }
+            }
+        }
+
+        ion-router-outlet {
+            ion-content {
+                ion-toolbar {
+                    ion-buttons[slot="end"] {
+                        ion-button {
+                            button {
+                                span:first-child:not(.ion-title) {
+                                    font-size: 14px !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    .desktop-sidebar-title {
+        margin-left: -1px !important;
+    }
+
+    ion-app {
+        ion-header {
+            ion-toolbar {
+                ion-buttons {
+                    ion-button {
+                        button {
+                            span.button-inner {
+                                color: #fff !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    ion-nav, 
+    ion-router-outlet {
+        ion-content {
+            ion-segment {
+                ion-segment-button {
+                    max-width: 110px !important;
+                }
+            }
+        }
+    }
+
+    ion-footer {
+        ion-item {
+            div.item-native {
+                div.item-inner {
+                    ion-button {
+                        button {
+                            span {
+                                color: #fff !important;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    ion-alert {
+        .alert-radio-label {
+            text-align: left !important;
+        }
+    }
+
+    ion-router-outlet {
+        ion-header {
+            ion-segment {
+                overflow: hidden !important;
+            }
+        }
+    }
+
+    ion-searchbar {
+        .searchbar-cancel-button {
+            margin-top: 6px !important;
+        }
+    }
+}
+
+@media screen and (max-width: 767px) {
+    @supports (-ms-ime-align: auto) {
+        ion-segment-button {
+            max-width: 110px !important;
+    
+            button {
+                padding: 0 !important;
+                color: #fff !important;
+            }
+    
+            div.segment-button-indicator {
+                height: 0px !important;
+            }
+        }
+
+        ion-app {
+            ion-header {
+                ion-toolbar {
+                    ion-buttons[slot="end"] {
+                        ion-button {
+                            button {
+                                span:first-child:not(.ion-title) {
+                                    font-size: 14px !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

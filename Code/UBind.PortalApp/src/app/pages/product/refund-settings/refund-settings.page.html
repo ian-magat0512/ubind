@@ -1,0 +1,109 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="start">
+            <ion-button slot="icon-only" (click)="userDidTapCloseButton()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="!layoutManager.splitPaneVisible">Refund Settings</ion-title>
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="end">
+            <ion-button (click)="userDidTapApplyButton(form.value)">
+                Apply
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <loader *ngIf="isLoading"></loader>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible && !isLoading" class="level-2">
+        <ion-buttons slot="start">
+            <ion-button slot="icon-only" (click)="userDidTapCloseButton()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Refund Settings</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="userDidTapApplyButton(form.value)">
+                Apply
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <div appScrollDetails>
+        <form [formGroup]="form" *ngIf="!isLoading">
+            <ion-list lines="none" inset>
+                <ion-list-header>
+                    <ion-label>
+                        <strong>Rule Selection</strong>
+                    </ion-label>
+                </ion-list-header>
+                <div>
+                    Please select which rule should apply to pro-rata refunds of premium applicable to the remaining policy period when a policy is adjusted or cancelled.
+                </div>
+                <ion-list lines="none">
+                <mat-radio-group (change)="ruleSelectionChange($event)" formControlName="RefundPolicy">
+                    <ion-item>
+                        <mat-radio-button  [value]="refundRule.RefundsAreAlwaysProvided">
+                            <ion-label class="ion-text-wrap" ellipsis>Refunds are always provided</ion-label>
+                        </mat-radio-button >
+                    </ion-item>
+                    <ion-item>
+                        <mat-radio-button [value]="refundRule.RefundsAreNeverProvided"></mat-radio-button>
+                        <ion-label class="ion-text-wrap" ellipsis>Refunds are never provided</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <mat-radio-button [value]="refundRule.RefundsAreProvidedIfNoClaimsWereMade"></mat-radio-button>
+                        <ion-label class="ion-text-wrap" ellipsis>Refunds are provided if no claims were made during a specific period</ion-label>
+                    </ion-item>
+                    <ion-item>
+                        <mat-radio-button [value]="refundRule.RefundsCanOptionallyBeProvided">
+                            <ion-label class="ion-text-wrap" ellipsis>Refunds can optionally be provided at the discretion of a person performing a review or endorsement</ion-label>
+                        </mat-radio-button>
+                    </ion-item>
+                </mat-radio-group>
+            </ion-list>
+            </ion-list>
+            <ion-list lines="none" inset *ngIf="isRefundAreProvidedIfNoClaimsWereMade">        
+                <ion-list-header>
+                    <ion-label>
+                        <strong>Period Selection</strong>
+                    </ion-label>
+                </ion-list-header>
+                <div>
+                    Please select the period during which no claims must have been made in relation to the policy.
+                </div>
+                <ion-list lines="none">
+                    <mat-radio-group formControlName="PeriodWhichNoClaimsMade" (ionChange)="periodSelectionChange($event)">
+                        <ion-item>
+                            <mat-radio-button default="true" [value]="periodWhichNoClaimsMade.CurrentPolicyPeriod">
+                                <ion-label>The current policy period</ion-label>
+                            </mat-radio-button>
+                        </ion-item>
+                        <ion-item>
+                            <mat-radio-button [value]="periodWhichNoClaimsMade.LifeTimeOfThePolicy">
+                                <ion-label>The lifetime of the policy</ion-label>
+                            </mat-radio-button>
+                        </ion-item>
+                        <ion-item>
+                            <mat-radio-button [value]="periodWhichNoClaimsMade.LastNumberOfYears">
+                                <ion-label>The last number of years</ion-label>
+                            </mat-radio-button>
+                        </ion-item>
+                        <ion-item>
+                            <mat-radio-button [value]="periodWhichNoClaimsMade.AtAnyTime">
+                                <ion-label>At any time</ion-label>
+                            </mat-radio-button>
+                        </ion-item>
+                    </mat-radio-group>
+                    <ion-item *ngIf="isLastNumberOfYearsSelected">
+                        <ion-label position="floating">Years</ion-label>
+                        <ion-input formControlName="LastNumberOfYearsWhichNoClaimsMade"></ion-input>
+                    </ion-item>
+                    <div class="error" *ngIf="form.get('LastNumberOfYearsWhichNoClaimsMade').errors && (form.get('LastNumberOfYearsWhichNoClaimsMade').touched || formHasError)">
+                        The the last number of years must be a whole number between 1 and 100
+                    </div>
+                </ion-list>
+        </ion-list>
+        </form>
+    </div>
+</ion-content>

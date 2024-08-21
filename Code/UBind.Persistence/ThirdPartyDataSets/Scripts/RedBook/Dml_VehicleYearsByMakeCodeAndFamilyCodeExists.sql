@@ -1,0 +1,1 @@
+SELECT count(1) FROM [RedBook].[VEYear_View] WHERE [MakeCode] = @MakeCode and FamilyCode = @FamilyCode

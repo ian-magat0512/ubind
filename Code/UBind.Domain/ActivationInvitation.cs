@@ -1,0 +1,42 @@
+﻿// <copyright file="ActivationInvitation.cs" company="uBind">
+// Copyright (c) uBind. All rights reserved.
+// </copyright>
+
+// If you edit this file, you must remove this line and then do proper null checking
+#pragma warning disable CS8600, CS8625, CS8629, CS8618, CS8605, CS8604, CS8601, CS8602, CS8603, CS8622, CS8619, CS8767, CS8620, CS8765
+
+namespace UBind.Domain
+{
+    using System;
+    using NodaTime;
+
+    /// <summary>
+    /// Event for activation invitations (newly registered users).
+    /// </summary>
+    public class ActivationInvitation : InvitationEvent
+    {
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActivationInvitation"/> class.
+        /// </summary>
+        /// <param name="invitationId">The invitation ID.</param>
+        /// <param name="createdTimestamp">The time the activation invitation occured.</param>
+        public ActivationInvitation(Guid invitationId, Instant createdTimestamp)
+            : base(invitationId, createdTimestamp)
+        {
+        }
+
+        /// <summary>
+        /// Initializes a new instance of the <see cref="ActivationInvitation"/> class.
+        /// </summary>
+        private ActivationInvitation()
+            : base()
+        {
+            // Nothing to do
+        }
+
+        /// <summary>
+        /// Gets the invitation event type as activation.
+        /// </summary>
+        public override string InvitationEventType => InvitationType.Activation;
+    }
+}

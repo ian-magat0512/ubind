@@ -1,0 +1,28 @@
+<ng-container>
+    <div>
+        <button *ngFor="let actionButton of actionButtonList; let i = index" mat-button class="mat-btn-action"
+            (click)="onClick($event, i)" [class.primary]="actionButton.IsPrimary"
+            [ngClass]="actionButton.HasActionLabel ? 'mat-flat-button' : 'mat-icon-button'"
+            [matTooltip]="actionButton.ActionName" [matTooltipPosition]="tooltipPosition" matTooltipShowDelay="1000"
+            matTooltipHideDelay="10" focus="setAriaLabel($event)" [attr.aria-label]="actionButton.ActionName"
+            tabindex="0">
+            <ion-icon *ngIf="actionButton.IconLibrary == iconLibrary.IonicV4 || actionButton.IconLibrary == iconLibrary.IonicV5" 
+                [attr.aria-label]="actionButton.ActionName"
+                [name]="actionButton.IconLibrary == iconLibrary.IonicV5 ? actionButton.Icon : null"
+                [src]="actionButton.iconLibrary == iconLibrary.IonicV4 ? './assets/ionicons-v4/' + actionButton.Icon + '.svg' : null"></ion-icon>
+            <mat-icon *ngIf="actionButton.IconLibrary == iconLibrary.AngularMaterial" class="mat-icon-sm"
+                aria-hidden="false" [attr.aria-label]="actionButton.ActionName"
+                svgIcon="{{actionButton.Icon}}"
+                [class.resume-quote]="actionButton.Icon == 'resume-quote'"></mat-icon>
+            <ion-label *ngIf="actionButton.HasActionLabel">{{actionButton.Label}}</ion-label>
+        </button>
+    </div>
+    <button *ngIf="canShowMore" mat-button class="mat-btn-more" (click)="showMore($event)"
+        [ngClass]="canShowMoreButton ? 'mat-flat-button' : 'mat-icon-button'" attr.aria-label="More">
+        <ion-label *ngIf="canShowMoreButton">More</ion-label>
+        <ion-icon *ngIf="!canShowMoreButton" src="./assets/ionicons-v4/more.svg"></ion-icon>
+        <mat-icon *ngIf="canShowMoreButton" class="mat-icon-sm" aria-hidden="false"
+            [attr.aria-label]="!flipMoreIcon ? 'chevron-down' : 'chevron-up'"
+            [svgIcon]="!flipMoreIcon ? 'chevron-down' : 'chevron-up'"></mat-icon>
+    </button>
+</ng-container>

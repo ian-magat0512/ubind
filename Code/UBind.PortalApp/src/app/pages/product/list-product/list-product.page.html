@@ -1,0 +1,31 @@
+<app-segmented-entity-list [title]="title"
+                           [listItemNamePlural]="'products'"
+                           [entityRouteParamName]="'productAlias'"
+                           [entityLoaderService]="productApiService"
+                           [viewModelConstructor]="viewModelConstructor"
+                           [segments]="segments"
+                           [defaultSegment]="defaultSegment"
+                           [filterStatuses]="filterStatuses"
+                           [sortOptions]="sortOptions"
+                           [filterByDates]="filterByDates"
+                           [itemTemplate]="productListItemTemplate"
+                           [getSelectedIdCallback]="getSelectedId.bind(this)"
+                           [repositoryKey]="'ListProductPage'"
+                           [entityTypeName]="'Product'"
+                           (listQueryParamsGenerated)="onListQueryParamsGenerated($event)"
+                           [additionalActionButtonList]="additionalActionButtonList"
+                           [entityPathSegment]="'product'"
+                           [ngStyle]="{'height': '100%'}">
+</app-segmented-entity-list>
+
+<ng-template #productListItemTemplate let-item>
+    <library-icon name="cube" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'" [cssClass]="'align-icon'"></library-icon>
+    <ion-label class="ion-text-wrap">
+        <div class="list-title">{{item.name}}</div>
+        <p class="status list-subtitle">{{item.tenantName}}</p>
+    </ion-label>
+    <ion-label class="ion-text-wrap ion-text-end" slot="end">
+        <div class="list-title">{{ item.status }}</div>
+        <p class="status list-subtitle">{{item.disabled? 'Disabled' : 'Active'}}</p>
+    </ion-label>
+</ng-template>

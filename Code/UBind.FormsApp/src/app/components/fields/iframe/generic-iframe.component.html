@@ -1,0 +1,19 @@
+<apng-loader *ngIf="isLoading && !errorMessage"></apng-loader>
+<iframe [src]="url"
+    referrerpolicy="no-referrer-when-downgrade"
+    [id]="facade.key + 'Iframe' | cssIdentifier"
+    name="{{ facade.key + 'Iframe' }}"
+    frameborder="0"
+    scrolling="yes"
+    class="iframe-field"
+    (focus)="facade.onFocus($event)"
+    (blur)="facade.onBlur($event)"
+    [style.visibility]="isLoading ? 'hidden': 'visible'"
+    ></iframe>
+
+<input
+    type="hidden" 
+    class="form-control"
+    [name]="facade.key"
+    [formControl]="facade.formControl"
+    (change)="facade.onChange($event)" />

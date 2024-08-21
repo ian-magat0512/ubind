@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-toolbar color="primary" class="level-1">
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="start">
+            <ion-button slot="icon-only" (click)="userDidTapReturnButton()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="!layoutManager.splitPaneVisible">{{ !additionalProperty ? "" : additionalProperty.name}}</ion-title>
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="end">
+            <app-entity-action-button-list
+                [actionButtonList]="actionButtonList"
+                [getMoreButtonCallback]="userDidTapMoreButton.bind(this)"
+                [canShowMore]="true"
+                [flipMoreIcon]="flipMoreIcon">
+            </app-entity-action-button-list>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ion-buttons slot="start">
+            <ion-button slot="icon-only" (click)="userDidTapReturnButton()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="layoutManager.splitPaneVisible">{{!additionalProperty ? "" : additionalProperty.name}}</ion-title>
+        <ion-buttons slot="end">
+            <app-entity-action-button-list
+                [actionButtonList]="actionButtonList"
+                [getMoreButtonCallback]="userDidTapMoreButton.bind(this)"
+                [canShowMore]="true"
+                [flipMoreIcon]="flipMoreIcon">
+            </app-entity-action-button-list>
+        </ion-buttons>
+    </ion-toolbar>
+
+    <loader *ngIf="isLoading"></loader>
+    <div *ngIf="!isLoading && !errorMessage">
+        <app-entity-details-list [detailsListItems]="additionalPropertyDetailsListItems" [@contentAnimation]
+            [hasItemLines]="false" [hasGroupLines]="false"
+            [truncateDescription]="true">
+        </app-entity-details-list>
+    </div>
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">
+            {{ errorMessage }}
+        </p>
+    </div>
+</ion-content>

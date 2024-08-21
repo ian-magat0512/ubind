@@ -1,0 +1,273 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<root>
+  <!-- 
+    Microsoft ResX Schema 
+    
+    Version 2.0
+    
+    The primary goals of this format is to allow a simple XML format 
+    that is mostly human readable. The generation and parsing of the 
+    various data types are done through the TypeConverter classes 
+    associated with the data types.
+    
+    Example:
+    
+    ... ado.net/XML headers & schema ...
+    <resheader name="resmimetype">text/microsoft-resx</resheader>
+    <resheader name="version">2.0</resheader>
+    <resheader name="reader">System.Resources.ResXResourceReader, System.Windows.Forms, ...</resheader>
+    <resheader name="writer">System.Resources.ResXResourceWriter, System.Windows.Forms, ...</resheader>
+    <data name="Name1"><value>this is my long string</value><comment>this is a comment</comment></data>
+    <data name="Color1" type="System.Drawing.Color, System.Drawing">Blue</data>
+    <data name="Bitmap1" mimetype="application/x-microsoft.net.object.binary.base64">
+        <value>[base64 mime encoded serialized .NET Framework object]</value>
+    </data>
+    <data name="Icon1" type="System.Drawing.Icon, System.Drawing" mimetype="application/x-microsoft.net.object.bytearray.base64">
+        <value>[base64 mime encoded string representing a byte array form of the .NET Framework object]</value>
+        <comment>This is a comment</comment>
+    </data>
+                
+    There are any number of "resheader" rows that contain simple 
+    name/value pairs.
+    
+    Each data row contains a name, and value. The row also contains a 
+    type or mimetype. Type corresponds to a .NET class that support 
+    text/value conversion through the TypeConverter architecture. 
+    Classes that don't support this are serialized and stored with the 
+    mimetype set.
+    
+    The mimetype is used for serialized objects, and tells the 
+    ResXResourceReader how to depersist the object. This is currently not 
+    extensible. For a given mimetype the value must be set accordingly:
+    
+    Note - application/x-microsoft.net.object.binary.base64 is the format 
+    that the ResXResourceWriter will generate, however the reader can 
+    read any of the formats listed below.
+    
+    mimetype: application/x-microsoft.net.object.binary.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Binary.BinaryFormatter
+            : and then encoded with base64 encoding.
+    
+    mimetype: application/x-microsoft.net.object.soap.base64
+    value   : The object must be serialized with 
+            : System.Runtime.Serialization.Formatters.Soap.SoapFormatter
+            : and then encoded with base64 encoding.
+
+    mimetype: application/x-microsoft.net.object.bytearray.base64
+    value   : The object must be serialized into a byte array 
+            : using a System.ComponentModel.TypeConverter
+            : and then encoded with base64 encoding.
+    -->
+  <xsd:schema id="root" xmlns="" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:msdata="urn:schemas-microsoft-com:xml-msdata">
+    <xsd:import namespace="http://www.w3.org/XML/1998/namespace" />
+    <xsd:element name="root" msdata:IsDataSet="true">
+      <xsd:complexType>
+        <xsd:choice maxOccurs="unbounded">
+          <xsd:element name="metadata">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" />
+              </xsd:sequence>
+              <xsd:attribute name="name" use="required" type="xsd:string" />
+              <xsd:attribute name="type" type="xsd:string" />
+              <xsd:attribute name="mimetype" type="xsd:string" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="assembly">
+            <xsd:complexType>
+              <xsd:attribute name="alias" type="xsd:string" />
+              <xsd:attribute name="name" type="xsd:string" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="data">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+                <xsd:element name="comment" type="xsd:string" minOccurs="0" msdata:Ordinal="2" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" msdata:Ordinal="1" />
+              <xsd:attribute name="type" type="xsd:string" msdata:Ordinal="3" />
+              <xsd:attribute name="mimetype" type="xsd:string" msdata:Ordinal="4" />
+              <xsd:attribute ref="xml:space" />
+            </xsd:complexType>
+          </xsd:element>
+          <xsd:element name="resheader">
+            <xsd:complexType>
+              <xsd:sequence>
+                <xsd:element name="value" type="xsd:string" minOccurs="0" msdata:Ordinal="1" />
+              </xsd:sequence>
+              <xsd:attribute name="name" type="xsd:string" use="required" />
+            </xsd:complexType>
+          </xsd:element>
+        </xsd:choice>
+      </xsd:complexType>
+    </xsd:element>
+  </xsd:schema>
+  <resheader name="resmimetype">
+    <value>text/microsoft-resx</value>
+  </resheader>
+  <resheader name="version">
+    <value>2.0</value>
+  </resheader>
+  <resheader name="reader">
+    <value>System.Resources.ResXResourceReader, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <resheader name="writer">
+    <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
+  </resheader>
+  <data name="DefaultAccountAlreadyActivatedHtmlBody" xml:space="preserve">
+    <value>&lt;html lang="en"&gt;
+    &lt;body&gt;
+        &lt;p&gt;Hi {{User.PreferredName}},&lt;/p&gt;
+        &lt;p&gt;An attempt was recently made to create a new customer account for {{Organisation.Name}} using this email address.&lt;/p&gt;
+        &lt;p&gt;If this attempt was made by yourself, please note that you already have an activated {{Organisation.Name}} customer account and do not have to create a new one. If you have forgotten the password to your account, you can request an email with a link to reset your password using the "Forgot password?" function on our portal login page.&lt;/p&gt;
+        &lt;p&gt;If you did not attempt to create a new user account, you do not have to take any further action. The person who attempted to create the new account is unable to access any information about you or your user account, including the fact that it even exists.&lt;/p&gt;
+        &lt;p&gt;This email was generated automatically. Please do not reply.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="DefaultAccountAlreadyActivatedTextBody" xml:space="preserve">
+    <value>Hi {{User.PreferredName}},
+ 
+An attempt was recently made to create a new customer account for {{User.PreferredName}} using this email address.
+ 
+If this attempt was made by yourself, please note that you already have an activated {{User.PreferredName}} customer account and do not have to create a new one. If you have forgotten the password to your account, you can request an email with a link to reset your password using the "Forgot password?" function on our portal login page.
+ 
+If you did not attempt to create a new user account, you do not have to take any further action. The person who attempted to create the new account is unable to access any information about you or your user account, including the fact that it even exists.
+ 
+This email was generated automatically. Please do not reply.</value>
+  </data>
+  <data name="DefaultAccountAlreadyActivatedTitle" xml:space="preserve">
+    <value>New account creation attempted</value>
+  </data>
+  <data name="DefaultActivationHtmlBody" xml:space="preserve">
+    <value>&lt;html lang="en"&gt;
+    &lt;body&gt;
+        &lt;p&gt;Hi {{User.PreferredName}},&lt;/p&gt;
+        &lt;p&gt;An account has been created for you on the {{Organisation.Name}} portal.&lt;/p&gt;
+        &lt;p&gt;If you would like to activate your account, please click the link below and select a password to complete your account creation.&lt;/p&gt;
+        &lt;p&gt;{{UserActivation.Link}}&lt;/p&gt;
+        &lt;p&gt;If you do not want to activate your account, or if you believe you have received this message in error, please ignore this email.&lt;/p&gt;
+        &lt;p&gt;This is an automated message. Please do not reply to this email.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="DefaultActivationPlainTextBody" xml:space="preserve">
+    <value>Hi {{User.PreferredName}},
+
+An account has been created for you on the {{Organisation.Name}} portal.
+If you would like to activate your account, please click the link below and select a password to complete your account creation.
+
+{{UserActivation.Link}}
+
+If you do not want to activate your account, or if you believe you have received this message in error, please ignore this email.
+This is an automated message. Please do not reply to this email.</value>
+  </data>
+  <data name="DefaultActivationTitle" xml:space="preserve">
+    <value>Activation Invitation from {{Organisation.Name}}</value>
+  </data>
+  <data name="DefaultPasswordExpiredHtmlBody" xml:space="preserve">
+    <value>&lt;html lang="en"&gt;
+    &lt;body&gt;
+        &lt;p&gt;Hi {{User.PreferredName}},&lt;/p&gt;
+        &lt;p&gt;The password associated with your user account on the {{Organisation.Name}} portal recently expired.&lt;/p&gt;
+        &lt;p&gt;In order to continue to access the {{Organisation.Name}} portal, you must set a new password for your user account using the link below:&lt;/p&gt;
+        &lt;p&gt;{{PasswordExpiredReset.Link}}&lt;/p&gt;
+        &lt;p&gt;If you believe that this email was sent to you in error, please ignore this email.&lt;/p&gt;
+        &lt;p&gt;This is an automated message. Please do not reply to this email.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="DefaultPasswordExpiredPlainTextBody" xml:space="preserve">
+    <value>Hi {{User.PreferredName}},
+
+The password associated with your user account on the {{Organisation.Name}} portal recently expired.
+In order to continue to access the {{Organisation.Name}} portal, you must set a new password for your user account using the link below:
+        
+{{PasswordExpiredReset.Link}}
+
+If you believe that this email was sent to you in error, please ignore this email.
+This is an automated message. Please do not reply to this email.</value>
+  </data>
+  <data name="DefaultPasswordExpiredTitle" xml:space="preserve">
+    <value>Expired Password Reset Invitation from {{Organisation.Name}}</value>
+  </data>
+  <data name="DefaultPasswordResetHtmlBody" xml:space="preserve">
+    <value>&lt;html lang="en"&gt;
+    &lt;body&gt;
+        &lt;p&gt;Hi {{User.PreferredName}},&lt;/p&gt;
+        &lt;p&gt;A request has been made to reset the password to your account on the {{Organisation.Name}} portal.&lt;/p&gt;
+        &lt;p&gt;If you have made this request, please follow the link below to complete the process.&lt;/p&gt;
+        &lt;p&gt;{{PasswordReset.Link}}&lt;/p&gt;
+        &lt;p&gt;If you have not made this request, please ignore this email.&lt;/p&gt;
+        &lt;p&gt;This is an automated message. Please do not reply to this email.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="DefaultPasswordResetPlainTextBody" xml:space="preserve">
+    <value>Hi {{User.PreferredName}},
+
+A request has been made to reset the password to your account on the {{Organisation.Name}} portal.
+If you have made this request, please follow the link below to complete the process.
+        
+{{PasswordReset.Link}}
+
+If you have not made this request, please ignore this email.
+This is an automated message. Please do not reply to this email.</value>
+  </data>
+  <data name="DefaultPasswordResetTitle" xml:space="preserve">
+    <value>Password Reset Invitation from {{Organisation.Name}}</value>
+  </data>
+  <data name="DefaultQuoteAssociationInvitationHtmlBody" xml:space="preserve">
+    <value>&lt;html lang="en"&gt;
+    &lt;body&gt;
+        &lt;p&gt;Hi {{ User.PreferredName }},&lt;/p&gt;
+        &lt;p&gt;A quote was created recently using your email address. If you created this quote and you could like to associate it with your {{ Organisation.Name }} account, please click &lt;a href="{{ QuoteCustomerAssociation.Link }}"&gt;this link.&lt;/a&gt;&lt;/p&gt;
+        &lt;p&gt;If you did not create this quote, or if you would prefer not to associate your new quote with your {{ Tenant.Name }} account, please ignore this email.&lt;/p&gt;
+        &lt;p&gt;This is an automated message. Please do not reply to this email.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="DefaultQuoteAssociationInvitationTextBody" xml:space="preserve">
+    <value>Hi {{ User.PreferredName }},
+ 
+A quote was created recently using your email address. If you created this quote and you could like to associate it with your {{ Organisation.Name }} account, please follow the link below.
+ 
+{{ QuoteCustomerAssociation.Link }}
+ 
+If you did not create this quote, or if you would prefer not to associate your new quote with your {{ Tenant.Name }} account, please ignore this email.
+ 
+This is an automated message. Please do not reply to this email.</value>
+  </data>
+  <data name="DefaultQuoteAssociationInvitationTitle" xml:space="preserve">
+    <value>Is this your quote?</value>
+  </data>
+  <data name="DefaultRenewalInvitationHtmlBody" xml:space="preserve">
+    <value>&lt;html lang="en"&gt;
+    &lt;body&gt;
+        &lt;p&gt;Hi {{User.PreferredName}},&lt;/p&gt;
+        &lt;p&gt;Your policy {{Policy.Number}} will expire on {{Policy.ExpiryDate}}.&lt;/p&gt;
+	    &lt;p&gt;To remain covered you will need to renew your policy before the expiry date.&lt;/p&gt;
+        &lt;p&gt;If you would like to renew your policy, please log into our portal using the link below and follow the instructions.&lt;/p&gt;
+        &lt;p&gt;{{PolicyRenewal.Link}}&lt;/p&gt;
+        &lt;p&gt;If you do not want to renew your policy, or if you believe you have received this message in error, please ignore this email.&lt;/p&gt;
+        &lt;p&gt;This is an automated message. Please do not reply to this email.&lt;/p&gt;
+    &lt;/body&gt;
+&lt;/html&gt;</value>
+  </data>
+  <data name="DefaultRenewalInvitationTextBody" xml:space="preserve">
+    <value>Hi {{User.PreferredName}},
+
+Your policy {{Policy.Number}} will expire on {{Policy.ExpiryDate}}.
+To remain covered you will need to renew your policy before the expiry date.
+If you would like to renew your policy, please log into our portal using link below and follow the instructions.
+{{PolicyRenewal.Link}}
+If you do not want to activate your account, or if you believe you have received this message in error, please ignore this email.
+This is an automated message. Please do not reply to this email.</value>
+  </data>
+  <data name="DefaultRenewalInvitationTitle" xml:space="preserve">
+    <value>Renewal notice for {{Policy.Number}}</value>
+  </data>
+</root>

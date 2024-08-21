@@ -1,0 +1,48 @@
+@model UBind.Application.Export.ViewModels.ApplicationEventViewModel
+
+<p style="font-family: Arial; font-size:13px;">Hi @Model.Form["name"],</p>
+
+<p style="font-family: Arial; font-size:13px;">Your online insurance application has been completed.</p>
+
+<p style="font-family: Arial; font-size:13px;">Your @Model.Calculation["questions.paymentOptions.paymentOption"] premium is: <strong> @Model.Calculation["payment.instalments.instalmentAmount"] </strong></p>
+
+<p style="font-family: Arial; font-size:13px;">You have chosen the following cover:</p>
+
+<ul style="font-family: Arial; font-size:13px;">
+    <li><strong>PL Limit:</strong> @Model.Form["PLLimit"] </li>
+    <li><strong>Animals in Transit Cover:</strong> @Model.Form["animalsInTransit"] </li>
+    <li><strong>Trailer Cover:</strong> @Model.Form["trailerCover"] </li>
+    <li><strong>Tools Cover:</strong> @Model.Form["toolsCover"] </li>
+    <li><strong>Accident Cover:</strong> @Model.Form["accidentCover"] </li>
+    <li><strong>Weekly Accident Amount:</strong> @Model.Form["accidentPerWeek"] </li>
+    <li><strong>Start Date:</strong> @Model.Form["policyStartDate"] </li>
+</ul>
+
+<p style="font-family: Arial; font-size:13px;">
+@if (Model.Form["paymentMethod"] == "Direct Debit") {
+    @:You have indicated that you would like to pay for your insurance using direct debit from a bank account.
+    @:Once we have completed the processing of your application your account will automatically be debited at the agreed times, and you will receive your policy documentation using the nominated method.
+} else {
+    @:You have indicated that you would like to pay for your insurance using credit card.
+    @:For security reasons our policy is to obtain your credit card details over the phone.
+    @:A member of our team will therefore call you shortly on your nominated contact phone number.
+}
+</p>
+
+@if (Model.Form["paymentOption"] == "Monthly") {
+<p style="font-family: Arial; font-size:13px;">Please note that the terms and conditions for the pay-by-the-month are attached to this email.</p>
+}
+
+<p style="font-family: Arial; font-size:13px;">Warm regards,<br/>The MGA Team</p>
+
+<p style="font-family: Arial; font-size:13px;">&nbsp;</p>
+
+<h4 style="text-indent:15px; padding: 20px 0; background: #e6eaea; width: 60%; font-family: Arial; font-size:13px;">Application Details</h4>
+
+@Raw(Model.Form.PrettyPrintHtmlExcluding("accountName", "BSB", "accountNumber"))
+
+<h4 style="text-indent:15px; padding: 20px 0; background: #e6eaea; width: 60%; font-family: Arial; font-size:13px;">&nbsp;</h4>
+
+<p style="font-family: Arial; font-size:13px;"><br/><strong>Best regards<br/>MGA Insurance Brokers</strong><br />&nbsp;</p>
+
+<p><img src="https://www.mga.com/wp-content/themes/mga/dist/images/banner-logo.png" /></p>

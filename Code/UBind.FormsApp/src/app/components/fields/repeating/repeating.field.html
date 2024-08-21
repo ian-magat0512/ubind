@@ -1,0 +1,88 @@
+<div [id]="fieldPath | cssIdentifier" class="repeating">
+    <ng-container *ngIf="applicationService.debug">
+        <p class="debug">
+            <span class="debug-property">
+                <span class="key">Repeating Field:</span><span class="value"> {{ key }}</span>&nbsp;&nbsp;
+            </span>
+            <span class="debug-property">
+                <span class="key">Valid:</span><span class="value"> {{ formControl.valid }}</span>
+            </span>        
+            <span class="debug-property">
+                <span class="key">Min Qty:</span><span class="value"> {{ minQuantity }}</span>
+            </span>        
+            <span class="debug-property">
+                <span class="key">Max Qty:</span><span class="value"> {{ maxQuantity }}</span>
+            </span>        
+            <span class="debug-property">
+                <span class="key">Children Count:</span><span class="value"> {{ visibleChildrenCount }}</span>
+            </span>        
+            <span class="debug-property">
+                <span class="key">Invalid Children Count:</span><span class="value"> {{ childrenValidityTracker.invalidChildCount }}</span>
+            </span>        
+            <span class="debug-property">
+                <span class="key">Display Mode:</span><span class="value"> {{ displayMode }}</span>
+            </span>        
+        </p>
+    </ng-container>    
+
+    <ng-container *ngFor="let repeatingInstance of repeatingInstances; let i = index;">
+        <ng-container *ngIf="displayMode == RepeatingFieldDisplayMode.List
+            || (i == currentRepeatingInstanceIndex && !repeatingInstances[i].deleted)">
+            <div [@itemSlide]="repeatingInstance.animationState" (@itemSlide.done)="onCompletedTransition(i)"
+                 [id]="fieldPath + '[' + i + ']' | cssIdentifier">
+                <div class="repeating-question-set" 
+                    [@itemFade]="repeatingInstance.animationState"
+                    [style.display]="repeatingInstance.reveal ? 'block' : 'none'">
+                    <ng-container *ngIf="repeatingInstance.heading">
+                        <h3 *ngIf="repeatingFieldConfiguration.repeatingInstanceHeadingLevel == 3">
+                            {{ repeatingInstance.heading }}
+                        </h3>
+                        <h4 *ngIf="repeatingFieldConfiguration.repeatingInstanceHeadingLevel == 4">
+                            {{ repeatingInstance.heading }}
+                        </h4>
+                    </ng-container>
+                    <questions-widget class="{{repeatingFieldConfiguration.questionSetKeyToRepeat}}" 
+                        [name]="key" 
+                        [parentKey]="key" 
+                        [parentFieldPath]="fieldPath"
+                        [parentFieldChildrenValidityTracker]="childrenValidityTracker"
+                        visible="true"
+                        isRepeating="true"
+                        [repeatingFieldIsComplete]="isComplete"
+                        [parentQuestionsWidget]="parentQuestionsWidget"
+                        [parentHideable]="parentQuestionsWidget"
+                        [repeatingIndex]="i">
+                    </questions-widget>
+                    <ng-container *ngIf="showRemoveItemButton">
+                        <div>
+                            <button class="btn btn-repeating btn-remove-item"
+                                    [id]="fieldPath + '[' + i + ']' + '-remove-item-button' | cssIdentifier"
+                                    (click)="animateOutItem(i)">
+                                <ng-container *ngIf="removeButtonIcon" >
+                                    <div class="btn-icon">
+                                        <span class="{{ removeButtonIcon }}"></span>
+                                    </div>
+                                </ng-container>
+                                {{ repeatingInstance.removeButtonLabel }}
+                            </button>
+                        </div>
+                    </ng-container>
+                </div>
+            </div>
+        </ng-container>
+    </ng-container>
+    <ng-container *ngIf="showAddItemButton">
+        <div class="repeating-add-button-container" [style.display]="fullyRevealed ? 'block': 'none'">
+            <button class="btn btn-repeating btn-add-item"
+                    [id]="fieldPath + '-add-item-button' | cssIdentifier"
+                    (click)="animateInItem()">
+                <ng-container *ngIf="addButtonIcon">
+                    <div  class="btn-icon">
+                        <span class="{{ addButtonIcon }}"></span>
+                    </div>
+                </ng-container>
+                {{ addButtonLabel }}
+            </button>
+        </div>
+    </ng-container>
+</div>

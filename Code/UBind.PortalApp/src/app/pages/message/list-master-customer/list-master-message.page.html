@@ -1,0 +1,31 @@
+﻿<app-entity-list [title]="title"
+                [listItemNamePlural]="'messages'"
+                [entityRouteParamName]="'id'"
+                [entityLoaderService]="messageService"
+                [viewModelConstructor]="viewModelConstructor"
+                [itemTemplate]="messageListItemTemplate"
+                [entityTypeName]="'Message'"
+                [entityPathSegment]="'master-message'"
+                [sortOptions]="sortOptions"
+                [filterByDates]="filterByDates"
+                [ngStyle]="{'height': '100%'}"
+                (listQueryParamsGenerated)="onListQueryParamsGenerated($event)"
+                [itemSelectedHandler]="itemSelected">
+</app-entity-list>
+
+<ng-template #messageListItemTemplate let-item>
+    <library-icon [name]="item.type === 'email' ? 'mail' : 'text'" 
+        [library]="iconLibrary.IonicV4"
+        [slot]="'start'"
+        [size]="'large'"
+        [cssClass]="'align-icon'">
+    </library-icon>
+    <ion-label class='long-label'ellipsis>
+        <div class="ion-text-wrap" ellipsis>{{ item.recipient }}</div>
+        <p ellipsis>{{ item.subject }}</p>
+    </ion-label>
+    <ion-label class="ion-text-wrap ion-text-end" slot="end">
+        <ion-icon color="dark" *ngIf="item.hasAttachment" name="attach" slot="end" class="icon-pull-right" size="small"></ion-icon>
+        <p class="grayed-label">{{ item.createdDateTime | date: "hh:mm aaa" }}</p>
+    </ion-label>
+</ng-template>

@@ -1,0 +1,25 @@
+<app-entity-list [title]="title"
+                 [listItemNamePlural]="'quote versions'"
+                 [entityRouteParamName]="'quoteVersionId'"
+                 [entityLoaderService]="quoteVersionApiService"
+                 [viewModelConstructor]="viewModelConstructor"
+                 [itemTemplate]="quoteVersionListItemTemplate"
+                 [itemSelectedHandler]="itemSelected.bind(this)"
+                 [getDefaultHttpParamsCallback]="getDefaultHttpParams.bind(this)"
+                 [entityTypeName]="'QuoteVersion'"
+                 [additionalActionButtonList]="additionalActionButtonList"
+                 [ngStyle]="{'height': '100%'}"
+                 [overrideHideFunnel] = "true">
+</app-entity-list>
+
+<ng-template #quoteVersionListItemTemplate let-item>
+    <library-icon name="calculator" [library]="iconLibrary.AngularMaterial" cssClass="mat-icon-md"></library-icon>
+    <ion-label>
+        <div class="list-title"> Version {{ item.quoteVersionNumber }} </div>
+        <p class="status">{{ item.createdDate }}</p>
+    </ion-label>
+    <ion-label slot="end" class="grayed-label ion-text-end">
+        <div *ngIf="item.quoteNumber" class="list-title">{{ item.referenceNumber }}</div>
+        <p class="status">{{ item.lastModifiedTime || item.createdTime }}</p>
+    </ion-label>
+</ng-template>

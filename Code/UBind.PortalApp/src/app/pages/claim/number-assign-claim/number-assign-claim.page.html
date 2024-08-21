@@ -1,0 +1,84 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf='!layoutManager.splitPaneVisible then detailHeader'></ng-container>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ng-container *ngTemplateOutlet='detailHeader'></ng-container>
+    </ion-toolbar>
+
+    <loader *ngIf="isLoading"></loader>
+    
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">{{ errorMessage }}</p>
+    </div>
+
+    <form *ngIf="!isLoading && !errorMessage" [formGroup]="claimNumberAssignForm">
+        <ion-list lines="none">
+            <ion-list-header>
+                <strong>Claim Number Assignment</strong>
+            </ion-list-header>
+            <ion-item>
+                An available claim number can be assigned to this claim automatically, or you can manually enter a
+                unique claim number.
+            </ion-item>
+
+            <ion-item>
+                <mat-radio-group formControlName="assignmentType" class="radio-group">
+                    <div class="gray-label">Select Method</div>
+                    <mat-radio-button class="radio-button" value="{{ClaimNumberAssignmentMethod.Automatic}}">
+                        Assign automatically
+                    </mat-radio-button>
+                    <mat-radio-button class="radio-button" value="{{ClaimNumberAssignmentMethod.Custom}}">
+                        Enter a custom claim number
+                    </mat-radio-button>
+                </mat-radio-group>
+                <div class="error"
+                    *ngIf="claimNumberAssignForm.get('assignmentType').invalid && claimNumberAssignForm.dirty">
+                    You must select an assignment method
+                </div>
+            </ion-item>
+
+            <ion-item *ngIf="claimNumberAssignForm.get('assignmentType').value == ClaimNumberAssignmentMethod.Custom">
+                <ion-label position="stacked" class="gray-label item-input-label" 
+                    [class.item-invalid]="claimNumberAssignForm.get('claimNumber').errors
+                    && claimNumberAssignForm.get('claimNumber').touched">Claim Number</ion-label>
+                <ion-input class="item-input-field" formControlName="claimNumber"></ion-input>
+            </ion-item>
+            <div class="error validation-label" *ngIf="claimNumberAssignForm.get('claimNumber').getError('responseError') &&
+                 claimNumberAssignForm.get('assignmentType').value == ClaimNumberAssignmentMethod.Custom">
+                {{assignmentErrorText}}
+            </div>
+            <div class="error validation-label" *ngIf="claimNumberAssignForm.get('assignmentType').value == ClaimNumberAssignmentMethod.Custom &&
+                    claimNumberAssignForm.get('claimNumber').invalid &&
+                    claimNumberAssignForm.get('claimNumber').getError('pattern')">
+                Claim numbers must contain only letters, numbers and the following special characters , . : ; - ( )
+            </div>
+            <div class="error validation-label" *ngIf="claimNumberAssignForm.get('assignmentType').value == ClaimNumberAssignmentMethod.Custom &&
+                    claimNumberAssignForm.get('claimNumber').invalid &&
+                    claimNumberAssignForm.get('claimNumber').dirty &&
+                !claimNumberAssignForm.get('claimNumber').getError('responseError') &&
+                !claimNumberAssignForm.get('claimNumber').getError('pattern')">
+                You must enter a claim number
+            </div>
+        </ion-list>
+    </form>
+</ion-content>
+
+<ng-template #detailHeader>
+    <ion-buttons slot="start" class="cancelButton">
+        <ion-button slot="icon-only" (click)="backToClaim()">
+            <ion-icon name="close"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title>Assign Claim Number</ion-title>
+    <ion-buttons slot='end'>
+        <ng-container>
+            <ion-button (click)="assignClaimNumber(claimNumberAssignForm.value)">
+                ASSIGN
+            </ion-button>
+        </ng-container>
+    </ion-buttons>
+</ng-template>

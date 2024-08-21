@@ -1,0 +1,39 @@
+{
+	"$schema": "https://json-schema.org/draft/2020-12/schema",
+	"type": "array",
+	"items": {
+		"type": "object",
+		"properties": {
+			"label": {
+				"type": "string",
+				"description": "The label that will be displayed for this item when making a selection."
+			},
+			"value": {
+				"type": "string",
+				"description": "The value that the field will assume when this item is selected."
+			},
+			"searchableText": {
+				"type": "string",
+				"description": "Any text or keywords that should allow this item to be found when performing a text search."
+			},
+			"icon": {
+				"type": "string",
+				"description": "The alias or code for an icon in an icon set that could be displayed together with the label for this item."
+			},
+			"iconLibrary": {
+				"type": "string",
+				"description": "The code used to identify the icon set that the specified icon belongs to."
+			},
+			"properties": {
+				"type": "object",
+				"description": "An optional list of properties that can contain any relevant meta information about this item.",
+				"additionalProperties": true
+			}
+		},
+		"required": [
+			"label",
+			"value"
+		],
+		"additionalProperties": false
+	}
+}

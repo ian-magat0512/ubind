@@ -1,0 +1,21 @@
+<h1 mat-dialog-title>{{configuration.header}}</h1>
+<h1 class="mat-dialog-subtitle">{{configuration.subheader}}</h1>
+<div mat-dialog-content>
+  <div [formGroup]="inputForm" class="form">
+    <ng-container *ngFor="let input of configuration.inputs">
+        <mat-form-field *ngIf="input.type === 'input'">
+          <input matInput [placeholder]="input.placeholder" [value]="input.value || ''" [formControlName]="input.key">
+        </mat-form-field>
+        <mat-radio-group  *ngIf="input.type === 'radio'" aria-label="Select an option" [formControlName]="input.key">
+          <mat-radio-button *ngFor="let option of input.options" [value]="option.value">
+            {{option.name}}
+          </mat-radio-button>
+        </mat-radio-group>
+    </ng-container>
+  </div>
+</div>
+<div mat-dialog-actions>
+  <ng-container *ngFor="let button of configuration.buttons">
+    <button mat-button (click)="click(button.handler)">{{button.label}}</button>
+  </ng-container>
+</div>

@@ -1,0 +1,35 @@
+<a
+    #tooltipTarget
+    (click)="mouseClick()"
+    (mouseenter)="mouseEnter()"
+    (mouseleave)="mouseLeave()"
+    data-animation="true"
+    data-html="true"
+    data-trigger="hover click focus"
+    attr.aria-describedby="tooltip"
+    class="tooltip-anchor">
+    <i *ngIf="(!contentExpressionSource || showIcon || customIcon || iconPosition) && iconPosition == IconPosition.Before"
+        [class]="'tooltip-icon ' + (customIcon ?? tooltipService.tooltipIcon)"></i>
+    <ng-container *ngIf="contentExpressionSource">
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </ng-container>
+    <i *ngIf="(!contentExpressionSource || showIcon || customIcon || iconPosition) && iconPosition != IconPosition.Before"
+        [class]="'tooltip-icon ' + (customIcon ?? tooltipService.tooltipIcon)"></i>
+</a>
+
+<div #tooltip
+    class="tooltip-content-container popover fade out"
+    [class.in]="toolTipIn" 
+    [class.out]="toolTipOut"
+    [class.top]="popperInstance?.state?.placement === 'top'" 
+    [class.bottom]="popperInstance?.state?.placement === 'bottom'"
+    role="tooltip">
+    <div class="arrow" #arrow data-popper-arrow></div>
+    <div class="popover-content" *ngIf="contentExpressionSource" [innerHTML]="tooltipContent | safeHtml"></div>
+    <div class="popover-content" *ngIf="!contentExpressionSource">
+        <ng-container *ngTemplateOutlet="contentTemplate"></ng-container>
+    </div>
+</div>
+
+<ng-template #contentTemplate><ng-content></ng-content></ng-template>
+ 

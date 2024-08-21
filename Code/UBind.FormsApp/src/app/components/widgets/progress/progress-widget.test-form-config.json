@@ -1,0 +1,86 @@
+{
+    "version": "2.0.0",
+    "form": {
+        "defaultCurrencyCode": "AUD",
+        "questionSets": [{
+                "name": "Rating Primary",
+                "key": "ratingPrimary",
+                "fields": [
+                    {
+                        "$type": "single-line-text",
+                        "startsNewRow": true,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "name": "Test 1",
+                        "key": "test1",
+                        "questionSetKey": "ratingPrimary",
+                        "label": "Input",
+                        "dataType": "text",
+                        "question": "Type an input value here:",
+                        "required": true
+                      }
+                ]
+            }
+        ],
+        "textElements": [{
+            "category": "Workflow",
+            "subcategory": "Step 1",
+            "name": "Tab Label",
+            "text": "Step 1 tab label"
+        }, {
+            "category": "Workflow",
+            "subcategory": "Step 2",
+            "name": "Tab Label",
+            "text": "Step 2 tab label"
+        }, {
+            "category": "Workflow",
+            "subcategory": "Step 3",
+            "name": "Tab Label",
+            "text": "Step 3 tab label"
+        }, {
+            "category": "Workflow",
+            "subcategory": "Step 4",
+            "name": "Tab Label",
+            "text": "Step 4 tab label"
+        }, {
+            "category": "Workflow",
+            "subcategory": "Step 5",
+            "name": "Tab Label",
+            "text": "Step 5 tab label"
+        }, {
+            "category": "Workflow",
+            "subcategory": "Step 6",
+            "name": "Tab Label",
+            "text": "Step 6 tab label"
+        }],
+        "theme": {
+            "showProgressWidget": true,
+            "minimumProgressStepWidthPixels": 120
+        },
+        "workflowConfiguration": {
+            "step1": {
+                "startScreenExpression": "true",
+                "tabIndex": 1
+            },
+            "step2": {
+                "startScreenExpression": "true",
+                "tabIndexExpression": "2"
+            },
+            "step3": {
+                "startScreenExpression": "true",
+                "tabIndexExpression": "3"
+            },
+            "step4": {
+                "startScreenExpression": "true",
+                "tabIndex": 4
+            },
+            "step5": {
+                "startScreenExpression": "true",
+                "tabIndex": 5
+            },
+            "step6": {
+                "startScreenExpression": "true",
+                "tabIndex": 6
+            }
+        }
+    }
+}

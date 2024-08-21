@@ -1,0 +1,14 @@
+<div *ngIf="loading || displayPrice" [class.price-loader]="true" [class.loading]="loading">
+    <div *ngIf="loading" class="loading-animation">
+        <div class="loader"></div>
+    </div>
+    <div class="price">
+        <p *ngIf="!loading && displayPrice">
+            <span class="currency-sign" *ngIf="showSign == ShowSign.Always && displayablePriceAmount != 0">{{ displayablePriceAmount > 0 ? '+' : displayablePriceAmount < 0 ? '-' : '' }}</span>
+            <span class="currency-sign" *ngIf="showSign == ShowSign.Positive && displayablePriceAmount > 0">+</span>
+            <span class="currency-sign" *ngIf="showSign == ShowSign.Negative && displayablePriceAmount < 0">-</span>
+            <span class="currency-major-units">{{ priceMajorUnits }}</span>
+            <span class="currency-minor-units">{{ priceMinorUnits }}</span>
+        </p>
+    </div>
+</div>    

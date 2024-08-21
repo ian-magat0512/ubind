@@ -1,0 +1,86 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ion-buttons id="menu-btn" *ngIf="!showSearch" slot='start'>
+            <ion-menu-toggle *ngIf="!layoutManager.canShowFixedMenu()">
+                <ion-button>
+                    <ion-icon slot="icon-only" name="menu"></ion-icon>
+                </ion-button>
+            </ion-menu-toggle>
+        </ion-buttons>
+        <ion-title *ngIf="!showSearch" [style.margin-left]="layoutManager.isMenuExpanded() ? '15px': '0px'">
+            {{title}}
+        </ion-title>
+        <ion-buttons *ngIf="!showSearch" slot="end">
+            <app-entity-action-button-list
+                [isForMasterView]="true"
+                [overrideTooltipPosition]="'below'"
+                [actionButtonList]="actionButtonList"
+                [getMoreButtonCallback]="onMoreButtonClick.bind(this)"
+                [canShowMore]="canShowMore"
+                [flipMoreIcon]="flipMoreIcon">
+            </app-entity-action-button-list>
+        </ion-buttons>
+        <search *ngIf="showSearch" #searchbar
+                [placeholder]="searchPlaceholderText"
+                (searchTerm)="onSearchTerm($event)"
+                (cancel)="onSearchCancel()"></search>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="left-pane" [class.reduceMargin]="!layoutManager.splitPaneVisible && hasStatusFilterSelection">
+    <app-filter-chips [filterSelections]="filterSelections"
+                      (filterSelectionRemovedEvent)="removeFilterSelection($event)"></app-filter-chips>
+
+    <loader *ngIf="!initErrorMessage && (!repository || repository.isDataLoading || !repository.hasLoaded)"></loader>
+    <ion-list lines="none" class="entity-list"
+              *ngIf="!initErrorMessage && !repository.isDataLoading && repository.hasLoaded && repository.boundList?.length > 0"
+              (scroll)="addMoreData($event)" [@contentAnimation]>
+        <ng-container *ngIf="headers.length > 0">
+            <ion-item-group *ngFor="let header of headers">
+                <ion-item-divider>
+                    <ion-label>{{ header }}</ion-label>
+                </ion-item-divider>
+                <ng-container *ngFor="let item of repository.boundList">
+                    <ion-item *ngIf="item.groupByValue == header" (click)="itemSelected(item)"
+                              [class.selected]="selectedId == item.id" button>
+
+                        <!--- load the template for rendering a list item from the parent component -->
+                        <ng-container [ngTemplateOutlet]="itemTemplate"
+                                      [ngTemplateOutletContext]="{ $implicit: item }"></ng-container>
+
+                    </ion-item>
+                </ng-container>
+            </ion-item-group>
+        </ng-container>
+        <ng-container *ngIf="headers.length == 0">
+            <ng-container *ngFor="let item of repository.boundList">
+                <ion-item (click)="itemSelected(item)" [class.selected]="selectedId == item.id" button>
+
+                    <!--- load the template for rendering a list item from the parent component -->
+                    <ng-container [ngTemplateOutlet]="itemTemplate"
+                                  [ngTemplateOutletContext]="{ $implicit: item }"></ng-container>
+
+                </ion-item>
+            </ng-container>
+        </ng-container>
+        <app-scroll-block [isLoadMoreDataEnabled]="repository.pager.isLoadMoreDataEnabled"
+                          [infiniteScrollIsLoading]="repository.infiniteScrollIsLoading"></app-scroll-block>
+    </ion-list>
+    <div *ngIf="!initErrorMessage && repository && !repository.isDataLoading && repository.hasLoaded && repository.boundList?.length <= 0"
+         class="tab-content content-error"
+         [@contentAnimation]>
+        <p class="ion-text-center">
+            No {{ listItemNamePlural }} found
+        </p>
+    </div>
+    <div *ngIf="!initErrorMessage && repository.errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">
+            {{ repository.errorMessage }}
+        </p>
+    </div>
+    <div *ngIf="initErrorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">
+            {{ initErrorMessage }}
+        </p>
+    </div>
+</ion-content>

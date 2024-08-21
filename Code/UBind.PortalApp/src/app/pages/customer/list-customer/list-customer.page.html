@@ -1,0 +1,37 @@
+﻿<app-entity-list [title]="title"
+                 [listItemNamePlural]="'customers'"
+                 [entityRouteParamName]="'customerId'"
+                 [entityLoaderService]="customerApiService"
+                 [sortOptions]="sortOptions"
+                 [filterByDates]="filterByDates"
+                 [viewModelConstructor]="viewModelConstructor"
+                 [itemTemplate]="customerListItemTemplate"
+                 [itemSelectedHandler]="itemSelected.bind(this)"
+                 (listQueryParamsGenerated)="onListQueryParamsGenerated($event)"
+                 [entityTypeName]="'Customer'"
+                 [additionalActionButtonList]="additionalActionButtonList"
+                 [entityPathSegment]="'customer'"
+                [ngStyle]="{'height': '100%'}">
+</app-entity-list>
+
+<ng-template #customerListItemTemplate let-item>
+    <ng-container *ngIf="item.profilePictureId">
+        <ion-avatar slot="start" class="list-user-avatar">
+            <img alt="profile image"
+                 [src]="item.profilePictureId | profilePicUrl"
+                 (error)="setDefaultImg($event)">
+        </ion-avatar>
+    </ng-container>
+    <ng-container *ngIf="!item.profilePictureId">
+        <library-icon name="person" [library]="iconLibrary.IonicV5" [slot]="'start'" [size]="'large'" cssClass="align-icon"></library-icon>
+    </ng-container>
+    <ion-label>
+        {{ item.name }}
+        <library-icon *ngIf="item.isTestData" 
+            name="logo-game-controller-a" 
+            [library]="iconLibrary.IonicV4" 
+            class="testdata-list-icon right-icon-text"
+            [cssClass]="'medium'">
+        </library-icon>
+    </ion-label>
+</ng-template>

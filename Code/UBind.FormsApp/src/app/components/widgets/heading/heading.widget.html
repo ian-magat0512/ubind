@@ -1,0 +1,24 @@
+<ng-container *ngIf="applicationService.debug">
+    <p class="debug">
+        <span class="debug-property">
+            <span class="key">Heading Widget</span>
+        </span>
+        <span class="debug-property">
+            <span class="key">Use Top Heading:</span><span class="value"> {{ useTopHeading }}</span>
+        </span>
+        <span class="debug-property">
+            <span class="key">Current Heading:</span><span class="value"> {{ currentHeading }}</span>
+        </span>
+        <span class="debug-property" *ngIf="topHeadingExpression">
+            <span class="key">Top Heading Expression:</span><span class="value"> {{ topHeadingExpression.text }}</span>
+        </span>
+    </p>
+</ng-container>                        
+<h1
+    *ngIf="useTopHeading && currentHeading"
+    [@headingAnimation]="transitionState"
+    (@headingAnimation.done)="onCompletedTransition('headingAnimation')"
+    class="quote-heading">
+    <i *ngIf="currentIcon" [class]="currentIcon"></i>
+    {{ currentHeading }}
+</h1>

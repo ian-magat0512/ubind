@@ -1,0 +1,59 @@
+<options-field-debug *ngIf="applicationService.debug" [field]="this"></options-field-debug>
+<ng-container *ngIf="isLoading && !errorMessage">
+    <div class="loader">
+        <svg class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" id="select-loader-spinner">
+            <circle class="circle" fill="none" stroke="#999999" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="25"></circle>
+        </svg>
+    </div>
+</ng-container>
+<ng-container *ngIf="!isLoading && !errorMessage">
+    <div *ngIf="noOptionsFoundText && (hideAllOptions || numberOfSelectOptionsShown == 0)" class="no-options">
+        <p>{{ noOptionsFoundText }}</p>
+    </div>
+    <ng-container *ngIf="!hideAllOptions">
+        <div [formGroup]="form">
+            <div *ngFor="let option of selectOptions; let i = index;" class="radio option-container">
+                <label *ngIf="option.render" 
+                    class="custom-control custom-radio"               
+                    [class.has-icon]="option.icon"
+                    [class.disabled]="option.disabled"
+                    [class.hidden]="option.filtered"
+                    [ngClass]="option.cssClass ? option.cssClass : ''"
+                    (keyup.space)="handleKeyUp(option)"
+                    (keyup.enter)="handleKeyUp(option)"
+                    (click)="onClick($event, option.disabled)"
+                    [for]="option.id | cssIdentifier">
+
+                    <input #radioElement
+                        type="radio"
+                        class="form-control"
+                        [id]="option.id | cssIdentifier"
+                        [name]="groupName"
+                        [value]="option.value"
+                        [attr.disabled]="option.disabled ? true : null"
+                        [attr.hidden]="option.filtered"
+                        [formControl]="formControl"
+                        (change)="onChange($event)"
+                        (keyup.space)="handleKeyUp(option)"
+                        (keyup.enter)="handleKeyUp(option)"
+                        (focus)="onFocus($event)"
+                        (blur)="onBlur($event)" 
+                        (keydown)="onKeyDown($event)"
+                        [checked]="formControl.value == option.value ? 'checked' : null"
+                        />
+                    <span *ngIf="option.icon" class="option-icon radio-icon">
+                        <span class="{{option.icon}}"></span>
+                    </span>
+                    <span class="option-label" #labelElement [innerHTML]="option.label"></span>
+                    <span [id]="option.id + '-span' | cssIdentifier" class="check tabbable" (keyup.enter)="handleKeyUp(option)" (keyup.Space)="handleKeyUp(option)" tabindex="0" [attr.aria-label]="labelElement.innerHTML" [attr.aria-checked]="radioElement.checked"><span class="inside"></span></span>            
+                </label>
+
+            </div>
+        </div>
+    </ng-container>
+</ng-container>
+<div *ngIf="errorMessage" class="content-error fade-in">
+    <p text-center>
+        {{ errorMessage }}
+    </p>
+</div>

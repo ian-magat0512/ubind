@@ -1,0 +1,19 @@
+ion-content {
+  --overflow: hidden !important;
+  overflow: hidden !important;
+}
+
+ion-content div.tab-content:not(.content-error) {
+  overflow: auto !important;
+  height: calc(100vh - 80px) !important;
+  padding-bottom: 50px;
+}
+
+ /* Iphone 14 MAX or Samsung s22 */
+@media only screen and (-webkit-min-device-pixel-ratio: 3) {
+  ion-content div.tab-content:not(.content-error) {
+      overflow: auto !important;
+      height: calc(100vh - 170px) !important;
+      padding-bottom: 30px;
+  }
+}

@@ -1,0 +1,172 @@
+{
+  "eventExporters": [
+    {
+      "id": "PSCP-Email Policy Customer",
+      "events": [ "PolicyIssued" ],
+      "action": {
+        "type": "email",
+        "from": "PSC Insurance <propertyclub@pscinsurance.com.au>",
+        "to": {
+          "type": "formField",
+          "fieldName": "contactEmail"
+        },
+        "cc": {
+          "type": "environment",
+          "development": "john.talavera@aptiture.com",
+          "staging": "john.talavera@aptiture.com",
+          "production": "john.talavera@aptiture.com"
+        },
+        "bcc": {
+          "type": "environment",
+          "development": "john.talavera@aptiture.com",
+          "staging": "john.talavera@aptiture.com",
+          "production": "john.talavera@aptiture.com"
+        },
+        "subject": "Your landlords insurance policy",
+        "plainTextBody": {
+          "type": "razor",
+          "templateName": "email-policy-customer-text.cshtml"
+        },
+        "htmlBody": {
+          "type": "razor",
+          "templateName": "email-policy-customer-html.cshtml"
+        },
+        "attachments": [
+          {
+            "type": "document",
+            "templateName": "document-tax-invoice-schedule.docx",
+            "outputFileName": "Tax Invoice and Policy Schedule.pdf"
+          },
+          {
+            "type": "file",
+            "templateName": "document-policy-wording.pdf",
+            "outputFileName": "Policy Wording.pdf"
+          },
+          {
+            "type": "document",
+            "templateName": "document-certificate-of-currency.docx",
+            "outputFileName": "Certificate of Currency.pdf"
+          },
+          {
+            "type": "file",
+            "templateName": "PSC-ARNSW-Jun-2018-v3-1.pdf",
+            "outputFileName": "PSC ARNSW Financial Services Guide.pdf"
+          }
+        ]
+      }
+    },
+    {
+      "id": "PSCP-Email Policy Admin",
+      "events": [ "PolicyIssued" ],
+      "action": {
+        "type": "email",
+        "from": "PSC Insurance <propertyclub@pscinsurance.com.au>",
+        "to": {
+          "type": "environment",
+          "development": "john.talavera@aptiture.com",
+          "staging": "john.talavera@aptiture.com",
+          "production": "john.talavera@aptiture.com"
+        },
+        "cc": {
+          "type": "environment",
+          "development": "john.talavera@aptiture.com",
+          "staging": "john.talavera@aptiture.com",
+          "production": "john.talavera@aptiture.com"
+        },
+        "subject": "A landlords insurance policy has been purchased",
+        "plainTextBody": {
+          "type": "razor",
+          "templateName": "email-policy-admin-text.cshtml"
+        },
+        "htmlBody": {
+          "type": "razor",
+          "templateName": "email-policy-admin-html.cshtml"
+        },
+        "attachments": [
+          {
+            "type": "document",
+            "templateName": "document-tax-invoice-schedule.docx",
+            "outputFileName": "Tax Invoice and Policy Schedule.pdf"
+          },
+          {
+            "type": "file",
+            "templateName": "document-policy-wording.pdf",
+            "outputFileName": "Policy Wording.pdf"
+          },
+          {
+            "type": "document",
+            "templateName": "document-certificate-of-currency.docx",
+            "outputFileName": "Certificate of Currency.pdf"
+          },
+          {
+            "type": "file",
+            "templateName": "PSC-ARNSW-Jun-2018-v3-1.pdf",
+            "outputFileName": "PSC ARNSW Financial Services Guide.pdf"
+          }
+        ]
+      }
+    },
+    {
+      "id": "PSCP-Email Enquiry Admin",
+      "events": [ "Enquired" ],
+      "action": {
+        "type": "email",
+        "from": "PSC Insurance <propertyclub@pscinsurance.com.au>",
+        "to": {
+          "type": "environment",
+          "development": "john.talavera@aptiture.com",
+          "staging": "john.talavera@aptiture.com",
+          "production": "john.talavera@aptiture.com"
+        },
+        "cc": {
+          "type": "environment",
+          "development": "john.talavera@aptiture.com",
+          "staging": "john.talavera@aptiture.com",
+          "production": "john.talavera@aptiture.com"
+        },
+        "subject": "A customer requested a call-back",
+        "plainTextBody": {
+          "type": "razor",
+          "templateName": "email-enquiry-admin-text.cshtml"
+        },
+        "htmlBody": {
+          "type": "razor",
+          "templateName": "email-enquiry-admin-html.cshtml"
+        }
+      }
+    },
+    {
+      "id": "PSCP-Email Enquiry Customer",
+      "events": [ "Enquired" ],
+      "action": {
+        "type": "email",
+        "from": "PSC Insurance <propertyclub@pscinsurance.com.au>",
+        "to": {
+          "type": "formField",
+          "fieldName": "contactEmail"
+        },
+        "cc": {
+          "type": "environment",
+           "development": "john.talavera@aptiture.com",
+          "staging": "john.talavera@aptiture.com",
+          "production": "john.talavera@aptiture.com"
+        },
+        "bcc": {
+          "type": "environment",
+           "development": "john.talavera@aptiture.com",
+          "staging": "john.talavera@aptiture.com",
+          "production": "john.talavera@aptiture.com"
+        },
+        "subject": "Thank you for requesting a call-back",
+        "plainTextBody": {
+          "type": "razor",
+          "templateName": "email-enquiry-customer-text.cshtml"
+        },
+        "htmlBody": {
+          "type": "razor",
+          "templateName": "email-enquiry-customer-html.cshtml"
+        }
+      }
+    }
+  ]
+}

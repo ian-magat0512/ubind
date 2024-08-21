@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="start">
+            <ion-button id="arrow-back-ion-button" slot="icon-only" (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="!layoutManager.splitPaneVisible && !isLoading && dkimSettingsResourceModel != null">
+            {{dkimSettingsResourceModel.domainName}}
+        </ion-title>
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible && !isLoading" slot="end">
+            <ng-container [ngTemplateOutlet]="buttonsList"></ng-container>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ion-buttons slot="start">
+            <ion-button id="arrow-back-ion-button" slot="icon-only" (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="!isLoading && dkimSettingsResourceModel != null">
+            {{dkimSettingsResourceModel.domainName}}
+        </ion-title>
+        <ion-buttons slot="end" *ngIf="!isLoading">
+            <ng-container *ngTemplateOutlet="buttonsList"></ng-container>
+        </ion-buttons>
+    </ion-toolbar>
+
+    <loader *ngIf='isLoading'></loader>
+
+    <div *ngIf="!isLoading && !errorMessage">
+        <div>
+            <!--Details tab-->
+            <app-entity-details-list [@contentAnimation]
+                                     [detailsListItems]="detailsListItems"
+                                     [hasItemLines]="false"
+                                     [hasGroupLines]="true">
+                                     [truncateDescription]="true"
+            </app-entity-details-list>
+        </div>
+    </div>
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">{{ errorMessage }}</p>
+    </div>
+</ion-content>
+
+<ng-template #buttonsList>
+    <app-entity-action-button-list
+        [actionButtonList]="actionButtonList"
+        [getMoreButtonCallback]="showMenu.bind(this)" 
+        [canShowMore]="true"
+        [flipMoreIcon]="flipMoreIcon">
+    </app-entity-action-button-list>
+</ng-template>

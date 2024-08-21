@@ -1,0 +1,90 @@
+{
+    "version": "2.0.0",
+    "form": {
+        "defaultCurrencyCode": "AUD",
+        "questionSets": [{
+                "name": "Step 1 Question Set",
+                "key": "step1QuestionSet",
+                "fields": [
+                    {
+                        "$type": "single-line-text",
+                        "startsNewRow": true,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "name": "Step 1 Field",
+                        "key": "step1Field",
+                        "questionSetKey": "step1QuestionSet",
+                        "label": "Input",
+                        "dataType": "text",
+                        "question": "Type an input value here:",
+                        "tags": ["disclosure", "paint"]
+                    }, {
+                        "$type": "repeating",
+                        "minimumQuantityExpression": "1",
+                        "maximumQuantityExpression": "4",
+                        "questionSetNameToRepeat": "Test Repeating",
+                        "questionSetKeyToRepeat": "testRepeating",
+                        "displayRepeatingInstanceHeading": true,
+                        "repeatingInstanceName": "Person",
+                        "repeatingInstanceHeadingLevel": 4,
+                        "displayable": true,
+                        "startsNewRow": false,
+                        "startsNewRevealGroup": false,
+                        "heading3": "Employees",
+                        "paragraph": "Please add some people to this list.",
+                        "name": "Test Repeating",
+                        "key": "testRepeating",
+                        "questionSetKey": "otherDetails",
+                        "dataType": "repeating",
+                        "workflowRole": "none"
+                    }
+                ]
+            }
+        ],
+        "repeatingQuestionSets": [{
+            "repeatingFieldKey": "testRepeating",
+            "name": "Test Repeating",
+            "key": "testRepeating",
+            "fields": [{
+                    "$type": "single-line-text",
+                    "sensitive": false,
+                    "required": true,
+                    "autoTriggerCalculatedValue": true,
+                    "affectsPremium": false,
+                    "affectsTriggers": false,
+                    "requiredForCalculations": false,
+                    "private": false,
+                    "displayable": true,
+                    "canChangeWhenApproved": false,
+                    "resetForNewQuotes": false,
+                    "startsNewRow": false,
+                    "startsNewRevealGroup": false,
+                    "bootstrapColumnsExtraSmall": 12,
+                    "bootstrapColumnsSmall": 5,
+                    "bootstrapColumnsMedium": 4,
+                    "label": "First name",
+                    "name": "First Name",
+                    "key": "firstName",
+                    "questionSetKey": "testRepeating",
+                    "dataType": "name",
+                    "workflowRole": "none",
+                    "tags": ["disclosure", "paint"]
+                }
+            ]
+        }],
+        "workflowConfiguration": {
+            "step1": {
+                "startScreenExpression": "true",
+                "articles": [
+                    {
+                        "elements": [
+                            {
+                                "type": "questions",
+                                "name": "step1QuestionSet"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

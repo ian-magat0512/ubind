@@ -1,0 +1,33 @@
+<app-entity-list [title]="title"
+                  [listItemNamePlural]="'claim versions'"
+                  [entityRouteParamName]="'claimVersionId'"
+                  [entityLoaderService]="claimVersionApiService"
+                  [viewModelConstructor]="viewModelConstructor"
+                  [itemTemplate]="claimVersionListItemTemplate"
+                  [itemSelectedHandler]="itemSelected.bind(this)"
+                  [getDefaultHttpParamsCallback]="getDefaultHttpParams.bind(this)"
+                  [entityTypeName]="'ClaimVersion'"
+                  [entityPathSegment]="'version'"
+                  [ngStyle]="{'height': '100%'}"
+                  [overrideHideFunnel] = "true">
+</app-entity-list>
+
+<ng-template #claimVersionListItemTemplate let-item>
+        <library-icon name="alert" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'" cssClass="align-icon"></library-icon>
+        <ion-label class="ion-text-wrap">
+          <div class="list-title">
+            Version {{ item.versionNumber }}
+            <library-icon *ngIf="item.isTestData" 
+                name="logo-game-controller-a" 
+                [library]="iconLibrary.IonicV4" 
+                class="testdata-list-icon right-icon-text"
+                [cssClass]="'medium'">
+            </library-icon>
+          </div>
+          <p class="status">{{ item.createdDate }}</p>
+        </ion-label>
+        <ion-label class="ion-text-wrap ion-text-end" slot="end">
+            <div class="list-title">{{item.claimReference}}-{{ item.versionNumber }}</div>
+            <p class="status">{{ item.lastModifiedTime || item.createdTime }}</p>
+        </ion-label>
+</ng-template>

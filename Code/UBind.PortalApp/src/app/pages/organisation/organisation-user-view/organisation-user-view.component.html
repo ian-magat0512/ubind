@@ -1,0 +1,28 @@
+﻿<ng-container>
+    <app-entity-detail-segment-list #usersList
+        [entityTypeNamePlural]="'users'"
+        [itemTemplate]="userListItemTemplate"
+        [viewModelConstructor]="userTypeViewModel"
+        [itemSelectedHandler]="userDidSelectItem.bind(this)"
+        [getSegmentListCallback]="getSegmentUserList.bind(this)"
+        (itemsFirstLoadedEvent)="usersLoaded($event)"
+        [ngStyle]="{'height': '100%'}">
+    </app-entity-detail-segment-list>
+</ng-container>
+
+<ng-template #userListItemTemplate let-item>
+    <ng-container *ngIf="item.profilePictureId">
+        <ion-avatar slot="start" class="list-user-avatar">
+            <img default="" alt="profile photo"
+                 [src]="item.profilePictureId | profilePicUrl"
+                 (error)="setDefaultImg($event)">
+        </ion-avatar>
+    </ng-container>
+    <ng-container *ngIf="!item.profilePictureId">
+        <library-icon name="contact" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+    </ng-container>
+    <ion-label>
+        <div> {{ item.firstName ? item.firstName + ' ' + (item.lastName ? item.lastName : '') : item.fullName }} </div>
+        <p class="status list-subtitle">{{ item.userType | titlecase }} {{ item.blocked ? ' &#183; Disabled' : '' }}</p>
+    </ion-label>
+</ng-template>

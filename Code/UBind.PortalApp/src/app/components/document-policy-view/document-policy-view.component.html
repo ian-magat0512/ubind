@@ -1,0 +1,40 @@
+<loader *ngIf='!documents'></loader>
+<ion-list class="entity-list has-ion-list" *ngIf="documents" lines="none">
+    <div *ngIf="isTransactionView">
+        <ion-item-group *ngFor="let dateHeader of documentHeaders">
+            <ion-item-divider>
+                <ion-label>{{dateHeader | date: 'dd MMM yyyy'}}</ion-label>
+            </ion-item-divider>
+            <div *ngFor="let doc of documents" class="has-ion-list">
+                <ion-item (click)="downloadDocument(doc.id, doc.fileName)" class="no-border-bottom" *ngIf="(doc.createdDateTime | date: 'dd MMM yyyy') == dateHeader" button>
+                    <library-icon name="document" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+                    <ion-label>
+                        <div>{{ doc.fileName }}</div>
+                        <p class="status">{{ doc.createdDateTime | date: 'dd MMM yyyy hh:mm' || '-'}}</p>
+                    </ion-label>
+                    <ion-label slot="end" class="grayed-label ion-text-wrap ion-text-end">{{ doc.fileSize }}</ion-label>
+                </ion-item>
+            </div>
+        </ion-item-group>
+    </div>
+    <div *ngIf="!isTransactionView">
+        <ion-item-group *ngFor="let dateHeader of documentHeaders">
+            <ion-item-divider>
+                <ion-label>{{dateHeader | date: 'dd MMM yyyy'}}</ion-label>
+            </ion-item-divider>
+            <div *ngFor="let doc of documents" class="has-ion-list">
+                <ion-item (click)="downloadDocument(doc.id, doc.fileName)" class="no-border-bottom has-attachment" *ngIf="(doc.createdDateTime | date: 'dd MMM yyyy') == dateHeader" button>
+                    <library-icon name="document" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+                    <ion-label>
+                        <div>{{ doc.fileName }}</div>
+                        <p class="status">{{ doc.createdDateTime | date: 'dd MMM yyyy hh:mm' || '-'}}</p>
+                    </ion-label>
+                    <ion-label slot="end" class="grayed-label ion-text-wrap ion-text-end">{{ doc.fileSize }}</ion-label>
+                </ion-item>
+            </div>
+        </ion-item-group>
+    </div>
+</ion-list>
+<div *ngIf="documents?.length == 0" class="tab-content content-error">
+    <p class="ion-text-center">No documents found</p>
+</div>

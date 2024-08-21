@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf="!layoutManager.splitPaneVisible">
+            <ion-buttons slot="start">
+                <ion-button slot="icon-only" (click)="didSelectClose()">
+                    <ion-icon name="close"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+            <ion-title>Assign New Role</ion-title>
+            <ion-buttons slot="end" *ngIf="!isLoading && !errorMessage">
+                <ion-button (click)="didSelectSave()">SAVE</ion-button>
+            </ion-buttons>
+        </ng-container>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ng-container *ngIf="layoutManager.splitPaneVisible">
+        <ion-toolbar class="level-2">
+            <ion-buttons slot="start">
+                <ion-button slot="icon-only" (click)="didSelectClose()">
+                    <ion-icon name="close"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+            <ion-title>Assign New Role</ion-title>
+            <ion-buttons slot="end">
+                <ion-button (click)="didSelectSave()">SAVE</ion-button>
+            </ion-buttons>
+        </ion-toolbar>
+    </ng-container>
+
+    <loader *ngIf="isLoading"></loader>
+
+    <form [formGroup]="roleForm" *ngIf="!isLoading && !errorMessage">
+        <ion-list lines="none" class="ion-padding" inset>
+            <ion-item>
+                <ion-label position="floating">Select Role</ion-label>
+                <ion-select formControlName="roleId" [value]="roleForm.get('roleId').value">
+                    <ion-select-option *ngFor="let role of availableTenantRoles" value="{{ role.id }}">{{ role.name }}
+                    </ion-select-option>
+                </ion-select>
+            </ion-item>
+            <div class="error" *ngIf="requiredFieldHasBeenTouchedAndHasError('roleId')">
+                Role is required
+            </div>
+
+        </ion-list>
+    </form>
+    
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">
+            {{ errorMessage }}
+        </p>
+    </div>
+</ion-content>

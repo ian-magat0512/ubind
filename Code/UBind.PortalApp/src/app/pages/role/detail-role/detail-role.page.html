@@ -1,0 +1,131 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf="!layoutManager.splitPaneVisible then detailHeader"></ng-container>
+    </ion-toolbar>
+    <ng-container *ngIf='!layoutManager.splitPaneVisible then segmentList'></ng-container>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ng-container *ngTemplateOutlet="detailHeader"></ng-container>
+    </ion-toolbar>
+
+    <ng-container *ngIf='layoutManager.splitPaneVisible then segmentList'></ng-container>
+
+    <loader *ngIf='isLoading'></loader>
+
+    <div *ngIf="!isLoading && !errorMessage">
+        <div [ngSwitch]="segment">
+
+            <!--Details tab-->
+            <app-entity-details-list *ngSwitchCase="'Details'" [@contentAnimation]
+                                     [detailsListItems]="detailsListItems"
+                                     [hasItemLines]="false"
+                                     [hasGroupLines]="true">
+                                     [truncateDescription]="true"
+            </app-entity-details-list>
+
+            <!--Permissions tab-->
+            <div *ngSwitchCase="'Permissions'" class="tab-content" [@contentAnimation]>
+                <div ScrollDetails>
+                    <ion-list *ngIf="role.permissions.length > 0" class="tab-content detail-role-permission-list entity-list"
+                              [@contentAnimation] lines="none">
+                        <ion-item *ngFor="let permission of role.permissions"
+                                  (click)="userDidTapListItem(permission.type)" button>
+                            <library-icon name="checkmark-circle" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+                            <ion-label class="ion-text-wrap">
+                                {{(isMutual ? permission.description.replace('Policies', 'Protections') : permission.description) | titlecase}}
+                                <ion-icon *ngIf="!role.arePermissionsEditable" class="right-icon-text" name="lock-closed" slot="end" size="small"></ion-icon>
+                            </ion-label>
+                        </ion-item>
+                    </ion-list>
+                </div>
+                <div *ngIf="role.permissions.length === 0" class="tab-content content-error">
+                    <p class="ion-text-center">No permissions found</p>
+                </div>
+            </div>
+
+            <!--Users tab-->
+            <div *ngSwitchCase="'Users'" class="tab-content" [@contentAnimation]>
+                <loader *ngIf='isLoadingUsers'></loader>
+                <ng-container *ngIf="canShowUsers && !isLoadingUsers && !usersErrorMessage">
+                    <ion-list class="entity-list" lines="none" *ngIf="userViewModels?.length > 0">
+                        <ion-item *ngFor="let user of userViewModels" (click)="userDidSelectItem(user)" button>
+                            <!--- load the template for rendering the user -->
+                            <ng-container [ngTemplateOutlet]="userListItemTemplate"
+                                          [ngTemplateOutletContext]="{ $implicit: user }"></ng-container>
+                        </ion-item>
+                    </ion-list>
+                    <div *ngIf="userViewModels?.length == 0" class="tab-content content-error">
+                        <p class="ion-text-center">No users found</p>
+                    </div>
+                </ng-container>
+                <div *ngIf="usersErrorMsesage" class="tab-content content-error" [@contentAnimation]>
+                    <p class="ion-text-center">{{ usersErrorMsesage }}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">{{ errorMessage }}</p>
+    </div>
+</ion-content>
+
+<ng-template #segmentList>
+    <ion-segment id="detail-role-segment" scrollable="true"
+                 [value]="segment" (ionChange)="segmentChanged($event)" scrollHorizontal scrollMousedrag [segmentSelectedScrollIntoView]="segment">
+        <ion-segment-button ionSegmentButtonEvent value="Details">
+            <ion-label>Details</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="Permissions">
+            <ion-label>Permissions</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="Users" *ngIf="canShowUsers">
+            <ion-label>Users</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+</ng-template>
+
+<ng-template #detailHeader>
+    <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="start">
+        <ion-button id="arrow-back-ion-button" slot="icon-only" (click)="goBack()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="!isLoading && role != null">
+        {{role.name}} <ion-icon *ngIf="role?.isPermanentRole" name="lock-closed" size="small"></ion-icon>
+    </ion-title>
+    <ion-buttons slot="end">
+        <app-entity-action-button-list
+            [actionButtonList]="actionButtonList"
+            [getMoreButtonCallback]="presentPopover.bind(this)"
+            [canShowMore]="actions?.length > 0 && hasActionsIncludedInMenu"
+            [flipMoreIcon]="flipMoreIcon">
+        </app-entity-action-button-list>
+    </ion-buttons>
+</ng-template>
+
+<ng-template #userListItemTemplate let-item>
+    <ion-avatar *ngIf="item.profilePictureId" slot="start" class="list-user-avatar">
+        <img default="" alt="profile photo"
+             [style.filter]="(item.profilePictureId ? '' : defaultUserImgFilter) | safeStyle"
+             [src]="item.profilePictureId | profilePicUrl : defaultUserImgPath"
+             (error)="setDefaultImg($event)">
+    </ion-avatar>
+    <ng-container *ngIf="!item.profilePictureId">
+        <library-icon name="contact" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+    </ng-container>
+    <ion-label>
+        <div>
+            {{ item.firstName != null ? item.firstName + ' ' + (item.lastName != null ? item.lastName : '') : item.fullName }}
+            <library-icon *ngIf="item.isTestData" 
+                name="logo-game-controller-a" 
+                [library]="iconLibrary.IonicV4" 
+                class="testdata-list-icon right-icon-text"
+                [cssClass]="'medium'">
+            </library-icon>
+        </div>
+        <p class="status list-subtitle">{{ item.userType | titlecase }} {{ item.blocked ? ' &#183; Disabled' : '' }}</p>
+    </ion-label>
+</ng-template>

@@ -1,0 +1,21 @@
+form button {
+    height: 34px;
+    margin-left: 20px;
+}
+
+mat-list-item {
+    border-bottom: 1px dashed #cccccc;
+    height: auto !important;
+    min-height: 48px;
+}
+
+mat-list-item:last-child {
+    border-bottom: none;
+}
+
+.workflow-step-row {
+    display: flex;
+    align-items: center;
+    width: 100%;
+    margin: 5px 0;
+}

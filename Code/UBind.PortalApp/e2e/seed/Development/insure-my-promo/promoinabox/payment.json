@@ -1,0 +1,29 @@
+{
+  "type": "eway",
+  "default": {
+    "endpoint": "sandbox",
+    "apiKey": "A1001C0it5LRbK7UhbQnF2IpQKUCGTvTC6TH2qFYf71tATFW6QVa2YjFqahktN3fq8xMgl",
+    "password": "QZJD8km6",
+    "clientSideEncryptionKey": "2AXBKAeD3+bwXXJTcIG+Tx8jts4h0VhuhA/VNMmnbrCg+F51aeWeACoeTQBen1W3b06dUpIcZSlAXRFuXaQNOXbs1tIiBGslJKGK6rTfLQxim1+8kGC17c/c9Evvlw0eqSEFq9JK6VXSGcgNnBJUpAQjB8lblVF0ySzBzA4ejrSTsK9ajNq8NSA/ZwbSOR0F84LowHOc8AD9aKFr+rVdmJVOXadCcQ48SZXCFXPfV/crgof5aIAwrQzP/yaNIEEbX4MX9Kf60P1GKxQjeIP7boH2VvnolbKtxqLXnwKdA6rY4el58hLFvC9Ukyd//G4GaguSyWuAxco2ybyHyAL+RQ==",
+    "serverSideEncryptionKey": "epk-CC20D9EB-A5AF-4193-8033-CD6E00DB6F03",
+    "encryptionUrl": "https://api.sandbox.ewaypayments.com/encrypt"
+  },
+  /*
+  "staging": {
+    "endpoint": "sandbox",
+    "apiKey": "<CLIENT EWAY ACCOUNT SANDBOX API KEY HERE>",
+    "password": "<CLIENT EWAY ACCOUNT SANDBOX API PASSWORD HERE>",
+    "clientSideEncryptionKey": "<CLIENT EWAY ACCOUNT SANDBOX CLIENT SIDE ENCRYPTION KEY HERE>",
+    "serverSideEncryptionKey": "<CLIENT EWAY ACCOUNT SANDBOX SERVER SIDE ENCRYPTION KEY HERE>",
+    "encryptionUrl": "https://api.sandbox.ewaypayments.com/encrypt"
+  },
+  */
+  "production": {
+    "endpoint": "production",
+    "apiKey": "A1001A06uBUfz24VNtE0j93q0O2d+7/uXGzzZEFpc3GjwvWn21RBX53YdWaCKcoNOIa/OG",
+    "password": "v7XIkofK",
+    "clientSideEncryptionKey": "y3t8uEmzEARkLytwLHz6QEDw10H3VD3Im2UIZXnL303nFCh0KZ6zhiCoy6+HuCI1/eCmk6CXhWSKn2LgP58FZSvhCJgt4WsQo2cn7G9Wf947rK7mzKcZy2xtW0aDB9J+MF6VV4XRld3oZ/OGSyQQDYKJcmO0p/WuBzNjfktuCjvsmmP9azP7nVlsXEHozjpegrVUMaSiQBdZH7rdmMOUwOqeyFM6ekvucKRRe8TbG3Wgby+rnhbp63FE6iFtZlhNEf4fkFALi5Uec8WFMhRn0N+FBepSwFv4eAohbgKXXo1SwUzr6Xk8/GCctDgS1UhgtmgAvI9ym30qIH0caofVWw==",
+    "serverSideEncryptionKey": "epk-DA04FA8B-8419-4544-AB4C-15F5102D72CE",
+    "encryptionUrl": "https://api.ewaypayments.com/encrypt"
+  } 
+}

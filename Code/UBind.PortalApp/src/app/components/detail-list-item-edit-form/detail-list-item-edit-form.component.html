@@ -1,0 +1,480 @@
+﻿    <ion-header>
+    <ion-toolbar class="level-1">
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="start">
+            <ion-button slot="icon-only" (click)="closeFormClicked()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+        <ion-title *ngIf="!layoutManager.splitPaneVisible"><span class="ion-title">{{ title }}</span></ion-title>
+
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="end">
+            <ion-button (click)="saveFormClicked()">
+                <ion-label>{{ saveTitle !== null ? saveTitle : 'Save' }}</ion-label>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ion-buttons slot="start">
+            <ion-button slot="icon-only" (click)="closeFormClicked()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+
+        <ion-title><span class="ion-title">{{ title }}</span></ion-title>
+
+        <ion-buttons slot="end">
+            <ion-button (click)="saveFormClicked()">
+                <ion-label>{{ saveTitle !== null ? saveTitle : 'Save' }}</ion-label>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+
+    <loader *ngIf="isLoading"></loader>
+
+    <div appScrollDetails *ngIf="!isLoading && !errorMessage">
+        <form class="edit-form" *ngIf="editForm" [formGroup]="editForm">
+            <ion-list lines="none" class="entity-list">
+                <div>
+                    <ion-item-group *ngFor="let group of itemGroups; let g = index; let last = last; let first = first"
+                                    [class.form-item-last-in-group]="last"
+                                    [class.group-header]="group.header">
+                        <div *ngFor="let item of group.items; let i = index; let first = first; let last = last;">
+                                              
+                            <ng-container [ngTemplateOutlet]="fieldGroupTemplate"
+                            [ngTemplateOutletContext]="{item: item, group: group, parentFormGroup: editForm, index: index, last: last, first: first, g: g, i: i }"></ng-container>
+
+                                <!--repeating fields-->
+                            <div *ngIf="item && item.IsRepeating && item.canShow">
+                                <ion-item *ngFor="let field of item.repeatingFields; let j = index;" class="field-group">
+                                    <ion-icon 
+                                        [name]="item.IconLibrary == iconLibrary.IonicV5 ? j == 0 ? (i == 1 && !group.expanded && !isFirstItemVisible) || i == 0 ? item.Icon : 'none': 'none' : null"
+                                        [src]="item.IconLibrary == iconLibrary.IonicV4 ? './assets/ionicons-v4/' + (j == 0 ? (i == 1 && !group.expanded && !isFirstItemVisible) || i == 0 ? item.Icon : 'none': 'none') + '.svg' : null"
+                                        class="form-item-icon" 
+                                        slot="start">
+                                    </ion-icon>
+                                    <ion-row style="width:100%">
+                                        <!--repeating string fields-->
+                                        <ion-col *ngIf="item.FormControlType != 'address'"
+                                                 size-xs="12" size-sm="8" size-md="12" size-lg="8"
+                                                 class="form-repeating-label-col">
+                                            <ion-item>
+                                                <div [class.form-item-with-select-field]="item.Icon && item.Alias == 'userType'"
+                                                     [class.form-item-normal]="!item.Icon || (item.Icon && isFirstItemVisible && index > 0)"
+                                                     [class.ng-touched]="editForm.get(field.name)
+                                                      && editForm.get(field.name).touched
+                                                      && editForm.get(field.name).errors"
+                                                     style="width:100%">
+
+                                                    <ion-label class="gray-label item-input-label"
+                                                               [class.item-invalid]="editForm.get(field.name).errors
+                                                                && (editForm.get(field.name).touched || editForm.get(field.name).dirty)"
+                                                               position="stacked">
+                                                        {{item.Description}}
+                                                    </ion-label>
+                                                    <ion-input class="item-input-field" id="{{field.name}}"
+                                                               formControlName="{{field.name}}"
+                                                               (keyup)="checkAndFixRepeatingFields(item, field, editForm.get(field.name).value, field.sequenceNo, $event)"
+                                                               (ionBlur)="onBlur(field.name); clearLabelWhenFieldEmpty(field)"
+                                                               type="{{item.FormControlType}}">
+                                                    </ion-input>
+                                                </div>
+
+
+                                                <!-- error -->
+                                                <div class="error-container">
+                                                    <ng-container [ngTemplateOutlet]="errorTemplate"
+                                                                  [ngTemplateOutletContext]="{item: item, group: group, key: field.name}"></ng-container>
+                                                </div>
+                                            </ion-item>
+                                        </ion-col>
+
+                                        <!--
+                                        START : REPEATING FIELDS ADDRESS SECTION
+                                        -->
+                                        <ion-col *ngIf="item.FormControlType == 'address'"
+                                                 size="12" style="padding:0">
+                                            <app-address [form]="editForm.controls[item.Alias + field.sequenceNo]"
+                                                         class="item-input-field"
+                                                         [name]="field.name"
+                                                         (addressKeyup)="checkAndFixRepeatingFields(item, field, $event, field.sequenceNo)"
+                                                         (addressBlur)="onBlur($event, field.name)"
+                                                         (clearLabel)="clearLabel(field, field.sequenceNo)">
+                                                <div *ngIf="true then customLabel"></div>
+                                            </app-address>
+                                        </ion-col>
+                                        <!--
+                                        END : REPEATING FIELDS ADDRESS SECTION
+                                        -->
+                                        <!--This is where the dropdown selection happens-->
+
+                                        <div *ngIf="item.FormControlType != 'address' then customLabel"></div>
+
+                                        <ng-template #customLabel>
+                                            <ion-col size-xs="6" size-sm="4" size-md="6" size-lg="4"
+                                                     class="form-repeating-label-col" [class.ng-touched]="editForm.get(item.Alias + field.sequenceNo) &&
+                                                editForm.get(item.Alias + '_label' + field.sequenceNo).touched &&
+                                                editForm.get(item.Alias + '_label' + field.sequenceNo).errors">
+                                              
+                                                <mat-label class="select-label"
+                                                [class.item-invalid]="editForm.get(item.Alias + '_label' + field.sequenceNo).errors && editForm.get(item.Alias + '_label' + field.sequenceNo).touched" >Label</mat-label>
+                                                
+                                                <mat-form-field appearance="none">
+                                                    <mat-select class="mat-item-select-field"
+                                                                formControlName="{{item.Alias + '_label' + field.sequenceNo}}"
+                                                                id="{{item.Alias + '_label' + field.sequenceNo}}"
+                                                                (selectionChange)="matSelectionChange(item.Alias, $event, field.sequenceNo)">
+                                                        <mat-option *ngFor="let option of item.options" value="{{ option.value }}">
+                                                            {{ option.label }}
+                                                        </mat-option>                                                          
+                                                    
+                                                    </mat-select>
+                                                </mat-form-field>
+                                                <div class="error-container in-custom-label-template">
+                                                    <ng-container [ngTemplateOutlet]="errorTemplate"
+                                                            [ngTemplateOutletContext]="{item: item, group: group, key: item.Alias + '_label' + field.sequenceNo}"></ng-container>
+                                                </div>
+                                            </ion-col>
+                                            <ion-col col-auto
+                                                     [class.item-hidden]="editForm.get(item.Alias + '_label' + field.sequenceNo) && editForm.get(item.Alias + '_label' + field.sequenceNo).value !=='other'"
+                                                     class="form-repeating-label-col"
+                                                     [class.ng-touched]="editForm.get(item.Alias + field.sequenceNo) &&
+                                                  editForm.get(item.Alias + '_customLabel' + field.sequenceNo).touched &&
+                                                  editForm.get(item.Alias + '_customLabel' + field.sequenceNo).errors">
+                                                <ion-item>
+                                                    <ion-label [class.item-hidden]="editForm.get(item.Alias + '_label' + field.sequenceNo) && editForm.get(item.Alias + '_label' + field.sequenceNo).value !=='other'"
+                                                               class="gray-label item-input-label"
+                                                               [class.item-invalid]="editForm.get(item.Alias+ '_customLabel' + field.sequenceNo).errors && editForm.get(item.Alias + '_customLabel' + field.sequenceNo).touched"
+                                                               position="stacked">
+                                                        Custom Label
+                                                    </ion-label>
+                                                    <ion-input [class.item-hidden]="editForm.get(item.Alias + '_label' + field.sequenceNo) && editForm.get(item.Alias+ '_label' + field.sequenceNo).value !=='other'"
+                                                               class="item-input-field"
+                                                               formControlName="{{item.Alias + '_customLabel' + field.sequenceNo}}"
+                                                               (ionBlur)="onBlur(item.Alias + '_customLabel' + field.sequenceNo)"
+                                                               type="text"
+                                                               id="{{item.Alias + '_customLabel' + field.sequenceNo}}">
+                                                    </ion-input>
+                                                    <div *ngIf="item.FormControlType !== 'select'" class="error-container">
+                                                        <div class="error validation-label"
+                                                            *ngIf="editForm.get(item.Alias + '_label' + field.sequenceNo).value =='other'
+                                                                && editForm.get(item.Alias + '_customLabel' + field.sequenceNo).errors
+                                                                && editForm.get(item.Alias + '_customLabel' + field.sequenceNo).hasError('required')
+                                                                && editForm.get(item.Alias + '_customLabel' +  field.sequenceNo).touched">
+                                                            Custom label is required
+                                                        </div>
+                                                        <div class="error validation-label"
+                                                            *ngIf="editForm.get(item.Alias + '_label' + field.sequenceNo).value =='other'
+                                                                && showValidationError(group, item.Alias + '_customLabel' + field.sequenceNo, item)">
+                                                            Custom label must only contain letters, numbers and spaces
+                                                        </div>
+                                                    </div>
+                                                </ion-item>
+                                            </ion-col>
+                                        </ng-template>
+                                    </ion-row>
+                                    <ion-icon class="form-item-trash-icon"
+                                             *ngIf="hasAccordionToggle"
+                                              [name]="editForm.get(field.name) && (field.referenceId !='-1' || (j==0)) && (repeatingFieldHasValue(field) || editForm.get(field.name).dirty) ? 'trash':'none'"
+                                              [class.form-item-trash-icon-none]="!(editForm.get(field.name) && (field.referenceId !='-1' || (j==0)) && (repeatingFieldHasValue(field) || editForm.get(field.name).dirty))"
+                                              (click)="removeRepeatingField(field, field.sequenceNo)"
+                                              slot="end"></ion-icon>
+                                </ion-item>
+                            </div>
+
+                        </div>
+                    </ion-item-group>
+                    <ion-item-group *ngIf="hasProjectedContent || true" class="projected-content">
+                        <ng-content></ng-content>
+                    </ion-item-group>
+                </div>
+            </ion-list>
+        </form>
+        <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+            <p class="ion-text-center">
+                {{ errorMessage }}
+            </p>
+        </div>
+    </div>
+</ion-content>
+
+<ng-template #errorTemplate let-item="item" let-group="group" let-key="key">
+    <ng-container *ngIf="group.name == item.GroupName">
+        <div class="error validation-label"
+            *ngIf="editForm.get(key) 
+                && !editForm.get(key).value 
+                && editForm.get(key).hasError('required') 
+                && (editForm.get(key).touched || editForm.get(key).dirty)">     
+            {{getProperMessageForRequiredField(item, key) || 'Required'}}
+        </div>
+        <div class="error validation-label select-error"
+            *ngIf="editForm.get(key) && (showValidationError(group, key, item) ||
+                    editForm.get(key).hasError('email') ||
+                    editForm.get(key).hasError('checkbox')) &&
+                    (editForm.get(key).touched || editForm.get(key).dirty)">
+            {{item.ValidationMessage}}
+        </div>
+    </ng-container>
+</ng-template>
+
+<ng-template #fieldGroupTemplate let-item="item" let-group="group" let-parentFormGroup="parentFormGroup" let-index="index" let-last="last" let-first="first" let-g="g" let-i="i">
+    <div *ngIf="item.Visible">
+        <!-- non-repeating fields-->
+        <div *ngIf="item && !item.IsRepeating"
+            [ngClass]="i == 0 ? 'field-group' : ''"
+            [formGroup]="parentFormGroup">
+            
+            <!-- render the group header -->
+            <ion-card-title *ngIf="group.header && first">
+                <ion-icon name="none" class="grayed-label form-item-icon" slot="start"></ion-icon>
+            </ion-card-title>
+            <ion-card-title *ngIf="group.header && first">
+                <ion-label color="primary" [class.non-icon-group-header-label]="!group.includeSectionIcons"
+                    class="group-header-label" position="stacked">{{group.header}}
+                </ion-label>
+            </ion-card-title>
+
+            <!-- render the group item header -->
+            <ion-card-title *ngIf="item.Header && !group.header">
+                <ion-label [class.non-icon-group-header-label]="!group.includeSectionIcons"
+                    class="group-header-label" position="stacked">{{item.Header}}
+                </ion-label>
+            </ion-card-title>
+            
+            <!-- render the group item sub header -->
+            <ion-item *ngIf="item.SubHeader">
+                <div class="group-sub-header-label" [class.non-icon-group-header-label]="!group.includeSectionIcons">
+                    {{item.SubHeader}}
+                </div>
+            </ion-item>
+        
+            <ng-container *ngTemplateOutlet="fieldTemplate; context: { item: item, group: group, parentFormGroup: parentFormGroup, g: g, i: i }"></ng-container>
+
+        </div>
+    </div>
+</ng-template>
+
+<ng-template #fieldTemplate let-item="item" let-group="group" let-parentFormGroup="parentFormGroup" let-index="index" let-last="last" let-first="first" let-g="g" let-i="i">
+    <div *ngIf="item.Visible">
+        <div [formGroup]="parentFormGroup">
+            <ion-item
+                        [class.form-item-with-select-field]="item.Icon && item.Alias == 'userType'"
+                        [class.form-item-normal]="!item.Icon || (item.Icon && isFirstItemVisible && index > 0)"
+                        [class.item-hidden]="!item.canShow"
+                        [class.ng-touched]="item.FormControl && item.FormControl.touched
+                        && (!item.customAdditionalPropertyField
+                            ? item.FormControl.errors != null
+                            : (item.FormControl.errors != null || item.uniquenessCustomErrorMessage != null))"
+                        [class.field-checkbox]="item.FormControlType == 'checkbox-group'"
+                        [class.field-textarea]="item.FormControlType == 'textarea'">
+
+                <ng-container *ngIf="group.includeSectionIcons && parentFormGroup == editForm">
+                    <ion-icon *ngIf="item.IconLibrary == iconLibrary.IonicV4 || item.IconLibrary == iconLibrary.IonicV5"
+                        [name]="item.IconLibrary == iconLibrary.IonicV4 ? null : (item.canShowIcon) ? item.Icon : 'none'"
+                        [src]="item.IconLibrary == iconLibrary.IonicV4
+                                ? './assets/ionicons-v4/' + (item.canShowIcon ? item.Icon : 'none') + '.svg'
+                                : null"
+                        class="form-item-icon" slot="start">
+                    </ion-icon>
+                    <mat-icon *ngIf="item.iconLibrary == iconLibrary.AngularMaterial"
+                        class="form-item-icon mat-icon-md" aria-hidden="false"
+                        attr.aria-label="{{ item.Icon || 'none' }}"
+                        svgIcon="{{ item.Icon || 'none' }}"
+                        slot="start">
+                    </mat-icon>                                 
+                    <i *ngIf="item.iconLibrary == iconLibrary.FontAwesome"
+                        class="{{ item.Icon }}"></i>
+                </ng-container>
+                <div class="non-repeating-field" [class.non-icon-section]="!group.includeSectionIcons"
+                    [class.non-repeating-field-none-accordion-toggle]="!hasAccordionToggle"
+                    [class.group-field]="item.FormControlType == 'group'">
+                    
+                    <!-- render paragraphs -->
+                    <ng-container *ngFor="let paragraph of item.Paragraphs">
+                        <p>{{paragraph}}</p>
+                    </ng-container>                                             
+
+                    <!-- render description / label above the form field -->
+                    <ion-label *ngIf="item.FormControlType != 'checkbox-group'
+                            && item.FormControlType != 'select'
+                            && item.FormControlType != 'checkbox'
+                            && item.FormControlType != 'array'
+                            && item.FormControlType != 'group'
+                            && item.Description"
+                        class="gray-label item-input-label" position="stacked">
+                        {{item.Description}}
+                    </ion-label>
+
+                    <!-- render group field -->
+                    <ng-container *ngIf="item.FormControlType == 'group'">
+                        <ion-row *ngIf="item.sideBySide" class="sidebyside" style="width: 100%">                                
+                            <ion-col *ngFor="let groupItem of item.Items">
+
+                                <ng-container *ngTemplateOutlet="fieldGroupTemplate; context: { item: groupItem, group: group, parentFormGroup: item.FormControl, g: g, i: i }"></ng-container>
+
+                            </ion-col>
+                        </ion-row>
+                        <ng-container *ngIf="!item.sideBySide">
+                            <ng-container *ngFor="let groupItem of item.Items">
+                                
+                                <ng-container *ngTemplateOutlet="fieldGroupTemplate; context: { item: groupItem, group: group, parentFormGroup: item.FormControl, g: g, i: i }"></ng-container>
+
+                            </ng-container>                            
+                        </ng-container>
+                    </ng-container>                        
+
+                    <!-- render array field -->
+                    <ng-container *ngIf="item.FormControlType == 'array'">
+                        <div [formArrayName]="item.Alias" class="formArray {{ item.Alias }}">
+                            <ng-container *ngFor="let arrayItem of item.Items; let i = index">
+                                <div *ngIf="arrayItem.FormControlType == 'group'" [formGroupName]="i">
+
+                                    <ng-container *ngTemplateOutlet="fieldGroupTemplate; context: { item: arrayItem, group: group, parentFormGroup: arrayItem.FormControl, g: g, i: i  }"></ng-container>
+
+                                </div>
+                                <ng-container *ngIf="arrayItem.FormControlType != 'group'">
+
+                                    <ng-container *ngTemplateOutlet="fieldTemplate; context: { item: arrayItem, group: group, parentFormGroup: parentFormGroup, g: g, i: i  }"></ng-container>
+
+                                </ng-container>
+                            </ng-container>
+                        </div>
+                    </ng-container>
+
+                    <!-- render input field -->
+                    <ion-input *ngIf="item.FormControlType == 'text' || item.FormControlType == 'email'|| item.FormControlType == 'tel'"
+                            class="item-input-field"
+                            formControlName="{{item.Alias}}"
+                            type="{{ item.GroupName == 'email'
+                                        ? 'email'
+                                        : item.GroupName == 'phone'
+                                            ? 'tel'
+                                            : null }}"
+                            id="{{item.Alias}}"
+                            (ionBlur)="onBlur(item.Alias, undefined, item)">
+                    </ion-input>
+
+                    <!--date and time pickers-->
+                    <ng-container *ngIf="useNativeDateTimeControls">
+                        <ion-input *ngIf="item.FormControlType == 'datepicker'"
+                                class="item-input-field"
+                                formControlName="{{item.Alias}}"
+                                type="date"
+                                id="{{item.Alias}}"
+                                [attr.max]="item.maxValue" [attr.min]="item.minValue"
+                                (ionBlur)="onBlur(item.Alias, undefined, item)">
+                        </ion-input>
+                        <ion-input *ngIf="item.FormControlType == 'timepicker'"
+                                class="item-input-field"
+                                formControlName="{{item.Alias}}"
+                                type="time"
+                                id="{{item.Alias}}"
+                                (ionBlur)="onBlur(item.Alias, undefined, item)">
+                        </ion-input>
+                    </ng-container>
+                    <ng-container *ngIf="!useNativeDateTimeControls">                                            
+                        <ion-datetime *ngIf="item.FormControlType === 'datepicker'"
+                                    id="{{item.Alias}}"
+                                    formControlName="{{item.Alias}}" displayFormat="DD/MM/YYYY"
+                                    [attr.max]="item.maxValue" [attr.min]="item.minValue"></ion-datetime>
+                        <ion-datetime *ngIf="item.FormControlType === 'timepicker'"
+                                    id="{{item.Alias}}"
+                                    formControlName="{{item.Alias}}" displayFormat="h:mm a"></ion-datetime>
+                    </ng-container>
+                    
+                    <!--textarea-->
+                    <ion-textarea *ngIf="item.FormControlType === 'textarea'" [attr.aria-label]="item.Alias"
+                        class="item-input-field" formControlName="{{item.Alias}}" id="{{item.Alias}}"></ion-textarea>
+
+                    <!--options-->
+                    <div *ngIf="item.FormControlType === 'select'" class="non-repeating-field-select-container">
+                        <mat-label class="select-label">
+                            {{ item.Description }}
+                        </mat-label>
+                        <mat-form-field appearance="none">
+                            <mat-select class="mat-item-select-field" formControlName="{{item.Alias}}" id="{{item.Alias}}"
+                                        (focus)="setAriaLabel($event)" attr.aria-label="{{item.Alias}} {{item.Alias}}">
+                                <mat-option *ngFor="let option of item.options" [value]="option.value" (click)="matOptionClickEvent(item.Alias, option)">
+                                    {{ option.label }}
+                                </mat-option>
+                                <mat-hint *ngIf="item.Hint" align="start">
+                                    {{ item.Hint }}
+                                </mat-hint>
+                            </mat-select>
+                        </mat-form-field>
+                    </div>
+
+                    <!-- radio -->
+                    <mat-radio-group *ngIf="item.FormControlType === 'radio'" class="radio-group"
+                        formControlName="{{item.Alias}}" id="{{item.Alias}}">
+                        <mat-radio-button *ngFor="let option of item.options" class="radio-button"
+                            [value]="option.value">
+                            {{ option.label }}
+                        </mat-radio-button>
+                    </mat-radio-group>
+
+                    <!-- checkbox -->
+                    <ng-container *ngIf="item.FormControlType === 'checkbox'">
+                        <mat-checkbox formControlName="{{item.Alias}}">
+                            {{ item.Description }}
+                        </mat-checkbox>
+                    </ng-container>
+
+                    <!-- checkbox-group -->
+                    <div *ngIf="item.FormControlType === 'checkbox-group'"
+                            class="checkbox-container">
+                        <ion-label *ngIf="item.Description" class="gray-label item-input-label" position="stacked">
+                            {{ item.Description }}
+                        </ion-label>
+                        <ng-container *ngIf="item.options.length > 0">
+                            <div [ngClass]="i != 0 ? 'last' : ''">
+                                <ion-row *ngFor="let option of item.options;index as i"
+                                        (click)="checkBoxEvent(item.Alias, option, i)">
+                                    <ion-col size="xs">
+                                        <ion-list class="checkbox-column" formArrayName="{{item.Alias}}" id="{{item.Alias}}">
+                                            <ion-checkbox formControlName="{{i}}" [checked]="option.value"></ion-checkbox>
+                                        </ion-list>
+                                    </ion-col>
+                                    <ion-col class="text-column">
+                                        <ion-label>{{ option.label }}</ion-label>
+                                    </ion-col>
+                                </ion-row>
+                            </div>
+                        </ng-container>
+                    </div>
+
+                    <!-- content -->
+                    <div *ngIf="item.FormControlType === 'content'" class="content-container">
+                        <div class="content" [innerHTML]="item.htmlContent | safeHtml"></div>
+                    </div>
+
+                    <!-- error -->
+                    <div class="error-container">
+                        <ng-container [ngTemplateOutlet]="errorTemplate" [ngTemplateOutletContext]="{item: item, group: group, key: item.Alias}"></ng-container>
+                    </div>
+
+                    <!-- hint -->
+                    <mat-hint *ngIf="item.Hint" align="start">
+                        {{ item.Hint }}
+                    </mat-hint>
+                </div>
+                <ion-icon *ngIf="hasAccordionToggle" [class.item-hidden]="group.isCompleted ||
+                        !(!group.isCompleted && item.ActionIcon) ||
+                        (group.expanded && i == 1) ||
+                        (!group.expanded && i==1 && isFirstItemVisible)"
+                            [name]="item.ActionIcon != null && ((i == 1 && !group.expanded && !isFirstItemVisible) || i == 0) ? item.ActionIcon.Icon : 'none'"
+                            (click)="item.ActionIcon == null ? return : toggleActionIcon(g, item);"
+                            (keydown.enter)="!item.ActionIcon ? return : toggleActionIcon(g, item);"
+                            (keydown.space)="!item.ActionIcon ? return : toggleActionIcon(g, item);"
+                            class="form-item-action-icon" slot="end"></ion-icon>
+                <ion-icon *ngIf="hasAccordionToggle" [class.item-visible]="group.isCompleted" [class.item-visible]="group.isCompleted || (group.expanded && i == 1) ||
+                        !item.ActionIcon ||
+                        (!group.expanded && i==1 && isFirstItemVisible)" name="none"
+                            class="form-item-action-icon-none item-hidden" slot="end"></ion-icon>
+            </ion-item> 
+        </div>
+    </div>
+</ng-template>

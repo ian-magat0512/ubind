@@ -1,0 +1,154 @@
+﻿<!DOCTYPE html>
+<html lang="en-AU">
+
+<head>
+    <title>uBind WebForm App</title>
+    <meta charset="utf-8" />
+    <meta name="HandheldFriendly" content="true">
+    <link rel="stylesheet" type="text/css" href="./style-landing.css">
+</head> 
+
+<body>
+    <div id="instructions" style="display:none;">
+        <h1>Instructions</h1>
+        <p>Use this page with the get parameters <strong>tenant</strong>, <strong>product</strong> and <strong>environment</strong> to load a
+            uBind web form.</p>
+        <p>E.g. .../landing-page.html?tenant=demo&product=demo&environment=development</p>
+    </div>
+    <script>
+        disableScroll();
+        function preventDefault(e){
+            e.preventDefault();
+        }
+
+        function disableScroll(){
+            document.body.addEventListener('touchmove', preventDefault, { passive: false });
+        }
+    </script>
+    <script type="text/javascript">
+        function findGetParameter(parameterName) {
+            var result = null;
+            var tmp = [];
+            location.search
+                .substr(1)
+                .split("&")
+                .forEach(function (item) {
+                    tmp = item.split("=");
+                    if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+                });
+            return result;
+        }
+
+        function appendScript(pathToScript) {
+            var head = document.getElementsByTagName("head")[0];
+            var js = document.createElement("script");
+            js.type = "text/javascript";
+            js.src = pathToScript;
+            head.appendChild(js);
+        }
+
+        function createInjectionDiv() {
+            var tenantAlias = findGetParameter('tenant');
+            var productAlias = findGetParameter('product') || findGetParameter('productId');
+            var environment = findGetParameter('environment');
+            if ([tenantAlias, productAlias, environment].indexOf(null) > 0) {
+                return false;
+            }
+
+            var formType = findGetParameter('formType');
+            var claimId = findGetParameter('claimId');
+            var quoteId = findGetParameter('quoteId');
+            var quoteType = findGetParameter('quoteType');
+            var sideBarOffset = findGetParameter('sideBarOffset');
+            var mode = findGetParameter('mode');
+            var isTestData = findGetParameter('testMode');
+            var debug = findGetParameter('debug');
+            var version = findGetParameter('version');
+            var productRelease = findGetParameter('productRelease');
+            var div = document.createElement('div');
+
+            var organisation = findGetParameter('organisation');
+            organisation && div.setAttribute('data-organisation', organisation);
+            var portalOrganisation = findGetParameter('portalOrganisation');
+            portalOrganisation && div.setAttribute('data-portalOrganisation', portalOrganisation);
+
+            div.setAttribute('role', 'main');
+            div.setAttribute('aria-label', 'Wrapper');
+            div.setAttribute('class', 'ubind-product');
+            div.setAttribute('data-tenant', tenantAlias);
+            div.setAttribute('data-product', productAlias);
+            div.setAttribute('data-environment', environment);
+            if (formType) {
+                div.setAttribute('data-formType', formType);
+            }
+            if (quoteId) {
+                div.setAttribute('data-quoteId', quoteId);
+            }
+            if (claimId) {
+                div.setAttribute('data-claimId', claimId);
+            }
+            if (quoteType) {
+                div.setAttribute('data-quoteType', quoteType + '');
+            }
+            if (sideBarOffset) {
+                div.setAttribute('data-sidebar-offset', sideBarOffset);
+            }
+            if (mode) {
+                div.setAttribute('data-mode', mode);
+            }
+            if (isTestData) {
+                div.setAttribute('data-isTestData', isTestData);
+            }
+            if (debug) {
+                div.setAttribute('data-debug', debug);
+            }
+            if (version) {
+                div.setAttribute('data-version', version);
+            }
+            if (productRelease)
+            {
+                div.setAttribute('data-productRelease', productRelease);
+            }
+            var body = document.body;
+            if (body.firstChild) {
+                body.insertBefore(div, body.firstChild);
+            } else {
+                body.appendChild(div);
+            }
+            appendScript('/assets/ubind.js');
+            return true;
+        } 
+
+        if (!createInjectionDiv()) {
+            document.getElementById('instructions').style.display = 'block';
+        }
+    </script>
+    <script>
+        function isIos() {
+            // implementation from https://stackoverflow.com/a/62094756/9883553
+            let iosQuirkPresent = () => {
+                let audio = new Audio();
+                let originalVolume = audio.volume;
+                audio.volume = 0.5;
+                let result = audio.volume === 1;   // volume cannot be changed from "1" on iOS 12 and below
+                audio.volume = originalVolume;
+                return result;
+            };
+            let isIDeviceUserAgent = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            var isAppleDevice = navigator.userAgent.includes('Macintosh');
+            var isTouchScreen = navigator.maxTouchPoints >= 1;   // true for iOS 13 (and hopefully beyond)
+            return isIDeviceUserAgent || (isAppleDevice && (isTouchScreen || iosQuirkPresent()));
+        }
+
+        if (isIos()) {
+            let head = document.getElementsByTagName('head')[0];
+            let metaViewport = document.createElement('meta');
+            metaViewport.name = 'viewport';
+            metaViewport.content = 'width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0';
+            head.appendChild(metaViewport);
+            document.body.style = 'padding-bottom: 60px !important;';
+        }
+    </script>
+</body>
+
+</html>

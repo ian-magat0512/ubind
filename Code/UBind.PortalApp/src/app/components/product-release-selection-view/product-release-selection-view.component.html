@@ -1,0 +1,55 @@
+<ion-list lines="none" class="detail-tenant-settings-list settings-list">
+    <ion-list-header>
+      <ion-label>
+        <strong>Release Selection</strong>
+      </ion-label>
+    </ion-list-header>
+    <ng-container>
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          For new business and renewal quotes, the default product release for the applicable environment will be used.
+        </ion-label>
+      </ion-item>
+      <ion-item>
+        <ion-label class="ion-text-wrap">
+          For Adjustment and cancellation quotes in the staging and production environments, typically the same product
+          release that
+          was used for the affected policy period will be used, however this is configurable here.
+        </ion-label>
+      </ion-item>
+      <ion-item (click)="onClick('adjustment')" button>
+        <library-icon name="create"
+            [library]="iconLibrary.IonicV4"
+            [slot]="'start'"
+            [size]="'large'">
+        </library-icon>
+        <ion-label class="ion-text-wrap">
+          Adjustment Quotes
+          <br>
+          <p *ngIf="!productReleaseSettings.doesAdjustmentUseDefaultProductRelease" class="status">
+            Use the product release from the affected policy period
+          </p>
+          <p *ngIf="productReleaseSettings.doesAdjustmentUseDefaultProductRelease" class="status">
+            Use the default product release for the applicable environment
+          </p>
+        </ion-label>
+      </ion-item>
+      <ion-item (click)="onClick('cancellation')" button>
+        <library-icon name="close"
+            [library]="iconLibrary.IonicV4"
+            [slot]="'start'"
+            [size]="'large'">
+        </library-icon>
+        <ion-label class="ion-text-wrap">
+          Cancellation Quotes
+          <br>
+          <p *ngIf="!productReleaseSettings.doesCancellationUseDefaultProductRelease" class="status">
+            Use the product release from the affected policy period
+          </p>
+          <p *ngIf="productReleaseSettings.doesCancellationUseDefaultProductRelease" class="status">
+            Use the default product release for the applicable environment
+          </p>
+        </ion-label>
+      </ion-item>
+    </ng-container>
+  </ion-list>

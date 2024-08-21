@@ -1,0 +1,398 @@
+{
+    "policyId": null,
+    "quoteId": "95ad5450-72e0-468c-b766-a47d8a1e228f",
+    "quoteReference": "LRKPXK",
+    "quoteVersion": 0,
+    "formDataId": "c555b784-578b-4aae-8f68-e3caf95dec35",
+    "calculationResultId": "b6d70399-12ee-4e69-a184-b2bf25b48204",
+    "priceBreakdown": {
+        "currencyCode": "AUD",
+        "basePremium": "$200.00",
+        "ESL": "$0.00",
+        "premiumGST": "$20.00",
+        "stampDutyACT": "$0.00",
+        "stampDutyNSW": "$0.00",
+        "stampDutyNT": "$22.00",
+        "stampDutyQLD": "$0.00",
+        "stampDutySA": "$0.00",
+        "stampDutyTAS": "$0.00",
+        "stampDutyVIC": "$0.00",
+        "stampDutyWA": "$0.00",
+        "commission": "$40.00",
+        "commissionGST": "$4.00",
+        "brokerFee": "$0.00",
+        "brokerFeeGST": "$0.00",
+        "underwriterFee": "$0.00",
+        "underwriterFeeGST": "$0.00",
+        "totalGST": "$20.00",
+        "interest": "$0.00",
+        "merchantFees": "$0.00",
+        "transactionCosts": "$0.00",
+        "stampDutyTotal": "$22.00",
+        "totalPremium": "$242.00",
+        "totalPayable": "$242.00"
+    },
+    "refundBreakdown": {
+        "currencyCode": "AUD",
+        "basePremium": "$0.00",
+        "ESL": "$0.00",
+        "premiumGST": "$0.00",
+        "stampDutyACT": "$0.00",
+        "stampDutyNSW": "$0.00",
+        "stampDutyNT": "$0.00",
+        "stampDutyQLD": "$0.00",
+        "stampDutySA": "$0.00",
+        "stampDutyTAS": "$0.00",
+        "stampDutyVIC": "$0.00",
+        "stampDutyWA": "$0.00",
+        "commission": "$0.00",
+        "commissionGST": "$0.00",
+        "brokerFee": "$0.00",
+        "brokerFeeGST": "$0.00",
+        "underwriterFee": "$0.00",
+        "underwriterFeeGST": "$0.00",
+        "totalGST": "$0.00",
+        "interest": "$0.00",
+        "merchantFees": "$0.00",
+        "transactionCosts": "$0.00",
+        "stampDutyTotal": "$0.00",
+        "totalPremium": "$0.00",
+        "totalPayable": "$0.00"
+    },
+    "formModel": {
+        "testRepeating": [{
+                "firstName": "a",
+                "lastName": "a"
+            }
+        ],
+        "ratingHeading": null,
+        "occupation": "Car detailing",
+        "liabilityLimit": "5000000",
+        "tools": "1000",
+        "turnover": "150k-300k",
+        "employees": "4",
+        "ratingState": "NT",
+        "customPremium": "",
+        "manualEndorsementResetTimestamp": 1613251076762,
+        "policyStartDate": "14/02/2021",
+        "policyEndDate": "14/03/2021",
+        "policyAdjustmentDate": "14/02/2021",
+        "policyCancellationDate": "14/02/2021",
+        "variableUserType": "client",
+        "variableUserHasAccount": false,
+        "variableCustomerHasAccount": false,
+        "variableQuoteHasCustomer": true,
+        "variableQuoteHadCustomerOnCreation": "true",
+        "variableQuoteType": "newBusiness",
+        "variableQuoteState": "incomplete",
+        "variableFinancialTransactionType": "payment",
+        "variableReferrerURL": "https://localhost:44366/assets/landing-page.html?tenant=carl&product=dev&environment=development&debug=true",
+        "variableApplicationURL": "https://localhost:44366",
+        "variableAssetsFolderURL": "https://localhost:44366/assets/carl/dev/development",
+        "variableApplicationMode": "create",
+        "variableProductEnvironment": "development",
+        "variableCurrentWorkflowStep": "purchaseDisclosure",
+        "variablePreviousWorkflowStep1": "purchaseDetails",
+        "variablePreviousWorkflowStep2": "purchaseQuote",
+        "variablePreviousWorkflowStep3": null,
+        "contactName": "asdf",
+        "contactEmail": "asdf@asdf.com",
+        "contactPhone": "0400123123",
+        "contactMobile": "0400123123",
+        "paymentOption": "Monthly",
+        "paymentMethod": "Premium Funding",
+        "insuredFullName": "asdf",
+        "membershipNumber": "12312312",
+        "insuredHeading": null,
+        "insuredAddress": "123123",
+        "insuredTown": "asdf",
+        "insuredState": "NT",
+        "insuredPostcode": "3000",
+        "membershipNumberOld": "",
+        "history": "No",
+        "historyDetails": "",
+        "insolvency": "No",
+        "insolvencyDetails": "",
+        "declaration": "Yes"
+    },
+    "calculationResult": {
+        "state": "bindingQuote",
+        "questions": {
+            "ratingPrimary": {
+                "occupation": "Car detailing",
+                "liabilityLimit": "$5,000,000.00",
+                "tools": "$1,000.00",
+                "turnover": "150k-300k",
+                "employees": "4",
+                "ratingState": "NT",
+                "manualEndorsementResetTimestamp": "1613251076762"
+            },
+            "ratingSecondary": {},
+            "dates": {
+                "policyStartDate": "14/02/2021",
+                "policyEndDate": "14/03/2021",
+                "policyStartDateInput": "14/02/2021",
+                "policyAdjustmentDate": "14/02/2021",
+                "policyCancellationDate": "14/02/2021",
+                "testRepeating": [{
+                        "firstName": "a",
+                        "lastName": "a"
+                    }
+                ]
+            },
+            "contact": {
+                "contactName": "asdf",
+                "contactEmail": "asdf@asdf.com",
+                "contactPhone": "0400123123",
+                "contactMobile": "0400123123"
+            },
+            "details": {
+                "insuredFullName": "asdf",
+                "membershipNumber": "12312312",
+                "insuredAddress": "123123",
+                "insuredTown": "asdf",
+                "insuredState": "NT",
+                "insuredPostcode": "3000"
+            },
+            "cancellation": {},
+            "disclosure": {
+                "history": "No",
+                "insolvency": "No",
+                "declaration": "Yes"
+            },
+            "summary": {},
+            "paymentMethods": {},
+            "paymentOptions": {
+                "paymentOption": "Monthly",
+                "paymentMethod": "Premium Funding"
+            },
+            "refundMethods": {},
+            "purchaseCompleted": {},
+            "agentDetails": {},
+            "enquiry": {},
+            "review": {
+                "manualEndorsement": false
+            },
+            "reviewMessage": {},
+            "endorsement": {
+                "loadingFactor": 1,
+                "additionalPremium": "$0.00"
+            },
+            "endorsementMessage": {},
+            "statusVariables": {
+                "variableUserType": "client",
+                "variableUserHasAccount": "FALSE",
+                "variableCustomerHasAccount": "FALSE",
+                "variableQuoteHasCustomer": "TRUE",
+                "variableQuoteHadCustomerOnCreation": "TRUE",
+                "variableQuoteType": "newBusiness",
+                "variableQuoteState": "incomplete",
+                "variableFinancialTransactionType": "payment",
+                "variableReferrerURL": "https://localhost:44366/assets/landing-page.html?tenant=carl&product=dev&environment=development&debug=true",
+                "variableApplicationURL": "https://localhost:44366",
+                "variableAssetsFolderURL": "https://localhost:44366/assets/carl/dev/development",
+                "variableApplicationMode": "create",
+                "variableProductEnvironment": "development",
+                "variableCurrentWorkflowStep": "purchaseDisclosure",
+                "variablePreviousWorkflowStep1": "purchaseDetails",
+                "variablePreviousWorkflowStep2": "purchaseQuote"
+            }
+        },
+        "risk1": {
+            "settings": {
+                "riskName": "Something",
+                "fieldCodePrefix": "S"
+            },
+            "ratingFactors": {
+                "tools": 1000,
+                "ratingState": "NT",
+                "customPremium": "",
+                "policyStartDate": "14/02/2021",
+                "loadingFactor": 1,
+                "additionalPremium": 0,
+                "specialConditions": "",
+                "variableQuoteState": "incomplete"
+            },
+            "checks": {
+                "hasActiveEndorsementTrigger": false,
+                "includeRisk": true
+            },
+            "premium": {
+                "basePremium": 200,
+                "applicableLoadingFactor": 1,
+                "applicableAdditionalPremium": 0,
+                "loadedPremium": 200,
+                "premiumPercentACT": 0,
+                "premiumPercentNSW": 0,
+                "premiumPercentNT": 1,
+                "premiumPercentQLD": 0,
+                "premiumPercentSA": 0,
+                "premiumPercentTAS": 0,
+                "premiumPercentVIC": 0,
+                "premiumPercentWA": 0
+            },
+            "other": {
+                "specialConditions": "N/A"
+            },
+            "statutoryRates": {
+                "riskType": "General",
+                "ESLApplicability": "Not Applicable",
+                "jurisdiction": "NT",
+                "policyStartDate": "14/02/2021",
+                "ESLRate": 0,
+                "GSTRate": 0.1,
+                "SDRateACT": 0,
+                "SDRateNSW": 0.09,
+                "SDRateNT": 0.1,
+                "SDRateQLD": 0.09,
+                "SDRateSA": 0.11,
+                "SDRateTAS": 0.1,
+                "SDRateVIC": 0.1,
+                "SDRateWA": 0.1
+            },
+            "payment": {
+                "premium": 200,
+                "ESL": 0,
+                "GST": 20,
+                "SDACT": 0,
+                "SDNSW": 0,
+                "SDNT": 22,
+                "SDQLD": 0,
+                "SDSA": 0,
+                "SDTAS": 0,
+                "SDVIC": 0,
+                "SDWA": 0,
+                "total": 242
+            }
+        },
+        "risk2": {
+            "settings": {
+                "riskName": "Else",
+                "fieldCodePrefix": "E"
+            },
+            "ratingFactors": {
+                "ratingState": "NT",
+                "policyStartDate": "14/02/2021"
+            },
+            "checks": {
+                "includeRisk": true
+            },
+            "premium": {
+                "propertyCover": 0,
+                "travelCover": 0,
+                "basePremium": 0,
+                "premiumPercentACT": 0,
+                "premiumPercentNSW": 0,
+                "premiumPercentNT": 1,
+                "premiumPercentQLD": 0,
+                "premiumPercentSA": 0,
+                "premiumPercentTAS": 0,
+                "premiumPercentVIC": 0,
+                "premiumPercentWA": 0
+            },
+            "other": {
+                "something": "Val"
+            },
+            "statutoryRates": {
+                "riskType": "Professional Indemnity",
+                "ESLApplicability": "Applicable",
+                "jurisdiction": "NT",
+                "policyStartDate": "14/02/2021",
+                "ESLRate": 0.3,
+                "GSTRate": 0.1,
+                "SDRateACT": 0,
+                "SDRateNSW": 0.05,
+                "SDRateNT": 0.1,
+                "SDRateQLD": 0.09,
+                "SDRateSA": 0.11,
+                "SDRateTAS": 0.1,
+                "SDRateVIC": 0.1,
+                "SDRateWA": 0.1
+            },
+            "payment": {
+                "premium": 0,
+                "ESL": 0,
+                "GST": 0,
+                "SDACT": 0,
+                "SDNSW": 0,
+                "SDNT": 0,
+                "SDQLD": 0,
+                "SDSA": 0,
+                "SDTAS": 0,
+                "SDVIC": 0,
+                "SDWA": 0,
+                "total": 0
+            }
+        },
+        "triggers": {
+            "review": {
+                "toolsCover5k": false,
+                "toolsCover12k": false,
+                "membershipNumberChanged": false,
+                "manualSelection": false
+            },
+            "endorsement": {
+                "toolsCover8k": false,
+                "toolsCover12k": false,
+                "history": false,
+                "insolvency": false,
+                "manualSelection": false,
+                "manualTriggerDuringReview": false
+            },
+            "decline": {
+                "turnover150k": false,
+                "manualSelection": false
+            },
+            "error": {
+                "noCoverSelected": false
+            }
+        },
+        "payment": {
+            "outputVersion": 2,
+            "priceComponents": {
+                "basePremium": "$200.00",
+                "ESL": "$0.00",
+                "premiumGST": "$20.00",
+                "stampDutyACT": "$0.00",
+                "stampDutyNSW": "$0.00",
+                "stampDutyNT": "$22.00",
+                "stampDutyQLD": "$0.00",
+                "stampDutySA": "$0.00",
+                "stampDutyTAS": "$0.00",
+                "stampDutyVIC": "$0.00",
+                "stampDutyWA": "$0.00",
+                "stampDutyTotal": "$22.00",
+                "totalPremium": "$242.00",
+                "commission": "$40.00",
+                "commissionGST": "$4.00",
+                "brokerFee": "$0.00",
+                "brokerFeeGST": "$0.00",
+                "underwriterFee": "$0.00",
+                "underwriterFeeGST": "$0.00",
+                "interest": "$0.00",
+                "merchantFees": "$0.00",
+                "transactionCosts": "$0.00",
+                "totalGST": "$20.00",
+                "totalPayable": "$242.00"
+            },
+            "instalments": {
+                "instalmentsPerYear": "12",
+                "instalmentAmount": "$20.17"
+            },
+            "iQumulate": {
+                "interestRate": "8.90%",
+                "instalments": 1,
+                "instalmentAmount": "$243.79",
+                "initialInstalmentAmount": "$303.79",
+                "paymentFrequency": "Monthly"
+            }
+        }
+    },
+    "customerId": "bed5e1c8-5021-4930-b0c7-1176e8417561",
+    "customerHasAccount": null,
+    "policy": null,
+    "quoteType": "NewBusiness",
+    "workflowStep": "purchaseDetails",
+    "quoteState": "approved",
+    "amountPayable": "$242.00"
+}

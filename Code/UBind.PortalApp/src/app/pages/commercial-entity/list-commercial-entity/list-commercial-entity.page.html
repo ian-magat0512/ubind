@@ -1,0 +1,24 @@
+<app-entity-list [title]="title"
+                  [listItemNamePlural]="'commercial entities'"
+                  [entityRouteParamName]="'commercialEntityId'"
+                  [entityLoaderService]="commercialEntityApiService"
+                  [viewModelConstructor]="viewModelConstructor"
+                  [itemTemplate]="entitiesListItemTemplate"
+                  [entityTypeName]="'CommercialEntity'"
+                  [getDefaultHttpParamsCallback]="getDefaultHttpParams.bind(this)"
+                  [additionalActionButtonList]="additionalActionButtonList"
+                  [ngStyle]="{'height': '100%'}">
+</app-entity-list>
+
+<ng-template #entitiesListItemTemplate let-item>
+    <div class="grayed-label round-icon-container"
+         slot="start">
+        <ion-icon name="briefcase"
+                  class="grayed-label round-icon"
+                  aria-label="icon"></ion-icon>
+    </div>
+    <ion-label class="ion-text-wrap">
+        <div class="list-title"> {{item.displayName}} </div>
+        <p class="status"> {{item.description}}</p>
+    </ion-label>
+</ng-template>

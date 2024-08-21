@@ -1,0 +1,310 @@
+:host {
+    /* css variable to allow external css theming */
+    --details-list-item-group-icon-color: #767676;
+
+    .details-item-base {
+        box-sizing: border-box;
+        width: 100%;
+        border-top: 1px;
+        height: auto !important;
+        padding-top: 5.5px;
+        padding-bottom: 5.5px;
+    }
+
+    .details-item-icon-base {
+        margin-left: 0px !important;
+        margin-right: 16px !important;
+    }
+
+    .item-icon-small {
+        height: 24px !important;
+        width: 24px !important;
+    }
+
+    .details-item-icon-small {
+        @extend .details-item-icon-base;
+        @extend .item-icon-small;
+    }
+
+    .details-item-icon-small-1-lines,
+    .details-item-icon-small-2-lines,
+    .details-item-icon-small-3-lines,
+    .details-item-icon-small-4-lines,
+    .details-item-icon-small-5-lines,
+    .details-item-icon-small-6-lines,
+    .details-item-icon-small-7-lines,
+    .details-item-icon-small-8-lines,
+    .details-item-icon-small-9-lines,
+    .details-item-icon-small-10-lines {
+        @extend .details-item-icon-small;
+    }
+
+    .details-item-icon-medium {
+        @extend .details-item-icon-base;
+    }
+
+    .details-item-icon-medium-0-lines,
+    .details-item-icon-medium-1-lines,
+    .details-item-icon-medium-2-lines,
+    .details-item-icon-medium-3-lines,
+    .details-item-icon-medium-4-lines,
+    .details-item-icon-medium-5-lines,
+    .details-item-icon-medium-6-lines,
+    .details-item-icon-medium-7-lines,
+    .details-item-icon-medium-8-lines,
+    .details-item-icon-medium-9-lines,
+    .details-item-icon-medium-10-lines {
+        @extend .details-item-icon-medium;
+    }
+
+    .details-item-icon-large {
+        @extend .details-item-icon-base;
+    }
+
+    .details-item-single-line-height {
+        --min-height: 56px !important;
+    }
+
+    .details-item-two-lines-height {
+        --min-height: auto !important;
+    }
+
+    .details-item-0-lines {
+        @extend .details-item-base;
+        cursor: auto !important;
+        @extend .details-item-single-line-height;
+    }
+
+    .details-item-1-lines {
+        @extend .details-item-base;
+        cursor: auto !important;
+        @extend .details-item-single-line-height;
+    }
+
+    .details-item-2-lines {
+        @extend .details-item-base;
+        cursor: auto !important;
+        @extend .details-item-two-lines-height;
+    }
+
+    .details-item-2-lines-no-icon {
+        @extend .details-item-base;
+        cursor: auto !important;
+        height: auto !important;
+        --min-height: 72px !important;
+        padding-top: 0px !important;
+        padding-bottom: 0px!important;
+
+        .label {
+            font-size: 24px !important;
+            p {
+                font-size: 16px !important;
+                margin-bottom: 5px!important;
+            }
+        }
+    }
+
+    ion-label.label {
+        padding-bottom: 1px;
+        height: auto !important;
+
+        span {
+            display: block;
+            display: -webkit-box;
+            -webkit-line-clamp: 2;
+            overflow: hidden;
+            text-overflow: ellipsis;
+            -webkit-box-orient: vertical;
+            /* autoprefixer: off */
+        }
+
+        p {
+            margin: 0 0 0px !important;
+            line-height: normal !important;
+        }
+    }
+
+    .details-item-1-lines-link {
+        @extend .details-item-base;
+        @extend .details-item-single-line-height;
+        cursor: pointer;
+    }
+
+    .details-item-2-lines-link {
+        @extend .details-item-base;
+        @extend .details-item-two-lines-height;
+        cursor: pointer;
+    }
+
+    .details-item-icon {
+        margin-left: 0px !important;
+        margin-right: 16px !important;
+    }
+
+    .round-icon-container {
+        @extend .details-item-icon-base;
+        border-radius: 100%;
+        display: flex;
+        text-align: center;
+        color: white !important;
+        width: 32px;
+        height: 32px;
+        margin-top: 15px;
+        justify-content: center !important;
+    }
+
+    .round-icon-container-normal {
+        @extend .round-icon-container;
+        background-color: var(--details-list-item-group-icon-color) !important;
+    }
+
+    .round-icon-container-in-list {
+        @extend .round-icon-container;
+        background-color: #B8B8B8 !important;
+    }
+
+    .round-icon-container-big {
+        @extend .round-icon-container;
+        width: 39px;
+        height: 39px;
+    }
+
+    .round-icon {
+        @extend .item-icon-small;
+        color: var(--ion-color-primary-contrast);
+        min-width: 24px;
+        cursor: default;
+        margin: auto 0 !important;
+        top: 0; // This is important because it inherited a top value of 2px from :root ion-item ion-icon[name=link]
+    }
+
+    .round-icon-card-view {
+        margin: 0px 0px 0px 0px !important;
+    }
+
+    .round-icon-margin-big {
+        margin-top: 7px!important;
+    }
+
+    .item-action-icon {
+        height: 45px;
+        width: 45px;
+        vertical-align: middle !important;
+        align-items: center !important;
+        align-content: center !important;
+        margin-right: -16px;
+        padding: 11px !important;
+        cursor: pointer;
+        margin-left: 10px;
+    }
+
+    ion-buttons {
+        margin-top: 15px;
+    }
+
+    ion-button[slot="icon-only"] {
+        --background-hover: transparent !important;
+        --background-focused: transparent !important;
+    }
+
+    .action-icon {
+        @extend .item-icon-small;
+        color: #757575 !important;
+        margin: 0px !important;
+        cursor: pointer;
+        align-self: center !important;
+        outline: none !important;
+    }
+
+    .action-icon:focus  {
+        outline : none!important;
+    }
+
+    .shortcut-icon {
+        height: 30px!important;
+        width: 30px!important;
+    }
+
+    .item-without-description {
+        margin-top: -15px;
+    }
+
+    .item-with-description {
+        margin-top: -9px;
+    }
+
+    .cursor-default {
+        cursor : default!important;
+    }
+
+    .cursor-pointer {
+        cursor: pointer !important;
+    }
+
+    .icon-tranparent {
+        color : transparent!important;
+    }
+
+    .list-view-label {
+        padding-bottom: 3px !important;
+    }
+
+    .list-view-item {
+        padding-top: 0px !important;
+        padding-bottom: 0px !important;
+    }
+
+    ion-item {
+        --inner-padding-end: 4px !important;
+
+        ion-buttons {
+            ion-button[slot="icon-only"] {
+                border-radius: 5px;
+                --min-height: 36px;
+                min-height: 36px;
+        
+                &:hover {
+                    background-color: var(--toolbar-button-hover-color) !important;
+                    cursor: pointer;
+                }
+        
+                ion-icon {
+                    font-size: 24px;
+                    width: 24px;
+                    height: 24px;
+                }
+            }
+        }
+    }
+
+    ion-item.details-item-1-lines-no-icon .title {
+        font-size: 24px;
+        margin: 10px 0 5px;
+    }
+
+    ion-item.details-item-1-lines-no-icon.item-without-description .title {
+        margin: 10px 0;
+    }
+
+    ion-item > library-icon {
+        color: var(--details-list-item-group-icon-color);
+    }
+
+    ion-card {
+        ion-card-header{
+            ion-card-title {
+                cursor: auto !important;
+            }
+        }      
+    }
+
+    ion-label {
+        label {
+            cursor: auto !important;
+        }
+    }
+}
+
+.multiline {
+    display: block;
+}

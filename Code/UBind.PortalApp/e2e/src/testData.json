@@ -1,0 +1,556 @@
+{
+    "collectionToTest": "leaseAssetFinanceMotorpacTest",
+    "collection": {
+        "demosLatitudeMotorLoanTest": {
+            "seed": {
+                "directoryPath": ".\\e2e\\seed\\"
+            },
+            "endpoint": {
+                "api": "https://feature-ub-1074.platform.ubind.io/",
+                "quoter": "https://feature-ub-1074.platform.ubind.io/",
+                "portal": "https://feature-ub-1074.platform.ubind.io/"
+            },
+            "mailtrap": {
+                "emailCheckFunction": "demosLatitudeMotorLoanEmailCheck",
+                "apiToken": "2043052ef5587aaa4f62e8dea65327da",
+                "inboxId": "656097"
+            },
+            "expectedEmailValues": {
+                "emailSourceHashCode": 1143,
+                "attachmentSize": "1.2 MB"
+            },
+            "ubindLogin": {
+                "adminTenantId": "ubind",
+                "adminUsername": "test.admin@ubind.com.au",
+                "adminPassword": "ubindTest123*",
+                "clientAdminTenantId": "{{tenantId}}",
+                "clientAdminUsername": "{{tenantId}}.client.admin@ubind.com.au",
+                "clientAdminPassword": "ubindTest123*"
+            },
+            "tenantId": "demos",
+            "tenantName": "Demos",
+            "productId": "latitude-motor-loan",
+            "productName": "latitude-motor-loan",
+            "releaseDescription": "releaseSampleMessage",
+            "releaseType": "Minor",
+            "environment": "development",
+            "contactName": "randomName()",
+            "contactEmail": "randomEmail()",
+            "quoter": {
+                "fillupFormFunction": "demosLatitudeMotorLoanFillupForm",
+                "model": {
+                    "loanAmount": "50000",
+                    "loanTerm": "4",
+                    "interestRate": "5",
+                    "age": "18",
+                    "deathBenefit": "No",
+                    "accidentalDeathBenefit": "No",
+                    "disabilityBenefit": "Yes",
+                    "cashBoostBenefit": "Yes",
+                    "cashBoostBenefitExtension": "Yes",
+                    "involuntaryUnemploymentBenefit": "Yes",
+                    "involuntaryUnemploymentBenefitExtension": "No",
+                    "contactName": "{{contactName}}",
+                    "contactEmail": "{{contactEmail}}",
+                    "contactPhone": "0421233212",
+                    "contactMobile": "0421233212",
+                    "action": "next",
+                    "financialInstitution": "some financial institution",
+                    "loanNumber": "150",
+                    "fullName": "john walter talavera",
+                    "DOB": "02/02/1993",
+                    "contactAddress": "215 general luna street",
+                    "contactTown": "boom town",
+                    "contactState": "ACT",
+                    "contactPostcode": "1421",
+                    "action2": "next",
+                    "claim": "No",
+                    "declined": "No",
+                    "declaration": "Yes",
+                    "action3": "next",
+                    "paymentMethod": "Visa",
+                    "creditCardNumber": "4111111111111111",
+                    "creditCardName": "jeojeo",
+                    "creditCardExpiryDate": "10/21",
+                    "creditCardCCV": "123",
+                    "action4": "next"
+                }
+            }
+        },
+        "australianReliancePropertyClubTest": {
+            "seed": {
+                "directoryPath": ".\\e2e\\seed\\"
+            },
+            "endpoint": {
+                "api": "https://feature-ub-1074.platform.ubind.io/",
+                "quoter": "https://feature-ub-1074.platform.ubind.io/",
+                "portal": "https://feature-ub-1074.platform.ubind.io/"
+            },
+            "mailtrap": {
+                "emailCheckFunction": "australianReliancePropertyClubEmailCheck",
+                "apiToken": "2043052ef5587aaa4f62e8dea65327da",
+                "inboxId": "656097"
+            },
+            "expectedEmailValues": {
+                "emailSourceHashCode": 1155,
+                "attachmentSize": "1.5 MB"
+            },
+            "ubindLogin": {
+                "adminTenantId": "ubind",
+                "adminUsername": "test.admin@ubind.com.au",
+                "adminPassword": "ubindTest123*",
+                "clientAdminTenantId": "{{tenantId}}",
+                "clientAdminUsername": "{{tenantId}}.client.admin@ubind.com.au",
+                "clientAdminPassword": "ubindTest123*"
+            },
+            "tenantId": "australian-reliance",
+            "tenantName": "Australian Reliance",
+            "productId": "property-club",
+            "productName": "Property Club",
+            "releaseDescription": "releaseSampleMessage",
+            "releaseType": "Minor",
+            "environment": "development",
+            "contactName": "randomName()",
+            "contactEmail": "randomEmail()",
+            "quoter": {
+                "fillupFormFunction": "australianReliancePropertyClubFillupForm",
+                "model": {
+                    "buildingCover": "Yes",
+                    "buildingSumInsured": "100",
+                    "ratingState": "ACT",
+                    "buildingPostcode": "2611",
+                    "contactName": "{{contactName}}",
+                    "contactEmail": "{{contactEmail}}",
+                    "contactPhone": "0421233212",
+                    "contactMobile": "0421233212",
+                    "action": "next",
+                    "propertyAddress": "215 General Luna Street Malabon City",
+                    "propertyTown": "malabon",
+                    "propertyType": "House",
+                    "propertyStrataStatus": "Free standing",
+                    "propertyConstruction": "Double brick",
+                    "propertyYearBuilt": "1993",
+                    "propertyRentedCommercially": "No",
+                    "propertyBodyCorporate": "Yes",
+                    "propertyHolidayRental": "No",
+                    "propertyClubBranch": "Not a Property Club Member",
+                    "applicationFormCompleted": "Yes",
+                    "bondLodged": "Yes",
+                    "currentInsuranceProvider": "AITI",
+                    "insuredName": "Aptiture Insurance",
+                    "rentInArrears": "Yes",
+                    "certificateOfCurrency": "Yes",
+                    "history": "No",
+                    "declined": "No",
+                    "bankruptcy": "No",
+                    "declaration": "Yes",
+                    "action2": "next",
+                    "paymentMethodSelect": "VISA",
+                    "creditCardNumber": "4111111111111111",
+                    "creditCardName": "john walter p talavera",
+                    "creditCardExpiryDate": "10/21",
+                    "creditCardCCV": "123",
+                    "action3": "next"
+                }
+            },
+            "quoterFormData": [
+                {
+                    "control": "",
+                    "value": ""
+                }
+            ]
+        },
+        "depositAssureConciergeTest": {
+            "seed": {
+                "directoryPath": ".\\e2e\\seed\\"
+            },
+            "endpoint": {
+                "api": "https://feature-ub-1074.platform.ubind.io/",
+                "quoter": "https://feature-ub-1074.platform.ubind.io/",
+                "portal": "https://feature-ub-1074.platform.ubind.io/"
+            },
+            "mailtrap": {
+                "emailCheckFunction": "depositAssureConciergeEmailCheck",
+                "apiToken": "2043052ef5587aaa4f62e8dea65327da",
+                "inboxId": "656097"
+            },
+            "expectedEmailValues": {
+                "emailSourceHashCode": 3752,
+                "attachmentSize": "6.6 KB"
+            },
+            "ubindLogin": {
+                "adminTenantId": "ubind",
+                "adminUsername": "test.admin@ubind.com.au",
+                "adminPassword": "ubindTest123*",
+                "clientAdminTenantId": "{{tenantId}}",
+                "clientAdminUsername": "{{tenantId}}.client.admin@ubind.com.au",
+                "clientAdminPassword": "ubindTest123*"
+            },
+            "tenantId": "deposit-assure",
+            "tenantName": "Deposit Assure",
+            "productId": "concierge",
+            "productName": "Concierge",
+            "releaseDescription": "releaseSampleMessage",
+            "releaseType": "Minor",
+            "environment": "development",
+            "contactName": "randomName()",
+            "contactEmail": "randomEmail()",
+            "checkResults": {
+                "customer": true,
+                "quote": true,
+                "policy": false,
+                "email": true
+            },
+            "quoter": {
+                "fillupFormFunction": "depositAssureConciergeFillupForm",
+                "model": {
+                    "depositBondSelection": "Myself",
+                    "applicants-0-applicantFirstName": "{{contactName}}",
+                    "applicants-0-applicantLastName": "{{contactName}}",
+                    "applicants-0-applicantMobile": "0423212322",
+                    "applicants-0-applicantEmail": "{{contactEmail}}",
+                    "purchasePrice": "123",
+                    "depositBondAmount": "10",
+                    "financeApprovalAmount": "100",
+                    "additionalSourceOfFunds": "Gift",
+                    "photoIdApplicant1": "../../uBindPortal/e2e/seed/sample/photo.jpg",
+                    "purchaseContractAttachment": "../../uBindPortal/e2e/seed/sample/contract.pdf",
+                    "action": "next"
+                }
+            }
+        },
+        "leaseAssetFinanceMotorpacTest": {
+            "seed": {
+                "directoryPath": ".\\e2e\\seed\\"
+            },
+            "endpoint": {
+                "api": "https://feature-ub-1074.platform.ubind.io/",
+                "quoter": "https://feature-ub-1074.platform.ubind.io/",
+                "portal": "https://feature-ub-1074.platform.ubind.io/"
+            },
+            "mailtrap": {
+                "emailCheckFunction": "leaseAssetFinanceMotorpacEmailCheck",
+                "apiToken": "2043052ef5587aaa4f62e8dea65327da",
+                "inboxId": "656097"
+            },
+            "ubindLogin": {
+                "adminTenantId": "ubind",
+                "adminUsername": "test.admin@ubind.com.au",
+                "adminPassword": "ubindTest123*",
+                "clientAdminTenantId": "{{tenantId}}",
+                "clientAdminUsername": "{{tenantId}}.client.admin@ubind.com.au",
+                "clientAdminPassword": "ubindTest123*"
+            },
+            "tenantId": "lease-asset-finance",
+            "tenantName": "Lease & Asset Finance",
+            "productId": "motorpac",
+            "productName": "Motorpac",
+            "releaseDescription": "releaseSampleMessage",
+            "releaseType": "Minor",
+            "environment": "development",
+            "contactName": "randomName()",
+            "contactEmail": "randomEmail()",
+            "checkResults": {
+                "customer": true,
+                "quote": true,
+                "policy": false,
+                "email": false
+            },
+            "quoter": {
+                "fillupFormFunction": "leaseAssetFinanceMotorpacFillupForm",
+              "model": {
+                "estimateVehicleType": "Medium",
+                "estimateVehicleMake": "Toyota",
+                "estimateVehicleModel": "Corolla",
+                "estimateVehicleCost": "70000",
+                "estimateAnnualSalary": "30000",
+                "estimateAnnualKilometers": "3000",
+                "estimateLeaseTerm": "2 Years",
+                "name": "{{contactName}}",
+                "email": "{{contactEmail}}",
+                "phone": "0421233212",
+                "mobile": "0421233212",
+                "action": "next",
+                "title": "Mr",
+                "fullName": "John walter p talavera",
+                "residentialAddress": "215 General Luna Street Malabon City",
+                "residentialTown": "Malabon",
+                "residentialState": "ACT",
+                "residentialPostcode": "6211",
+                "residentialYears": "15",
+                "postalDifferent": "Yes",
+                "postalAddress": "215 General Luna Street Malabon City",
+                "postalTown": "Malabon",
+                "postalState": "ACT",
+                "postalPostcode": "6211",
+                "driversLicense": "12332123232",
+                "DOB": "02/02/1993",
+                "gender": "male",
+                "residentialStatus": "Home owner",
+                "maritalStatus": "Married",
+                "dependants": "1",
+                "currentEmploymentOccupation": "software",
+                "currentEmploymentYears": "2",
+                "currentEmploymentProbation": "No",
+                "employerFBTType": "Full FBT payable",
+                "employerCompanyName": "aptiture",
+                "employerAddress": "215 General Luna Street Malabon City",
+                "employerPhone": "0422222222",
+                "employerACN": "123",
+                "employerABN": "123",
+                "employerContactName": "John Walter P Talavera",
+                "employerContactEmail": "john.talavera@aptiture.com",
+                "previousEmploymentOccupation": "Software",
+                "previousEmploymentEmployer": "IGEN",
+                "previousEmploymentYears": "15",
+                "vehicleCondition": "New",
+                "vehicleYear": "2001",
+                "vehicleOdometer": "15",
+                "vehicleOtherDetails": "123",
+                "contractTerm": "10",
+                "contractResidualValuePercent": "10",
+                "contractOtherDetails": "test",
+                "supplierType": "Dealer",
+                "supplierName": "supplier",
+                "supplierContactName": "test",
+                "supplierPhone": "0422222222",
+                "supplierFax": "0422222222",
+                "supplierEmail": "john.talavera@aptiture.com",
+                "spouseName": "test",
+                "spouseOccupation": "something",
+                "spouseEmployer": "core-apika",
+                "spouseYears": "10",
+                "spouseGrossIncome": "20000",
+                "action2": "next",
+                "residence": "10000",
+                "otherProperty1Description": "test",
+                "otherProperty1Value": "10000",
+                "otherProperty2Description": "test",
+                "otherProperty2Value": "10000",
+                "vehicle1Description": "test",
+                "vehicle1Value": "10000",
+                "vehicle2Description": "test",
+                "vehicle2Value": "10000",
+                "furnitureValue": "1000",
+                "cashValue": "1000",
+                "superannuationValue": "1000",
+                "investmentsValue": "1000",
+                "otherAsset1Description": "test",
+                "otherAsset1Value": "1000",
+                "otherAsset2Description": "test",
+                "otherAsset2Value": "1000",
+                "homeMortgageLender": "test",
+                "homeMortgageOwing": "1000",
+                "homeMortgageMonthly": "100",
+                "otherProperty1Lender": "test",
+                "otherProperty1Owing": "1000",
+                "otherProperty1Monthly": "100",
+                "otherProperty2Lender": "test",
+                "otherProperty2Owing": "1000",
+                "otherProperty2Monthly": "100",
+                "vehicle1Lender": "test",
+                "vehicle1Owing": "1000",
+                "vehicle1Monthly": "100",
+                "personalLoansLender": "test",
+                "personalLoansOwing": "1000",
+                "personalLoansMonthly": "100",
+                "creditCardsLender": "test",
+                "creditCardsOwing": "1000",
+                "creditCardsMonthly": "100",
+                "overdraftLender": "test",
+                "overdraftOwing": "1000",
+                "overdraftMonthly": "100",
+                "otherLiability1Description": "test",
+                "otherLiability1Owing": "1000",
+                "otherLiability1Monthly": "100",
+                "otherLiability2Description": "test",
+                "otherLiability2Owing": "1000",
+                "otherLiability2Monthly": "100",
+                "otherLiability3Description": "test",
+                "otherLiability3Owing": "1000",
+                "otherLiability3Monthly": "100",
+                "rentBoard": "0",
+                "livingExpenses": "200",
+                "privacyStatement": "Yes",
+                "action3": "next"
+              }
+            }
+        },
+        "mgaPetsTest": {
+            "seed": {
+                "directoryPath": ".\\e2e\\seed\\"
+            },
+            "endpoint": {
+                "api": "https://feature-ub-1074.platform.ubind.io/",
+                "quoter": "https://feature-ub-1074.platform.ubind.io/",
+                "portal": "https://feature-ub-1074.platform.ubind.io/"
+            },
+            "mailtrap": {
+                "emailCheckFunction": "mgaPetsEmailCheck",
+                "apiToken": "2043052ef5587aaa4f62e8dea65327da",
+                "inboxId": "656097"
+            },
+            "expectedEmailValues": {
+                "emailSourceHashCode": 3440,
+                "attachmentSize": "1.7 MB"
+            },
+            "ubindLogin": {
+                "adminTenantId": "ubind",
+                "adminUsername": "test.admin@ubind.com.au",
+                "adminPassword": "ubindTest123*",
+                "clientAdminTenantId": "{{tenantId}}",
+                "clientAdminUsername": "{{tenantId}}.client.admin@ubind.com.au",
+                "clientAdminPassword": "ubindTest123*"
+            },
+            "tenantId": "mga",
+            "tenantName": "MGA",
+            "productId": "pets",
+            "productName": "Pets",
+            "releaseDescription": "releaseSampleMessage",
+            "releaseType": "Minor",
+            "environment": "development",
+            "contactName": "randomName()",
+            "contactEmail": "randomEmail()",
+            "checkResults": {
+                "customer": true,
+                "quote": true,
+                "policy": false,
+                "email": true
+            },
+            "quoter": {
+                "fillupFormFunction": "mgaPetsFillupForm",
+                "model": {
+                    "PLLimit": "$5M\nFrom $350",
+                    "animalsInTransit": "Yes",
+                    "trailerCover": "Yes",
+                    "toolsCover": "Yes",
+                    "accidentCover": "Yes",
+                    "ratingState": "ACT",
+                    "name": "{{contactName}}",
+                    "email": "{{contactEmail}}",
+                    "phone": "0421232222",
+                    "mobile": "0421232222",
+                    "action": "next",
+                    "applicantName": "jeo",
+                    "tradingName": "jeo",
+                    "occupation": "software",
+                    "businessActivities": "test",
+                    "estimatedTurnover": "1000",
+                    "annualWages": "10000",
+                    "annualSubContactorCosts": "10000",
+                    "trailers-0-year": "2012",
+                    "trailers-0-make": "test",
+                    "trailers-0-registrationNo": "2323222",
+                    "trailers-0-value": "1000",
+                    "businessAddress": "215 General Luna Street Malabon City",
+                    "businessTown": "Malabon",
+                    "businessState": "ACT",
+                    "businessPostcode": "6211",
+                    "postalAddress": "215 General Luna Street Malabon City",
+                    "postalTown": "Malabon",
+                    "postalState": "ACT",
+                    "postalPostcode": "6211",
+                    "history": "No",
+                    "insolvency": "No",
+                    "declaration": "Yes",
+                    "action2": "next",
+                    "paymentOption": "Monthly",
+                    "paymentMethod": "Visa",
+                    "creditCardPhoneNumber": "0444444444",
+                    "directDebitDeclaration": "Yes",
+                    "action3": "next"
+                }
+            }
+        },
+        "insureMyPromoPromoInABoxTest": {
+            "seed": {
+                "directoryPath": ".\\e2e\\seed\\"
+            },
+            "endpoint": {
+                "api": "https://feature-ub-1074.platform.ubind.io/",
+                "quoter": "https://feature-ub-1074.platform.ubind.io/",
+                "portal": "https://feature-ub-1074.platform.ubind.io/"
+            },
+            "mailtrap": {
+                "emailCheckFunction": "insureMyPromoPromoInABoxEmailCheck",
+                "apiToken": "2043052ef5587aaa4f62e8dea65327da",
+                "inboxId": "656097"
+            },
+            "expectedEmailValues": {
+                "emailSourceHashCode": 2169,
+                "attachmentSize": "290 KB"
+            },
+            "ubindLogin": {
+                "adminTenantId": "ubind",
+                "adminUsername": "test.admin@ubind.com.au",
+                "adminPassword": "ubindTest123*",
+                "clientAdminTenantId": "{{tenantId}}",
+                "clientAdminUsername": "{{tenantId}}.client.admin@ubind.com.au",
+                "clientAdminPassword": "ubindTest123*"
+            },
+            "tenantId": "insure-my-promo",
+            "tenantName": "Insure my Promo",
+            "productId": "promoinabox",
+            "productName": "Promo In A Box",
+            "releaseDescription": "releaseSampleMessage",
+            "releaseType": "Minor",
+            "environment": "development",
+            "contactName": "randomName()",
+            "contactEmail": "randomEmail()",
+            "quoter": {
+                "fillupFormFunction": "insureMyPromoPromoInABoxFillupForm",
+                "model": {
+                    "usedStateNSW": true,
+                    "usedStateWA": true,
+                    "promotionSelection": {
+                        "carouselPromotion": "tile-CTW-0"
+                    },
+                    "action3": "next",
+                    "promotionProbability": "1 in 100",
+                    "action4": "next",
+                    "name": "{{contactName}}",
+                    "phone": "0412322222",
+                    "email": "{{contactEmail}}",
+                    "promotionName": "test promotion name",
+                    "whatCustomersHaveToDo": "Purchase/order a product/service",
+                    "howCustomersEnter": "during the promotional period and complete the entry form",
+                    "eligibleStores": "testing",
+                    "eligibleProductsAndServices": "testing",
+                    "websiteAddress": "https://google.com",
+                    "businessName": "test business",
+                    "businessABN": "51 824 753 556",
+                    "businessAddress": "215 wor goog aus.",
+                    "businessTown": "Cushka",
+                    "businessState": "ACT",
+                    "businessPostcode": "6211",
+                    "ageRestriction": "Open Only to Persons Aged 18 years or Over",
+                    "promotionStartDate": "02/02/2022",
+                    "promotionStartTime": "07:00 AM",
+                    "promotionEndDate": "02/02/2022",
+                    "promotionEndTime": "07:00 PM",
+                    "participantDrawDate": "02/02/2022",
+                    "participantDrawTime": "07:00 PM",
+                    "prizeGameDate": "02/02/2022",
+                    "prizeGameTime": "07:00 PM",
+                    "participantDrawAddressConfirmation": "Yes",
+                    "prizeGameAddressConfirmation": "Yes",
+                    "privacyPolicyRequired": "Yes",
+                    "privacyPolicyUrl": "https://google.com/policy",
+                    "action5": "next",
+                    "logoUpload": "../../uBindPortal/e2e/seed/sample/photo.jpg",
+                    "action6": "next",
+                    "confirmation1": true,
+                    "confirmation2ChanceToWin": true,
+                    "confirmation3": true,
+                    "confirmation4": true,
+                    "action7": "next",
+                    "creditCardNumber": "4111111111111111",
+                    "creditCardName": "jeojeo",
+                    "creditCardExpiryDate": "10/21",
+                    "creditCardCCV": "123",
+                    "action8": "next"
+                }
+            }
+        }
+    }
+}

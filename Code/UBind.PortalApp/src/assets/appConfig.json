@@ -1,0 +1,16 @@
+{
+    "portal": {
+        "auth0": {
+            "redirectUri": "http://localhost:8100/",
+            "audience": "https://localhost:44366/"
+        },
+        "api": {
+            "baseUrl": "https://localhost:44366/api/v1/",
+            "accountUrl": "https://localhost:44366/api/v1/"
+        },
+        "baseUrl": "https://localhost:44366/portal/"
+    },
+    "formsApp": {
+        "baseUrl": "https://localhost:44366/"
+    }
+}

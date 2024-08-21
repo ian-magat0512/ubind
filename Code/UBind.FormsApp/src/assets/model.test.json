@@ -1,0 +1,68 @@
+{
+    "formModel": {
+        "ABN": "12 456 789 456",
+        "GSTRegistered": "Yes",
+        "PLLimit": "$20,000,000",
+        "accidentCover": "Accident Only",
+        "accidentPerWeek": "$750",
+        "animalsInTransit": "Yes",
+        "annualSubContactorCosts": "5000",
+        "annualWages": "80000",
+        "applicantName": "ABC Pty Ltd",
+        "businessActivities": "Go to people's houses and groom their pets.",
+        "businessAddress": "101 Some Rd",
+        "businessPostcode": "8213",
+        "businessState": "QLD",
+        "businessTown": "Townsville",
+        "businessType": "Mobile",
+        "email": "carl.andersson@aptiture.com",
+        "employeeCount": "1",
+        "employees": [
+            {
+                "DOB": "08/04/1984",
+                "existingConditions": "Sore back.",
+                "height": "180",
+                "name": "Jim Jones",
+                "weight": "85"
+            }
+        ],
+        "estimatedTurnover": "100000",
+        "mobile": "0412 564 789",
+        "name": "Carl Andersson",
+        "occupation": "Mobile Pet Grooming",
+        "phone": "03 9874 1234",
+        "policyStartDate": "12/08/2017",
+        "ratingState": "VIC",
+        "specifiedItems": [
+            {
+                "make": "Sponge Heaven",
+                "modelNo": "SP123",
+                "serialNo": "S908934",
+                "type": "Sponge",
+                "value": "5000"
+            }
+        ],
+        "subContractorCount": "1",
+        "subContractors": [
+            {
+                "DOB": "10/05/1976",
+                "existingConditions": "None.",
+                "height": "175",
+                "name": "Greg Bob",
+                "weight": "65"
+            }
+        ],
+        "toolsCover": "Yes",
+        "tradingName": "ABC Pet Groomers",
+        "trailerCover": "Yes",
+        "trailers": [
+            {
+                "make": "Toyota Trailers",
+                "modelNo": "MD 1231233",
+                "registrationNo": "ABC123",
+                "value": "2000",
+                "year": "2010"
+            }
+        ]
+    }
+}

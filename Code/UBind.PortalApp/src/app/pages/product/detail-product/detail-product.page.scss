@@ -1,0 +1,14 @@
+ion-content {
+    --overflow: hidden !important;
+    overflow: hidden !important;
+}
+
+.non-clickable-item {
+    cursor: auto;
+}
+
+ion-label ion-icon.right-icon-text {
+    position: absolute;
+    top: 11px;
+    color: #000;
+}

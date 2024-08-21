@@ -1,0 +1,22 @@
+﻿<div #dialog [@dialog] [style.display]="visible ? 'block': 'none'" class="dialog" id="popup-alert">
+    <ng-container *ngIf="visible">
+        <h4 class="title">{{ alert.title }}</h4>
+        <p class="message">{{ alert.message }}</p>
+        <div *ngIf="alert.additionalDetails != null && alert.additionalDetails.length > 0" class="further-details">
+            <h5>{{ alert.additionalDetailsTitle }}</h5>
+            <ul>
+                <li class="additional-detail" *ngFor="let detail of alert.additionalDetails">
+                    {{ detail }}
+                </li>
+            </ul>
+        </div>
+        <button *ngIf="closable" (click)="close()" aria-label="Close" class="close-button">
+            <div class="close-symbol">
+                <svg width="18px" height="18px" viewBox="0 0 400 420" preserveAspectRatio="xMinYMin meet">
+                    <path d="M310.6 150.6c12.5-12.5 12.5-32.8 0-45.3s-32.8-12.5-45.3 0L160 210.7 54.6 105.4c-12.5-12.5-32.8-12.5-45.3 0s-12.5 32.8 0 45.3L114.7 256 9.4 361.4c-12.5 12.5-12.5 32.8 0 45.3s32.8 12.5 45.3 0L160 301.3 265.4 406.6c12.5 12.5 32.8 12.5 45.3 0s12.5-32.8 0-45.3L205.3 256 310.6 150.6z"/>
+                </svg>
+            </div>        
+        </button>
+    </ng-container>
+</div>
+<div *ngIf="visible" class="overlay" (click)="close()"></div>

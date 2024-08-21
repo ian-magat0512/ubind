@@ -1,0 +1,17 @@
+form {
+    ion-list.list-group {
+        margin-bottom: 16px;
+        margin-top: 16px;
+
+        ion-item {
+            ion-label {
+                margin-top: auto;
+            }
+
+            span {
+                margin-top: 7px;
+                margin-bottom: 10px;
+            }
+        }
+    }
+}

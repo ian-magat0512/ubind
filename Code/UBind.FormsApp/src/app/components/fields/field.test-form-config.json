@@ -1,0 +1,118 @@
+{
+    "version": "2.0.0",
+    "form": {
+        "defaultCurrencyCode": "AUD",
+        "questionSets": [
+            {
+                "name": "Test Question Set 1",
+                "key": "testQuestionSet1",
+                "fields": [{
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "required": false,
+                        "calculatedValueExpression": "getCurrentWorkflowStep()",
+                        "calculatedValueTriggerExpression": "'anything'",
+                        "autoTriggerCalculatedValue": true,
+                        "affectsPremium": false,
+                        "affectsTriggers": false,
+                        "requiredForCalculations": false,
+                        "private": false,
+                        "displayable": true,
+                        "canChangeWhenApproved": false,
+                        "resetForNewQuotes": false,
+                        "calculationWorkbookCellLocation": {
+                            "sheetIndex": 1,
+                            "rowIndex": 7,
+                            "colIndex": 7
+                        },
+                        "startsNewRow": false,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "label": "Test Field 1",
+                        "name": "Test Field 1",
+                        "key": "testField1",
+                        "questionSetKey": "testQuestionSet1",
+                        "dataType": "text",
+                        "workflowRole": "none"
+                    }
+                ]
+            },
+            {
+                "name": "Test Question Set 2",
+                "key": "testQuestionSet2",
+                "fields": [{
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "required": false,
+                        "defaultValueExpression": "'hello'",
+                        "autoTriggerCalculatedValue": true,
+                        "affectsPremium": false,
+                        "affectsTriggers": false,
+                        "requiredForCalculations": false,
+                        "private": false,
+                        "displayable": true,
+                        "canChangeWhenApproved": false,
+                        "resetForNewQuotes": false,
+                        "calculationWorkbookCellLocation": {
+                            "sheetIndex": 1,
+                            "rowIndex": 9,
+                            "colIndex": 7
+                        },
+                        "startsNewRow": false,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "label": "Test Field 2",
+                        "name": "Test Field 2",
+                        "key": "testField2",
+                        "questionSetKey": "testQuestionSet2",
+                        "dataType": "text",
+                        "workflowRole": "none"
+                    }
+                ]
+            }
+        ],
+        "repeatingQuestionSets": [],
+        "optionSets": [],
+        "textElements": [],
+        "workflowConfiguration": {
+            "step1": {
+                "startScreenExpression": "true",
+                "tabIndexExpression": "1",
+                "articles": [{
+                        "elements": [{
+                                "type": "questions",
+                                "name": "testQuestionSet1"
+                            }
+                        ]
+                    }
+                ],
+                "actions": {
+                    "next": {
+                        "destinationStep": "step2",
+                        "primary": true
+                    }
+                }
+            },
+            "step2": {
+                "tabIndexExpression": "2",
+                "articles": [{
+                        "elements": [{
+                                "type": "questions",
+                                "name": "testQuestionSet1"
+                            }, {
+                                "type": "questions",
+                                "name": "testQuestionSet2"
+                            }
+                        ]
+                    }
+                ],
+                "actions": {
+                    "back": {
+                        "destinationStep": "step1",
+                        "primary": true
+                    }
+                }
+            }
+        }
+    },
+    "triggers": [],
+    "calculatesUsingStandardWorkbook": true
+}

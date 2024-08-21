@@ -1,0 +1,13 @@
+<apng-loader *ngIf="isLoading && !errorMessage"></apng-loader>
+<iframe referrerpolicy="no-referrer-when-downgrade" id='iQumulateMPFIframe' name="iQumulateMPFIframe" [src]="baseUrl"
+    [style.visibility]="isLoading ? 'hidden': 'visible'">
+</iframe>
+
+<form #iQumulateForm target="iQumulateMPFIframe" [action]="action" method="POST">
+  <ng-container *ngIf="mpfFields?.length > 0">
+      <div *ngFor="let field of mpfFields">
+        <input type="hidden" [name]="field.name" [value]="field.value" tabindex="0">
+      </div>
+  </ng-container>
+ 
+</form>

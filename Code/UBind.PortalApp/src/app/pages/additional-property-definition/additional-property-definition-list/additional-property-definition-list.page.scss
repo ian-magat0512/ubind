@@ -1,0 +1,51 @@
+div.round-icon-container {
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 18px;
+    width: 18px;   
+    margin-right: 9px;
+    background: var(--entity-list-large-icon-color);
+
+    .round-icon {
+        color: white !important;
+        width: 12px !important;
+        height: 12px !important;
+    }
+
+    .round-mat-icon {
+        margin-left: 0px !important;
+        font-size: 12px !important;
+    }
+}
+
+.filter-chips ion-icon, 
+.filter-chips mat-icon {
+    color: var(--entity-list-large-icon-color);
+}
+
+ion-chip.no-ripple{
+    cursor: auto;
+    height: 36px;
+    vertical-align: -webkit-baseline-middle;
+    border-radius: 64px;
+
+    ion-label{
+        font-size: 12px;
+        font-weight: 500;
+        letter-spacing: 0.72px;
+        cursor: auto !important;
+    }
+
+    ion-avatar{
+        width: 18px;
+        height: 18px;
+        margin-left: 0px;
+
+        mat-icon{
+            width: 18px;
+            height: 18px;
+        }
+    }
+}

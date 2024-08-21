@@ -1,0 +1,1603 @@
+{
+    "baseConfiguration": {
+        "questionSetsKeys": [
+            "Key",
+            "ratingPrimary",
+            "",
+            "occupation",
+            "liabilityLimit",
+            "tools",
+            "turnover",
+            "employees",
+            "ratingState",
+            "ratingSecondary",
+            "",
+            "policyStartDate",
+            "policyEndDate",
+            "contact",
+            "",
+            "contactName",
+            "contactEmail",
+            "contactPhone",
+            "contactMobile",
+            "personal",
+            "",
+            "insuredFullName",
+            "residentialHeading",
+            "residentialAddress",
+            "residentialTown",
+            "residentialState",
+            "residentialPostcode",
+            "interestedParty",
+            "disclosure",
+            "",
+            "liability",
+            "general",
+            "declaration",
+            "paymentOptions",
+            "paymentOption",
+            "paymentMethods",
+            "",
+            "paymentMethodSelect",
+            "creditCardHeading",
+            "creditCardNumber",
+            "creditCardName",
+            "creditCardExpiryDate",
+            "creditCardCCV",
+            "successPage",
+            "",
+            "successMessage"
+        ],
+        "repeatingQuestionSetsKeys": [
+            "Key",
+            "repeating1",
+            "",
+            "repeating2",
+            "",
+            "repeating3",
+            "",
+            "repeating4",
+            "",
+            "repeating5",
+            ""
+        ],
+        "questionSetsKeysNested": {
+            "ratingPrimary": [
+                "occupation",
+                "liabilityLimit",
+                "tools",
+                "turnover",
+                "employees",
+                "ratingState"
+            ],
+            "ratingSecondary": [
+                "policyStartDate",
+                "policyEndDate"
+            ],
+            "contact": [
+                "contactName",
+                "contactEmail",
+                "contactPhone",
+                "contactMobile"
+            ],
+            "personal": [
+                "insuredFullName",
+                "residentialHeading",
+                "residentialAddress",
+                "residentialTown",
+                "residentialState",
+                "residentialPostcode",
+                "interestedParty"
+            ],
+            "disclosure": [
+                "liability",
+                "general",
+                "declaration"
+            ],
+            "paymentOptions": [
+                "paymentOption"
+            ],
+            "paymentMethods": [
+                "paymentMethodSelect",
+                "creditCardHeading",
+                "creditCardNumber",
+                "creditCardName",
+                "creditCardExpiryDate",
+                "creditCardCCV"
+            ],
+            "successPage": [
+                "successMessage"
+            ]
+        },
+        "repeatingQuestionSetsKeysNested": {
+            "repeating1": [],
+            "repeating2": [],
+            "repeating3": [],
+            "repeating4": [],
+            "repeating5": []
+        },
+        "sidebarSummaryKeyMapping": {
+            "occupation": "Occupation",
+            "liabilityLimit": "Liability",
+            "tools": "Tools",
+            "turnover": "Turnover",
+            "employees": "Employees",
+            "ratingState": "State"
+        },
+        "workflowRoles": {
+            "policyInceptionDate": "policyStartDate",
+            "policyExpiryDate": "policyEndDate",
+            "customerName": "contactName",
+            "customerEmail": "contactEmail",
+            "customerPhone": "contactPhone",
+            "customerMobile": "contactMobile"
+        },
+        "displayableFields": [
+            "ratingPrimary",
+            "",
+            "occupation",
+            "liabilityLimit",
+            "tools",
+            "turnover",
+            "employees",
+            "ratingState",
+            "ratingSecondary",
+            "",
+            "policyStartDate",
+            "policyEndDate",
+            "contact",
+            "",
+            "contactName",
+            "contactEmail",
+            "contactPhone",
+            "contactMobile",
+            "personal",
+            "",
+            "insuredFullName",
+            "residentialHeading",
+            "residentialAddress",
+            "residentialTown",
+            "residentialState",
+            "residentialPostcode",
+            "interestedParty",
+            "disclosure",
+            "",
+            "liability",
+            "general",
+            "declaration",
+            "paymentOptions",
+            "paymentOption",
+            "paymentMethods",
+            "",
+            "paymentMethodSelect",
+            "creditCardHeading",
+            "creditCardNumber",
+            "creditCardName",
+            "creditCardExpiryDate",
+            "creditCardCCV",
+            "successPage",
+            "",
+            "successMessage"
+        ],
+        "repeatingQuestiondisplayableFields": [
+            "repeating1",
+            "",
+            "repeating2",
+            "",
+            "repeating3",
+            "",
+            "repeating4",
+            "",
+            "repeating5",
+            ""
+        ],
+        "triggers": {
+            "softReferral": {
+                "liabilityReferral": "This quote will be referred due to liability",
+                "generalReferral": "This quote will be referred due to duty disclosure"
+            },
+            "hardReferral": {},
+            "decline": {},
+            "error": {
+                "noCoverSelected": ""
+            }
+        },
+        "textElements": {
+            "organisation": {
+                "name": {
+                    "text": "ABC Insurance"
+                },
+                "address": {
+                    "text": "ABC Insurance Address"
+                },
+                "town": {
+                    "text": "ABC Insurance Town"
+                },
+                "state": {
+                    "text": "QLD"
+                },
+                "postcode": {
+                    "text": "4000"
+                },
+                "ABN": {
+                    "text": "TBA"
+                },
+                "AFSL": {
+                    "text": "TBA"
+                },
+                "phone": {
+                    "text": "1800 100 100"
+                },
+                "email": {
+                    "text": "mark.morales@aptiture.com"
+                },
+                "website": {
+                    "text": "https://www.ubind.com.au"
+                }
+            },
+            "product": {
+                "title": {
+                    "text": "ABC Insurance"
+                },
+                "description": {
+                    "text": "N/A"
+                },
+                "carrier": {
+                    "text": "TBA"
+                }
+            },
+            "sidebar": {
+                "incompleteHeader": {
+                    "text": "Answer a few simple questions to get an instant quote online."
+                },
+                "incompleteLabel": {
+                    "text": "Need Assistance?"
+                },
+                "incompleteMessage": {
+                    "text": "Call 11 22 33 (Weekdays 8:30am-5:30pm)"
+                },
+                "premiumEstimateHeader": {
+                    "text": "We have calculated an estimated premium based on the information provided so far."
+                },
+                "premiumEstimateLabel": {
+                    "text": "Your Estimate"
+                },
+                "premiumEstimateMessage": {
+                    "text": "To calculate your final premium please complete the remaining questions."
+                },
+                "premiumCompleteHeader": {
+                    "text": "We have calculated a premium based on the information you have provided."
+                },
+                "premiumCompleteLabel": {
+                    "text": "Your Premium"
+                },
+                "premiumCompleteMessage": {
+                    "text": "To finalise your quote please complete the remaining questions and follow the prompts."
+                },
+                "bindingQuoteHeader": {
+                    "text": "We have finalised your quote using the information provided."
+                },
+                "bindingQuoteLabel": {
+                    "text": "Your Quote"
+                },
+                "bindingQuoteMessage": {
+                    "text": "To proceed with your quote please enter your payment details and follow the prompts."
+                },
+                "paymentDetailsCompleteHeader": {
+                    "text": "We have finalised your quote using the information provided."
+                },
+                "paymentDetailsCompleteLabel": {
+                    "text": "Your Quote"
+                },
+                "paymentDetailsCompleteMessage": {
+                    "text": "To complete your purchase please read and agree to our terms and conditions."
+                },
+                "legalTermsAcceptedHeader": {
+                    "text": "We have finalised your quote using the information provided."
+                },
+                "legalTermsAcceptedLabel": {
+                    "text": "Your Quote"
+                },
+                "legalTermsAcceptedMessage": {
+                    "text": "To complete your purchase please follow the prompts."
+                },
+                "softReferralHeader": {
+                    "text": "We cannot complete your purchase online."
+                },
+                "softReferralLabel": {
+                    "text": "Quote Referral"
+                },
+                "softReferralMessageDefault": {
+                    "text": "Unfortunately we are unable to complete your purchase online based on your selections."
+                },
+                "softReferralMessageAppendix": {
+                    "text": "However, if you enter your contact details one of our qualified insurance experts will assist you in completing your purchase offline."
+                },
+                "hardReferralHeader": {
+                    "text": "We cannot generate your quote online."
+                },
+                "hardReferralLabel": {
+                    "text": "Quote Referral"
+                },
+                "hardReferralMessageDefault": {
+                    "text": "Unfortunately our online channel cannot provide you with a quote based of your selections."
+                },
+                "hardReferralMessageAppendix": {
+                    "text": "However, if you enter your contact details one of our qualified insurance experts will assist you in completing your purchase offline."
+                },
+                "declineHeader": {
+                    "text": "We cannot generate your quote."
+                },
+                "declineLabel": {
+                    "text": "Quote Declined"
+                },
+                "declineMessageDefault": {
+                    "text": "Unfortunately you are ineligible to purchase this insurance product based on your selections."
+                },
+                "declineMessageAppendix": {
+                    "text": "However, if you enter your contact details one of our qualified insurance experts will assist you in exploring alternative insurance products that may suit your situation."
+                },
+                "errorHeader": {
+                    "text": "We cannot generate your quote online."
+                },
+                "errorLabel": {
+                    "text": "Calculation Error"
+                },
+                "errorMessageDefault": {
+                    "text": "Unfortunately our online channel cannot provide you with a quote based of your selections."
+                },
+                "errorMessageAppendix": {
+                    "text": "However, if you enter your contact details one of our qualified insurance experts will assist you in completing your purchase offline."
+                },
+                "summaryLabel": {
+                    "text": "Quote Summary"
+                }
+            },
+            "formElements": {
+                "helpMessageLabel": {
+                    "text": "What doest this mean and why is it important?"
+                },
+                "repeatingAddItemButton": {
+                    "text": "Add",
+                    "icon": "glyphicon glyphicon-plus"
+                },
+                "repeatingRemoveItemButton": {
+                    "text": "Remove",
+                    "icon": "glyphicon glyphicon-remove"
+                }
+            },
+            "sidebarPanels": {
+                "test1Header": {
+                    "text": "Header 1"
+                },
+                "test1Body": {
+                    "text": "<p>Some HTML content</p>"
+                },
+                "test1Footer": {
+                    "text": "Footer 1"
+                }
+            },
+            "workflow": {
+                "step1": {
+                    "tabLabel": {
+                        "text": "Get a quote"
+                    },
+                    "topHeading": {
+                        "text": "ABC Insurance"
+                    },
+                    "ratingHeading": {
+                        "text": "Business Information"
+                    },
+                    "contactHeading": {
+                        "text": "Contact Details"
+                    },
+                    "nextButton": {
+                        "text": "Next",
+                        "icon": "glyphicon glyphicon-arrow-right"
+                    },
+                    "enquiryButton": {
+                        "text": "Request a call-back",
+                        "icon": "glyphicon glyphicon-earphone"
+                    }
+                },
+                "step2": {
+                    "tabLabel": {
+                        "text": "Disclosure"
+                    },
+                    "topHeading": {
+                        "text": "ABC Insurance"
+                    },
+                    "personalHeading": {
+                        "text": "Personal Details"
+                    },
+                    "disclosureHeading": {
+                        "text": "Duty of Disclosure"
+                    },
+                    "nextButton": {
+                        "text": "Next",
+                        "icon": "glyphicon glyphicon-arrow-right"
+                    },
+                    "backButton": {
+                        "text": "Back",
+                        "icon": "glyphicon glyphicon-arrow-left"
+                    },
+                    "enquiryButton": {
+                        "text": "Request a call-back",
+                        "icon": "glyphicon glyphicon-earphone"
+                    }
+                },
+                "step3": {
+                    "tabLabel": {
+                        "text": "Payment"
+                    },
+                    "topHeading": {
+                        "text": "ABC Insurance"
+                    },
+                    "nextButton": {
+                        "text": "Complete purchase",
+                        "icon": "glyphicon glyphicon-arrow-right"
+                    },
+                    "backButton": {
+                        "text": "Back",
+                        "icon": "glyphicon glyphicon-arrow-left"
+                    },
+                    "enquiryButton": {
+                        "text": "Request a call-back",
+                        "icon": "glyphicon glyphicon-earphone"
+                    }
+                },
+                "successPage": {
+                    "topHeading": {
+                        "text": "ABC Insurance"
+                    },
+                    "successHeading": {
+                        "text": "Purchase completed"
+                    }
+                },
+                "enquiryPage": {
+                    "topHeading": {
+                        "text": "ABC Insurance"
+                    },
+                    "enquiryHeading": {
+                        "text": "Call-back requested"
+                    },
+                    "enquiryText": {
+                        "text": "Thank you for registering your interest. Your details have been passed on to one of our qualified insurance specialists, who will contact you shortly and assist you in obtaining the right cover."
+                    },
+                    "backButton": {
+                        "text": "Return to your quote",
+                        "icon": "glyphicon glyphicon-arrow-left"
+                    }
+                },
+                "referralPage": {
+                    "topHeading": {
+                        "text": "ABC Insurance"
+                    },
+                    "referralHeading": {
+                        "text": "Quote Referred"
+                    },
+                    "referralText": {
+                        "text": "However, your details have been passed on to one of our qualified insurance specialists, who will contact you shortly and assist you in obtaining the right cover."
+                    }
+                },
+                "declinePage": {
+                    "topHeading": {
+                        "text": "ABC Insurance"
+                    },
+                    "declineHeading": {
+                        "text": "Quote declined"
+                    },
+                    "declineText": {
+                        "text": "However, one of our qualified insurance specialists may be able to recommend a different type of insurance product to provide the cover you need. If this would be of interest, please feel free to contact us today."
+                    },
+                    "enquiryButton": {
+                        "text": "Request a call-back",
+                        "icon": "glyphicon glyphicon-earphone"
+                    }
+                }
+            }
+        },
+        "settings": {
+            "permissions": {
+                "productionDomains": "www.website.com",
+                "stagingDomains": "staging.website.com",
+                "developmentDomains": "dev.website.com"
+            },
+            "financial": {
+                "commissionRate": 0.275,
+                "serviceFeeOnceOff": 0,
+                "serviceFeePremiumPercent": 0
+            },
+            "styling": {
+                "googleFonts": {
+                    "headings": "Montserrat",
+                    "bodyText": "Source Sans Pro",
+                    "labels": "Nunito"
+                },
+                "fontWeight": {
+                    "headings": 400,
+                    "bodyText": 300,
+                    "labels": 700
+                },
+                "primaryColours": {
+                    "background1": "#FFFFFF",
+                    "background2": "#FEFEFE",
+                    "background3": "#E74D3C",
+                    "foreground1": "#1d1c1c",
+                    "foreground2": "#FFFFFF",
+                    "accent1": "#49b50a",
+                    "accent2": "#49b50a",
+                    "borders": "#CCCCCC"
+                },
+                "other": {
+                    "tooltipIcon": "fa-question-circle",
+                    "defaultBorderRadius": "3px",
+                    "scrollDurationMultiplier": 1,
+                    "sidebarWidth": 250,
+                    "sidebarPaymentOptions": true,
+                    "smallDeviceMargin": 0,
+                    "offsetTopXS": 0,
+                    "offsetTopSM": 0,
+                    "offsetTopMD": 0,
+                    "offsetTopLG": 0,
+                    "offsetTopXL": 0
+                }
+            }
+        },
+        "styles": {
+            "css": "body{font-family:'Source Sans Pro';font-size:15px;font-weight:300;color:#1d1c1c;margin-right:0;margin-bottom:15px;margin-left:0;padding-right:5px;padding-left:5px}h1{font-family:'Montserrat';font-size:45px;font-weight:400;color:#215401;margin-top:40px;margin-right:30px;margin-bottom:40px;margin-left:30px}aside#sidebar{font-family:'Source Sans Pro';font-weight:300}section{padding-top:1 em;padding-right:1 em;padding-bottom:1 em;padding-left:1 em}article{background:#efefef;margin-bottom:30px;padding-top:23px;padding-right:30px;padding-bottom:20px;padding-left:30px}h1{color:#215401}section h2{font-family:'Montserrat';font-size:30px;font-weight:400;color:#215401;margin-top:10px;margin-bottom:0}section h3{font-family:'Montserrat';font-size:24px;font-weight:400;color:#215401;margin-top:20px;margin-bottom:0}section h4{font-family:'Montserrat';font-size:20px;font-weight:400;color:#215401;margin-top:0;margin-bottom:0}section p{font-family:'Source Sans Pro';font-size:15px;font-weight:300;margin-top:5px;margin-bottom:5px}formly-field .form-group{margin-top:10px;margin-bottom:10px}formly-field .field-content{margin-bottom:15px}formly-field label{font-family:'Nunito';font-size:16px;font-weight:700;color:#1d1c1c}formly-field .question{margin-top:0px;margin-bottom:15px}formly-field small.text-muted{font-family:'Source Sans Pro';font-size:13px;font-weight:300;color:#FFFFFF}formly-field .form-control{font-family:'Source Sans Pro';font-size:15px;font-weight:300;color:#1d1c1c;background:#FEFEFE;border:1px solid #CCCCCC;border-radius:3px;padding-top:13px;padding-right:12px;padding-bottom:13px;padding-left:12px}formly-field span.input-group-addon{color:#FFFFFF;background:#49b50a;border:1px solid #CCCCCC;border-radius:3px}formly-field .form-control.ng-valid.ng-touched{border-right:7px solid #4a9049;border-left:1px solid #CCCCCC}formly-field .form-control.ng-invalid.ng-touched{border-right:7px solid #b33345;border-left:1px solid #CCCCCC}formly-field .form-control.ng-pending.ng-touched{border-right:7px solid #E74D3C;border-left:1px solid #CCCCCC}formly-field .form-control[disabled]{background:#f6f8fd}formly-field formly-validation-message{font-family:'Source Sans Pro';font-size:13px;font-weight:300;color:#b33345}formly-field textarea{font-family:'Source Sans Pro'}formly-field div.terms-and-conditions{font-family:'Source Sans Pro';font-size:12px;background:#FFFFFF;padding-top:20px;padding-right:25px;padding-bottom:15px;padding-left:10px;height:300px}formly-field div.terms-and-conditions p{margin-left:15px}formly-field div.terms-and-conditions ol{padding-left:30px}formly-field .content-field{margin-bottom:-15px}formly-field div.btn-group{margin-bottom:-10px}formly-field label.btn,formly-field label.btn:hover,formly-field label.btn:active{font-family:'Nunito';font-size:14px;font-weight:700;color:#1d1c1c;background:#FFFFFF;border:1px solid #CCCCCC;border-radius:3px;margin-right:7px;margin-bottom:10px;margin-left:0;padding-top:12px;padding-right:18px;padding-bottom:12px;padding-left:18px}formly-field label.btn.selected,formly-field label.btn.selected:hover,formly-field label.selected:active{color:#FFFFFF;background:#49b50a;border:1px solid #CCCCCC}formly-field label .btn-icon{font-size:25px;margin-top:3px}formly-field label .btn-icon .sm{font-size:18px;top:-4px}formly-field label .btn-icon .md{font-size:25px;top:-2px}formly-field label .btn-icon .lg{font-size:30px}formly-field .repeating-question-set{margin-top:30px}formly-field .repeating .btn{font-family:'Source Sans Pro';font-size:14px;font-weight:300;border-radius:3px;padding-top:15px;padding-right:20px;padding-bottom:15px;padding-left:20px}formly-field .repeating .btn.btn-add-item{color:#FFFFFF;background:#49b50a;border:none;margin-top:20px}formly-field .repeating .btn.btn-add-item:hover{color:#FFFFFF;background:#49b50a;border:none}formly-field .repeating .btn.btn-add-item:active{color:#FFFFFF;background:#49b50a;border:none}formly-field .repeating .btn.btn-add-item .btn-icon{font-size:14px;margin-top:-4px;margin-right:5px;margin-left:2px;top:1px}formly-field .repeating .btn.btn-remove-item{color:#1d1c1c;background:#FFFFFF;border:none;margin-top:25px}formly-field .repeating .btn.btn-remove-item:hover{color:#1d1c1c;background:#FFFFFF;border:none}formly-field .repeating .btn.btn-remove-item:active{color:#1d1c1c;background:#FFFFFF;border:none}formly-field .repeating .btn.btn-remove-item .btn-icon{font-size:16px;margin-top:-4px;margin-right:5px;top:2px}.ui-datepicker.ui-widget.ui-widget-content{background:#FFFFFF;border:none;border-radius:3px;padding-top:5px;padding-right:5px;padding-bottom:5px;padding-left:4px}.ui-datepicker .ui-datepicker-header{background:#FEFEFE;border:none;border-radius:3px;margin-top:1px;margin-right:1px;margin-bottom:1px;margin-left:2px}.ui-datepicker .ui-datepicker-title select,.ui-datepicker select.ui-datepicker-month,.ui-datepicker select.ui-datepicker-year{font-family:'Source Sans Pro';font-size:13px;font-weight:300;color:#1d1c1c;background:#FFFFFF;border:none;border-radius:3px;margin-top:2px;margin-right:2px;margin-bottom:2px;margin-left:2px;width:40%}.ui-datepicker .ui-datepicker-calendar th{font-family:'Nunito';font-size:14px;font-weight:700;color:#1d1c1c}.ui-widget-content .ui-state-default{font-family:'Source Sans Pro';font-size:13px;font-weight:300;color:#1d1c1c;background:#FEFEFE;border:none;padding-right:4px;padding-bottom:3px}.ui-widget-content .ui-state-hover{color:#1d1c1c;background:#E74D3C;border:none}.ui-widget-content .ui-state-highlight{color:#FFFFFF;background:#FFFFFF;border:none}.ui-widget-content .ui-state-active{color:#FFFFFF;background:#49b50a;border:none}formly-field radio-field{margin-top:10px}formly-field .radio label{font-family:'Source Sans Pro';font-size:15px;font-weight:300;color:#1d1c1c;margin-bottom:3px;margin-left:10px}formly-field .radio input[type=radio] ~ .check{background:#FEFEFE;border:1px solid #CCCCCC;border-radius:100%;margin-top:2px;width:16px;height:16px}formly-field .radio input[type=radio]:checked ~ .check .inside{background:#49b50a;border-radius:100%;margin-top:3px;margin-left:3px;width:8px;height:8px}formly-field .checkbox label{font-family:'Source Sans Pro';font-size:15px;font-weight:300;color:#1d1c1c;margin-left:10px}formly-field .checkbox input[type=checkbox] ~ .check{background:#FFFFFF;width:17px;height:17px;top:2px}formly-field .checkbox input[type=checkbox] ~ .check .inside{font-size:13px;color:#49b50a;background:#49b50a;margin-top:1px;margin-left:2px}.tooltip-icon{font-size:14px;color:#49b50a}.popover{background:#FFFFFF;border:none;border-radius:3px;padding-top:6px;padding-right:6px;padding-bottom:6px;padding-left:6px}.popover-title{font-family:'Nunito';font-size:14px;font-weight:700;color:#1d1c1c;background:#FEFEFE;border:none;border-radius:3px;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px}.popover-content{font-family:'Source Sans Pro';font-size:14px;font-weight:300;color:#1d1c1c;padding-top:10px;padding-right:10px;padding-bottom:10px;padding-left:10px}nav .btn-icon{font-size:16px;margin-top:-4px;margin-right:5px}nav .btn{font-family:'Source Sans Pro';font-size:14px;font-weight:300;border-radius:3px;padding-top:18px;padding-right:30px;padding-bottom:18px;padding-left:30px}nav .btn.btn-primary{color:#FFFFFF;background:#49b50a;border:1px solid #49b50a}nav .btn.btn-primary:hover{color:#FFFFFF;background:#3d9108;border:1px solid #49b50a}nav .btn.btn-primary:active{color:#FFFFFF;background:#49b50a;border:1px solid #49b50a}nav .btn.btn-secondary{color:#1d1c1c;background:#ffffff;border:1px solid #CCCCCC}nav .btn.btn-secondary:hover{color:#1d1c1c;background:#ffffff;border:1px solid #CCCCCC}nav .btn.btn-secondary:active{color:#1d1c1c;background:#ffffff;border:1px solid #CCCCCC}nav#progress-bar h4{font-family:'Montserrat';font-size:24px;font-weight:400;margin-top:30px;margin-bottom:3px;padding-bottom:10px}nav#progress-bar h4.active{color:#49b50a;border-bottom:4px solid #49b50a}nav#progress-bar h4.inactive{color:#d6dce0;border-bottom:4px solid #e4eaee}#sidebar .header{font-family:'Source Sans Pro';font-weight:300;color:#FFFFFF;background:#49b50a;padding-top:20px;padding-right:20px;padding-bottom:20px;padding-left:20px}#sidebar .body{font-family:'Source Sans Pro';font-weight:300;color:#1d1c1c;background:#FEFEFE;border:1px solid #CCCCCC;padding-top:20px;padding-right:20px;padding-bottom:20px;padding-left:20px;border-top:0}#sidebar .footer{font-family:'Source Sans Pro';font-weight:300;color:#1d1c1c;background:#1d1c1c;padding-top:20px;padding-right:20px;padding-bottom:20px;padding-left:20px;border-top:1px solid #FFFFFF}#sidebar .body h3{font-family:'Source Sans Pro';font-size:16px;font-weight:700;color:#1d1c1c;margin-top:0;margin-bottom:5px}#sidebar .body .message{font-family:'Source Sans Pro';font-size:14px;font-weight:300;color:#1d1c1c;margin-top:0;margin-bottom:0}#sidebar .body .price{color:#49b50a;height:62px}#sidebar .body .price .dollars{font-family:'Montserrat';font-size:45px;font-weight:400;color:#49b50a;margin-top:0;margin-bottom:0}#sidebar .body .price .cents{font-family:'Montserrat';font-size:15px;font-weight:700;color:#49b50a;margin-left:-13px}#sidebar .loader{color:#1d1c1c;margin-top:15px}#sidebar buttons-field label.btn{font-family:'Nunito';font-size:13px;font-weight:700;color:#1d1c1c;background:none;padding-top:4px;padding-right:2px;padding-bottom:4px;padding-left:2px}#sidebar buttons-field label.btn.selected{color:#FFFFFF;background:#49b50a;padding-right:8px;padding-left:8px}#sidebar .body .summary{margin-top:15px}#sidebar .body .summary h4{font-family:'Nunito';font-size:15px;font-weight:700;color:#1d1c1c;margin-top:0;margin-bottom:10px}#sidebar .body .summary .key{font-family:'Source Sans Pro';font-size:13px;font-weight:700;color:#1d1c1c;padding-right:3px}#sidebar .body .summary .value{font-family:'Source Sans Pro';font-size:13px;font-weight:300;color:#1d1c1c}#sidebar .body nav .btn{margin-top:20px;padding-top:13px;padding-bottom:13px;width:100%}#sidebar .header nav{margin-top:10px}#sidebar .header nav .btn{margin-top:10px;padding-top:10px;padding-right:20px;padding-bottom:10px;padding-left:20px}#sidebar .header nav .btn.btn-primary{color:#1d1c1c;background:#FFFFFF}#sidebar .header nav .btn.btn-secondary{color:#1d1c1c;background:#FFFFFF}nav#formFooter-actions{margin-top:20px}nav#formFooter-actions .btn{margin-right:15px;margin-bottom:15px}@media (max-width:768px){article{padding:23px 35px !important;}#sidebar #calculation .body{border-top:1px solid #CCCCCC;}h1{margin-left:20px !important; margin-right:20px !important; margin-bottom:85px !important;}.nav#formFooter-actions{padding-left:20px !important; padding-right:20px !important;}#sidebar-column{margin-top:-56px !important}}@font-face{font-family:'ubind-cover';src:url('https://demo.ubind.com.au/trade/icons/font/ubind-cover.eot?30126897'); src:url('https://demo.ubind.com.au/trade/icons/font/ubind-cover.eot?30126897#iefix') format('embedded-opentype'),url('https://demo.ubind.com.au/trade/icons/font/ubind-cover.woff2?30126897') format('woff2'),url('https://demo.ubind.com.au/trade/icons/font/ubind-cover.woff?30126897') format('woff'),url('https://demo.ubind.com.au/trade/icons/font/ubind-cover.ttf?30126897') format('truetype'),url('https://demo.ubind.com.au/trade/icons/font/ubind-cover.svg?30126897#ubind-cover') format('svg'); font-weight:normal !important;}span.icon-coins-2{width:70px;display:block; margin:0 auto;}.icon-coins-2:before{font-family:'ubind-cover';content:'\\e801'; font-weight:normal;}span.icon-coins-3{width:70px;display:block; margin:0 auto;}.icon-coins-3:before{font-family:'ubind-cover';content:'\\e802'; font-weight:normal;}span.icon-coins-4{width:70px;display:block; margin:0 auto;}.icon-coins-4:before{font-family:'ubind-cover';content:'\\e803'; font-weight:normal;}span.icon-toolbox{width:59px;display:block; margin:0 auto;}.icon-toolbox:before{font-family:'ubind-cover';content:'\\e804'; font-weight:normal;}span.icon-van-tools{width:59px;display:block; margin:0 auto;}.icon-van-tools:before{font-family:'ubind-cover';content:'\\e800'; font-weight:normal;}span.icon-tool-screwdriver{width:59px;display:block; margin:0 auto;}.icon-tool-screwdriver:before{font-family:'ubind-cover';content:'\\e805'; font-weight:normal;}span.icon-tool-dril{width:59px;display:block; margin:0 auto;}.icon-tool-drill:before{font-family:'ubind-cover';content:'\\e806'; font-weight:normal;}span.icon-tool-circular-saw{width:59px;display:block; margin:0 auto;}.icon-tool-circular-saw:before{font-family:'ubind-cover';content:'\\e807'; font-weight:normal;}span.icon-building-sm{width:90px;display:block; margin:0 auto;}.icon-building-sm:before{font-family:'ubind-cover';content:'\\e80b'; font-weight:normal;}span.icon-building-md{width:90px;display:block; margin:0 auto;}.icon-building-md:before{font-family:'ubind-cover';content:'\\e80c'; font-weight:normal;}span.icon-buildings-xl{width:90px;display:block; margin:0 auto;}.icon-buildings-xl:before{font-family:'ubind-cover';content:'\\e80d'; font-weight:normal;}#section-column{margin-right:270px}#sidebar-column{width:250px}.input-group *:first-child .form-control{border-top-left-radius:3px;border-bottom-left-radius:3px;}.input-group *:last-child .form-control{border-top-right-radius:3px;border-bottom-right-radius:3px;}@media(max-width:768px){#sidebar-column{width:auto}#section-column{margin-right:0}body{margin-left:0;margin-right:0}article{padding-left:0px;padding-right:0px}nav#formFooter-actions{padding-left:0px;padding-right:0px}#sidebar .body{margin-bottom:0}h1{margin-left:0px;margin-right:0px}}@media(min-width:769px){h1{margin-left:0;margin-right:0}}#sidebar #calculation.state-softReferral .header{background:#e5710a}#sidebar #calculation.state-hardReferral .header{background:#e40a20}#sidebar #calculation.state-decline .header{background:#e40a20}#sidebar #calculation .header:before{border-right: 10px solid #49b50a}#sidebar #calculation.state-softReferral .header:before{border-right: 10px solid #e5710a}#sidebar #calculation.state-hardReferral .header:before{border-right: 10px solid #e40a20}#sidebar #calculation.state-decline .header:before{border-right: 10px solid #e40a20}#sidebar #calculation .arrow:after{border-top: 10px solid #49b50a}#sidebar #calculation.state-softReferral .arrow:after{border-top: 10px solid #e5710a}#sidebar #calculation.state-hardReferral .arrow:after{border-top: 10px solid #e40a20}#sidebar #calculation.state-decline .arrow:after{border-top: 10px solid #e40a20}.popover.top>.arrow:after{border-top-color:#FFFFFF}.popover.top>.arrow{border-top-color:none}",
+            "fonts": [{
+                    "fontFamily": "Source Sans Pro",
+                    "fontWeight": 300
+                }, {
+                    "fontFamily": "Montserrat",
+                    "fontWeight": 400
+                }, {
+                    "fontFamily": "Nunito",
+                    "fontWeight": 700
+                }, {
+                    "fontFamily": "Source Sans Pro",
+                    "fontWeight": 700
+                }, {
+                    "fontFamily": "Montserrat",
+                    "fontWeight": 700
+                }
+            ]
+        }
+    },
+    "questionSets": {
+        "ratingPrimary": [{
+                "className": "row",
+                "fieldGroup": [{
+                        "key": "occupation",
+                        "type": "select-field",
+                        "className": "col-xs-12",
+                        "templateOptions": {
+                            "options": [{
+                                    "label": "Air Conditioning Service Trade",
+                                    "value": "Air Conditioning Service Trade"
+                                }, {
+                                    "label": "Alarm Installer",
+                                    "value": "Alarm Installer"
+                                }, {
+                                    "label": "Antenna Installers",
+                                    "value": "Antenna Installers"
+                                }, {
+                                    "label": "Arborist/Tree Surgeon Trade",
+                                    "value": "Arborist/Tree Surgeon Trade"
+                                }, {
+                                    "label": "Auto Audio Sales/Installation",
+                                    "value": "Auto Audio Sales/Installation"
+                                }, {
+                                    "label": "Auto Electrician",
+                                    "value": "Auto Electrician"
+                                }, {
+                                    "label": "Auto Engine Reconditioning",
+                                    "value": "Auto Engine Reconditioning"
+                                }, {
+                                    "label": "Blind Installer",
+                                    "value": "Blind Installer"
+                                }, {
+                                    "label": "Bricklayers Trade",
+                                    "value": "Bricklayers Trade"
+                                }, {
+                                    "label": "Car detailing",
+                                    "value": "Car detailing"
+                                }, {
+                                    "label": "Car Wash - No Repair/Servicing",
+                                    "value": "Car Wash - No Repair/Servicing"
+                                }, {
+                                    "label": "Carpenter Trade",
+                                    "value": "Carpenter Trade"
+                                }, {
+                                    "label": "Carpet Cleaners",
+                                    "value": "Carpet Cleaners"
+                                }, {
+                                    "label": "Carpet Layers",
+                                    "value": "Carpet Layers"
+                                }, {
+                                    "label": "Cleaners - Internal Only",
+                                    "value": "Cleaners - Internal Only"
+                                }, {
+                                    "label": "Concreters Trade",
+                                    "value": "Concreters Trade"
+                                }, {
+                                    "label": "Data/Cabling Installation Trade",
+                                    "value": "Data/Cabling Installation Trade"
+                                }, {
+                                    "label": "Earthmoving Trade",
+                                    "value": "Earthmoving Trade"
+                                }, {
+                                    "label": "Electrical Goods Installation and/or Repair",
+                                    "value": "Electrical Goods Installation and/or Repair"
+                                }, {
+                                    "label": "Electricians Trade - Excluding any work in QLD",
+                                    "value": "Electricians Trade - Excluding any work in QLD"
+                                }, {
+                                    "label": "Elevators/Escalators/Hoists Installation and Service",
+                                    "value": "Elevators/Escalators/Hoists Installation and Service"
+                                }, {
+                                    "label": "Fencing Contractor (excl Farming/Rural)",
+                                    "value": "Fencing Contractor (excl Farming/Rural)"
+                                }, {
+                                    "label": "Floor Sander",
+                                    "value": "Floor Sander"
+                                }, {
+                                    "label": "Flooring Contractor",
+                                    "value": "Flooring Contractor"
+                                }, {
+                                    "label": "Garage Door Installation",
+                                    "value": "Garage Door Installation"
+                                }, {
+                                    "label": "Glazier including Workrooms",
+                                    "value": "Glazier including Workrooms"
+                                }, {
+                                    "label": "Graffiti Removal",
+                                    "value": "Graffiti Removal"
+                                }, {
+                                    "label": "Handyman",
+                                    "value": "Handyman"
+                                }, {
+                                    "label": "Kitchen Installer",
+                                    "value": "Kitchen Installer"
+                                }, {
+                                    "label": "Land Clearing",
+                                    "value": "Land Clearing"
+                                }, {
+                                    "label": "Landscapers Trade",
+                                    "value": "Landscapers Trade"
+                                }, {
+                                    "label": "Lawn Mowing",
+                                    "value": "Lawn Mowing"
+                                }, {
+                                    "label": "Locksmith",
+                                    "value": "Locksmith"
+                                }, {
+                                    "label": "Mobile Auto Electrician",
+                                    "value": "Mobile Auto Electrician"
+                                }, {
+                                    "label": "Painter / Decorator Trade",
+                                    "value": "Painter / Decorator Trade"
+                                }, {
+                                    "label": "Paving Contractors Trade",
+                                    "value": "Paving Contractors Trade"
+                                }, {
+                                    "label": "Pet Washing",
+                                    "value": "Pet Washing"
+                                }, {
+                                    "label": "Petrol Pump Installation & Repair",
+                                    "value": "Petrol Pump Installation & Repair"
+                                }, {
+                                    "label": "Plasterer Trade",
+                                    "value": "Plasterer Trade"
+                                }, {
+                                    "label": "Plumber Trade - Excluding any work in VIC",
+                                    "value": "Plumber Trade - Excluding any work in VIC"
+                                }, {
+                                    "label": "Pump-Non Fuel Installation & Repair",
+                                    "value": "Pump-Non Fuel Installation & Repair"
+                                }, {
+                                    "label": "Refrigeration Service Trade",
+                                    "value": "Refrigeration Service Trade"
+                                }, {
+                                    "label": "Roofing Contractors Trade",
+                                    "value": "Roofing Contractors Trade"
+                                }, {
+                                    "label": "Shed Erection Trade",
+                                    "value": "Shed Erection Trade"
+                                }, {
+                                    "label": "Solar Panel Installation",
+                                    "value": "Solar Panel Installation"
+                                }, {
+                                    "label": "Swimming Pool Service & Cleaning",
+                                    "value": "Swimming Pool Service & Cleaning"
+                                }, {
+                                    "label": "Tiling Contractors",
+                                    "value": "Tiling Contractors"
+                                }, {
+                                    "label": "Water Tank Installation",
+                                    "value": "Water Tank Installation"
+                                }, {
+                                    "label": "Waterproofing Trade",
+                                    "value": "Waterproofing Trade"
+                                }, {
+                                    "label": "Weed Controllers - No Aerial Spraying",
+                                    "value": "Weed Controllers - No Aerial Spraying"
+                                }, {
+                                    "label": "Window Tinting (Internal Only)",
+                                    "value": "Window Tinting (Internal Only)"
+                                }
+                            ],
+                            "label": "Occupation",
+                            "placeholder": "Please select your occupation",
+                            "affectsPremium": "Yes"
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', '')])"
+                        }
+                    }, {
+                        "key": "liabilityLimit",
+                        "type": "radio-field",
+                        "className": "col-xs-12",
+                        "templateOptions": {
+                            "defaultValue": "5000000",
+                            "options": [{
+                                    "value": "$2 million",
+                                    "key": "2000000"
+                                }, {
+                                    "value": "$5 million",
+                                    "key": "5000000"
+                                }, {
+                                    "value": "$10 million",
+                                    "key": "10000000"
+                                }
+                            ],
+                            "label": "What level of public and product liability cover do you want?",
+                            "affectsPremium": "Yes"
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', '')])"
+                        }
+                    }, {
+                        "key": "tools",
+                        "type": "buttons-field",
+                        "className": "col-xs-12",
+                        "templateOptions": {
+                            "defaultValue": "5000",
+                            "options": [{
+                                    "value": "No Cover",
+                                    "key": "0",
+                                    "icon": "icon-toolbox"
+                                }, {
+                                    "value": "$1k",
+                                    "key": "1000",
+                                    "icon": "icon-tool-screwdriver"
+                                }, {
+                                    "value": "$5k",
+                                    "key": "5000",
+                                    "icon": "icon-tool-drill"
+                                }, {
+                                    "value": "$8k",
+                                    "key": "8000",
+                                    "icon": "icon-tool-circular-saw"
+                                }, {
+                                    "value": "$12k",
+                                    "key": "12000",
+                                    "icon": "icon-van-tools"
+                                }
+                            ],
+                            "label": "How much would you like to insure your tools for?",
+                            "affectsPremium": "Yes"
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', '')])"
+                        }
+                    }, {
+                        "key": "turnover",
+                        "type": "buttons-field",
+                        "className": "col-xs-12",
+                        "templateOptions": {
+                            "defaultValue": "'150k-300k'",
+                            "options": [{
+                                    "value": "$150k",
+                                    "key": "150k",
+                                    "icon": "icon-building-sm"
+                                }, {
+                                    "value": "$150k - $300k",
+                                    "key": "150k-300k",
+                                    "icon": "icon-building-md"
+                                }, {
+                                    "value": "$300k - $600k",
+                                    "key": "300k-600k",
+                                    "icon": "icon-buildings-xl"
+                                }
+                            ],
+                            "label": "Turnover",
+                            "affectsPremium": "Yes"
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', '')])"
+                        }
+                    }, {
+                        "key": "employees",
+                        "type": "select-field",
+                        "className": "col-xs-12",
+                        "templateOptions": {
+                            "defaultValue": "1",
+                            "options": [{
+                                    "label": "1",
+                                    "value": "1"
+                                }, {
+                                    "label": "2",
+                                    "value": "2"
+                                }, {
+                                    "label": "3",
+                                    "value": "3"
+                                }, {
+                                    "label": "4",
+                                    "value": "4"
+                                }, {
+                                    "label": "5",
+                                    "value": "5"
+                                }, {
+                                    "label": "6+",
+                                    "value": "6+"
+                                }
+                            ],
+                            "label": "Number of employees",
+                            "affectsPremium": "Yes"
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', '')])"
+                        }
+                    }, {
+                        "key": "ratingState",
+                        "type": "buttons-field",
+                        "className": "col-xs-12",
+                        "templateOptions": {
+                            "defaultValue": "'VIC'",
+                            "options": [{
+                                    "value": "ACT",
+                                    "key": "ACT"
+                                }, {
+                                    "value": "NSW",
+                                    "key": "NSW"
+                                }, {
+                                    "value": "NT",
+                                    "key": "NT"
+                                }, {
+                                    "value": "QLD",
+                                    "key": "QLD"
+                                }, {
+                                    "value": "SA",
+                                    "key": "SA"
+                                }, {
+                                    "value": "TAS",
+                                    "key": "TAS"
+                                }, {
+                                    "value": "VIC",
+                                    "key": "VIC"
+                                }, {
+                                    "value": "WA",
+                                    "key": "WA"
+                                }
+                            ],
+                            "label": "Your state",
+                            "affectsPremium": "Yes",
+                            "affectsTriggers": "Yes"
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', '')])"
+                        }
+                    }
+                ]
+            }
+        ],
+        "ratingSecondary": [{
+                "className": "row",
+                "fieldGroup": [{
+                        "key": "policyStartDate",
+                        "type": "hidden-field",
+                        "className": "col-xs-12 col-md-6",
+                        "templateOptions": {
+                            "defaultValue": "dateAsString(today())",
+                            "affectsPremium": "Yes",
+                            "affectsTriggers": "Yes"
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', ''), ValidationService.customExpression('inTheNextDays(date(fieldValue), 30)', 'The start date must be in the next 30 days')])"
+                        }
+                    }, {
+                        "key": "policyEndDate",
+                        "type": "hidden-field",
+                        "className": "col-xs-12 col-md-6",
+                        "templateOptions": {
+                            "calculatedValue": "isDate(policyStartDate) ? dateAsString(addYears(date(policyStartDate), 1)) : ''"
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([])"
+                        },
+                        "expressionProperties": {
+                            "templateOptions.disabled": "true"
+                        }
+                    }
+                ]
+            }
+        ],
+        "contact": [{
+                "className": "row",
+                "fieldGroup": [{
+                        "key": "contactName",
+                        "type": "input-field",
+                        "className": "col-xs-12 col-md-6",
+                        "templateOptions": {
+                            "label": "Name"
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', '')])"
+                        }
+                    }, {
+                        "key": "contactEmail",
+                        "type": "input-field",
+                        "className": "col-xs-12 col-md-6",
+                        "templateOptions": {
+                            "label": "Email"
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', ''), ValidationService.isEmail()])"
+                        }
+                    }, {
+                        "key": "contactPhone",
+                        "type": "input-field",
+                        "className": "col-xs-12 col-md-6",
+                        "templateOptions": {
+                            "label": "Phone",
+                            "formatTextInput": "phoneNumber",
+                            "addonLeft": {
+                                "class": "fa fa-phone"
+                            }
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.isPhoneNumber()])"
+                        }
+                    }, {
+                        "key": "contactMobile",
+                        "type": "input-field",
+                        "className": "col-xs-12 col-md-6",
+                        "templateOptions": {
+                            "label": "Mobile",
+                            "formatTextInput": "phoneNumber",
+                            "addonLeft": {
+                                "class": "fa fa-phone"
+                            }
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', ''), ValidationService.isPhoneNumber()])"
+                        }
+                    }
+                ]
+            }
+        ],
+        "personal": [{
+                "className": "row",
+                "fieldGroup": [{
+                        "key": "insuredFullName",
+                        "type": "input-field",
+                        "className": "col-xs-12 col-md-6",
+                        "templateOptions": {
+                            "defaultValue": "contactName",
+                            "label": "Full name of the insured"
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', '')])"
+                        }
+                    }, {
+                        "key": "residentialHeading",
+                        "type": "content-field",
+                        "className": "col-xs-12",
+                        "templateOptions": {
+                            "content": {
+                                "heading3": "Residential Address"
+                            }
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([])"
+                        }
+                    }, {
+                        "key": "residentialAddress",
+                        "type": "input-field",
+                        "className": "col-xs-12 col-sm-12 col-md-5",
+                        "templateOptions": {
+                            "label": "Street address"
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', '')])"
+                        }
+                    }, {
+                        "key": "residentialTown",
+                        "type": "input-field",
+                        "className": "col-xs-12 col-sm-6 col-md-3",
+                        "templateOptions": {
+                            "label": "Suburb"
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', '')])"
+                        }
+                    }, {
+                        "key": "residentialState",
+                        "type": "select-field",
+                        "className": "col-xs-6 col-sm-3 col-md-2",
+                        "templateOptions": {
+                            "calculatedValue": "ratingState",
+                            "options": [{
+                                    "label": "ACT",
+                                    "value": "ACT"
+                                }, {
+                                    "label": "NSW",
+                                    "value": "NSW"
+                                }, {
+                                    "label": "NT",
+                                    "value": "NT"
+                                }, {
+                                    "label": "QLD",
+                                    "value": "QLD"
+                                }, {
+                                    "label": "SA",
+                                    "value": "SA"
+                                }, {
+                                    "label": "TAS",
+                                    "value": "TAS"
+                                }, {
+                                    "label": "VIC",
+                                    "value": "VIC"
+                                }, {
+                                    "label": "WA",
+                                    "value": "WA"
+                                }
+                            ],
+                            "label": "State",
+                            "placeholder": "Select"
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', '')])"
+                        },
+                        "expressionProperties": {
+                            "templateOptions.disabled": "true"
+                        }
+                    }, {
+                        "key": "residentialPostcode",
+                        "type": "input-field",
+                        "className": "col-xs-6 col-sm-3 col-md-2",
+                        "templateOptions": {
+                            "label": "Postcode"
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', ''), ValidationService.isPostcode(), ValidationService.customExpression('postcodeInState(fieldValue, ratingState)', 'The postcode entered does not match the selected state')])"
+                        }
+                    }, {
+                        "key": "interestedParty",
+                        "type": "input-field",
+                        "className": "col-xs-12",
+                        "templateOptions": {
+                            "question": "Please indicate any landlord, government statutory authority or government department require to be indemnified under your Public Liability Policy (Listed as Interested Party)?",
+                            "content": {
+                                "heading3": "Interested Party"
+                            }
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([])"
+                        }
+                    }
+                ]
+            }
+        ],
+        "disclosure": [{
+                "className": "row",
+                "fieldGroup": [{
+                        "key": "liability",
+                        "type": "buttons-field",
+                        "className": "col-xs-12",
+                        "templateOptions": {
+                            "options": [{
+                                    "value": "Yes",
+                                    "key": "Yes",
+                                    "icon": "glyphicon glyphicon-ok md"
+                                }, {
+                                    "value": "No",
+                                    "key": "No",
+                                    "icon": "glyphicon glyphicon-remove md"
+                                }
+                            ],
+                            "content": {
+                                "heading3": "Liability",
+                                "customHTML": "<div><label class='form-control-label'>In the past 5 years have you :</label><ul><li>Lodge a claim for loss</li><li>Had any claims made against you</li><li>Lodge claims totalling more than $10,000?</li></ul></div>"
+                            },
+                            "affectsPremium": "Yes",
+                            "affectsTriggers": "Yes"
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([])"
+                        }
+                    }, {
+                        "key": "general",
+                        "type": "buttons-field",
+                        "className": "col-xs-12",
+                        "templateOptions": {
+                            "options": [{
+                                    "value": "Yes",
+                                    "key": "Yes",
+                                    "icon": "glyphicon glyphicon-ok md"
+                                }, {
+                                    "value": "No",
+                                    "key": "No",
+                                    "icon": "glyphicon glyphicon-remove md"
+                                }
+                            ],
+                            "label": "Have you been charged or convicted of any criminal offences in the past 10 years?",
+                            "affectsPremium": "Yes",
+                            "affectsTriggers": "Yes"
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([])"
+                        }
+                    }, {
+                        "key": "declaration",
+                        "type": "buttons-field",
+                        "className": "col-xs-12 col-sm-12 col-md-12 col-lg-12",
+                        "templateOptions": {
+                            "options": [{
+                                    "value": "Yes",
+                                    "key": "Yes",
+                                    "icon": "glyphicon glyphicon-ok md"
+                                }, {
+                                    "value": "No",
+                                    "key": "No",
+                                    "icon": "glyphicon glyphicon-remove md"
+                                }
+                            ],
+                            "label": "Do you understand and accept your declaration?",
+                            "content": {
+                                "heading3": "Declaration",
+                                "paragraph": "All answers and statements made by me/us in this application are true and accurate in every respect and no information has been withheld which is likely to affect the insurer’s decision about accepting this insurance.  I/we also acknowledge my insurance application may be declined and/or special conditions or increased premiums imposed."
+                            }
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', ''), ValidationService.acceptedDeclaration()])"
+                        }
+                    }
+                ]
+            }
+        ],
+        "paymentOptions": [{
+                "className": "row",
+                "fieldGroup": [{
+                        "key": "paymentOption",
+                        "type": "buttons-field",
+                        "className": "col-xs-12",
+                        "templateOptions": {
+                            "defaultValue": "'Monthly'",
+                            "options": [{
+                                    "value": "Yearly",
+                                    "key": "Yearly",
+                                    "hideCondition": "false"
+                                }, {
+                                    "value": "Monthly",
+                                    "key": "Monthly",
+                                    "hideCondition": "false"
+                                }, {
+                                    "value": "Fortnightly",
+                                    "key": "Fortnightly",
+                                    "hideCondition": "true"
+                                }, {
+                                    "value": "Weekly",
+                                    "key": "Weekly",
+                                    "hideCondition": "true"
+                                }
+                            ],
+                            "label": "Select payment option",
+                            "content": {
+                                "heading2": "Payment Options"
+                            },
+                            "affectsPremium": "Yes"
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', '')])"
+                        }
+                    }
+                ]
+            }
+        ],
+        "paymentMethods": [{
+                "className": "row",
+                "fieldGroup": [{
+                        "key": "paymentMethodSelect",
+                        "type": "radio-field",
+                        "className": "col-xs-12",
+                        "templateOptions": {
+                            "options": [{
+                                    "value": "Pay now with credit card",
+                                    "key": "Pay now with credit card",
+                                    "hideCondition": "paymentOption == 'Fortnightly' || paymentOption == 'Weekly'"
+                                }, {
+                                    "value": "Send me an invoice",
+                                    "key": "Send me an invoice",
+                                    "hideCondition": "paymentOption == 'Fortnightly' || paymentOption == 'Weekly'"
+                                }
+                            ],
+                            "label": "How would you like to pay?",
+                            "content": {
+                                "paragraph": "You have the option to pay for your policy online today using credit card, or we can send you an invoice with other payment options (including cheque and EFT) that you can pay within 14 days."
+                            }
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', '')])"
+                        }
+                    }, {
+                        "key": "creditCardHeading",
+                        "type": "content-field",
+                        "className": "col-xs-12",
+                        "templateOptions": {
+                            "content": {
+                                "heading2": "Credit Card Payment"
+                            },
+                            "hideCondition": "paymentMethodSelect != 'Pay now with credit card' "
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([])"
+                        }
+                    }, {
+                        "key": "creditCardNumber",
+                        "type": "input-field",
+                        "className": "col-xs-12 col-md-6",
+                        "templateOptions": {
+                            "label": "Card number",
+                            "placeholder": "_ _ _ _   _ _ _ _   _ _ _ _   _ _ _ _",
+                            "hideCondition": "paymentMethodSelect != 'Pay now with credit card' "
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', 'paymentMethodSelect != \\'Pay now with credit card\\' '), ValidationService.isCreditCardNumber()])"
+                        }
+                    }, {
+                        "key": "creditCardName",
+                        "type": "input-field",
+                        "className": "col-xs-12 col-sm-6",
+                        "templateOptions": {
+                            "label": "Your name",
+                            "hideCondition": "paymentMethodSelect != 'Pay now with credit card' "
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', 'paymentMethodSelect != \\'Pay now with credit card\\' '), ValidationService.isName()])"
+                        }
+                    }, {
+                        "key": "creditCardExpiryDate",
+                        "type": "input-field",
+                        "className": "col-xs-6 col-sm-3",
+                        "templateOptions": {
+                            "label": "Expiry date",
+                            "placeholder": "_ _ / _ _",
+                            "hideCondition": "paymentMethodSelect != 'Pay now with credit card' "
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', 'paymentMethodSelect != \\'Pay now with credit card\\' '), ValidationService.isExpiryDate()])"
+                        }
+                    }, {
+                        "key": "creditCardCCV",
+                        "type": "input-field",
+                        "className": "col-xs-6 col-sm-3",
+                        "templateOptions": {
+                            "label": "CCV",
+                            "placeholder": "_ _ _",
+                            "hideCondition": "paymentMethodSelect != 'Pay now with credit card' "
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([ValidationService.required('true', 'paymentMethodSelect != \\'Pay now with credit card\\' ')])"
+                        }
+                    }
+                ]
+            }
+        ],
+        "successPage": [{
+                "className": "row",
+                "fieldGroup": [{
+                        "key": "successMessage",
+                        "type": "content-field",
+                        "className": "col-xs-12",
+                        "templateOptions": {
+                            "content": {
+                                "customHTML": "<br /><div>Thank you for purchasing business insurance from ABC Insurance. Your invoice and policy documentation has been sent to your email address.</div><br /><div>We've also sent you a link to log in to our portal so you can manage your policy, generate a certificate of currency, or lodge a claim.</div><br /><div>Thanks for doing business with us, and if you have any questions, please don't hesitate to call us.</div>"
+                            }
+                        },
+                        "validators": {
+                            "validation": "Validators.compose([])"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "repeatingQuestionSets": {
+        "repeating1": [{
+                "className": "row",
+                "fieldGroup": []
+            }
+        ],
+        "repeating2": [{
+                "className": "row",
+                "fieldGroup": []
+            }
+        ],
+        "repeating3": [{
+                "className": "row",
+                "fieldGroup": []
+            }
+        ],
+        "repeating4": [{
+                "className": "row",
+                "fieldGroup": []
+            }
+        ],
+        "repeating5": [{
+                "className": "row",
+                "fieldGroup": []
+            }
+        ]
+    },
+    "workflow": {
+        "step1": {
+            "startScreen": true,
+            "tabIndex": 1,
+            "articles": [{
+                    "heading": "ratingHeading",
+                    "text": "ratingText",
+                    "elements": [{
+                            "type": "questions",
+                            "name": "ratingPrimary",
+                            "affectsPremium": true,
+                            "affectsTriggers": true
+                        }, {
+                            "type": "questions",
+                            "name": "ratingSecondary",
+                            "affectsPremium": true,
+                            "affectsTriggers": true,
+                            "hidden": "questionSetsAreValid(['ratingPrimary']) != true"
+                        }
+                    ]
+                }, {
+                    "heading": "contactHeading",
+                    "text": "contactText",
+                    "elements": [{
+                            "type": "questions",
+                            "name": "contact"
+                        }
+                    ],
+                    "hidden": "questionSetsAreValid(['ratingPrimary']) != true || questionSetsAreValid(['ratingSecondary']) != true"
+                }
+            ],
+            "sidebar": [{
+                    "type": "calculation"
+                }
+            ],
+            "actions": {
+                "enquiry": {
+                    "operations": [
+                        "enquiry"
+                    ],
+                    "requiresValidQuestionSets": [
+                        "contact"
+                    ],
+                    "destinationStep": "enquiryPage",
+                    "primary": "quoteState == 'softReferral' || quoteState == 'hardReferral'",
+                    "hidden": "widgetPosition == 'sidebar' && quoteState != 'softReferral' && quoteState != 'hardReferral'"
+                },
+                "next": {
+                    "operations": [
+                        "customer",
+                        "quote"
+                    ],
+                    "requiresValidQuestionSets": [
+                        "ratingPrimary",
+                        "contact"
+                    ],
+                    "destinationStep": "step2",
+                    "primary": true,
+                    "hidden": "quoteState == 'softReferral' || quoteState == 'hardReferral'"
+                }
+            }
+        },
+        "step2": {
+            "tabIndex": 2,
+            "articles": [{
+                    "heading": "personalHeading",
+                    "text": "personalText",
+                    "elements": [{
+                            "type": "questions",
+                            "name": "personal"
+                        }
+                    ]
+                }, {
+                    "heading": "disclosureText",
+                    "text": "disclosureText",
+                    "elements": [{
+                            "type": "questions",
+                            "name": "disclosure"
+                        }
+                    ]
+                }
+            ],
+            "sidebar": [{
+                    "type": "calculation"
+                }
+            ],
+            "actions": {
+                "enquiry": {
+                    "operations": [
+                        "enquiry"
+                    ],
+                    "destinationStep": "enquiryPage",
+                    "primary": "quoteState == 'softReferral' || quoteState == 'hardReferral'",
+                    "hidden": "widgetPosition == 'sidebar' && quoteState != 'softReferral' && quoteState != 'hardReferral'"
+                },
+                "back": {
+                    "destinationStep": "step1",
+                    "hidden": "widgetPosition == 'sidebar'"
+                },
+                "next": {
+                    "requiresValidQuestionSets": [
+                        "personal",
+                        "disclosure"
+                    ],
+                    "destinationStep": {
+                        "default": "step3",
+                        "decline": "declinePage"
+                    },
+                    "primary": true,
+                    "hidden": "quoteState == 'softReferral' || quoteState == 'hardReferral'"
+                }
+            }
+        },
+        "step3": {
+            "tabIndex": 3,
+            "articles": [{
+                    "heading": "paymentHeading",
+                    "text": "paymentText",
+                    "elements": [{
+                            "type": "questions",
+                            "name": "paymentOptions",
+                            "affectsPremium": true
+                        }, {
+                            "type": "questions",
+                            "name": "paymentMethods"
+                        }
+                    ]
+                }
+            ],
+            "sidebar": [{
+                    "type": "calculation"
+                }
+            ],
+            "actions": {
+                "enquiry": {
+                    "operations": [
+                        "enquiry"
+                    ],
+                    "destinationStep": "enquiryPage",
+                    "hidden": "widgetPosition == 'sidebar'"
+                },
+                "back": {
+                    "destinationStep": "step2",
+                    "hidden": "widgetPosition == 'sidebar'"
+                },
+                "next": {
+                    "requiresValidQuestionSets": [
+                        "paymentOptions",
+                        "paymentMethods"
+                    ],
+                    "operations": [
+                        "invoice",
+                        "policy"
+                    ],
+                    "destinationStep": "successPage",
+                    "primary": true
+                }
+            }
+        },
+        "successPage": {
+            "articles": [{
+                    "heading": "successHeading",
+                    "text": "successText",
+                    "elements": [{
+                            "type": "questions",
+                            "name": "successPage"
+                        }
+                    ]
+                }
+            ]
+        },
+        "enquiryPage": {
+            "articles": [{
+                    "heading": "enquiryHeading",
+                    "text": "enquiryText"
+                }
+            ],
+            "actions": {
+                "back": {
+                    "destinationStep": "step1",
+                    "primary": true,
+                    "hidden": "widgetPosition == 'sidebar'"
+                }
+            }
+        },
+        "referralPage": {
+            "articles": [{
+                    "heading": "referralHeading",
+                    "message": true,
+                    "text": "referralText"
+                }
+            ]
+        },
+        "declinePage": {
+            "articles": [{
+                    "heading": "declineHeading",
+                    "message": true,
+                    "text": "declineText"
+                }
+            ],
+            "actions": {
+                "enquiry": {
+                    "operations": [
+                        "enquiry"
+                    ],
+                    "directives": [
+                        "sendEnquiry"
+                    ],
+                    "destinationStep": "enquiryPage",
+                    "primary": true
+                }
+            }
+        }
+    },
+    "formModelJson": {
+        "quoteId": "8be7725c-812e-4d25-86da-9b0e4872ac47",
+        "formDataJson": {
+            "formModel": {
+                "liabilityLimit": 5000000,
+                "occupation": "Air Conditioning Service Trade",
+                "tools": 5000,
+                "turnover": "150k-300k",
+                "employees": 1,
+                "ratingState": "VIC",
+                "policyStartDate": "30/10/2020",
+                "policyEndDate": "30/10/2021",
+                "paymentOption": "Monthly",
+                "contactName": "James Smith",
+                "contactEmail": "jsmith@email.com",
+                "contactPhone": "",
+                "contactMobile": "0400123123",
+                "insuredFullName": "James Smith",
+                "residentialHeading": "",
+                "residentialAddress": "123 Test St",
+                "residentialTown": "Testville",
+                "residentialState": "VIC",
+                "residentialPostcode": "8078",
+                "interestedParty": "",
+                "liability": "No",
+                "general": "No",
+                "declaration": "",
+                "policyInceptionDate": "30/10/2020",
+                "policyExpiryDate": "30/10/2021"
+            },
+            "questionAnswers": "{\"values\": [[\"Value\"],[\"\"],[\"\"],[\"Air Conditioning Service Trade\"],[5000000],[5000],[\"150k-300k\"],[1],[\"VIC\"],[\"\"],[\"\"],[\"30/10/2020\"],[\"30/10/2021\"],[\"\"],[\"\"],[\"James Smith\"],[\"jsmith@email.com\"],[\"\"],[\"0400123123\"],[\"\"],[\"\"],[\"James Smith\"],[\"\"],[\"123 Test St\"],[\"Testville\"],[\"VIC\"],[\"8078\"],[\"\"],[\"\"],[\"\"],[\"No\"],[\"No\"],[\"\"],[\"\"],[\"Monthly\"],[\"\"],[\"\"],[\"\"],[\"\"],[\"\"],[\"\"],[\"\"],[\"\"],[\"\"],[\"\"],[\"\"]]}",
+            "repeatingQuestionAnswers": "{\"values\": [[\"Value 1\",\"Value 2\",\"Value 3\",\"Value 4\",\"Value 5\",\"Value 6\",\"Value 7\",\"Value 8\",\"Value 9\",\"Value 10\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"],[\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\",\"\"]]}"
+        },
+        "customerDetails": {
+            "fullName": "James Smith",
+            "email": "jsmith@email.com",
+            "mobilePhone": "0400123123"
+        },
+        "policyDetails": {
+            "policyInceptionDate": "30/10/2020",
+            "policyExpiryDate": "30/10/2021"
+        },
+        "quoteType": 0
+    }
+}

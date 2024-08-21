@@ -1,0 +1,16 @@
+{
+  "ExtendedData": {
+    "inputs": [
+      "service1.wsdl"
+    ],
+    "collectionTypes": [
+      "System.Array",
+      "System.Collections.Generic.Dictionary`2"
+    ],
+    "namespaceMappings": [
+      "*, Funding.EFundExpress"
+    ],
+    "targetFramework": "net6.0",
+    "typeReuseMode": "All"
+  }
+}

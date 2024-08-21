@@ -1,0 +1,22 @@
+<app-entity-list [title]="title"
+                 [listItemNamePlural]="'reports'"
+                 [entityRouteParamName]="'reportId'"
+                 [entityLoaderService]="reportApiService"
+                 [viewModelConstructor]="viewModelConstructor"
+                 [itemTemplate]="reportListItemTemplate"
+                 [entityTypeName]="'Report'"
+                 [entityPathSegment]="'report'"
+                 [sortOptions]="sortOptions"
+                 [filterByDates]="filterByDates"
+                 (listQueryParamsGenerated)="onListQueryParamsGenerated($event)"
+                 [additionalActionButtonList]="additionalActionButtonList"
+                 [ngStyle]="{'height': '100%'}">
+</app-entity-list>
+
+<ng-template #reportListItemTemplate let-item>
+    <library-icon name="today" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+    <ion-label class="ion-text-wrap">
+        <div class="list-title">{{item.name}}</div>
+        <p class="status"> {{item.description}}</p>
+    </ion-label>
+</ng-template>

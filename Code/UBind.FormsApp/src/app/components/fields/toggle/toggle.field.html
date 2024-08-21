@@ -1,0 +1,40 @@
+<field-debug *ngIf="applicationService.debug" [field]="this"></field-debug>
+<div class="toggle">
+    <label
+        [ngStyle]="styles"
+        [class.custom-control]="true"
+        [class.custom-toggle]="true"
+        [class.btn]="true"
+        [class.btn-has-icon]="useIcon"
+        [class.selected]="model[fieldKey] == true"
+        [class.disabled]="disabled"
+        [class.readonly]="readOnly"
+        role="button"
+        class="tabbable"
+        [for]="fieldPath | cssIdentifier"
+        tabindex="0"
+        (keyup.enter)="handleKeyUp($event)"
+        (keyup.Space)="handleKeyUp($event)">
+
+        <input
+            type="checkbox"
+            [class.form-control]="true"
+            [id]="fieldPath | cssIdentifier"
+            [name]="key"
+            [formControl]="formControl"
+            (change)="onChange($event)" 
+            (keyup)="onKeyUp($event)"
+            (focus)="onFocus($event)"
+            (blur)="onBlur($event)" 
+            (keydown)="onKeyDown($event)"
+            tabindex="0">
+        <ng-container  *ngIf="useIcon">
+            <div class="btn-icon">
+                <span class="{{ toggleFieldConfiguration.icon }}"></span>
+            </div>
+        </ng-container>
+        
+        <div class="button-text" [innerHTML]="labelSafeHtml"></div>
+
+    </label>
+</div>

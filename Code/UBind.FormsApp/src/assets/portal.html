@@ -1,0 +1,112 @@
+﻿<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8" />
+    <meta name="HandheldFriendly" content="true">
+    <link rel="stylesheet" type="text/css" href="./style-landing.css">
+</head> 
+
+<body>
+    <div id="instructions" style="display:none;">
+        <h1>Instructions</h1>
+        <p>Use this page with the get parameters <strong>tenant</strong>, <strong>portal</strong> and <strong>environment</strong> to load a
+            uBind portal.</p>
+        <p>E.g. .../portal.html?tenant=figi&portal=fresh&environment=development</p>
+    </div>
+    <script>
+        disableScroll();
+        function preventDefault(e){
+            e.preventDefault();
+        }
+
+        function disableScroll(){
+            document.body.addEventListener('touchmove', preventDefault, { passive: false });
+        }
+    </script>
+    <script type="text/javascript">
+        function findGetParameter(parameterName) {
+            var result = null;
+            var tmp = [];
+            location.search
+                .substr(1)
+                .split("&")
+                .forEach(function (item) {
+                    tmp = item.split("=");
+                    if (tmp[0] === parameterName) result = decodeURIComponent(tmp[1]);
+                });
+            return result;
+        }
+
+        function appendScript(pathToScript) {
+            var head = document.getElementsByTagName("head")[0];
+            var js = document.createElement("script");
+            js.type = "text/javascript";
+            js.src = pathToScript;
+            head.appendChild(js);
+        }
+
+        function createInjectionDiv() {
+            var tenantAlias = findGetParameter('tenant');
+            var portalAlias = findGetParameter('portal') || findGetParameter('portalId');
+            var environment = findGetParameter('environment');
+            if (tenantAlias == null || portalAlias == null || environment == null) {
+                return false;
+            }
+            var div = document.createElement('div');
+            div.id = 'ubind-portal';
+            div.setAttribute('class', 'ubind-portal');
+            div.setAttribute('data-tenant', tenantAlias);
+            div.setAttribute('data-portal', portalAlias);
+            div.setAttribute('data-environment', environment);
+            var mode = findGetParameter('mode');
+            if (mode != null) {
+                div.setAttribute('data-mode', mode);
+            }
+            var version = findGetParameter('version');
+            if (version != null) {
+                div.setAttribute('data-version', version);
+            }
+            var body = document.body;
+            if (body.firstChild) {
+                body.insertBefore(div, body.firstChild);
+            } else {
+                body.appendChild(div);
+            }
+            appendScript('/assets/ubind.js');
+            return true;
+        } 
+
+        if (!createInjectionDiv()) {
+            document.getElementById('instructions').style.display = 'block';
+        }
+    </script>
+    <script>
+        function isIos() {
+            // implementation from https://stackoverflow.com/a/62094756/9883553
+            let iosQuirkPresent = () => {
+                let audio = new Audio();
+                let originalVolume = audio.volume;
+                audio.volume = 0.5;
+                let result = audio.volume === 1;   // volume cannot be changed from "1" on iOS 12 and below
+                audio.volume = originalVolume;
+                return result;
+            };
+            let isIDeviceUserAgent = /iPad|iPhone|iPod/.test(navigator.userAgent);
+            var isAppleDevice = navigator.userAgent.includes('Macintosh');
+            var isTouchScreen = navigator.maxTouchPoints >= 1;   // true for iOS 13 (and hopefully beyond)
+            return isIDeviceUserAgent || (isAppleDevice && (isTouchScreen || iosQuirkPresent()));
+        }
+
+        if (isIos()) {
+            let head = document.getElementsByTagName('head')[0];
+            let metaViewport = document.createElement('meta');
+            metaViewport.name = 'viewport';
+            metaViewport.content = 'width=device-width, initial-scale=1, maximum-scale=1,user-scalable=0';
+            head.appendChild(metaViewport);
+            document.body.style = 'padding-bottom: 60px !important;';
+        }
+    </script>
+</body>
+
+</html>

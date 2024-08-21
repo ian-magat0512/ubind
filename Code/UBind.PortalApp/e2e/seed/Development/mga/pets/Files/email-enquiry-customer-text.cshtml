@@ -1,0 +1,17 @@
+@model UBind.Application.Export.ViewModels.ApplicationEventViewModel
+
+Hi @Model.Form["name"],
+
+Thank you for requesting a call-back regarding our Pet Insurance Product.
+
+A member of our team will contact you shortly using the details provided.
+
+Warm regards,
+
+The MGA Team
+
+
+
+Enquiry Details:
+
+@Model.Form.PrettyPrintExcluding("accountName", "BSB", "accountNumber")

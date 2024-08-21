@@ -1,0 +1,249 @@
+{
+  "$id": "https://app.ubind.io/schemas/data-table-configuration.schema.1.0.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Data Table Configuration Schema",
+  "description": "For validating the structure of a set of configuiration JSON for a data table entity.",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "description": "The version of the schema which this json structure must validate against.",
+      "enum": [
+        "1.0.0"
+      ]
+    },
+    "columns": {
+      "type": "array",
+      "description": "An list of columns that make up the data table.",
+      "items": {
+        "type": "object",
+        "description": "A columns in the data table.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "The name of the column, used for display purposes.",
+            "examples": [
+              "Annual Revenue"
+            ]
+          },
+          "alias": {
+            "type": "string",
+            "description": "The alias of the column, used in PascalCase form as the column name, used when performing queries and for matching column names when importing data.",
+            "examples": [
+              "annualRevenue"
+            ]
+          },
+          "dataType": {
+            "type": "string",
+            "description": "The data type of the column.",
+            "enum": [
+              "boolean",
+              "text",
+              "name",
+              "fullName",
+              "phoneNumber",
+              "emailAddress",
+              "websiteAddress",
+              "paymentCardNumber",
+              "paymentCardType",
+              "paymentCardExpiryDate",
+              "paymentCardVerificationCode",
+              "bankAccountNumber",
+              "bankStateBranchNumber",
+              "australianCompanyNumber",
+              "australianBusinessNumber",
+              "vehicleRegistrationNumber",
+              "postalCode",
+              "number",
+              "wholeNumber",
+              "decimalNumber",
+              "percentage",
+              "monetaryAmount",
+              "date",
+              "time",
+              "dateTime"
+            ]
+          },
+          "defaultValue": {
+            "anyOf": [
+              {
+                "type": "string"
+              },
+              {
+                "type": "boolean"
+              },
+              {
+                "type": "number"
+              },
+              {
+                "type": "integer"
+              }
+            ],
+            "description": "An optional default value for the column. The type has to match the specified data type.",
+            "examples": [
+              "Something",
+              10,
+              1000,
+              true
+            ]
+          },
+          "required": {
+            "type": "boolean",
+            "description": "An optional flag specifying that this column must have a value.",
+            "examples": [
+              true
+            ]
+          },
+          "unique": {
+            "type": "boolean",
+            "description": "An optional flag specifying that the value of this column must be unique.",
+            "examples": [
+              true
+            ]
+          }
+        },
+        "required": [
+          "name",
+          "alias",
+          "dataType"
+        ],
+        "additionalProperties": false
+      },
+      "additionalItems": false
+    },
+    "clusteredIndex": {
+      "type": "object",
+      "description": "If the table requires a clustered index, this property should be used to define and configure that clustered index.",
+      "properties": {
+        "name": {
+          "type": "string",
+          "description": "A name for the unclustered index.",
+          "examples": [
+            "Make/Model/Year Index"
+          ]
+        },
+        "alias": {
+          "type": "string",
+          "description": "An alias for the unclustered index.",
+          "examples": [
+            "makeModelYearIndex"
+          ]
+        },
+        "keyColumns": {
+          "type": "array",
+          "description": "A list of key columns that should be used for the clustered index.",
+          "items": {
+            "type": "object",
+            "description": "A key columns in the clustered index.",
+            "properties": {
+              "columnAlias": {
+                "type": "string",
+                "description": "The column alias of the column used as a key column in the clustered index.",
+                "examples": [
+                  "annualRevenue"
+                ]
+              },
+              "sortOrder": {
+                "type": "string",
+                "description": "The sort order used for this key column in the clustered index.",
+                "enum": [
+                  "asc",
+                  "desc"
+                ],
+                "examples": [
+                  "asc"
+                ]
+              }
+            },
+            "required": [
+              "columnAlias"
+            ],
+            "additionalProperties": false
+          },
+          "additionalItems": false
+        }
+      },
+      "required": [
+        "keyColumns"
+      ],
+      "additionalProperties": false
+    },
+    "unclusteredIndexes": {
+      "type": "array",
+      "description": "If the table requires one or more unclustered indexes, this property should be used to define and configure those unclustered indexes.",
+      "items": {
+        "type": "object",
+        "description": "The definition for an unclustered index.",
+        "properties": {
+          "name": {
+            "type": "string",
+            "description": "A name for the unclustered index.",
+            "examples": [
+              "Make/Model/Year Index"
+            ]
+          },
+          "alias": {
+            "type": "string",
+            "description": "An alias for the unclustered index.",
+            "examples": [
+              "makeModelYearIndex"
+            ]
+          },
+          "keyColumns": {
+            "type": "array",
+            "description": "A list of key columns that should be used for the unclustered index.",
+            "items": {
+              "type": "object",
+              "description": "A key columns in the unclustered index.",
+              "properties": {
+                "columnAlias": {
+                  "type": "string",
+                  "description": "The column alias of the column used as a key column in the unclustered index.",
+                  "examples": [
+                    "annualRevenue"
+                  ]
+                },
+                "sortOrder": {
+                  "type": "string",
+                  "description": "The sort order used for this key column in the unclustered index.",
+                  "enum": [
+                    "asc",
+                    "desc"
+                  ],
+                  "examples": [
+                    "asc"
+                  ]
+                }
+              },
+              "required": [
+                "columnAlias"
+              ],
+              "additionalProperties": false
+            },
+            "additionalItems": false
+          },
+          "nonKeyColumns": {
+            "type": "array",
+            "description": "A list of non-key columns that should be included for the unclustered index.",
+            "items": {
+              "type": "string",
+              "description": "The column alias for a non-key column that should be included the unclustered index.",
+              "examples": [
+                "annualRevenue"
+              ]
+            },
+            "additionalItems": false
+          }
+        },
+        "required": [
+          "keyColumns"
+        ],
+        "additionalProperties": false
+      }
+    }
+  },
+  "required": [
+    "columns"
+  ],
+  "additionalProperties": false
+}

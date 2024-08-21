@@ -1,0 +1,79 @@
+<aside role="region" [@sidebarAnimation]="'in'" id="calculation" 
+    [ngClass]="[oldStateCssClass, applicationStateCssClass, calculationStateCssClass, triggerTypeCssClass]" 
+    [attr.aria-label]="'calculation'">
+    <div class="header">
+        <h3 *ngIf="canShowQuoteReference" class="quote-reference">
+            <span class="quote-reference-label">{{ quoteReferenceLabelText }}</span> 
+            <span class="quote-reference-value">{{ quoteReference }}</span></h3>
+        <div class="table">
+            <div class="cell">
+                <p [innerHTML]="headerText" class="header-text"></p>
+                <div class="actions-panel" [class.empty]="headerActionsEmpty">
+                    <actions-widget 
+                        location="calculationWidgetHeader"
+                        (empty)="onHeaderActionsEmpty($event)"></actions-widget>
+                </div>
+            </div>
+        </div>
+        <div class="arrow"></div>
+    </div>
+    <div class="body">
+        <div class="table">
+            <div class="cell">
+                <ng-container *ngIf="priceLabelText">  
+                    <h3 [innerHTML]="priceLabelText" class="price-label"></h3>
+                </ng-container>
+
+                    <ubind-price-widget-ng show-sign="never"></ubind-price-widget-ng>
+
+                    <questions-widget class="paymentOptions" 
+                                      name="paymentOptions"
+                                      [style.display]="showPaymentOptions && displayPrice ? 'block': 'none'"
+                                      [affectsPremium]="true"
+                                      [affectsTriggers]="false"
+                                      [requiredForCalculation]="false"                                      
+                                      [definition]="paymentOptionsDefinition"
+                                      [visible]="true">
+                    </questions-widget>
+                    
+                    <div *ngIf="displayPrice && (initialInstalmentAmount || numberOfInstalments)" class="price-additional">
+                        <ul>
+                            <li *ngIf="displayPrice && initialInstalmentAmount != null" class="first-instalment">
+                                <span class="key">First Instalment: </span>
+                                <span *ngIf="!loading" class="value">{{ initialInstalmentAmount }}</span>
+                                <span *ngIf="loading" class="value">...</span>
+                            </li>
+                            <li *ngIf="displayPrice && numberOfInstalments != null" class="number-of-instalments">
+                                <span class="key">Number of Instalments: </span>
+                                <span *ngIf="!loading" class="value">{{ numberOfInstalments }}</span>
+                                <span *ngIf="loading" class="value">...</span>
+                            </li>    
+                        </ul>
+                    </div>
+
+                    <p class="message" *ngIf="applicationService.isTestData" 
+                        [innerHTML]="testMessageText" [ngStyle]="{'color': 'red'}"></p>
+
+                <p class="message" *ngIf="messageText" [innerHTML]="messageText"></p>
+
+                <div *ngIf="summaryProperties && visibleSummaryPropertyCount > 0" class="summary hidden-xs">
+                    <h4 *ngIf="!stringHelper.isNullOrEmpty(summaryHeadingText)" [innerHTML]="summaryHeadingText"></h4>
+                    <ul>
+                        <li *ngFor="let summaryProperty of summaryProperties">
+                            <ng-container *ngIf="summaryProperty.key && summaryProperty.key != ''">
+                                <span class="key"> {{ summaryProperty.key }}: </span>
+                                <span class="value"> {{ summaryProperty.value }} </span>
+                            </ng-container>
+                        </li>
+                    </ul>
+                </div>
+                
+                <div class="actions-panel" [class.empty]="bodyActionsEmpty">
+                    <actions-widget 
+                        location="calculationWidgetFooter" 
+                        (empty)="onBodyActionsEmpty($event)"></actions-widget>
+                </div>
+            </div>
+        </div>
+    </div>
+</aside>

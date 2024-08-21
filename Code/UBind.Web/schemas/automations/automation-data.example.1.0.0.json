@@ -1,0 +1,541 @@
+{
+    "schemaVersion": "1.0.0",
+    // Multiple triggers are included in these comments to review and test structure of different types, whereas the schema only allows for ONE trigger
+    /*
+    "trigger1": {
+        "triggerAlias": "httpTriggerTest",
+        "httpRequest": {
+            "url": "http://app.ubind.com.au/api/v1/carl/dev/development/automation/getQuoteDetails?quoteId=35e6e81e-aa3c-11ea-bb37-0242ac130002",
+            "httpVerb": "POST",
+            "remoteAddress": "203.12.4.45",
+            "getParameters": {
+                "quoteId": "35e6e81e-aa3c-11ea-bb37-0242ac130002"
+            },
+            "headers": {
+                "some": "header"
+            },
+            "referrer": "http://app.ubind.com.au/assets/index.html",
+            "contentType": "application/json",
+            "content": "{\"foo\":\"bar\"}"
+        },
+        "httpResponse": {
+            "httpStatusCode": 200,
+            "headers": {
+                "foo": "bar"
+            },
+            "contentType": "application/json",
+            "content": "{\"foo\":\"bar\"}"
+        }
+    },
+    "trigger2": {
+        "triggerAlias": "localEmailTriggerTest",
+        "email": {
+            "sentDate": "2020-06-10",
+            "sentTime": "10:53:07",
+            "recipientClassification": "client",
+            "from": "sender@company.com",
+            "replyTo": "reply-to@company.com",
+            "to": "person@gmail.com",
+            "cc": "copyme123@gmail.com",
+            "bcc": "secret-copy@company.com",
+            "subject": "This is an email subject",
+            "textBody": "Dear person,\n\nplease find attached a bunch of stuff.\n\nRegards,\nMe.",
+            "htmlBody": "<html><body><p>Dear person,</p>please find attached a bunch of stuff.</p>Regards,<br/>Me.</body></html>",
+            "attachments": [
+                {
+                    "fileName": "Policy Schedule.pdf",
+                    "fileSizeBytes": 42163,
+                    "fileSizeString": "41.1KB",
+                    "content": "Vomhh6qqCBy6HFsk6AeYeJJYJLblGSj8fSdmUVWxCMElUWzPWybzPBit2iZZQkDjbC76WU8kYAunja1y8T39SJ9FgqSsVo2zkIs1oBgN7+8G07UHTLjaYi5qIv8iJRY1tAoz58HyTulCq4g/QyW9KuaqAvnY6z3JwlkCSyl1GGI4eINSLRpK3le8vFEyM1Ykr5tzHVUulPeNKRSxULm0+h9J6srSFKBdsWgZOkMfQGmsAahtMh8MM4YJELExFPIgZ4AGLyPdusq4MgrD2nh8YOtHGLqd4662dV/8O4LRkIxVoE/Vsne5auSPC/OZc/PsNMilrYktylpl7E73Cf54GGV89W8spPMXgc/oIJ4xkPF5vYQIc4YQad0A3rrtEfQcc60C6Anx9FY3F/AX+5QOjtQ4OI+c2gCXd2EXka469QwEgQzsQ3Jo2PaMHPmr2w7dnaJBH"
+                }
+            ],
+            "comments": "Some email comment.",
+            "keywords": [
+                "keyword1",
+                "keyword2"
+            ],
+            "headers": {
+                "foo": "bar"
+            }
+        }
+    },
+    "trigger3": {
+        "triggerAlias": "remoteEmailTriggerTest",
+        "emailAccount": {
+            "protocol": "POP3",
+            "encryptionMethod": "SSL",
+            "hostname": "mail.company.com",
+            "port": 993,
+            "username": "info@company.com",
+            "password": "45secretDontTell*232"
+        },
+        "email": {
+            "sentDate": "2020-06-10",
+            "sentTime": "10:53:07",
+            "recipientClassification": "client",
+            "from": "sender@company.com",
+            "replyTo": "reply-to@company.com",
+            "to": "person@gmail.com",
+            "cc": "copyme123@gmail.com",
+            "bcc": "secret-copy@company.com",
+            "subject": "This is an email subject",
+            "textBody": "Dear person,\n\nplease find attached a bunch of stuff.\n\nRegards,\nMe.",
+            "htmlBody": "<html><body><p>Dear person,</p>please find attached a bunch of stuff.</p>Regards,<br/>Me.</body></html>",
+            "attachments": [
+                {
+                    "fileName": "Policy Schedule.pdf",
+                    "fileSizeBytes": 42163,
+                    "fileSizeString": "41.1KB",
+                    "content": "Vomhh6qqCBy6HFsk6AeYeJJYJLblGSj8fSdmUVWxCMElUWzPWybzPBit2iZZQkDjbC76WU8kYAunja1y8T39SJ9FgqSsVo2zkIs1oBgN7+8G07UHTLjaYi5qIv8iJRY1tAoz58HyTulCq4g/QyW9KuaqAvnY6z3JwlkCSyl1GGI4eINSLRpK3le8vFEyM1Ykr5tzHVUulPeNKRSxULm0+h9J6srSFKBdsWgZOkMfQGmsAahtMh8MM4YJELExFPIgZ4AGLyPdusq4MgrD2nh8YOtHGLqd4662dV/8O4LRkIxVoE/Vsne5auSPC/OZc/PsNMilrYktylpl7E73Cf54GGV89W8spPMXgc/oIJ4xkPF5vYQIc4YQad0A3rrtEfQcc60C6Anx9FY3F/AX+5QOjtQ4OI+c2gCXd2EXka469QwEgQzsQ3Jo2PaMHPmr2w7dnaJBH"
+                }
+            ],
+            "comments": "Some email comment.",
+            "keywords": [
+                "keyword1",
+                "keyword2"
+            ],
+            "headers": {
+                "foo": "bar"
+            }
+        }
+    },
+    "trigger4": {
+        "triggerAlias": "eventTriggerTest",
+        "eventType": "custom",
+        "customEventAlias": "myCustomEvent",
+        "eventData": {
+            "foo": "bar"
+        }
+    },
+    "trigger5": {
+        "triggerAlias": "assignPolicyNumberExtensionPointTriggerTest",
+        "extensionPoint": "assignPolicyNumber"
+    },
+
+    */
+
+    "trigger": {
+        "triggerAlias": "beforeQuoteCalculationExtensionPointTriggerTest",
+        "extensionPoint": "beforeQuoteCalculation",
+        "sourceInputData": {
+            "foo": "bar"
+        }
+    },
+    
+    /*
+    "trigger7": {
+        "triggerAlias": "portalPageTriggerTest",
+        "entityType": "quote",
+        "pageType": "display",
+        "tab": "details"
+    },
+    */
+    "context": {
+        "quote": {
+            "id": "35e6e81e-aa3c-11ea-bb37-0242ac130002"
+        },
+        "policy": {
+            "id": "7d8b2324-aa3c-11ea-bb37-0242ac130002"
+        },
+        "policyTransaction": {
+            "id": "3e98efc0-aa3c-11ea-bb37-0242ac130002"
+        },
+        "invoice": {
+            "id": "7a6deb5e-aa3c-11ea-bb37-0242ac130002"
+        },
+        "customer": {
+            "id": "83f804ca-aa3c-11ea-bb37-0242ac130002"
+        },
+        "user": {
+            "id": "11cff7bc-aa3d-11ea-bb37-0242ac130002"
+        },
+        "owner": {
+            "id": "8683a618-aa3c-11ea-bb37-0242ac130002"
+        },
+        "product": {
+            "alias": "dev"
+        },
+        "tenant": {
+            "alias": "carl"
+        }
+    },
+    "system": {
+        "baseUrl": "https://app.ubind.com.au",
+        "environment": "development",
+        "currentTicksSinceEpoch": 16155162171729156,
+        "currentDateTime": "2021-03-12T02:30:17.1729156+00:00"
+    },
+    "automation": {   
+        "startedTicksSinceEpoch": 16155162171729156,
+        "startedDateTime": "2021-03-12T02:30:17.1729156+00:00"
+    },
+    "variables": {
+        "myBooleanVariable": true,
+        "myStingVariable": "Some value",
+        "myIntegerVariable": 42,
+        "myNumberVariable": 1.2345,
+        "myObjectVariable": {
+            "myProperty": "myValue"
+        },
+        "myArrayVariable": [
+            "some",
+            "thing",
+            "here"
+        ]
+    },
+    "actions": {
+
+        "httpRequestActionTest":{
+            "state": "completed",
+            "started": true,
+            "ran": true,
+            "finished": true,
+            "succeeded": false,
+            "error": {
+                "code": "contentType.incorrect",
+                "title": "Incorrect content-type used in request",
+                "message": "The content-type of the request must be 'application/json'.",
+                "httpStatusCode": 415,
+                "additionalDetails": [ "The content-type used for the request was 'text/css'" ],
+                "data": {
+                    "sample": "value"
+                }
+            },
+            "startedTicksSinceEpoch": 16155162171729156,
+            "startedDateTime": "2021-03-12T02:30:17.1729156+00:00",
+            "ranTicksSinceEpoch": 16155162171729156,
+            "ranDateTime": "2021-03-12T02:30:17.1729156+00:00",
+            "finishedTicksSinceEpoch": 16155162171729156,
+            "finishedDateTime": "2021-03-12T02:30:17.1729156+00:00"
+        },
+
+        "sendEmailActionTest": {
+            "state": "running",
+            "started": true,
+            "ran": true,
+            "finished": false,
+            "succeeded": false,
+            "startedTicksSinceEpoch": 16155162171729156,
+            "startedDateTime": "2021-03-12T02:30:17.1729156+00:00",
+            "ranTicksSinceEpoch": 16155162171729156,
+            "ranDateTime": "2021-03-12T02:30:17.1729156+00:00",
+
+            "outboundEmailServerAlias": "testSmtpServer",
+            "email": {
+                "sentDate": "2020-06-10",
+                "sentTime": "10:53:07",
+                "recipientClassification": "client",
+                "from": "sender@company.com",
+                "replyTo": "reply-to@company.com",
+                "to": "person@gmail.com",
+                "cc": "copyme123@gmail.com",
+                "bcc": "secret-copy@company.com",
+                "subject": "This is an email subject",
+                "textBody": "Dear person,\n\nplease find attached a bunch of stuff.\n\nRegards,\nMe.",
+                "htmlBody": "<html><body><p>Dear person,</p>please find attached a bunch of stuff.</p>Regards,<br/>Me.</body></html>",
+                "attachments": [
+                    {
+                        "fileName": "Policy Schedule.pdf",
+                        "fileSizeBytes": 42163,
+                        "fileSizeString": "41.1KB",
+                        "content": "Vomhh6qqCBy6HFsk6AeYeJJYJLblGSj8fSdmUVWxCMElUWzPWybzPBit2iZZQkDjbC76WU8kYAunja1y8T39SJ9FgqSsVo2zkIs1oBgN7+8G07UHTLjaYi5qIv8iJRY1tAoz58HyTulCq4g/QyW9KuaqAvnY6z3JwlkCSyl1GGI4eINSLRpK3le8vFEyM1Ykr5tzHVUulPeNKRSxULm0+h9J6srSFKBdsWgZOkMfQGmsAahtMh8MM4YJELExFPIgZ4AGLyPdusq4MgrD2nh8YOtHGLqd4662dV/8O4LRkIxVoE/Vsne5auSPC/OZc/PsNMilrYktylpl7E73Cf54GGV89W8spPMXgc/oIJ4xkPF5vYQIc4YQad0A3rrtEfQcc60C6Anx9FY3F/AX+5QOjtQ4OI+c2gCXd2EXka469QwEgQzsQ3Jo2PaMHPmr2w7dnaJBH"
+                    }
+                ],
+                "comments": "Some email comment.",
+                "keywords": [
+                    "keyword1",
+                    "keyword2"
+                ],
+                "headers": {
+                    "foo": "bar"
+                }
+            }
+        },
+
+        "raiseEventActionTest": {
+            "state": "notStarted",
+            "started": false,
+            "ran": false,
+            "finished": false,
+            "succeeded": false,
+
+            "eventType": "custom",
+            "customEventAlias": "MyTestEvent",
+            "eventData": {
+                "foo": "bar"
+            }
+        },
+
+        "raiseErrorActionTest": {
+            "state": "notStarted",
+            "started": false,
+            "ran": false,
+            "finished": false,
+            "succeeded": false,
+
+            "raisedError": {
+                "code": "contentType.incorrect",
+                "title": "Incorrect content-type used in request",
+                "message": "The content-type of the request must be 'application/json'.",
+                "httpStatusCode": 415,
+                "additionalDetails": [ "The content-type used for the request was 'text/css'" ],
+                "data": {
+                    "sample": "value"
+                }
+            }
+        },
+
+        "attachFilesToEntityActionTest":{
+            "state": "completed",
+            "started": true,
+            "ran": true,
+            "finished": true,
+            "succeeded": false,
+            "startedTicksSinceEpoch": 16155162171729156,
+            "startedDateTime": "2021-03-12T02:30:17.1729156+00:00",
+            "ranTicksSinceEpoch": 16155162171729156,
+            "ranDateTime": "2021-03-12T02:30:17.1729156+00:00",
+            "finishedTicksSinceEpoch": 16155162171729156,
+            "finishedDateTime": "2021-03-12T02:30:17.1729156+00:00",
+            
+            "entity": {
+                "quote": {
+                    "id": "35e6e81e-aa3c-11ea-bb37-0242ac130002"
+                }
+            },
+
+            "attachments": [
+                {
+                    "id": "35e6e81e-aa3c-11ea-bb37-0242ac130002"
+                },
+                {
+                    "id": "35e6e81e-aa3c-11ea-bb37-0242ac130002"
+                },
+                {
+                    "id": "35e6e81e-aa3c-11ea-bb37-0242ac130002"
+                }
+            ]
+        },
+
+        "attachFilesToEntitiesActionTest":{
+            "state": "completed",
+            "started": true,
+            "ran": true,
+            "finished": true,
+            "succeeded": false,
+            "startedTicksSinceEpoch": 16155162171729156,
+            "startedDateTime": "2021-03-12T02:30:17.1729156+00:00",
+            "ranTicksSinceEpoch": 16155162171729156,
+            "ranDateTime": "2021-03-12T02:30:17.1729156+00:00",
+            "finishedTicksSinceEpoch": 16155162171729156,
+            "finishedDateTime": "2021-03-12T02:30:17.1729156+00:00",
+            
+            "entities": [
+                {
+                    "quote": {
+                        "id": "35e6e81e-aa3c-11ea-bb37-0242ac130002"
+                    }
+                },
+                {
+                    "policyTransaction": {
+                        "id": "35e6e81e-aa3c-11ea-bb37-0242ac130002"
+                    }
+                }
+            ],
+
+            "attachments": [
+                {
+                    "id": "35e6e81e-aa3c-11ea-bb37-0242ac130002"
+                },
+                {
+                    "id": "35e6e81e-aa3c-11ea-bb37-0242ac130002"
+                },
+                {
+                    "id": "35e6e81e-aa3c-11ea-bb37-0242ac130002"
+                }
+            ]
+        },
+
+        "setVariableActionTest": {
+            "state": "completed",
+            "started": true,
+            "ran": true,
+            "finished": true,
+            "succeeded": true,
+
+            "variableName": "myVariableName",
+            "value": { "for": "example", "an": "object value" }
+        },
+
+        "groupActionTest": {
+            "state": "notStarted",
+            "started": false,
+            "ran": false,
+            "finished": false,
+            "succeeded": false,
+
+            "actions": {
+
+                "httpRequestActionTest2":{
+                    "state": "notStarted",
+                    "started": false,
+                    "ran": false,
+                    "finished": false,
+                    "succeeded": false
+                },
+
+                "httpRequestActionTest3":{
+                    "state": "notStarted",
+                    "started": false,
+                    "ran": false,
+                    "finished": false,
+                    "succeeded": false
+                }
+
+            }
+        },
+
+        "iterateActionTest": {
+            "state": "notStarted",
+            "started": false,
+            "ran": false, // DISCUSS: Should these properties be left out, or set to false, before the action has started?
+            "finished": false,
+            "succeeded": false,
+
+            "startIndex": 1,
+            "endIndex": 3,
+            "reverse": true,
+            "iterationsCompleted": 2,
+            "previousIteration": {
+                "item": {
+                    "some": "thing"
+                },
+                "index": 1,
+                "count": 0,
+                "actions": {
+                    "httpRequestActionTestOne": {
+                        "state": "notStarted",
+                        "started": false,
+                        "ran": false,
+                        "finished": false,
+                        "succeeded": false
+                    },
+                    "httpRequestActionOne": {
+                        "state": "notStarted",
+                        "started": false,
+                        "ran": false,
+                        "finished": false,
+                        "succeeded": false
+                    }
+                }
+            },
+            "currentIteration": {
+                "item": {
+                    "foo": "bar"
+                },
+                "index": 2,
+                "count": 1,
+                "actions": {
+                    "httpRequestActionTestOne": {
+                        "state": "notStarted",
+                        "started": false,
+                        "ran": false,
+                        "finished": false,
+                        "succeeded": false
+                    },
+                    "httpRequestActionOne": {
+                        "state": "notStarted",
+                        "started": false,
+                        "ran": false,
+                        "finished": false,
+                        "succeeded": false
+                    }
+                }
+                
+            }
+        },
+
+        "iterateActionTestTwo": {
+            "state": "completed",
+            "started": true,
+            "ran": true,
+            "finished": true,
+            "succeeded": true,
+
+            "startIndex": 1,
+            "endIndex": 3,
+            "reverse": true,
+            "iterationsCompleted": 2,
+            "lastIteration": {
+                "item": {
+                    "foo": "bar"
+                },
+                "index": 2,
+                "count": 1,
+                "actions": {
+                    "httpRequestActionTestOne": {
+                        "state": "completed",
+                        "started": true,
+                        "ran": true,
+                        "finished": true,
+                        "succeeded": true
+                    },
+                    "httpRequestActionOne": {
+                        "state": "completed",
+                        "started": true,
+                        "ran": true,
+                        "finished": true,
+                        "succeeded": true 
+                    }
+                }
+                
+            }
+        },
+
+        "runAutomationActionTest": {
+            "state": "notStarted",
+            "started": false,
+            "ran": false, // DISCUSS: Should these properties be left out, or set to false, before the action has started?
+            "finished": false,
+            "succeeded": false,
+
+            "automationAlias": "myTestAutomation",
+            "trigger": {
+                "triggerAlias": "runAutomationAction",
+                "foo": "bar"
+            },
+            "actions": {
+
+                "httpRequestActionTest5":{
+                    "state": "notStarted",
+                    "started": false,
+                    "ran": false,
+                    "finished": false,
+                    "succeeded": false
+                },
+
+                "httpRequestActionTest6":{
+                    "state": "notStarted",
+                    "started": false,
+                    "ran": false,
+                    "finished": false,
+                    "succeeded": false
+                }
+
+            },
+            "variables": {
+                "foo": "bar"
+            }
+        }
+    },
+    "error": {
+        "code": "contentType.incorrect",
+        "title": "Incorrect content-type used in request",
+        "message": "The content-type of the request must be 'application/json'.",
+        "httpStatusCode": 415,
+        "additionalDetails": [ "The content-type used for the request was 'text/css'" ],
+        "data": {
+            "sample": "value"
+        }
+    }
+}

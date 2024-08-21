@@ -1,0 +1,14 @@
+
+<span #addOnleft *ngIf="to.addonLeft && (to.addonLeft.class || to.addonLeft.text)"
+        class="input-group-addon" (click)="focusInput()" [class.no-background-color] ="hideBgColorOfAddonLeft">
+    <span *ngIf="to.addonLeft.class" class="{{ to.addonLeft.class }}"></span>
+    {{ to.addonLeft.text }}
+</span>
+
+<ng-container #fieldComponent></ng-container>
+
+<span #addOnRight *ngIf="to.addonRight && (to.addonRight.class || to.addonRight.text)"
+        class="input-group-addon" (click)="focusInput()" [class.no-background-color] ="hideBgColorOfAddonRight">
+    <span *ngIf="to.addonRight.class" class="{{ to.addonRight.class }}"></span>
+    {{ to.addonRight.text }}
+</span>

@@ -1,0 +1,37 @@
+form {
+    ion-list {
+        margin-top: 0px;
+
+        ion-item {
+            ion-label {
+                color: #a0a0a0;
+                margin-top: 21px;
+                margin-bottom: 0px;
+                font-size: 14px;
+                margin-left: 0px;
+            }
+
+            ion-textarea {
+                margin-top: -3px;
+                --padding-top: 0px !important;
+                --padding-bottom: 0px !important;
+            }
+
+            ion-input {
+                --padding-top: 5px;
+                --padding-bottom: 9px;
+            }
+        }
+    }
+}
+
+@media (max-width: 991px) {
+    ion-header {
+        ion-toolbar {
+            ion-buttons:first-child {
+                margin: 0 16px 0 0px;
+
+            }
+        }
+    }
+}

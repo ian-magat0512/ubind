@@ -1,0 +1,150 @@
+<options-field-debug *ngIf="applicationService.debug && usesOptions" [field]="this">
+    <ng-container *ngTemplateOutlet="debugItems"></ng-container>
+</options-field-debug>
+<field-debug *ngIf="applicationService.debug && !usesOptions" [field]="this">
+    <ng-container *ngTemplateOutlet="debugItems"></ng-container>
+</field-debug>
+<ng-container *ngIf="isLoading && !errorMessage">
+    <div class="loader">
+        <svg class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" id="select-loader-spinner">
+            <circle class="circle" fill="none" stroke="#999999" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="25"></circle>
+        </svg>
+    </div>
+</ng-container>
+<ng-container *ngIf="!isLoading && !errorMessage">
+    <div *ngIf="usesOptions && noOptionsFoundText && (hideAllOptions || numberOfSelectOptionsShown == 0)" class="no-options">
+        <p>{{ noOptionsFoundText }}</p>
+    </div>
+    <div *ngIf="!hideAllOptions && (!usesOptions || numberOfSelectOptionsShown > 0)"
+        [class.custom-slider]="true"
+        [class.show-bubble]="showBubble"
+        [class.disabled]="disabled"
+        [class.readonly]="readOnly"
+        [class.tabbable]="true"
+        [class.vertical]="vertical"
+        [class.horizontal]="!vertical"
+        [class.show-tick-mark-value-labels]="sliderFieldConfiguration.showTickMarkValueLabels"
+        [class.show-axis-start-value-label]="sliderFieldConfiguration.showAxisStartValueLabel || sliderFieldConfiguration.showLegend === false"
+        [class.show-axis-end-value-label]="sliderFieldConfiguration.showAxisEndValueLabel || sliderFieldConfiguration.showLegend === false"
+        [class.show-tick-marks]="showTickMarks"
+        [class.legend-items-vertical]="legendItemsVertical"
+        [class.legend-items-diagonal]="legendItemsDiagonal"
+        [class.no-legend]="sliderFieldConfiguration.showLegend === false"
+        [class.has-labels-above]="hasLabelsAbove"
+        [class.has-axis-start-end-labels]="hasAxisStartEndLabels"
+        [style.--slider-color-h]="sliderColorH"
+        [style.--slider-color-s]="sliderColorS"
+        [style.--slider-color-l]="sliderColorL"
+        [style.--unselected-bar-color-h]="unselectedBarColorH"
+        [style.--unselected-bar-color-s]="unselectedBarColorS"
+        [style.--unselected-bar-color-l]="unselectedBarColorL"
+        [style.--slider-bar-color]="stylingSettings?.bar?.color"
+        [style.--slider-bar-thickness]="stylingSettings?.bar?.thickness"
+        [style.--slider-bar-border-radius]="stylingSettings?.bar?.borderRadius"
+        [style.--slider-selection-bar-thickness]="stylingSettings?.selectionBar?.thickness"
+        [style.--slider-selection-bar-border-radius]="stylingSettings?.selectionBar?.borderRadius"
+        [style.--slider-thumb-color]="stylingSettings?.thumb?.color"
+        [style.--slider-thumb-width]="stylingSettings?.thumb?.width"
+        [style.--slider-thumb-height]="stylingSettings?.thumb?.height"
+        [style.--slider-thumb-border-radius]="stylingSettings?.thumb?.borderRadius"
+        [style.--slider-thumb-highlight-ratio]="stylingSettings?.thumb?.highlightRatio"
+        [style.--slider-tick-color]="stylingSettings?.tick?.color"
+        [style.--slider-tick-selected-color]="stylingSettings?.tick?.selectedColor"
+        [style.--slider-tick-width]="stylingSettings?.tick?.width"
+        [style.--slider-tick-height]="stylingSettings?.tick?.height"
+        [style.--slider-tick-border-radius]="stylingSettings?.tick?.borderRadius"
+        [style.--slider-disabled-bar-color]="stylingSettings?.disabled?.barColor"
+        [style.--slider-disabled-selection-bar-color]="stylingSettings?.disabled?.selectionBarColor"
+        [style.--slider-disabled-thumb-color]="stylingSettings?.disabled?.thumbColor"
+        [style.--slider-disabled-tick-color]="stylingSettings?.disabled?.tickColor"
+        [style.--slider-bubble-color]="stylingSettings?.bubble?.color"
+        [style.--slider-bubble-text-color]="stylingSettings?.bubble?.textColor"
+        [style.--slider-bubble-font-size]="stylingSettings?.bubble?.fontSize"
+        [style.--slider-bubble-border-radius]="stylingSettings?.bubble?.borderRadius"
+        [style.--slider-legend-item-width]="stylingSettings?.legend?.itemWidth ?? defaultLegendItemWidthPixels + 'px'"
+        [style.--slider-legend-font-size]="stylingSettings?.legend?.fontSize"
+        [style.--slider-vertical-height]="stylingSettings?.verticalHeight"
+        tabindex="0"
+        (keydown)="onKeyDown($event)"
+        (blur)="onBlur($event)"
+        (focus)="onFocus($event)">
+        <ngx-slider *ngIf="sliderConfigOptions" [options]="sliderConfigOptions" [(value)]="sliderValue" (valueChange)="onValueChange($event)"
+                    (userChangeStart)="onUserChangeStart($event)"
+                    (userChangeEnd)="onUserChangeEnd($event)"
+                    (userChange)="onUserChange($event)"></ngx-slider>
+        <input
+            type="hidden"
+            class="form-control"
+            [id]="fieldPath | cssIdentifier"
+            [name]="key"
+            [formControl]="formControl"
+            (change)="onChange($event)" />                
+    </div>
+</ng-container>
+<div *ngIf="errorMessage" class="content-error fade-in">
+    <p text-center>
+        {{ errorMessage }}
+    </p>
+</div>
+
+<ng-template #debugItems>
+    <span *ngIf="!usesOptions" class="debug-property">
+        <span class="key">Axis Start Value:</span><span class="value"> {{ axisStartValue }}</span>&nbsp;&nbsp;
+    </span>
+    <span *ngIf="!usesOptions" class="debug-property">
+        <span class="key">Axis End Value:</span><span class="value"> {{ axisEndValue }}</span>&nbsp;&nbsp;
+    </span>
+    <span *ngIf="!usesOptions && minSelectableValue" class="debug-property">
+        <span class="key">Min Selectable Value:</span><span class="value"> {{ minSelectableValue }}</span>&nbsp;&nbsp;
+    </span>
+    <span *ngIf="!usesOptions && maxSelectableValue" class="debug-property">
+        <span class="key">Max Selectable Value:</span><span class="value"> {{ maxSelectableValue }}</span>&nbsp;&nbsp;
+    </span>
+    <span *ngIf="!usesOptions && stepInterval" class="debug-property">
+        <span class="key">Step Interval:</span><span class="value"> {{ stepInterval }}</span>&nbsp;&nbsp;
+    </span>
+    <span *ngIf="!usesOptions && tickMarkStepIndexesDebug" class="debug-property">
+        <span class="key">Step Indexes:</span><span class="value"> {{ tickMarkStepIndexesDebug }}</span>&nbsp;&nbsp;
+    </span>
+    <span class="debug-property">
+        <span class="key">Show Tick Marks:</span><span class="value"> {{ showTickMarks }}</span>&nbsp;&nbsp;
+    </span>
+    <span *ngIf="sliderFieldConfiguration.showTickMarks !== false" class="debug-property">
+        <span class="key">Tick Mark Interval:</span><span class="value"> {{ tickMarkInterval }}</span>&nbsp;&nbsp;
+    </span>
+    <span *ngIf="sliderFieldConfiguration.showTickMarkValueLabels !== undefined" class="debug-property">
+        <span class="key">Show Tick Mark Value Labels:</span><span class="value"> {{ sliderFieldConfiguration.showTickMarkValueLabels }}</span>&nbsp;&nbsp;
+    </span>
+    <span *ngIf="sliderFieldConfiguration.vertical !== undefined" class="debug-property">
+        <span class="key">Vertical:</span><span class="value"> {{ sliderFieldConfiguration.vertical }}</span>&nbsp;&nbsp;
+    </span>
+    <span *ngIf="sliderFieldConfiguration.invertAxis != undefined" class="debug-property">
+        <span class="key">Invert Axis:</span><span class="value"> {{ sliderFieldConfiguration.invertAxis }}</span>&nbsp;&nbsp;
+    </span>
+    <span *ngIf="showSelectionBarFromAxisStart !== undefined" class="debug-property">
+        <span class="key">Show Selection Bar From Axis Start:</span><span class="value"> {{ showSelectionBarFromAxisStart }}</span>&nbsp;&nbsp;
+    </span>
+    <span *ngIf="sliderFieldConfiguration.showSelectionBarFromAxisEnd != undefined" class="debug-property">
+        <span class="key">Show Selection Bar From Axis End:</span><span class="value"> {{ sliderFieldConfiguration.showSelectionBarFromAxisEnd }}</span>&nbsp;&nbsp;
+    </span>
+    <span *ngIf="showSelectionBarFromValue !== null" class="debug-property">
+        <span class="key">Show Selection Bar From Value:</span><span class="value"> {{ showSelectionBarFromValue }}</span>&nbsp;&nbsp;
+    </span>
+    <span *ngIf="sliderFieldConfiguration.showLegend !== undefined" class="debug-property">
+        <span class="key">Show Legend:</span><span class="value"> {{ sliderFieldConfiguration.showLegend }}</span>&nbsp;&nbsp;
+    </span>
+    <span *ngIf="sliderFieldConfiguration.debounceFieldValueUpdates !== undefined" class="debug-property">
+        <span class="key">Debounce Field Value Updates:</span><span class="value"> {{ sliderFieldConfiguration.debounceFieldValueUpdates }}</span>&nbsp;&nbsp;
+    </span>
+    <span *ngIf="sliderFieldConfiguration.fieldValueUpdateDebounceMilliseconds !== undefined" class="debug-property">
+        <span class="key">Field Value Update Debounce Milliseconds:</span><span class="value"> {{ sliderFieldConfiguration.fieldValueUpdateDebounceMilliseconds }}</span>&nbsp;&nbsp;
+    </span>
+    <span *ngIf="sliderFieldConfiguration.showAxisStartValueLabel !== undefined" class="debug-property">
+        <span class="key">Show Axis Start Value Label:</span><span class="value"> {{ sliderFieldConfiguration.showAxisStartValueLabel }}</span>&nbsp;&nbsp;
+    </span>
+    <span *ngIf="sliderFieldConfiguration.showAxisEndValueLabel !== undefined" class="debug-property">
+        <span class="key">Show Axis End Value Label:</span><span class="value"> {{ sliderFieldConfiguration.showAxisEndValueLabel }}</span>&nbsp;&nbsp;
+    </span>
+</ng-template>
+
+<div #sliderColorReference class="slider-color-reference"></div>

@@ -1,0 +1,33 @@
+{
+    "compileOnSave": false,
+    "compilerOptions": {
+        "baseUrl": "./src",
+        "outDir": "./dist/out-tsc",
+        "sourceMap": true,
+        "declaration": false,
+        "downlevelIteration": true,
+        "experimentalDecorators": true,
+        "moduleResolution": "node",
+        "importHelpers": true,
+        "typeRoots": [
+            "node_modules/@types"
+        ],
+        "target": "es2016",
+        "module": "es2020",
+        "lib": [
+            "es2020.string",
+            "es2018",
+            "dom"
+        ],
+        "paths": {
+            "@app/*": [
+                "app/*"
+            ]
+        },
+        "resolveJsonModule": true,
+        "allowSyntheticDefaultImports": true,
+    },
+    "include": [
+        "./src/**/*",
+    ]
+}

@@ -1,0 +1,148 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="start">
+            <ion-button slot="icon-only" (click)="userDidTapCloseButton(sessionSettingsForm.value)">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="!layoutManager.splitPaneVisible">Session Expiry</ion-title>
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="end">
+            <ion-button (click)="userDidTapSaveButton(sessionSettingsForm.value)">
+                Save
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ion-buttons slot="start">
+            <ion-button slot="icon-only" (click)="userDidTapCloseButton(sessionSettingsForm.value)">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Session Expiry</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="userDidTapSaveButton(sessionSettingsForm.value)">
+                Save
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+
+    <loader *ngIf="isLoading"></loader>
+    <div appScrollDetails>
+        <form [formGroup]="sessionSettingsForm" *ngIf="!isLoading && !errorMessage">
+            <ion-list lines="none">
+                <ion-list-header>
+                    <ion-label>
+                        <strong>Expiry Mode</strong>
+                    </ion-label>
+                </ion-list-header>
+                <div>
+                    User sessions can expire either after a fixed length of time from creation, or after a period of user inactivity.
+                </div>
+                <ion-list lines="none">
+                    <mat-radio-group  (change)="applySelection($event)" formControlName="sessionExpiryMode" >
+                        <ion-list-header>
+                            <ion-label position="stacked">Select Expiry Mode</ion-label>
+                        </ion-list-header>
+                        <ion-item class="radio-item">
+                            <mat-radio-button [value]="sessionExpiryMode.FixedPeriod"><span>Fixed session length</span></mat-radio-button>
+                        </ion-item>
+                        <ion-item>
+                            <mat-radio-button [value]="sessionExpiryMode.InactivityPeriod"><span>Period of inactivity</span></mat-radio-button>
+                        </ion-item>
+                        
+                </mat-radio-group>
+                </ion-list>
+            </ion-list>
+    
+            <!--Fixed Session Length-->
+            <ion-list lines="none" *ngIf="selectedSessionExpiryMode == sessionExpiryMode.FixedPeriod">
+                <ion-list-header>
+                    <ion-label>
+                        <strong>Session Length</strong>
+                    </ion-label>
+                </ion-list-header>
+    
+                <!--Heading content-->
+                <div>
+                    How long will sessions be active before they automatically expire?
+                </div>
+    
+                <!--Period Length-->
+                <ion-item class="input" [class.ng-touched]="(formHasError || sessionSettingsForm.get('fixLengthTimeout').touched) && sessionSettingsForm.get('fixLengthTimeout').errors">
+                    <ion-label class="item-input-label" position="stacked">Period Length</ion-label>
+                    <ion-input formControlName="fixLengthTimeout"></ion-input>
+                </ion-item>
+                <div class="error" *ngIf="sessionSettingsForm.get('fixLengthTimeout').errors && (sessionSettingsForm.get('fixLengthTimeout').touched || formHasError)">
+                    This field must only contain numerical characters
+                </div>
+    
+    
+                <!--Period Type-->
+                <ion-item [class.ng-touched]="sessionSettingsForm.get('fixLengthTimeoutInPeriodType').touched && sessionSettingsForm.get('fixLengthTimeoutInPeriodType').errors">
+                    <ion-label position="stacked">Period Type</ion-label>
+                    <ion-select formControlName="fixLengthTimeoutInPeriodType" [value]="sessionSettingsForm.get('fixLengthTimeoutInPeriodType').value">
+                        <ion-select-option [value]="'Day'">Days</ion-select-option>
+                        <ion-select-option [value]="'Hour'">Hours</ion-select-option>
+                        <ion-select-option [value]="'Minute'">Minutes</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <div class="error" *ngIf="sessionSettingsForm.get('fixLengthTimeoutInPeriodType').errors && (sessionSettingsForm.get('fixLengthTimeoutInPeriodType').touched || formHasError)">
+                    This field is required
+                </div>
+                <div class="error" *ngIf="!sessionSettingsForm.get('fixLengthTimeoutInPeriodType').errors && !sessionSettingsForm.get('fixLengthTimeout').errors  && formHasError">
+                    An error must have happened on Period of inactivity mode
+                </div>
+    
+            </ion-list>
+    
+            <!--Idle Session Length-->
+            <ion-list lines="none" *ngIf="selectedSessionExpiryMode == sessionExpiryMode.InactivityPeriod">
+                <ion-list-header>
+                    <ion-label>
+                        <strong>Inactivity Period</strong>
+                    </ion-label>
+                </ion-list-header>
+    
+                <!--Heading content-->
+                <div>
+                    How long can a user be inactive before their session will expire?
+                </div>
+    
+                <!--Period Length-->
+                <ion-item class="input" [class.ng-touched]="(formHasError || sessionSettingsForm.get('idleTimeout').touched) && sessionSettingsForm.get('idleTimeout').errors">
+                    <ion-label class="item-input-label" position="stacked">Period Length</ion-label>
+                    <ion-input formControlName="idleTimeout"></ion-input>
+                </ion-item>
+                <div class="error" *ngIf="sessionSettingsForm.get('idleTimeout').errors && (sessionSettingsForm.get('idleTimeout').touched || formHasError)">
+                    This field must only contain numerical characters
+                </div>
+    
+    
+                <!--Period Type-->
+                <ion-item [class.ng-touched]="sessionSettingsForm.get('idleTimeoutPeriodType').touched && sessionSettingsForm.get('idleTimeoutPeriodType').errors">
+                    <ion-label position="stacked">Period Type</ion-label>
+                    <ion-select formControlName="idleTimeoutPeriodType" [value]="sessionSettingsForm.get('idleTimeoutPeriodType').value">
+                        <ion-select-option [value]="'Day'">Days</ion-select-option>
+                        <ion-select-option [value]="'Hour'">Hours</ion-select-option>
+                        <ion-select-option [value]="'Minute'">Minutes</ion-select-option>
+                    </ion-select>
+                </ion-item>
+                <div class="error" *ngIf="sessionSettingsForm.get('idleTimeoutPeriodType').errors && (sessionSettingsForm.get('idleTimeoutPeriodType').touched || formHasError)">
+                    This field is required
+                </div>
+                <div class="error" *ngIf="!sessionSettingsForm.get('idleTimeoutPeriodType').errors && !sessionSettingsForm.get('idleTimeout').errors && formHasError">
+                    An error must have happened on Fixed session length mode
+                </div>
+    
+            </ion-list>
+        </form>
+        <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+            <p class="ion-text-center">
+                {{ errorMessage }}
+            </p>
+        </div>
+    </div>
+</ion-content>

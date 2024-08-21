@@ -1,0 +1,117 @@
+{
+    "version": "2.0.0",
+    "form": {
+        "defaultCurrencyCode": "AUD",
+        "questionSets": [{
+                "name": "Step 1 Question Set",
+                "key": "step1QuestionSet",
+                "fields": [
+                    {
+                        "$type": "single-line-text",
+                        "startsNewRow": true,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "name": "Step 1 Field",
+                        "key": "step1Field",
+                        "questionSetKey": "step1QuestionSet",
+                        "label": "Input",
+                        "dataType": "text",
+                        "question": "Type an input value here:",
+                        "required": true
+                      }
+                ]
+            },
+            {
+                "name": "Step 2 Question Set",
+                "key": "step2QuestionSet",
+                "fields": [
+                    {
+                        "$type": "single-line-text",
+                        "startsNewRow": true,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "name": "Step 2 Field",
+                        "key": "step2Field",
+                        "questionSetKey": "step2QuestionSet",
+                        "label": "Input",
+                        "dataType": "text",
+                        "question": "Type an input value here:"
+                      }
+                ]
+            },
+            {
+                "name": "Step 3 Question Set",
+                "key": "step3QuestionSet",
+                "fields": [
+                    {
+                        "$type": "single-line-text",
+                        "startsNewRow": true,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "name": "Step 3 Field",
+                        "key": "step3Field",
+                        "questionSetKey": "step3QuestionSet",
+                        "label": "Input",
+                        "dataType": "text",
+                        "question": "Type an input value here:"
+                      }
+                ]
+            }
+        ],
+        "textElements": [{
+            "category": "Workflow",
+            "subcategory": "Step 1",
+            "name": "Top Heading",
+            "text": "Step 1 Top Heading - The Quick"
+        }, {
+            "category": "Workflow",
+            "subcategory": "Step 2",
+            "name": "Top Heading",
+            "text": "Step 2 Top Heading - Brown Fox"
+        }, {
+            "category": "Workflow",
+            "subcategory": "Step 3",
+            "name": "Top Heading",
+            "text": "Step 3 Top Heading - Jumps Over"
+        }],
+        "theme": {
+            "showTopHeading": true
+        },
+        "workflowConfiguration": {
+            "step1": {
+                "startScreenExpression": "true",
+                "articles": [
+                    {
+                        "elements": [
+                            {
+                                "type": "questions",
+                                "name": "step1QuestionSet"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "step2": {
+                "articles": [
+                    {
+                        "elements": [
+                            {
+                                "type": "questions",
+                                "name": "step2QuestionSet"
+                            }
+                        ]
+                    }
+                ]
+            },
+            "step3": {
+                "articles": [
+                    {
+                        "elements": [
+                            {
+                                "type": "questions",
+                                "name": "step3QuestionSet"
+                            }
+                        ]
+                    }
+                ]
+            }    
+        }
+    }
+}

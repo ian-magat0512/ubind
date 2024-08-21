@@ -1,0 +1,12 @@
+<app-detail-list-item-edit-form
+    class="detail-list-item-edit-form"
+    [title]="(isEdit? 'Edit':'Create') + ' ' +(routeParamName == 'account' ? routeParamName :  personCategory)"
+    [items]="detailsListFormItems"
+    [editForm]="personForm"
+    [isEdit]="isEdit"
+    [model]="person"
+    [fieldsOptions]="personFieldsOptions"
+    [isLoading]="isLoading"
+    [errorMessage]="errorMessage"
+    (saveForm)="didSelectUpdate($event)"
+    (closeForm)="didSelectClose($event)"></app-detail-list-item-edit-form>

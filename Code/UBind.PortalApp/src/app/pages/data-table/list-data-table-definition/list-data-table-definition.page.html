@@ -1,0 +1,25 @@
+<app-entity-list [title]="title"
+                 [listItemNamePlural]="'data table definitions'"
+                 [entityRouteParamName]="'id'"
+                 [entityLoaderService]="dataTableDefinitionService"
+                 [viewModelConstructor]="viewModelConstructor"
+                 [itemTemplate]="dataTableDefinitionListItemTemplate"
+                 [itemSelectedHandler]="itemSelected.bind(this)"
+                 [getSelectedIdCallback]="getSelectedId.bind(this)"
+                 [getDefaultHttpParamsCallback]="getDefaultHttpParams.bind(this)"
+                 [entityTypeName]="'DataTableDefinition'"
+                 [sortOptions]="sortOptions"
+                 [filterByDates]="filterByDates"
+                 [entityPathSegment]="'data-table'"
+                 [additionalActionButtonList]="additionalActionButtonList"
+                 (listQueryParamsGenerated)="onListQueryParamsGenerated($event)"
+                 [ngStyle]="{'height': '100%'}">
+</app-entity-list>
+
+<ng-template #dataTableDefinitionListItemTemplate let-item>
+    <library-icon name="grid" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+    <ion-label class="ion-text-wrap">
+        <div class="headline">{{item.name}}</div>
+        <p class="status sub-headline">{{item.recordCount == 0 ? 'No' : item.recordCount}} record{{item.recordCount == 1 ? '' : 's'}}</p>
+      </ion-label>
+</ng-template>

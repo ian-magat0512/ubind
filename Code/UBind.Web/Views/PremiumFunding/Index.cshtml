@@ -1,0 +1,23 @@
+﻿@using UBind.Web.ViewModels
+@model ApplicationViewModel
+@{
+    Layout = null;
+}
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>uBind</title>
+    <base href="~/">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/x-icon" href="favicon.ico">
+</head>
+<body>
+    <app apiOrigin='@($"{Context.Request.Scheme}://{Context.Request.Host}")'></app>
+    <script type="text/javascript" src="~/admin/inline.bundle.js"></script>
+    <script type="text/javascript" src="~/admin/polyfills.bundle.js"></script>
+    <script type="text/javascript" src="~/admin/styles.bundle.js"></script>
+    <script type="text/javascript" src="~/admin/vendor.bundle.js"></script>
+    <script type="text/javascript" src="~/admin/main.bundle.js"></script>
+</body>
+</html>

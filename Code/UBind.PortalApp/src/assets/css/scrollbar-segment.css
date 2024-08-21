@@ -1,0 +1,50 @@
+ion-content {
+    --overflow: hidden !important;
+    overflow: hidden !important;
+}
+
+ion-content ion-list {
+    overflow: auto !important;
+}
+
+ion-content > ion-segment + app-filter-chips + div > ion-list {
+    overflow: auto !important;
+    height: calc(100vh - 103px) !important;
+}
+
+
+/* ion-segment */
+@media (min-width: 768px) {
+    ion-content > app-filter-chips + div > ion-list {
+        overflow: auto !important;
+        height: calc(100vh - 90px) !important;
+    }    
+  }
+  
+  @media (max-width: 767px) {
+    ion-content > app-filter-chips + div > ion-list {
+        overflow: auto !important;
+        height: calc(100vh - 90px) !important;
+        padding-bottom: 45px;
+    }
+  }
+
+ion-content > app-filter-chips + ion-list {
+    overflow: auto !important;
+    height: calc(100vh - 56px) !important;
+    padding-bottom: 45px;
+}
+
+@media screen and (-ms-high-contrast: active), screen and (-ms-high-contrast: none) {
+    /* IE10+ specific styles go here */
+
+    ion-content {
+        --overflow: auto !important;
+        overflow: auto !important;
+    }
+
+    ion-content ion-list {
+        overflow: hidden !important;
+        height: auto !important;
+    }
+}

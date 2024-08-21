@@ -1,0 +1,32 @@
+<app-entity-list [title]="title"
+                 [listItemNamePlural]="'customer messages'"
+                 [entityRouteParamName]="'id'"
+                 [entityLoaderService]="messageService"
+                 [sortOptions]="sortOptions"
+                 [filterByDates]="filterByDates"
+                 [viewModelConstructor]="viewModelConstructor"
+                 [itemTemplate]="customerMessageListItemTemplate"
+                 [itemSelectedHandler]="itemSelected.bind(this)"
+                 [getUserFilterSelectionCallback]="getUserFilterChips.bind(this)"
+                 [getDefaultHttpParamsCallback]="getDefaultHttpParams.bind(this)"
+                 [entityTypeName]="'Message'"
+                 [entityPathSegment]="'my-messages'"
+                 [ngStyle]="{'height': '100%'}">
+</app-entity-list>
+
+<ng-template #customerMessageListItemTemplate let-item>
+    <library-icon [name]="item.type === 'email' ? 'mail' : 'text'" 
+        [library]="iconLibrary.IonicV4" 
+        [slot]="'start'" 
+        [size]="'large'"
+        [cssClass]="'align-icon'">
+    </library-icon>
+    <ion-label class="long-label list-title" ellipsis>
+        <div class="ion-text-wrap" ellipsis>{{ item.recipient }}</div>
+        <p class="grayed-pointer" ellipsis>{{ item.subject }}</p>
+    </ion-label>
+    <ion-label class="ion-text-wrap ion-text-end list-title" slot="end">
+        <ion-icon color="dark" *ngIf="item.hasAttachment" name="attach" slot="end" class="icon-pull-right" size="small"></ion-icon>
+        <p class="grayed-label">{{ item.createdDateTime | date: "hh:mm aaa" }}</p>
+    </ion-label>
+</ng-template>

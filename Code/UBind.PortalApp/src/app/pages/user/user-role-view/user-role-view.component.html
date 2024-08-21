@@ -1,0 +1,40 @@
+<ng-container *ngIf="isLoading">
+    <loader></loader>
+</ng-container>
+
+<ng-container *ngIf="!isLoading && !errorMessage">
+    <ion-list lines="none" *ngIf="roles?.length > 0" class="entity-list">
+        <ng-container *ngFor="let role of roles">
+            <ion-item class="role-item" tabindex="0">
+                <library-icon name="shirt" 
+                    [library]="iconLibrary.IonicV4" 
+                    [slot]="'start'"
+                    [size]="'large'">
+                </library-icon>
+                <ion-label class="ion-text-wrap">
+                    <div class="headline">{{role.name}}</div>
+                    <p class="status sub-headline">{{role.description}}</p>
+                </ion-label>
+                <ion-buttons *ngIf="showActionButton" class="roles-action-buttons" slot="end">
+                    <ion-button slot="icon-only" class="role-action-button" (click)="clickRoleActionButton(role)">
+                        <library-icon name="more" 
+                            [library]="iconLibrary.IonicV4"
+                            [cssClass]="'role-action-icon'"
+                            [size]="'small'">
+                        </library-icon>
+                    </ion-button>
+                </ion-buttons>
+            </ion-item>
+        </ng-container>
+    </ion-list>
+    <div *ngIf="roles?.length == 0" class="tab-content content-error">
+        <p class="ion-text-center">
+            No roles found for user
+        </p>
+    </div>
+</ng-container>
+<div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+    <p class="ion-text-center">
+        {{ errorMessage }}
+    </p>
+</div>

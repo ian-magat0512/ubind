@@ -1,0 +1,20 @@
+<loader *ngIf='!claimsData'></loader>
+<ion-list class="entity-list" *ngIf="claimsData" lines="none">
+    <div *ngFor="let claims of claimsData">
+        <ion-item (click)="goToClaimsPage(claims)" button>
+            <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="clipboard" svgIcon="clipboard"></mat-icon>
+            <ion-label *ngIf="claims.createdDate">
+                <div class="row-label">{{ claims.customerDetails.displayName }}</div>
+                <p class="status">{{ claims.createdDate | date: 'dd MMM yyyy' }}</p>
+            </ion-label>
+            <ion-label *ngIf="!claims.createdDate"> {{ claims.customerDetails.displayName }} </ion-label>
+            <ion-label slot="end" class="ion-text-wrap ion-text-end">
+                <div class="list-title row-label">{{ claims.claimReference }}</div>
+                <p class="status">{{ claims.status | titlecase }}</p>
+            </ion-label>
+        </ion-item>
+    </div>
+</ion-list>
+<div *ngIf="claimsData?.length == 0" class="tab-content content-error">
+    <p class="ion-text-center">No claims found</p>
+</div>

@@ -1,0 +1,135 @@
+/*
+* Custom Loader
+*/
+.custom-loader {
+    position: absolute;
+    z-index: 1;
+    width: 100%;
+    margin-top: 30px;
+    text-align: center;
+}
+
+.custom-loader-md {
+    
+    fill: transparent;
+    stroke: #ccc;
+    stroke-width: 3;
+    animation: custom-loader-md-dash 2s ease infinite, custom-loader-md-rotate 2s linear infinite;
+}
+
+.custom-loader-ios {
+    position: relative;
+    width: 100px;
+    height: 100px;    
+}
+
+.md .custom-loader-ios {
+    display: none !important;
+}
+
+@keyframes custom-loader-md-dash {
+    0% {
+        stroke-dasharray: 1, 95;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 85, 95;
+        stroke-dashoffset: -25;
+    }
+
+    100% {
+        stroke-dasharray: 85, 95;
+        stroke-dashoffset: -93;
+    }
+}
+
+@keyframes custom-loader-md-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+.custom-loader-ios div {
+    width: 4%;
+    height: 12%;
+    background: #ccc;
+    position: absolute;
+    opacity: 0;
+    -webkit-border-radius: 50px;
+    -webkit-animation: custom-loader-ios-fade 1s linear infinite;
+}
+
+@-webkit-keyframes custom-loader-ios-fade {
+    from {
+        opacity: 1;
+    }
+
+    to {
+        opacity: 0.25;
+    }
+}
+
+.custom-loader-ios .bar1 {
+    -webkit-transform: rotate(0deg) translate(0, -130%);
+    -webkit-animation-delay: 0s;
+}
+
+.custom-loader-ios .bar2 {
+    -webkit-transform: rotate(30deg) translate(0, -130%);
+    -webkit-animation-delay: -0.9167s;
+}
+
+.custom-loader-ios .bar3 {
+    -webkit-transform: rotate(60deg) translate(0, -130%);
+    -webkit-animation-delay: -0.833s;
+}
+
+.custom-loader-ios .bar4 {
+    -webkit-transform: rotate(90deg) translate(0, -130%);
+    -webkit-animation-delay: -0.7497s;
+}
+
+.custom-loader-ios .bar5 {
+    -webkit-transform: rotate(120deg) translate(0, -130%);
+    -webkit-animation-delay: -0.667s;
+}
+
+.custom-loader-ios .bar6 {
+    -webkit-transform: rotate(150deg) translate(0, -130%);
+    -webkit-animation-delay: -0.5837s;
+}
+
+.custom-loader-ios .bar7 {
+    -webkit-transform: rotate(180deg) translate(0, -130%);
+    -webkit-animation-delay: -0.5s;
+}
+
+.custom-loader-ios .bar8 {
+    -webkit-transform: rotate(210deg) translate(0, -130%);
+    -webkit-animation-delay: -0.4167s;
+}
+
+.custom-loader-ios .bar9 {
+    -webkit-transform: rotate(240deg) translate(0, -130%);
+    -webkit-animation-delay: -0.333s;
+}
+
+.custom-loader-ios .bar10 {
+    -webkit-transform: rotate(270deg) translate(0, -130%);
+    -webkit-animation-delay: -0.2497s;
+}
+
+.custom-loader-ios .bar11 {
+    -webkit-transform: rotate(300deg) translate(0, -130%);
+    -webkit-animation-delay: -0.167s;
+}
+
+.custom-loader-ios .bar12 {
+    -webkit-transform: rotate(330deg) translate(0, -130%);
+    -webkit-animation-delay: -0.0833s;
+}

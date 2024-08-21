@@ -1,0 +1,39 @@
+  <ion-card class="ubind-card">
+      <ion-card-header>
+          My Claims
+      </ion-card-header>
+      <ion-card-content>
+          <div class="preloader-wrapper" *ngIf="isLoading">
+              <loader></loader>
+          </div>
+          <ion-list lines="none" *ngIf="claims?.length > 0" class="entity-list">
+              <ion-item *ngFor="let claim of claims" (click)="userDidTapClaim(claim)">
+                  <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="clipboard" svgIcon="clipboard"></mat-icon>
+                  <ion-label class="ion-text-wrap list-title">
+                      <div>{{claim.productName}}</div>
+                      <p class="status">{{claim.createdDate}}</p>
+                  </ion-label>
+                  <ion-label class="ion-text-wrap ion-text-end list-title" slot="end">
+                      <div>{{claim.claimReference}}</div>
+                      <p class="status">{{claim.status | titlecase}}</p>
+                  </ion-label>
+              </ion-item>
+          </ion-list>
+          <ion-row *ngIf="!isLoading && claims?.length == 0" class="content-error ion-padding-left">
+              <p class="ion-text-center">No active claims found</p>
+          </ion-row>
+          <ion-row>
+              <ion-col class="ion-float-left">
+                  <ion-button fill="clear" size="small" (click)="userDidTapInactiveClaims()">
+                      <library-icon name="filing" [library]="iconLibrary.IonicV4" cssClass="small" [cssStyle]="{'margin-right': '2px'}"></library-icon> INACTIVE CLAIMS
+                  </ion-button>
+              </ion-col>
+              <ion-col *ngIf="policies && policies.length || anyProductCanCreateStandaloneClaim" class="ion-text-end">
+                  <ion-button *ubAllowAccess="permission.ManageClaims" fill="clear" size="small" 
+                              (click)="userDidTapNewClaim()">
+                      <library-icon name="alert" [library]="iconLibrary.IonicV4" cssClass="small" [cssStyle]="{'margin-right': '2px'}"></library-icon> NEW CLAIM
+                  </ion-button>
+              </ion-col>
+          </ion-row>
+      </ion-card-content>
+  </ion-card>

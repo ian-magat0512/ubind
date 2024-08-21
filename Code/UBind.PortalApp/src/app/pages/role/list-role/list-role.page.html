@@ -1,0 +1,27 @@
+<app-entity-list [title]="title"
+                 [listItemNamePlural]="'roles'"
+                 [entityRouteParamName]="'roleId'"
+                 [entityLoaderService]="roleService"
+                 [viewModelConstructor]="viewModelConstructor"
+                 [itemTemplate]="roleListItemTemplate"
+                 [entityTypeName]="'Role'"
+                 [sortOptions]="sortOptions"
+                 [filterByDates]="filterByDates"
+                 (listQueryParamsGenerated)="onListQueryParamsGenerated($event)"
+                 [additionalActionButtonList]="additionalActionButtonList"
+                 [getMoreButtonCallback]="actions?.length > 0 && hasActionsIncludedInMenu ? presentPopover.bind(this) : null"
+                 [flipMoreIcon]="flipMoreIcon"
+                 [entityPathSegment]="'role'"
+                 [ngStyle]="{'height': '100%'}">
+</app-entity-list>
+
+<ng-template #roleListItemTemplate let-item>
+    <library-icon name="shirt" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+    <ion-label class="ion-text-wrap">
+        <div>
+            {{item.name}}
+            <ion-icon *ngIf="!item.isRenamable || !item.isDeletable" name="lock-closed" slot="end" size="small" class="right-icon-text"></ion-icon>
+        </div>
+        <p class="status"> {{item.description}}</p>
+    </ion-label>
+</ng-template>

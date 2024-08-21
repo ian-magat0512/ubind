@@ -1,0 +1,41 @@
+﻿<app-segmented-entity-list [title]="title"
+                           [listItemNamePlural]="'users'"
+                           [entityRouteParamName]="'userId'"
+                           [entityLoaderService]="userApiService"
+                           [viewModelConstructor]="viewModelConstructor"
+                           [segments]="segments"
+                           [defaultSegment]="defaultSegment"
+                           [filterStatuses]="filterStatuses"
+                           [sortOptions]="sortOptions"
+                           [filterByDates]="filterByDates"
+                           [itemTemplate]="userListItemTemplate"
+                           (listQueryParamsGenerated)="onListQueryParamsGenerated($event)"
+                           [getDefaultHttpParamsCallback]="getDefaultHttpParams.bind(this)"
+                           [entityPathSegment]="'user'"
+                           [entityTypeName]="'User'"
+                           [additionalActionButtonList]="additionalActionButtonList"
+                           [entityPathSegment]="'user'"
+                           [ngStyle]="{'height': '100%'}">
+</app-segmented-entity-list>
+
+<ng-template #userListItemTemplate let-item>
+    <ng-container *ngIf="item.profilePictureId">
+        <ion-avatar slot="start" class="list-user-avatar">
+            <img default="" alt="profile photo"
+                 [src]="item.profilePictureId | profilePicUrl"
+                 (error)="setDefaultImg($event)">
+        </ion-avatar>
+    </ng-container>
+    <ng-container *ngIf="!item.profilePictureId">
+        <library-icon name="contact" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'" [cssClass]="'align-icon'"></library-icon>
+    </ng-container>
+    <ion-label>
+        {{ item.firstName != null ? item.firstName + ' ' + (item.lastName != null ? item.lastName : '') : item.fullName }}
+        <library-icon *ngIf="item.isTestData" 
+            name="logo-game-controller-a" 
+            [library]="iconLibrary.IonicV4" 
+            class="testdata-list-icon right-icon-text"
+            [cssClass]="'medium'">
+        </library-icon>
+    </ion-label>
+</ng-template>

@@ -1,0 +1,60 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ion-buttons slot="start" class="cancelButton" *ngIf="!layoutManager.splitPaneVisible">
+            <ion-button slot="icon-only" (click)="userDidTapBackButton()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="!layoutManager.splitPaneVisible">
+            {{title}}
+        </ion-title>
+        <ion-buttons slot="end" *ngIf="!layoutManager.splitPaneVisible" [style.margin-right]="( eventService.canShowProfilePictureIcon$ | async ) ? '57px': '0px'">
+            <ion-button (click)="userDidTapCloseButton()">
+                <ion-label>{{closeButtonLabel}}</ion-label>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content force-overscroll="false" no-bounce has-bouncing="false">
+    <div *ngIf="layoutManager.splitPaneVisible">
+        <ion-toolbar border class="level-2">
+            <ion-buttons slot="start" class="cancelButton">
+                <ion-button slot="icon-only" (click)="userDidTapCloseButton()">
+                    <ion-icon name="close"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+            <ion-title>
+                {{title}}
+            </ion-title>
+            <ion-buttons slot="end">
+                <ion-button (click)="userDidTapCloseButton()">
+                    <ion-label>{{closeButtonLabel}}</ion-label>
+                </ion-button>
+            </ion-buttons>
+        </ion-toolbar>
+    </div>
+
+    <div *ngIf="!isDisposed" #frame id="ubindFrameContainer" class="appContainer"
+         [ngStyle]="layoutManager.splitPaneVisible ? { 'height': 'calc(100vh - 112px)' } : ''">
+        <div class="ubind-product"
+             [attr.data-tenant]="tenantAlias"
+             [attr.data-organisation]="organisationAlias"
+             [attr.data-product]="productAlias"
+             [attr.data-environment]="environment"
+             [attr.data-formType]="formType" 
+             [attr.data-quoteId]="quoteId"
+             [attr.data-claimId]="claimId"
+             [attr.data-quoteType]="quoteTypeAsString"
+             [attr.data-mode]="mode"
+             [attr.data-version]="version"
+             [attr.data-isTestData]="isTestData"
+             [attr.data-debug]="debug"
+             [attr.data-debugLevel]="debugLevel"
+             [attr.data-productRelease]="productRelease"
+             [attr.data-policyId]="policyId"
+             [attr.data-portalOrganisation]="portalOrganisationAlias"
+             data-isLoadedWithinPortal="true">
+        </div>
+    </div>
+</ion-content>

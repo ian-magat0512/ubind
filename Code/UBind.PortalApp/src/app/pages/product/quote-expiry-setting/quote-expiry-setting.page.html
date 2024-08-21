@@ -1,0 +1,107 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="start">
+            <ion-button slot="icon-only" (click)="userDidTapCloseButton()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="!layoutManager.splitPaneVisible">Quote Expiry</ion-title>
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="end">
+            <ion-button (click)="userDidTapSaveButton(form.value)">
+                Save
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <loader *ngIf="isLoading"></loader>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible && !isLoading" class="level-2">
+        <ion-buttons slot="start">
+            <ion-button slot="icon-only" (click)="userDidTapCloseButton()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Quote Expiry</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="userDidTapSaveButton(form.value)">
+                Save
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <div appScrollDetails>
+        <form [formGroup]="form" *ngIf="model && !isLoading">
+            <!--Enable feature-->
+            <ion-list lines="none" inset>
+                <ion-list-header>
+                    <ion-label>
+                        <strong>Enable Feature</strong>
+                    </ion-label>
+                </ion-list-header>
+                <ion-item class="link">
+                    <ion-label>
+                        <span>Enable Quote Expiry</span>
+                        <p class="status">{{newEnabled?"Enabled":"Disabled"}}</p>
+                    </ion-label>
+                    <ion-toggle color="primary" (ionChange)="quoteExpiryActiveStateChange($event)" checked="{{newEnabled}}"></ion-toggle>
+                </ion-item>
+            </ion-list>
+    
+            <!--Expiry Time -->
+            <ion-list lines="none" *ngIf="newEnabled" inset class="expiry-time-list">
+                <ion-list-header>
+                    <ion-label>
+                        <strong>Expiry Time</strong>
+                    </ion-label>
+                </ion-list-header>
+    
+                <!--Heading content-->
+                <div>
+                    Quote expiry dates are set based on a specified number of days from its creation date.
+                </div>
+    
+                <ion-item class="input" [class.ng-touched]="(formHasError || form.get('expiryDays').touched) && form.get('expiryDays').errors">
+                    <ion-label position="stacked">Expiry time (days)</ion-label>
+                    <ion-input formControlName="expiryDays"></ion-input>
+                </ion-item>
+                <div class="error" *ngIf="form.get('expiryDays').errors && (form.get('expiryDays').touched || formHasError)">
+                    The expiry time must be a whole number between 1 and 365
+                </div>
+            </ion-list>
+    
+    
+            <!--Expiry Options-->
+            <ion-list lines="none"
+                      *ngIf="(newEnabled && !model.quoteExpirySettings.enabled) || (newEnabled && model.quoteExpirySettings.enabled && form.value.expiryDays != model.quoteExpirySettings.expiryDays)"
+                      inset>
+                <ion-list-header>
+                    <ion-label>
+                        <strong>Existing Quotes</strong>
+                    </ion-label>
+                </ion-list-header>
+                <div>
+                    Please select how you want the expiry date of existing quotes for this product to be affected by your change.
+                </div>
+                <ion-list lines="none">
+                    <mat-radio-group (change)="applyUpdateSelection($event)">
+                        <ion-item class="radio-item">
+                            <mat-radio-button value="1" checked>
+                                <ion-label class="ion-text-wrap">Only set the expiry date for quotes that do not already have an expiry date</ion-label>
+                            </mat-radio-button>
+                        </ion-item>
+                        <ion-item class="radio-item">
+                            <mat-radio-button value="2">
+                                <ion-label class="ion-text-wrap">Only update the expiry dates of quotes whose expiry date was set automatically (those with an expiry date manually set by a user will keep that expiry date)</ion-label>
+                            </mat-radio-button>
+                        </ion-item>
+                        <ion-item class="radio-item">
+                            <mat-radio-button value="3">
+                                <ion-label class="ion-text-wrap">Update the expiry date for <u>all</u> quotes based on the new expiry time, including those manually set by a user</ion-label>
+                            </mat-radio-button>
+                        </ion-item>
+                    </mat-radio-group>
+                </ion-list>
+            </ion-list>
+        </form>
+    </div>
+</ion-content>

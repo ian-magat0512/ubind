@@ -1,0 +1,35 @@
+<div class="container-fluid">
+    <ng-container *ngIf="applicationService.debug">
+        <p class="debug">
+            <span class="debug-property">
+                <span class="key">Question Set:</span><span class="value"> {{ questionSetPath }}</span>
+            </span>
+            <span class="debug-property">
+                <span class="key">Valid:</span><span class="value"> {{ valid }}</span>
+            </span>
+            <span class="debug-property">
+                <span class="key">Invalid Field Count:</span><span class="value"> {{ childrenValidityTracker.invalidChildCount }}</span>
+            </span>
+            <span *ngIf="affectsPremium" class="debug-property">
+                <span class="key">Affects Premium:</span><span class="value"> {{ affectsPremium }}</span>
+            </span>
+            <span *ngIf="affectsTriggers" class="debug-property">
+                <span class="key">Affects Triggers:</span><span class="value"> {{ affectsTriggers }}</span>
+            </span>
+            <span *ngIf="requiredForCalculation" class="debug-property">
+                <span class="key">requiredForCalculation:</span><span class="value"> {{ requiredForCalculation }}</span>
+            </span>
+            <span class="debug-property" *ngIf="hiddenExpression && applicationService.debugLevel >= 3">
+                <span class="key">Hidden Expression:</span><span class="value"> {{ hiddenExpression.source }}</span>
+            </span>        
+        </p>
+    </ng-container>
+    <form class="formly" novalidate [formGroup]="form">        
+        <formly-form
+            [model]="model"
+            [fields]="fieldsByRow"
+            [form]="form"
+            [options]="options">
+        </formly-form>
+    </form>
+</div>

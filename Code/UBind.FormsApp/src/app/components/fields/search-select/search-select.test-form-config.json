@@ -1,0 +1,102 @@
+{
+    "version": "2.0.0",
+    "form": {
+        "defaultCurrencyCode": "AUD",
+        "questionSets": [{
+                "name": "Test Question Set 1",
+                "key": "testQuestionSet1",
+                "fields": [{
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "required": false,
+                        "calculatedValueExpression": "getFieldSearchTerm('searchSelect1')",
+                        "autoTriggerCalculatedValue": true,
+                        "affectsPremium": false,
+                        "affectsTriggers": false,
+                        "requiredForCalculations": false,
+                        "private": false,
+                        "displayable": true,
+                        "canChangeWhenApproved": false,
+                        "resetForNewQuotes": false,
+                        "calculationWorkbookCellLocation": {
+                            "sheetIndex": 1,
+                            "rowIndex": 7,
+                            "colIndex": 7
+                        },
+                        "startsNewRow": false,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "label": "Search Term",
+                        "name": "Search Term",
+                        "key": "searchTerm",
+                        "questionSetKey": "testQuestionSet1",
+                        "dataType": "text",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "search-select",
+                        "optionSetName": "Cars",
+                        "optionSetKey": "cars",
+                        "searchTextExpression": "fieldInputValue",
+                        "required": false,
+                        "autoTriggerCalculatedValue": true,
+                        "affectsPremium": false,
+                        "affectsTriggers": false,
+                        "requiredForCalculations": false,
+                        "private": false,
+                        "displayable": true,
+                        "canChangeWhenApproved": false,
+                        "resetForNewQuotes": false,
+                        "calculationWorkbookCellLocation": {
+                            "sheetIndex": 1,
+                            "rowIndex": 8,
+                            "colIndex": 7
+                        },
+                        "startsNewRow": false,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "label": "Search Select",
+                        "name": "Search Select 1",
+                        "key": "searchSelect1",
+                        "questionSetKey": "testQuestionSet1",
+                        "dataType": "text",
+                        "workflowRole": "none"
+                    }
+                ]
+            }
+        ],
+        "repeatingQuestionSets": [],
+        "optionSets": [{
+                "name": "Cars",
+                "key": "cars",
+                "options": [{
+                        "label": "Toyota",
+                        "value": "Toy1"
+                    }, {
+                        "label": "Nissan",
+                        "value": "Nis2"
+                    }, {
+                        "label": "Ford",
+                        "value": "For3"
+                    }, {
+                        "label": "Holden",
+                        "value": "Hol4"
+                    }
+                ]
+            }
+        ],
+        "workflowConfiguration": {
+            "step1": {
+                "startScreenExpression": "true",
+                "tabIndexExpression": "1",
+                "articles": [{
+                        "elements": [{
+                                "type": "questions",
+                                "name": "testQuestionSet1"
+                            }
+                        ]
+                    }
+                ]
+            }
+       }
+    },
+    "triggers": [],
+    "calculatesUsingStandardWorkbook": true
+}

@@ -1,0 +1,46 @@
+<ion-list class="entity-list custom-popover" lines="none" style="margin: -1px 0 0">
+    <button *ubAllowAccess="permission.ManageReleases" (click)="onEditRelease()">
+        <library-icon name="pencil" [library]="iconLibrary.AngularMaterial" [cssClass]="'start'"></library-icon>
+        <ion-label>Edit Release</ion-label>
+    </button>
+    <button *ubAllowAccess="permission.ManageReleases" (click)="restoreToDev()">
+        <library-icon name="backup-restore" [library]="iconLibrary.AngularMaterial" [cssClass]="'start mat-icon-sm'"></library-icon>
+        <ion-label>Restore to Development</ion-label>
+    </button>
+    <ng-container *ubAllowAccess="permission.PromoteReleasesToProduction">
+        <button *ngIf="!forProduction" (click)="setAsDefault('Production')">
+            <library-icon name="cloud-upload" [library]="iconLibrary.AngularMaterial" [cssClass]="'start mat-icon-sm'"></library-icon>
+            <ion-label>Set as default for production</ion-label>
+        </button>
+    </ng-container>
+    <ng-container *ubAllowAccess="permission.PromoteReleasesToProduction">
+        <button *ngIf="forProduction" (click)="unset('Production')">
+            <library-icon name="cloud-download" [library]="iconLibrary.AngularMaterial" [cssClass]="'start mat-icon-sm'"></library-icon>
+            <ion-label>Unset as default for production</ion-label>
+        </button>
+    </ng-container>
+    <ng-container>
+        <button (click)="move('Production')">
+            <library-icon name="transfer-right" [library]="iconLibrary.AngularMaterial" [cssClass]="'start mat-icon-sm'"></library-icon>
+            <ion-label>Move production quotes to release</ion-label>
+        </button>
+    </ng-container>
+    <ng-container *ubAllowAccess="permission.PromoteReleasesToStaging">
+        <button *ngIf="!forStaging" (click)="setAsDefault('Staging')">
+            <library-icon name="cloud-upload-outline" [library]="iconLibrary.AngularMaterial" [cssClass]="'start mat-icon-sm'"></library-icon>
+            <ion-label>Set as default for staging</ion-label>
+        </button>
+    </ng-container>
+    <ng-container *ubAllowAccess="permission.PromoteReleasesToStaging">
+        <button *ngIf="forStaging" (click)="unset('Staging')">
+            <library-icon name="cloud-download-outline" [library]="iconLibrary.AngularMaterial" [cssClass]="'start mat-icon-sm'"></library-icon>
+            <ion-label>Unset as default for staging</ion-label>
+        </button>
+    </ng-container>
+    <ng-container>
+        <button (click)="move('Staging')">
+            <library-icon name="transfer-right" [library]="iconLibrary.AngularMaterial" [cssClass]="'start mat-icon-sm'"></library-icon>
+            <ion-label>Move staging quotes to release</ion-label>
+        </button>
+    </ng-container>
+</ion-list>

@@ -1,0 +1,68 @@
+<p *ngIf="applicationService.debug" class="debug">
+    <span class="debug-property">
+        <span class="key">Article:</span><span class="value"> {{ name }}</span>
+    </span>
+    <span class="debug-property">
+        <span class="key">Valid:</span><span class="value"> {{ childrenValidityTracker.valid }}</span>
+    </span>
+    <span class="debug-property">
+        <span class="key">Invalid Children Count:</span><span class="value"> {{ childrenValidityTracker.invalidChildCount }}</span>
+    </span>
+    <span class="debug-property" *ngIf="hiddenExpression && applicationService.debugLevel >= 3">
+        <span class="key">Hidden Expression:</span><span class="value"> {{ hiddenExpression.source }}</span>
+    </span>
+</p>
+<article [class]="cssClass">
+    <ng-container *ngIf="heading" >
+        <h2 [innerHTML]="heading" class="article-heading"></h2>
+    </ng-container>
+    <ng-container *ngIf="text" >
+        <p [innerHTML]="text"class="article-text"></p>
+    </ng-container>
+
+            <ng-container *ngFor="let element of articleElements; let articleElementIndex = index">
+                <ng-container *ngIf="element.type == 'questions'">
+                    <p *ngIf="applicationService.debug && !element.render" class="debug">
+                        <span class="debug-property">
+                            <span class="key">Question Set:</span><span class="value"> {{ element.name }}</span>
+                        </span>
+                        <span class="debug-property">
+                            <span class="key">Hidden:</span><span class="value"> {{ !element.render }}</span>
+                        </span>
+                        <span class="debug-property" *ngIf="element.hiddenExpression">
+                            <span class="key">Hidden Expression:</span><span class="value"> {{ element.hiddenExpression.source }}</span>
+                        </span>
+                    </p>
+                </ng-container>
+
+                <ng-container *ngIf="element.type == 'questions'
+                    && (renderMethod == RenderMethod.Eager || (element.render && element.canDisplay))">
+                    <questions-widget [class]="element.name" 
+                        [name]="element.name"
+                        [definition]="element.definition"
+                        [affectsPremium]="element.affectsPremium"
+                        [affectsTriggers]="element.affectsTriggers"
+                        [requiredForCalculation]="element.requiredForCalculation"
+                        [stepName]="element.stepName"
+                        [articleIndex]="index"
+                        [articleElementIndex]="articleElementIndex"
+                        [sectionDisplayMode]="displayMode"
+                        [parentFieldChildrenValidityTracker]="this.childrenValidityTracker"
+                        [visible]="element.render"
+                        [hiddenExpression]="element.hiddenExpression"
+                        [style.display]="element.render && element.canDisplay ? 'inherit': 'none'"
+                        [parentHideable]="this">
+                    </questions-widget>
+                </ng-container>
+              
+                <ng-container *ngIf="element.type == 'content'
+                    && (renderMethod == RenderMethod.Eager || (element.render && element.canDisplay))">
+                    <content-widget
+                        [name]="element.name"
+                        [textElement]="element.textElement"
+                        [content]="element.content"
+                        [style.display]="element.render && element.canDisplay ? 'inherit': 'none'">
+                    </content-widget>
+                </ng-container>
+            </ng-container>
+</article>

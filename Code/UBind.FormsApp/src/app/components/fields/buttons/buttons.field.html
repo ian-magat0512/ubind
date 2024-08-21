@@ -1,0 +1,69 @@
+<options-field-debug *ngIf="applicationService.debug" [field]="this"></options-field-debug>
+<ng-container *ngIf="isLoading && !errorMessage">
+    <div class="loader">
+        <svg class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" id="select-loader-spinner">
+            <circle class="circle" fill="none" stroke="#999999" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="25"></circle>
+        </svg>
+    </div>
+</ng-container>
+<ng-container *ngIf="!isLoading && !errorMessage">
+    <div *ngIf="noOptionsFoundText && (hideAllOptions || numberOfSelectOptionsShown == 0)" class="no-options">
+        <p>{{ noOptionsFoundText }}</p>
+    </div>
+    <ng-container *ngIf="!hideAllOptions">
+        <div [id]="fieldPath | cssIdentifier" class="btn-group {{ optionsFieldConfiguration.optionSetKey | cssIdentifier }}">
+            <div [formGroup]="form">
+                <ng-container *ngFor="let option of selectOptions; let i = index;">
+
+                    <label *ngIf="option.render" 
+                        [class.tabbable]="true"
+                        [class.btn]="true"
+                        [class.btn-has-icon]="option.icon"
+                        [class.selected]="formControl.value == option.value"
+                        [class.disabled]="option.disabled"
+                        [class.hidden]="option.filtered"
+                        [attr.data-option-key]="option.key"
+                        [attr.data-option-index]="i"
+                        [id]="option.id + '-label' | cssIdentifier"
+                        (click)="onClick($event, option.disabled)"
+                        (keyup.space)="handleKeyUp(option)"
+                        (keyup.enter)="handleKeyUp(option)"
+                        role="button"
+                        [ngClass]="option.cssClass ? option.cssClass : ''"
+                        tabindex="0"
+                        [for]="option.id | cssIdentifier">
+
+                        <input
+                            type="radio"
+                            class="form-control"
+                            [id]="option.id | cssIdentifier"
+                            [name]="groupName"
+                            [value]="option.value"
+                            [attr.disabled]="option.disabled ? true : null"
+                            [formControl]="formControl"
+                            autocomplete="off"
+                            (change)="onChange($event)"
+                            (keyup.space)="handleKeyUp(option)"
+                            (keyup.enter)="handleKeyUp(option)"
+                            (focus)="onFocus($event)"
+                            (blur)="onBlur($event)"
+                            (keydown)="onKeyDown($event)"/>
+                        <span *ngIf="option.icon" class="btn-icon option-icon">
+                            <span class="button-icon {{option.icon}}"></span>
+                        </span>
+                        <span class="button-text option-label" [innerHTML]="option.label">
+                        </span>
+
+                    </label>
+
+                </ng-container>
+            </div>
+        </div>
+    </ng-container>
+</ng-container>
+<div *ngIf="errorMessage" class="content-error fade-in">
+    <p text-center>
+        {{ errorMessage }}
+    </p>
+</div>
+

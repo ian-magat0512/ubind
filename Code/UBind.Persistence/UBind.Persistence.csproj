@@ -1,0 +1,325 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+    <PropertyGroup>
+        <TargetFramework>net6.0</TargetFramework>
+        <ImplicitUsings>enable</ImplicitUsings>
+        <Nullable>enable</Nullable>
+        <PlatformTarget>x64</PlatformTarget>
+    </PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Debug|AnyCPU'">
+		<!-- CS1591: This setting suppresses the CS1591 warning for missing XML comments on publicly visible types or members 
+	       We are suppressing CS1591 because we dont want property and method have a required comment.-->
+		<NoWarn>CS1591;SA0001;</NoWarn>
+    </PropertyGroup>
+
+    <PropertyGroup Condition="'$(Configuration)|$(Platform)'=='Release|AnyCPU'">
+		<!-- CS1591: This setting suppresses the CS1591 warning for missing XML comments on publicly visible types or members 
+	       We are suppressing CS1591 because we dont want property and method have a required comment.-->
+		<NoWarn>CS1591;SA0001;</NoWarn>
+    </PropertyGroup>
+
+    <ItemGroup>
+      <Compile Remove="Migrations\202308102042147_MigrateOrganisationPermissions.cs" />
+      <Compile Remove="Migrations\202308102042147_MigrateOrganisationPermissions.Designer.cs" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <EmbeddedResource Remove="Migrations\202308102042147_MigrateOrganisationPermissions.resx" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Remove="Migrations\202102040219395_UpdateReportRecords.sql" />
+        <None Remove="Migrations\202102101137298_PopulateMissingEffectiveTimeInTicksForPolicyTransaction.sql" />
+        <None Remove="Migrations\202104220824459_AddProfilePictureIdColumnToUserReadModel.sql" />
+        <None Remove="Migrations\202104231632150_CreateClaimReadModelsCopyPolicyIdIntoQuoteIdOnInsertTrigger.sql" />
+        <None Remove="Migrations\202104231632150_CreateClaimReadModelsCopyQuoteIdIntoPolicyIdOnInsertTrigger.sql" />
+        <None Remove="Migrations\202104231632150_CreateClaimReadModelsCopyQuoteIdToPolicyIdOrPolicyIdToQuoteIdOnUpdateTrigger.sql" />
+        <None Remove="Migrations\202104231632150_CreateQuoteDocumentReadModelsCopyPolicyIdIntoQuoteIdOnInsertTrigger.sql" />
+        <None Remove="Migrations\202104231632150_CreateQuoteDocumentReadModelsCopyQuoteIdIntoPolicyIdOnInsertTrigger.sql" />
+        <None Remove="Migrations\202104231632150_CreateQuoteDocumentReadModelsCopyQuoteIdToPolicyIdOrPolicyIdToQuoteIdOnUpdateTrigger.sql" />
+        <None Remove="Migrations\202204250329158_MoveUserCustomerCommonDefinitionToPerson.sql" />
+        <None Remove="Migrations\AddNewIdForTenantAndProductAndOtherEntitiesQueries\NewIdMigration.sql" />
+        <None Remove="Migrations\AddNonclusteredDBIndexForPolicyReadModels.sql" />
+        <None Remove="Migrations\AddTenantIdIndexForGuidTable.sql" />
+        <None Remove="Migrations\CreateIndexesForRelationships.sql" />
+        <None Remove="Migrations\CreateIndexForSystemEvents.sql" />
+        <None Remove="Migrations\CreateLoginAttemptEmailAddressAndOrganisationIdIndex.sql" />
+        <None Remove="Migrations\CreateTriggersForRenamingColumnSerializedPayloadToPayloadJson.sql" />
+        <None Remove="Migrations\CreateTriggersForSettingIdFromFieldId.sql" />
+        <None Remove="Migrations\DeleteIndexesForRelationships.sql" />
+        <None Remove="Migrations\DeleteTenantIdIndexForGuidTable.sql" />
+        <None Remove="Migrations\DeleteTriggersForRenamingColumnSerializedPayloadToPayloadJson.sql" />
+        <None Remove="Migrations\DeleteTriggersForSettingIdFromFieldId.sql" />
+        <None Remove="Migrations\IncludeIsTestDataFromQuotesPolicyReadModelIndex.sql" />
+        <None Remove="Migrations\Migrate Email To Refactored Email Structure.sql" />
+        <None Remove="Migrations\Migrate Old Data into IRS DB Design.SQL" />
+        <None Remove="Migrations\populate_missing_claim_reference.sql" />
+        <None Remove="Migrations\populate_product_features.sql" />
+        <None Remove="Migrations\populate_quotes_payment_data.sql" />
+        <None Remove="Migrations\Remove Ubind Admin Accounts.sql" />
+        <None Remove="Migrations\RemoveIsDiscardedfromQuotesPolicyReadModelIndex.sql" />
+        <None Remove="Migrations\ReplaceAssignedPermissions.sql" />
+        <None Remove="Migrations\Sql\20220813_RecreatePolicyCreatedIndex.sql" />
+        <None Remove="Migrations\Sql\20220813_RecreatePolicyLastModifiedIndex.sql" />
+        <None Remove="Migrations\Sql\20220813_RecreateQuotesLastModifiedIndex.sql" />
+        <None Remove="Migrations\Sql\20220927_UpdateNonclusteredDBIndexForPolicyReadModelsOldVersion.sql" />
+        <None Remove="Migrations\Sql\CreateFunctionDateTimeToTicks.sql" />
+        <None Remove="Migrations\Sql\CreateFunctionTicksToDateTime.sql" />
+        <None Remove="Migrations\Sql\CreateLoginAttemptEmailAddressAndOrganisationIdIndexV2.sql" />
+        <None Remove="Migrations\Update Release Numbers with correct values.sql" />
+        <None Remove="Migrations\UpdateLastUpdatedByUserAndAddNonclusteredDBIndex.sql" />
+		<None Remove="Migrations\UpdateNonclusteredDBIndexForPolicyReadModels.sql" />
+		<None Remove="Migrations\Sql\DeleteAssetsTableDuplicateIndexes.sql" />
+        <None Remove="ReadModels\RepositoryResourceScript\script\GetPolicies.sql" />
+        <None Remove="ReadModels\RepositoryResourceScript\script\GetPolicyReadModelAndPolicyTransaction.sql" />
+        <None Remove="RepositoryResourceScripts\GetDevReleaseByIdWithFileContents.sql" />
+        <None Remove="RepositoryResourceScripts\GetDevReleaseForProductWithoutAssetFileContents.sql" />
+        <None Remove="RepositoryResourceScripts\GetDevReleaseWithoutAssetFileContents.sql" />
+        <None Remove="RepositoryResourceScripts\GetReleaseByIdWithFileContents.sql" />
+        <None Remove="RepositoryResourceScripts\GetReleaseWithoutAssetFileContents.sql" />
+        <None Remove="stylecop.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+      <AdditionalFiles Include="stylecop.json" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="Migrations\202102040219395_UpdateReportRecords.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\202102101137298_PopulateMissingEffectiveTimeInTicksForPolicyTransaction.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\202104220824459_AddProfilePictureIdColumnToUserReadModel.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\202104231632150_CreateClaimReadModelsCopyPolicyIdIntoQuoteIdOnInsertTrigger.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\202104231632150_CreateClaimReadModelsCopyQuoteIdIntoPolicyIdOnInsertTrigger.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\202104231632150_CreateClaimReadModelsCopyQuoteIdToPolicyIdOrPolicyIdToQuoteIdOnUpdateTrigger.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\202104231632150_CreateQuoteDocumentReadModelsCopyPolicyIdIntoQuoteIdOnInsertTrigger.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\202104231632150_CreateQuoteDocumentReadModelsCopyQuoteIdIntoPolicyIdOnInsertTrigger.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\202104231632150_CreateQuoteDocumentReadModelsCopyQuoteIdToPolicyIdOrPolicyIdToQuoteIdOnUpdateTrigger.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\202204250329158_MoveUserCustomerCommonDefinitionToPerson.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\AddNewIdForTenantAndProductAndOtherEntitiesQueries\NewIdMigration.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\AddNonclusteredDBIndexForPolicyReadModels.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\AddTenantIdIndexForGuidTable.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\CreateIndexForSystemEvents.sql">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\CreateIndexesForRelationships.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\CreateLoginAttemptEmailAddressAndOrganisationIdIndex.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\CreateTriggersForRenamingColumnSerializedPayloadToPayloadJson.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\CreateTriggersForSettingIdFromFieldId.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\DeleteIndexesForRelationships.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\DeleteTenantIdIndexForGuidTable.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\DeleteTriggersForRenamingColumnSerializedPayloadToPayloadJson.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\DeleteTriggersForSettingIdFromFieldId.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\IncludeIsTestDataFromQuotesPolicyReadModelIndex.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\Migrate Email To Refactored Email Structure.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\Migrate Old Data into IRS DB Design.SQL">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\populate_missing_claim_reference.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\populate_product_features.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\populate_quotes_payment_data.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\Remove Ubind Admin Accounts.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\RemoveIsDiscardedfromQuotesPolicyReadModelIndex.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\ReplaceAssignedPermissions.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\Sql\20220813_RecreatePolicyCreatedIndex.sql">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\Sql\20220813_RecreatePolicyLastModifiedIndex.sql">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\Sql\20220813_RecreateQuotesLastModifiedIndex.sql">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\Sql\20220927_UpdateNonclusteredDBIndexForPolicyReadModelsOldVersion.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\Sql\CreateFunctionDateTimeToTicks.sql">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\Sql\CreateFunctionTicksToDateTime.sql">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\Sql\CreateLoginAttemptEmailAddressAndOrganisationIdIndexV2.sql">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\Update Release Numbers with correct values.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\UpdateLastUpdatedByUserAndAddNonclusteredDBIndex.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Migrations\UpdateNonclusteredDBIndexForPolicyReadModels.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+		<Content Include="Migrations\Sql\DeleteAssetsTableDuplicateIndexes.sql">
+			<CopyToOutputDirectory>Always</CopyToOutputDirectory>
+		</Content>
+        <Content Include="ReadModels\RepositoryResourceScript\script\GetPolicies.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="ReadModels\RepositoryResourceScript\script\GetPolicyReadModelAndPolicyTransaction.sql">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="RepositoryResourceScripts\Scripts\GetReleaseWithoutAssetFileContents.sql">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="RepositoryResourceScripts\Scripts\GetReleaseByIdWithFileContents.sql">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="RepositoryResourceScripts\Scripts\GetDevReleaseByIdWithFileContents.sql">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="RepositoryResourceScripts\Scripts\GetDevReleaseForProductWithoutAssetFileContents.sql">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+        <Content Include="RepositoryResourceScripts\Scripts\GetDevReleaseWithoutAssetFileContents.sql">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="Argument.Validator" Version="2.0.0" />
+        <PackageReference Include="Dapper.StrongName" Version="2.1.24" />
+        <PackageReference Include="Hangfire.Core" Version="1.8.*" />
+        <PackageReference Include="LinqKit" Version="1.2.2" />
+        <PackageReference Include="Lucene.Net.Queries" Version="4.8.0-beta00016" />
+        <PackageReference Include="Lucene.Net.QueryParser" Version="4.8.0-beta00016" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.5.0" />
+        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.3">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.EntityFrameworkCore" Version="6.0.8" />
+        <PackageReference Include="MiniProfiler.AspNetCore.Mvc" Version="4.3.8" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="Nito.AsyncEx" Version="5.1.2" />
+        <PackageReference Include="RedLock.net" Version="2.3.2" />
+        <PackageReference Include="StackExchange.Redis" Version="2.7.23" />
+        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <WCFMetadata Include="Connected Services\" />
+    </ItemGroup>
+    <ItemGroup>
+        <Reference Include="System.Runtime.Caching" />
+    </ItemGroup>
+    <ItemGroup>
+        <None Update="Migrations\Sql\ColumnRenameRowInsertedTrigger.sqlt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Migrations\Sql\ColumnRenameRowUpdatedTrigger.sqlt">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Migrations\Sql\CreateAssetsTableIndexes.sql">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Migrations\Sql\CreateDevReleasesTableIndexes.sql">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ThirdPartyDataSets\Migrations\202207290802080_CreateStateMachineJobTable.sql">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ThirdPartyDataSets\Migrations\Scripts\CreateTableBoundedViewsBySchema.sql">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="ThirdPartyDataSets\Migrations\Scripts\DropTableBoundedViewsBySchema.sql">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+	<ItemGroup>
+		<AdditionalFiles Include="..\stylecop.json">
+			<Link>stylecop.json</Link>
+		</AdditionalFiles>
+		<None Include="app.config" />
+	</ItemGroup>
+	<ItemGroup>
+	  <ProjectReference Include="..\UBind.Domain\UBind.Domain.csproj" />
+	</ItemGroup>
+	<ItemGroup>
+	  <Compile Update="RepositoryResourceScripts\DevReleaseRepositoryResourceScript.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>DevReleaseRepositoryResourceScript.resx</DependentUpon>
+	  </Compile>
+	  <Compile Update="RepositoryResourceScripts\ReleaseRepositoryResourceScript.Designer.cs">
+	    <DesignTime>True</DesignTime>
+	    <AutoGen>True</AutoGen>
+	    <DependentUpon>ReleaseRepositoryResourceScript.resx</DependentUpon>
+	  </Compile>
+	</ItemGroup>
+	<ItemGroup>
+	  <EmbeddedResource Update="RepositoryResourceScripts\DevReleaseRepositoryResourceScript.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>DevReleaseRepositoryResourceScript.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	  <EmbeddedResource Update="RepositoryResourceScripts\ReleaseRepositoryResourceScript.resx">
+	    <Generator>ResXFileCodeGenerator</Generator>
+	    <LastGenOutput>ReleaseRepositoryResourceScript.Designer.cs</LastGenOutput>
+	  </EmbeddedResource>
+	</ItemGroup>
+</Project>

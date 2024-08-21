@@ -1,0 +1,49 @@
+{
+  "eventExporters": [
+    {
+      "id": "Webhook Generate Policy Schedule",
+      "events": [ "PolicyIssued" ],
+      "action": {
+        "type": "http",
+        "url": {
+          "type": "environment",
+          "development": "http://app.ubind.com.au/exporttest",
+          "staging": "http://app.ubind.com.au/exporttest",
+          "production": "http://app.ubind.com.au/exporttest"
+        },
+        "body": {
+          "type": "applicationData"
+        },
+        "contentType": "application/json"
+      }
+    },
+    {
+      "id": "Email PolicyIssued",
+      "events": [ "PolicyIssued" ],
+      "action": {
+        "type": "email",
+        "from": "Promo in a Box <hello@promoinabox.win>",
+        "to": {
+          "type": "formField",
+          "fieldName": "email"
+        },
+        "subject": "Your Promo in a Box Invoice",
+        "plainTextBody": {
+          "type": "razor",
+          "templateName": "email-invoice-customer-text.cshtml"
+        },
+        "htmlBody": {
+          "type": "razor",
+          "templateName": "email-invoice-customer-html.cshtml"
+        },
+        "attachments": [
+          {
+            "type": "document",
+            "templateName": "tax-invoice.docx",
+            "outputFileName": "tax-invoice.pdf"
+          }
+        ]
+      }
+    }
+  ]
+}

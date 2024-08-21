@@ -1,0 +1,41 @@
+<app-segmented-entity-list [title]="title"
+                           [listItemNamePlural]="listItemNamePlural"
+                           [entityRouteParamName]="'policyId'"
+                           [entityLoaderService]="policyApiService"
+                           [viewModelConstructor]="viewModelConstructor"
+                           [segments]="segments"
+                           [defaultSegment]="defaultSegment"
+                           [filterStatuses]="filterStatuses"
+                           [sortOptions]="sortOptions"
+                           [filterByDates]="filterByDates"
+                           [itemTemplate]="policyListItemTemplate"
+                           [entityTypeName]="'Policy'"
+                           [getSelectedIdCallback]="getSelectedId.bind(this)"
+                           [getUserFilterSelectionCallback]="getUserFilterChips.bind(this)"
+                           (listQueryParamsGenerated)="onListQueryParamsGenerated($event)"
+                           [ngStyle]="{'height': '100%'}"
+                           (selectedSegmentChanged)="segmentChanged($event)"
+                           [getMoreButtonCallback]="toggleExport.bind(this)"
+                           [canShowMore]="actions?.length > 0 && hasActionsIncludedInMenu"
+                           [flipMoreIcon]="flipMoreIcon">
+</app-segmented-entity-list>
+
+<ng-template #policyListItemTemplate let-item>
+    <library-icon name="shield" [library]="iconLibrary.AngularMaterial" cssClass="mat-icon-md"></library-icon>
+    <ion-label class="ion-text-wrap">
+        <div class="row-label">
+            {{item.policyTitle || item.customerName || 'Policy'}}
+            <library-icon *ngIf="item.isTestData" 
+                name="logo-game-controller-a" 
+                [library]="iconLibrary.IonicV4" 
+                class="testdata-list-icon right-icon-text"
+                [cssClass]="'medium'">
+            </library-icon>
+        </div>
+        <p class="status">{{ item.productName }}</p>
+    </ion-label>
+    <ion-label class="ion-text-end" slot="end">
+        <div class="list-title row-label">{{item.policyNumber}}</div>
+        <p class="status">{{ item.policyIssuedTime }}</p>
+    </ion-label>    
+</ng-template>

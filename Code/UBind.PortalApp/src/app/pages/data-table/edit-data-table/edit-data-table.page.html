@@ -1,0 +1,20 @@
+<app-detail-list-item-edit-form class="detail-list-item-edit-form"
+                                [title]="title"
+                                [isLoading]="isLoading"
+                                [errorMessage]="errorMessage"
+                                [items]="detailList"
+                                [editForm]="form"
+                                [fieldsOptions]="fieldOptions"
+                                [fieldShowHideRules]="fieldShowHideRules"
+                                (saveForm)="userDidTapSaveButton()"
+                                (closeForm)="userDidTapCloseButton()">
+
+    <!-- content projection start -->
+    <div *ngIf="cachingEnabled" class="kb-more-info-box mat-elevation-z2">
+        <ion-icon class="box-left-icon" name="help-circle-outline" size="large"></ion-icon>
+        <h5>In Memory Data Table Limit</h5>
+        <p>In-memory data tables have a limit of 20 MB. If you wish to store a larger set of data, you will need to turn off caching.</p>
+        <p class="go-to-kb"><ion-icon name="link" size="medium"></ion-icon><a href="https://kb.ubind.io/display/UM/How+to+embed+a+uBind+portal+into+an+existing+website" target="_blank">Visit knowledgebase</a></p>
+    </div>
+    <!-- content projection end -->
+</app-detail-list-item-edit-form>

@@ -1,0 +1,9 @@
+<ion-list class="entity-list popover-environment" lines="none">
+    <ng-container *ngFor="let env of availableEnvironments">
+        <button (click)="select(env)">
+            <ion-icon class="start" style="font-size:25px;zoom:-15.0;" *ngIf="isSelected(env)" name="checkmark"></ion-icon>
+            <ion-icon class="start" *ngIf="!isSelected(env)"></ion-icon>
+            <ion-label>{{env}}</ion-label>
+        </button>
+    </ng-container>
+</ion-list>

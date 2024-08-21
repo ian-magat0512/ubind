@@ -1,0 +1,12 @@
+ion-content {
+    --overflow: hidden !important;
+    overflow: hidden !important;
+}
+
+.non-clickable-item{
+    cursor: auto;
+}
+
+mat-icon.sso-icon {
+    transform: scale(0.9);
+}

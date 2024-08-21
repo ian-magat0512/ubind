@@ -1,0 +1,190 @@
+{
+    "step1": {
+        "startScreen": true,
+        "tabIndex": 1,
+        "articles": [
+            {
+                "heading": "ratingHeading",
+                "text": "ratingText",
+                "elements": [
+                    {
+                        "type": "questions",
+                        "name": "ratingPrimary",
+                        "affectsPremium": true,
+                        "affectsTriggers": true
+                    }
+                ]
+            },
+            {
+                "heading": "contactHeading",
+                "text": "contactText",
+                "elements": [
+                    {
+                        "type": "questions",
+                        "name": "contact"
+                    }
+                ]
+            }
+        ],
+        "sidebar": [
+            {
+                "type": "calculation"
+            }
+        ],
+        "actions": {
+            "enquiry": {
+                "requiresValidQuestionSets": [ "contact" ],
+                "operations": [ "enquiry" ],
+                "destinationStep": "enquiryPage",
+                "primary": "quoteState == 'softReferral' || quoteState == 'hardReferral'",
+                "hidden": "widgetPosition == 'sidebar' && quoteState != 'softReferral' && quoteState != 'hardReferral'"
+            },
+            "next": {
+                "operations": [ "quote", "customer" ],
+                "requiresValidQuestionSets": [ "ratingPrimary", "contact" ],
+                "destinationStep": "step2",
+                "primary": true,
+                "hidden": "quoteState == 'softReferral' || quoteState == 'hardReferral'"
+            }
+        }
+    },
+    "step2": {
+        "tabIndex": 2,
+        "articles": [
+            {
+                "heading": "personalHeading",
+                "text": "personalText",
+                "elements": [
+                    {
+                        "type": "questions",
+                        "name": "personal"
+                    }
+                ]
+            },
+            {
+                "heading": "disclosureHeading",
+                "text": "disclosureText",
+                "elements": [
+                    {
+                        "type": "questions",
+                        "name": "disclosure"
+                    }
+                ],
+                "hidden": "questionSetsAreValid(['personal']) != true"
+            }
+        ],
+        "sidebar": [
+            {
+                "type": "calculation"
+            }
+        ],
+        "actions": {
+            "enquiry": {
+                "operations": [ "enquiry" ],
+                "destinationStep": "enquiryPage",
+                "primary": "quoteState == 'softReferral' || quoteState == 'hardReferral'",
+                "hidden": "widgetPosition == 'sidebar' && quoteState != 'softReferral' && quoteState != 'hardReferral'"
+            },
+            "back": {
+                "destinationStep": "step1",
+                "hidden": "widgetPosition == 'sidebar'"
+            },
+            "next": {
+                "requiresValidQuestionSets": [ "personal", "disclosure" ],
+                "destinationStep": {
+                    "default": "step3",
+                    "decline": "declinePage"
+                },
+                "primary": true,
+                "hidden": "quoteState == 'softReferral' || quoteState == 'hardReferral'"
+            }
+        }
+    },
+    "step3": {
+        "tabIndex": 3,
+        "articles": [
+            {
+                "elements": [
+                    {
+                        "type": "questions",
+                        "name": "paymentOptions"
+                    },
+                    {
+                        "type": "questions",
+                        "name": "paymentMethods"
+                    }
+                ]
+            }
+        ],
+        "sidebar": [
+            {
+                "type": "calculation"
+            }
+        ],
+        "actions": {
+            "enquiry": {
+                "operations": [ "enquiry" ],
+                "destinationStep": "enquiryPage",
+                "hidden": "widgetPosition == 'sidebar'"
+            },
+            "back": {
+                "destinationStep": "step2",
+                "hidden": "widgetPosition == 'sidebar'"
+            },
+            "next": {
+                "requiresValidQuestionSets": [ "paymentOptions", "paymentMethods" ],
+                "operations": [ "creditCardPayment", "invoice", "policy" ],
+                "destinationStep": "successPage",
+                "primary": true
+            }
+        }
+    },
+    "successPage": {
+        "articles": [
+            {
+                "heading": "successHeading",
+                "text": "successText"
+            }
+        ]
+    },
+    "enquiryPage": {
+        "articles": [
+            {
+                "heading": "enquiryHeading",
+                "text": "enquiryText"
+            }
+        ],
+        "actions": {
+            "back": {
+                "destinationStep": "step1",
+                "primary": true,
+                "hidden": "widgetPosition == 'sidebar'"
+            }
+        }
+    },
+    "referralPage": {
+        "articles": [
+            {
+                "heading": "referralHeading",
+                "message": true,
+                "text": "referralText"
+            }
+        ]
+    },
+    "declinePage": {
+        "articles": [
+            {
+                "heading": "declineHeading",
+                "message": true,
+                "text": "declineText"
+            }
+        ],
+        "actions": {
+            "enquiry": {
+                "directives": [ "enquiry" ],
+                "destinationStep": "enquiryPage",
+                "primary": true
+            }
+        }
+    }
+}

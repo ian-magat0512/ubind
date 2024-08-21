@@ -1,0 +1,9 @@
+<div class="notification-container">
+    <ng-container *ngFor="let notification of notifications">
+        <div *ngIf="notification.active" class="notification"
+            [@notificationAnimation]
+            (@notificationAnimation.done)="onCompletedTransition($event)">
+            {{ notification.message }}
+        </div>
+    </ng-container>
+</div>

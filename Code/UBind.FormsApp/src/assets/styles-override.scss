@@ -1,0 +1,26 @@
+@media (max-width: 768px) {
+
+    calculation-widget {
+        aside {
+            questions-widget {
+                form {
+                    formly-field {
+                        formly-group {
+                            formly-form {
+                                formly-field {
+                                    padding-left: 0 !important;
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+    
+    actions-widget[location="footer"] {
+        .nav#formFooter-actions {
+            margin-left: -20px;
+        }
+    }
+}

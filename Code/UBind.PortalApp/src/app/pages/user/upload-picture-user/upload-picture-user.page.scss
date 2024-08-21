@@ -1,0 +1,48 @@
+:host {
+    div.upload {
+        display: inline-block;
+        width: 100%;
+        text-align: center;
+
+        ion-button:hover {
+            opacity: 0.8;
+        }
+    }
+    input {
+       visibility: hidden;
+    }
+    img {
+        width: 160px;
+        height: 160px;
+        display: block;
+        margin: 16px auto;
+    }
+}
+
+ion-content {
+    --overflow: hidden !important;
+    overflow: hidden !important;
+}
+ion-content > div,
+ion-content div.tab-content {
+    overflow: auto !important;
+    height: calc(100vh - 95px) !important
+}
+
+ion-toolbar {
+    ion-buttons {
+        ion-button {
+            border-radius: 5px;
+            color: #272727;
+            
+            &:hover {
+                background-color: #ececec;
+                cursor: pointer;
+            }
+
+            ion-icon {
+                color: #272727;
+            }
+        }
+    }
+}

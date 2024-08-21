@@ -1,0 +1,95 @@
+<ion-header>
+    <ion-toolbar color="primary" class="level-1">
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="start">
+            <ion-button slot="icon-only" (click)="userDidTapReturnButton()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="!layoutManager.splitPaneVisible">Additional Properties</ion-title>
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="end">
+            <app-entity-action-button-list
+                [actionButtonList]="actionButtonList">
+            </app-entity-action-button-list>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ion-buttons slot="start">
+            <ion-button slot="icon-only" (click)="userDidTapReturnButton()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="layoutManager.splitPaneVisible">Additional Properties</ion-title>
+        <ion-buttons slot="end">
+            <app-entity-action-button-list
+                [actionButtonList]="actionButtonList">
+            </app-entity-action-button-list>
+        </ion-buttons>
+    </ion-toolbar>
+    <loader *ngIf='isLoading'></loader>
+    <ng-container *ngIf="!isLoading && !errorMessage">
+        <div appScrollDetails>
+            <section class="filter-chips">
+                <ion-chip class="no-ripple" mode="ios" [@contentAnimation]>
+                    <ion-avatar *ngIf="entityChip.iconLibrary == iconLibrary.AngularMaterial">
+                        <div [class.round-icon-container]="entityChip.isRoundIcon" *ngIf="entityChip.isRoundIcon">
+                            <mat-icon 
+                            [class.round-icon]="entityChip.isRoundIcon"
+                            [class.round-mat-icon]="entityChip.isRoundIcon"
+                            aria-hidden="false"
+                            attr.aria-label="{{entityChip.icon}}"
+                            svgIcon="{{entityChip.icon}}"></mat-icon>
+                        </div>
+                        <mat-icon *ngIf="!entityChip.isRoundIcon"
+                            aria-hidden="false"
+                            attr.aria-label="{{entityChip.icon}}"
+                            svgIcon="{{entityChip.icon}}"></mat-icon>
+                    </ion-avatar>
+                    <div [class.round-icon-container]="entityChip.isRoundIcon" 
+                        *ngIf="entityChip.isRoundIcon 
+                            && (entityChip.iconLibrary == iconLibrary.IonicV4 || entityChip.iconLibrary == iconLibrary.IonicV5)" >
+                        <ion-icon [class.round-icon]="entityChip.isRoundIcon" 
+                            [name]="entityChip.iconLibrary == iconLibrary.IonicV5 ? entityChip.icon : null"
+                            [src]="entityChip.iconLibrary == iconLibrary.IonicV4 ? './assets/ionicons-v4/' + entityChip.icon + '.svg' : null">
+                        </ion-icon>
+                    </div>
+                    <ion-icon *ngIf="!entityChip.isRoundIcon 
+                        && (entityChip.iconLibrary == iconLibrary.IonicV4 || entityChip.iconLibrary == iconLibrary.IonicV5)"
+                        [name]="entityChip.iconLibrary == iconLibrary.IonicV5 ? entityChip.icon : null"
+                        [src]="entityChip.iconLibrary == iconLibrary.IonicV4 ? './assets/ionicons-v4/' + entityChip.icon + '.svg' : null">
+                    </ion-icon>
+                    <ion-label>{{ entityChip.label + " Entity" }}</ion-label>
+                </ion-chip>
+                <ion-chip class="no-ripple" mode="ios" [@contentAnimation]>
+                    <div [class.round-icon-container]="contextChip.isRoundIcon" *ngIf="contextChip.isRoundIcon">
+                        <ion-icon [class.round-icon]="contextChip.isRoundIcon" [name]="contextChip.icon"></ion-icon>
+                    </div>
+                    <ion-icon [name]="contextChip.icon" *ngIf="!contextChip.isRoundIcon"></ion-icon>
+                    <ion-label>{{ contextChip.label + " " + contextType }}</ion-label>
+                </ion-chip>
+            </section>
+            <ion-list lines="none" *ngIf="additionalPropertyDefinitions?.length > 0">
+                <ng-container *ngFor="let additionalProperty of additionalPropertyDefinitions">
+                    <ion-item (click)="additionalPropertyItemClicked(additionalProperty)" tabindex="0" button>
+                        <ion-icon name="brush" slot="start"></ion-icon>
+                        <ion-label class="ion-text-wrap">
+                            <div class="headline">{{additionalProperty.name}}</div>
+                            <p class="status sub-headline">{{additionalProperty.typeDisplayName
+                                | titlecase }} {{additionalProperty.isRequired ? ' ∙ Required':''}}</p>
+                        </ion-label>
+                    </ion-item>
+                </ng-container>
+            </ion-list>
+            <div *ngIf="additionalPropertyDefinitions?.length == 0 && !errorMessage" class="tab-content content-error" [@contentAnimation]>
+                <p class="ion-text-center">
+                    No additional properties found
+                </p>
+            </div>
+        </div>
+    </ng-container>
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">{{ errorMessage }}</p>
+    </div>
+</ion-content>

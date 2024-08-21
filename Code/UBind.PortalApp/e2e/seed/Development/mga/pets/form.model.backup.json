@@ -1,0 +1,85 @@
+{
+  "ratingState": "VIC",
+  "employeeCount": "1",
+  "subContractorCount": "1",
+  "PLLimit": "$20,000,000",
+  "name": "Jim",
+  "email": "carlandersson78@gmail.com",
+  "phone": "",
+  "mobile": "0412456789",
+  "animalsInTransit": "Yes",
+  "trailerCover": "Yes",
+  "toolsCover": "Yes",
+  "accidentCover": "Plus Illness",
+  "accidentPerWeek": "$750",
+  "personalHeading": "",
+  "applicantName": "ABC Company Pty Ltd",
+  "tradingName": "Groomz",
+  "ABN": "12456789456",
+  "occupation": "Mobile Dog Grooming",
+  "businessActivities": "Going around and grooming doggz",
+  "estimatedTurnover": "100000",
+  "annualWages": "75000",
+  "annualSubContactorCosts": "10000",
+  "GSTRegistered": "Yes",
+  "businessHeading": "",
+  "businessAddress": "1/52 Factory Drive",
+  "businessTown": "Thomastown",
+  "businessState": "VIC",
+  "businessPostcode": "3456",
+  "postalHeading": "",
+  "postalAddress": "",
+  "postalTown": "",
+  "postalState": "",
+  "postalPostcode": "",
+  "employees": [
+    {
+      "name": "Willy Duggan",
+      "DOB": "05/04/1976",
+      "height": "180",
+      "weight": "85",
+      "existingConditions": "Sore back"
+    }
+  ],
+  "subContractors": [
+    {
+      "name": "Mary Mede",
+      "DOB": "14/08/1985",
+      "height": "170",
+      "weight": "65",
+      "existingConditions": "Bung hip"
+    }
+  ],
+  "trailers": [
+    {
+      "year": "2001",
+      "make": "Toyota",
+      "modelNo": "TR123456",
+      "registrationNo": "ABC123",
+      "value": "5000"
+    }
+  ],
+  "specifiedItems": [
+    {
+      "type": "Grooming Kit",
+      "make": "Great Groomz",
+      "modelNo": "456789",
+      "serialNo": "12345679",
+      "value": "2500"
+    }
+  ],
+  "disclosureHeading": "",
+  "history": "No",
+  "historyDetails": "",
+  "insolvency": "No",
+  "insolvencyDetails": "",
+  "declaration": "Yes",
+  "paymentOption": "Monthly",
+  "paymentMethod": "",
+  "creditCardPhoneNumber": "0412456789",
+  "accountName": "Jim Smith",
+  "BSB": "063123",
+  "accountNumber": "123456789",
+  "paymentOptionEmailInvoice": "",
+  "directDebitDeclaration": "Yes"
+}

@@ -1,0 +1,40 @@
+<header class="content-header">
+    <progress-widget></progress-widget>
+    <actions-widget location="contentHeader"></actions-widget>
+    <heading-widget></heading-widget>
+</header>
+<div class="content-body">
+    <div [class.action-in-progress]="actionInProgress" *ngIf="actionInProgress"></div>
+    <alert-widget></alert-widget>
+    <div id="column-set"
+        [class.sidebar-present]="isSidebarPresent" [class.sidebar-not-present]="!isSidebarPresent"
+        [class.mobile-width]="isMobileWidth" [class.wider-than-mobile]="!isMobileWidth"
+        >
+        <div id="sidebar-column-ubind">
+            <sidebar-widget></sidebar-widget>
+        </div>
+        <div id="section-column-ubind" (click)="dismissKeyboard($event)">
+            <header class="form-header">
+                <actions-widget location="formHeader"></actions-widget>
+            </header>
+            <div class="content-body">
+                <apng-loader *ngIf="showLoader" (rendered)="onLoaderRendered()"></apng-loader>
+                <ng-container *ngFor="let section of sections">
+                    <section-widget *ngIf="renderMethod == RenderMethod.Eager || section.render" 
+                        (articleRendered)="onArticleRendered()"
+                        [stepName]="section.stepName"
+                        [style.display]="section.render ? 'inherit': 'none'"
+                        [@sectionSlide]="transitionState" (@sectionSlide.done)="onCompletedTransition()"
+                        [@sectionFade]="transitionState">
+                    </section-widget>
+                </ng-container>
+            </div>
+            <footer class="form-footer">
+                <actions-widget location="formFooter"></actions-widget>
+            </footer>
+        </div>
+    </div>
+</div>
+<footer class="content-footer">
+    <actions-widget location="contentFooter"></actions-widget>
+</footer>

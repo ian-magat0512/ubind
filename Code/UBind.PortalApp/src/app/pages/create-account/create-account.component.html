@@ -1,0 +1,90 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="start">
+            <ion-button id="arrow-back-ion-button" slot="icon-only" (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title role="heading" aria-level="1">
+            Create Account
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content [ngClass]="{'vertical-align-content': !layoutManager.isMobile()}">
+
+    <loader *ngIf="isLoading"></loader>
+
+    <!--Tablet/Desktop UI-->
+    <ion-card class="account-card" *ngIf="!layoutManager.isMobile()">
+        <ion-card-header>
+            <ion-card-title [class.has-portal-title]="hasPortalTitle">
+                Create Account
+            </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <div class="account-container" full>
+                <ng-container [ngTemplateOutlet]="createAccountFormTemplate"></ng-container>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+    <!--Phone UI-->
+    <div class="account-container ion-margin-top" *ngIf="layoutManager.isMobile()" full>
+        <ng-container [ngTemplateOutlet]="createAccountFormTemplate"></ng-container>
+    </div>
+
+</ion-content>
+
+<ng-template #createAccountFormTemplate>
+    <form id="form" [formGroup]="createAccountForm" (ngSubmit)="userDidTapSendActivationLink()">
+        <div class="ion-text">
+            <p>
+                To create a new {{organisationName}} customer account, please enter your details and we will send an activation link
+                to your email address.
+            </p>
+        </div>
+        <ion-list lines="none">
+            <div class="accountForm ion-margin-bottom">
+                <ion-item class="input" [class.ng-touched]="createAccountForm.get('name').touched && createAccountForm.get('name').errors || errorDisplay"
+                          [class.has-backend-error]="errorDisplay">
+                    <ion-label position="floating" [class.ng-valid]="createAccountForm.get('name').valid">
+                        Your Name
+                    </ion-label>
+                    <ion-input id="name" #focusElement (keydown.enter)="userDidTapSendActivationLink(createAccountForm.value)"
+                               formControlName="name" type="text" [class.ion-invalid]="errorDisplay"
+                               [class.ng-invalid]="errorDisplay" [class.has-backend-error]="errorDisplay">
+                    </ion-input>
+                </ion-item>
+                <div class="error"
+                     *ngIf="createAccountForm.get('name').invalid && (formHasError || createAccountForm.get('name').touched) && createAccountForm.get('name').hasError('required')">
+                    Name is required
+                </div>
+                <div class="error"
+                    *ngIf="createAccountForm.get('name').invalid && (formHasError || createAccountForm.get('name').touched) && createAccountForm.get('name').hasError('pattern')">
+                    Name must start with a letter, and may only contain letters, spaces, hyphens, apostrophes, commas and period characters
+                </div>
+                <ion-item class="input" [class.ng-touched]="createAccountForm.get('email').touched && createAccountForm.get('email').errors || errorDisplay"
+                          [class.has-backend-error]="errorDisplay">
+                    <ion-label position="floating" [class.ng-valid]="createAccountForm.get('email').valid">
+                        Email Address
+                    </ion-label>
+                    <ion-input id="email" (keydown.enter)="userDidTapSendActivationLink(createAccountForm.value)"
+                               formControlName="email" type="text" required #focusElement
+                               [class.ion-invalid]="errorDisplay" [class.ng-invalid]="errorDisplay"
+                               [class.has-backend-error]="errorDisplay"></ion-input>
+                </ion-item>
+                <div class="error"
+                     *ngIf="createAccountForm.get('email').invalid && ( formHasError || createAccountForm.get('email').touched) && createAccountForm.get('email').hasError('required')">
+                    Email is required
+                </div>
+                <div class="error"
+                     *ngIf="createAccountForm.get('email').invalid && ( formHasError || createAccountForm.get('email').touched) && createAccountForm.get('email').hasError('email')">
+                    Email must be a valid email address
+                </div>
+                <div class="error" *ngIf="errorDisplay && createAccountForm.valid">{{ errorDisplay }}</div>
+            </div>
+            <ion-button class="ion-margin-top" expand="block" type="submit">Send Activation Link</ion-button>
+            <ion-button class="ion-margin-top" expand="block" color="light" (click)="goBack()">Cancel</ion-button>
+        </ion-list>
+    </form>
+</ng-template>

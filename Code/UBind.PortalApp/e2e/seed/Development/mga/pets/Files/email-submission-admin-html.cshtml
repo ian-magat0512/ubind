@@ -1,0 +1,25 @@
+@model UBind.Application.Export.ViewModels.ApplicationEventViewModel
+
+<p style="font-family: Arial; font-size:13px;">An online application has been completed for Pet Industry Insurance.</p>
+
+@if (Model.Calculation["questions.paymentOptions.paymentOption"].ToString() == "Monthly") {
+    if (Model.Form["paymentMethod"] == "Visa" || Model.Form["paymentMethod"] == "Mastercard") {
+        <p style="font-family: Arial; font-size:13px;">The customer has selected to pay monthly using credit card. Please call <strong> @Model.Form["name"] </strong> on <strong> @if (Model.Form["mobile"] != "") { @Model.Form["mobile"] } else { @Model.Form["phone"] } </strong> to obtain the credit card details.</p>
+    } else {
+        <p style="font-family: Arial; font-size:13px;">The customer has selected to pay monthly using Direct Debit. The bank details are included below.</p>
+    }
+} else {
+    <p style="font-family: Arial; font-size:13px;">The customer has selected to pay annually.</p>
+}
+
+<p style="font-family: Arial; font-size:13px;">&nbsp;</p>
+
+<h4 style="text-indent:15px; padding: 20px 0; background: #e6eaea; width: 60%; font-family: Arial; font-size:13px;">Application Details</h4>
+
+@Raw(Model.Form.PrettyPrintHtml())
+
+<h4 style="text-indent:15px; padding: 20px 0; background: #e6eaea; width: 60%; font-family: Arial; font-size:13px;">&nbsp;</h4>
+
+<p style="font-family: Arial; font-size:13px;"><br/><strong>Best regards<br/>MGA Insurance Brokers</strong><br />&nbsp;</p>
+
+<p><img src="https://www.mga.com/wp-content/themes/mga/dist/images/banner-logo.png" /></p>

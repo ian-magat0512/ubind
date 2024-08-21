@@ -1,0 +1,83 @@
+{
+    "version": "2.0.0",
+    "form": {
+        "defaultCurrencyCode": "AUD",
+        "questionSets": [{
+                "name": "Step 1 Question Set",
+                "key": "step1QuestionSet",
+                "fields": [
+                    {
+                        "$type": "single-line-text",
+                        "startsNewRow": true,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "name": "Step 1 Field",
+                        "key": "step1Field",
+                        "questionSetKey": "step1QuestionSet",
+                        "label": "Input",
+                        "dataType": "text",
+                        "question": "Type an input value here:"
+                      }
+                ]
+            }
+        ],
+        "textElements": [{
+            "category": "Workflow",
+            "subcategory": "Step 1",
+            "name": "myContent1",
+            "text": "My content 1 Step 1"
+        }, {
+            "category": "Workflow",
+            "subcategory": "Step 2",
+            "name": "myContent1",
+            "text": "My content 1 Step 2"
+        }],
+        "workflowConfiguration": {
+            "step1": {
+                "startScreenExpression": "true",
+                "articles": [
+                    {
+                        "heading": "myHeading",
+                        "text": "myText",
+                        "elements": [
+                            {
+                                "type": "questions",
+                                "name": "step1QuestionSet"
+                            }
+                        ]
+                    }
+                ],
+                "footer": [
+                    {
+                        "type": "content",
+                        "name": "myContent1",
+                        "textElement": "myContent1",
+                        "cssClass": "step1-content1"
+                    }
+                ]
+            },
+            "step2": {
+                "startScreenExpression": "true",
+                "articles": [
+                    {
+                        "heading": "myHeading",
+                        "text": "myText",
+                        "elements": [
+                            {
+                                "type": "questions",
+                                "name": "step1QuestionSet"
+                            }
+                        ]
+                    }
+                ],
+                "footer": [
+                    {
+                        "type": "content",
+                        "name": "myContent1",
+                        "textElement": "myContent1",
+                        "cssClass": "step2-content1"
+                    }
+                ]
+            }
+        }
+    }
+}

@@ -1,0 +1,100 @@
+<ion-app class="override">
+    <app-backdrop></app-backdrop>
+    <div class="desktop-side-menu" [@menuAnimation]="eventService.menuStateSubject$ | async"
+         (@menuAnimation.done)="menuAnimationDone($event)" #desktopSideMenu role="navigation">
+        <ion-header>
+            <ion-toolbar *ngIf="eventService.userAuthenticatedSubject$ | async" class="base-toolbar level-1">
+                <ion-buttons slot="start" #toggleDesktopSideMenuButton ion-button class="toggle-desktop-side-menu-button">
+                    <ion-menu-toggle [style.display]="layoutManager.canShowFloatingMenu() ? 'inherit': 'none'">
+                        <ion-button>
+                            <library-icon [name]="'menu'" [library]="iconLibrary.IonicV4" [cssStyle]="{'height': '24px', 'width': '24px'}" slot="icon-only"></library-icon>
+                        </ion-button>
+                    </ion-menu-toggle>
+                    <ion-button [style.display]="layoutManager.canShowFloatingMenu() ? 'none': 'inherit'" (click)="toggleDesktopSideMenu($event)">
+                        <library-icon [name]="'menu'" [library]="iconLibrary.IonicV4" [cssStyle]="{'height': '24px', 'width': '24px'}" slot="icon-only"></library-icon>
+                    </ion-button>
+                </ion-buttons>
+                <ion-title role="heading" aria-level="1" 
+                    class="desktop-sidebar-title" [class.has-portal-title]="hasPortalTitle">
+                    <span class="logo"></span>
+                    <span class="tenant-name">{{ tenantName }}</span>
+                    <span class="organisation-name">{{ organisationName }}</span>
+                    <span class="portal-title">{{ portalTitle }}</span>
+                </ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content>
+            <app-main-menu></app-main-menu>
+        </ion-content>
+    </div>
+
+    <ion-menu contentId="main-content" type="overlay" [style.visibility]="layoutManager.canShowFloatingMenu() ? 'inherit' : 'hidden'">
+        <ion-header>
+            <ion-toolbar *ngIf="eventService.userAuthenticatedSubject$ | async" class="level-1">
+                <div class="mobile-profile-icon user-avatar">
+                    <img [src]="profilePictureId | profilePicUrl : defaultImgPath" 
+                         class="profile" 
+                         (error)="setDefaultImg($event)" alt="profile image">
+                </div>
+                <ion-title class="slidein-sidebar-title">
+                    <p class="name">{{userFullName}}</p>
+                    <p class="subtitle">
+                        {{userEmail}}
+                    </p>
+                </ion-title>
+            </ion-toolbar>
+        </ion-header>
+        <ion-content>
+            <app-main-menu slide="true"></app-main-menu>
+        </ion-content>
+    </ion-menu>
+
+    <ion-split-pane contentId="main-content" [ngClass]="{ 'desktop-split-pane' : layoutManager.splitPaneVisible && layoutManager.canShowFixedMenu() }"
+                    [when]="layoutManager.shouldShowSplit()"
+                    [@paneAnimation]="eventService.menuStateSubject$ | async" #desktopSplitPane role="main">
+        <div id="masterViewContainer"
+             [style.display]="layoutManager.splitPaneVisible ? 'initial' : 'none'"
+             class="{{layoutManager.masterContainerClass}}">
+            <ng-container #masterView></ng-container>
+        </div>
+        <ion-router-outlet id="main-content" #detailNav (activate)="onRouteActivate($event)"
+            [@removeSplitPaneAnimation]="layoutManager.splitState" 
+            (@removeSplitPaneAnimation.done)="layoutManager.removeSplitPaneAnimationDone()">
+            <div role="button" tabindex="0" aria-label="Profile"
+                class="desktop-profile-icon display-{{ (eventService.canShowProfilePictureIcon$ | async) ? 'initial' : 'none' }}" 
+                #desktopProfileIcon                
+                (click)="presentMyAccountPopover($event)"
+                (keydown.enter)="presentMyAccountPopover($event)"
+                (keydown.space)="presentMyAccountPopover($event)">
+                <ion-avatar>
+                    <img [src]="authenticationService.profilePictureId | profilePicUrl : defaultImgPath" class="profile"
+                         onerror="this.src='assets/imgs/profile-placeholder.svg'" alt="profile photo">
+                </ion-avatar>
+            </div>
+        </ion-router-outlet>
+    </ion-split-pane>
+
+    <ion-footer role="region">
+        <app-environment-control></app-environment-control>
+    </ion-footer>
+
+    <ion-content *ngIf="appConfigService.initialisationErrorMessage">
+        <ion-header>
+            <ion-toolbar class="level-1">
+                <ion-title style="padding-left: 12px">
+                    <span class="portal-title">{{ portalTitle }}</span>
+                </ion-title>
+            </ion-toolbar>
+        </ion-header>
+
+        <div style="display:block;text-align:center;">
+            <h3 class="message-title" style="text-transform:uppercase;">
+                Initialisation Error
+            </h3>
+            <p class="message-sub-title" style="margin-top:-5px;">
+                {{ appConfigService.initialisationErrorMessage }}
+            </p>
+        </div>
+    </ion-content>
+
+</ion-app>

@@ -1,0 +1,66 @@
+{
+    "version": "2.0.0",
+    "form": {
+        "defaultCurrencyCode": "AUD",
+        "questionSets": [{
+                "name": "Rating Primary",
+                "key": "ratingPrimary",
+                "fields": [
+                    {
+                        "$type": "single-line-text",
+                        "placeholder": "The number %{ 3 + 4 }%",
+                        "startsNewRow": true,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "name": "Test 1",
+                        "key": "test1",
+                        "questionSetKey": "ratingPrimary",
+                        "label": "Input",
+                        "dataType": "text",
+                        "question": "Type an input value here:"
+                      },
+                      {
+                        "$type": "single-line-text",
+                        "startsNewRow": true,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "name": "Test 2",
+                        "key": "test2",
+                        "questionSetKey": "ratingPrimary",
+                        "label": "Copy Test",
+                        "dataType": "text",
+                        "description": "This field should display a copy of whatever you enter in the input field.",
+                        "calculatedValueExpression": "test1 + ' copied'"
+                      },
+                      {
+                        "$type": "single-line-text",
+                        "startsNewRow": true,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "label": "Hidden Test",
+                        "name": "Test 3",
+                        "key": "test3",
+                        "questionSetKey": "ratingPrimary",
+                        "dataType": "text",
+                        "description": "This field should be hidden if you enter 'hide' in the input field.",
+                        "hideConditionExpression": "test1 == 'hide'"
+                    }
+                ]
+            }
+        ],
+        "workflowConfiguration": {
+            "purchaseQuote": {
+                "startScreenExpression": "true",
+                "articles": [
+                    {
+                        "heading": "ratingHeading",
+                        "text": "ratingText",
+                        "elements": [
+                            {
+                                "type": "questions",
+                                "name": "ratingPrimary"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

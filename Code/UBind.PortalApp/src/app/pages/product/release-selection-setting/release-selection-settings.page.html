@@ -1,0 +1,65 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf='!layoutManager.splitPaneVisible then detailHeader'></ng-container>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <loader *ngIf="isLoading"></loader>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible && !isLoading" class="level-2">
+        <ng-container *ngTemplateOutlet="detailHeader"></ng-container>
+    </ion-toolbar>
+
+    <form [formGroup]="releaseSelectionSettingsForm" *ngIf="!isLoading && !errorMessage">
+        <ion-list lines="none" inset>
+            <ion-list-header>
+                <ion-label>
+                    <strong>{{quoteType | titlecase}} Quote Release Selection</strong>
+                </ion-label>
+            </ion-list-header>
+
+            <div>Please select the approach that should be used when associating a product release
+                with new {{quoteType}} quotes for this product in the staging and production environments.
+            </div>
+            <mat-radio-group formControlName="ProductReleaseSelection">
+                <ion-item class="sub-bottom radio-item">
+                    <mat-radio-button [value]="0">
+                        <ion-label class="ion-text-wrap">Use the product release from the affected policy period</ion-label>
+                    </mat-radio-button>
+                </ion-item>
+                <ion-item class="sub-top radio-item">
+                    <mat-radio-button [value]="1">
+                        <ion-label class="ion-text-wrap">Use the default product release for the applicable environment</ion-label>
+                    </mat-radio-button>
+                </ion-item>
+            </mat-radio-group>
+        </ion-list>        
+        <div class="kb-more-info-box mat-elevation-z2">
+            <ion-icon class="box-left-icon" name="help-circle-outline" size="large"></ion-icon>
+            <h5>Development Environment</h5>
+            <p>New quotes will always use the default release in the development environment, regardless of these settings.</p>
+            <p>However, you can override the release to use when creating quotes in the development or staging environment, for example by setting a query string parameter on the URL.</p>
+            <p class="go-to-kb"><ion-icon name="link" size="medium"></ion-icon><a href="https://kb.ubind.io/display/UM/How+to+override+the+product+release+in+the+development+or+staging+environments" target="_blank">Visit knowledgebase</a></p>
+        </div>
+    </form>
+
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p text-center>
+            {{ errorMessage }}
+        </p>
+    </div>
+</ion-content>
+
+<ng-template #detailHeader>
+    <ion-buttons slot="start">
+        <ion-button slot="icon-only" (click)="userDidTapCloseButton(releaseSelectionSettingsForm.value)">
+            <ion-icon name="close"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title>Change Release Selection</ion-title>
+    <ion-buttons slot="end">
+        <ion-button (click)="userDidTapSaveButton(releaseSelectionSettingsForm.value)">
+            Save
+        </ion-button>
+    </ion-buttons>
+</ng-template>

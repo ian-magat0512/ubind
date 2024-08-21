@@ -1,0 +1,20 @@
+:host {
+  ion-list-header {
+    padding-left: 0px;
+    font-size: 14px;
+  }
+
+  ion-item {
+    --background-focused: none;
+    --background-hover: none;
+    --ripple-color: transparent !important;
+
+    ion-checkbox {
+      margin-right: 6px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+  }
+}

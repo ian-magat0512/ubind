@@ -1,0 +1,117 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf='!layoutManager.splitPaneVisible then detailHeader'></ng-container>
+    </ion-toolbar>
+    <ng-container *ngIf='!layoutManager.splitPaneVisible then segmentList'></ng-container>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ng-container *ngTemplateOutlet="detailHeader"></ng-container>
+    </ion-toolbar>
+    
+    <ng-container *ngIf='layoutManager.splitPaneVisible then segmentList'></ng-container>
+    <loader *ngIf="isLoading"></loader>
+
+    <div *ngIf="!isLoading && !errorMessage">
+        <div [ngSwitch]="segment">
+            <!--Details-->
+            <div *ngSwitchCase="'Details'">
+                <app-entity-details-list [@contentAnimation]
+                                         [detailsListItems]="detailsListItems"
+                                         [hasItemLines]="false"
+                                         [hasGroupLines]="true"
+                                         [truncateDescription]="true">
+                </app-entity-details-list>
+            </div>
+
+            <!--Questions-->
+            <div *ngSwitchCase="'Questions'" class="tab-content" [@contentAnimation]>
+                <div *ngSwitchCase="'Questions'" class="tab-content" [@contentAnimation]>
+                    <app-questions-view *ngIf="!isLoading"
+                                        [displayType]="displayType"
+                                        [questionItems]="questionItems"
+                                        [repeatingQuestionItems]="repeatingQuestionItems"></app-questions-view>
+                </div>
+            </div>
+
+            <!-- Price -->
+            <div *ngSwitchCase="'Price'" class="tab-content" [@contentAnimation]>
+                <app-breakdown-policy-view [refundOrPriceData]="refundOrPriceData">
+                </app-breakdown-policy-view>
+            </div>
+
+            <!-- Refund -->
+            <div *ngSwitchCase="'Refund'" class="tab-content" [@contentAnimation]>
+                <app-breakdown-policy-view [refundOrPriceData]="refundOrPriceData">
+                </app-breakdown-policy-view>
+            </div>
+
+            <!--Documents-->
+            <div *ngSwitchCase="'Documents'" class="tab-content" [@contentAnimation]>
+                <app-quote-document-view 
+                [documents]="quoteVersion.documents"
+                [entityId]="quoteVersion.id"
+                [isLoadingDocuments]="isLoading"
+                [entityType] = "entityTypes.QuoteVersion"
+                ></app-quote-document-view>
+            </div>
+             <!-- Messages -->
+             <div *ngSwitchCase="'Messages'" class="tab-content-no-padding" [@contentAnimation]>
+                <app-email-view [entityId]="quoteVersionId" [entityType] = "entityTypes.QuoteVersion"></app-email-view>
+            </div>
+        </div>
+    </div>
+
+
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">{{ errorMessage }}</p>
+    </div>
+</ion-content>
+
+
+<ng-template #segmentList>
+    <ion-segment id="detail-quote-version-segment" scrollable="true" 
+                [value]="segment" (ionChange)="segmentChanged($event)"
+                 scrollHorizontal scrollMousedrag [segmentSelectedScrollIntoView]="segment">
+        <ion-segment-button ionSegmentButtonEvent value="Details" class="ion-float-left">
+            <ion-label>Details</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="Questions" class="ion-float-left">
+            <ion-label>Questions</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="Price" *ngIf="!isRefund">
+            <ion-label>Price</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="Refund" *ngIf="isRefund">
+            <ion-label>Refund</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="Documents" class="ion-float-left">
+            <ion-label>Documents</ion-label>
+        </ion-segment-button>
+        <ng-container *ubAllowAccess="permission.ViewMessages">
+            <ion-segment-button ionSegmentButtonEvent value="Messages" *ngIf="hasEmailFeature">
+                <ion-label>Messages</ion-label>
+            </ion-segment-button>
+        </ng-container>
+    </ion-segment>
+</ng-template>
+
+<ng-template #detailHeader>
+    <ion-buttons slot="start">
+        <ion-button slot="icon-only" (click)="goBack()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons slot='end'>
+        <ng-container>
+            <app-entity-action-button-list
+                [actionButtonList]="actionButtonList"
+                [getMoreButtonCallback]="presentPopover.bind(this)"
+                [canShowMore]="actions?.length > 0 && hasActionsIncludedInMenu"
+                [flipMoreIcon]="flipMoreIcon">
+            </app-entity-action-button-list>
+        </ng-container>
+    </ion-buttons>
+</ng-template>

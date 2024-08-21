@@ -1,0 +1,12 @@
+<!-- preload loader image-->
+<img src="assets/material-spinner.png" style="position: absolute" hidden>
+
+<notification-widget></notification-widget>
+<ubind-header-widget *ngIf="eventService.renderHeader$ | async" class="page-header"></ubind-header-widget>
+<web-form *ngIf="ready" [ngClass]="classes"></web-form>
+<ubind-footer-widget *ngIf="eventService.renderFooter$ | async" class="page-footer"></ubind-footer-widget>
+<expression-watch *ngIf="applicationService.debug"></expression-watch>
+<expression-registry *ngIf="applicationService.debug"></expression-registry>
+<workbook-tools *ngIf="applicationService.debug"></workbook-tools>
+<workflow-tools *ngIf="applicationService.debug && applicationService.environment != 'production'"></workflow-tools>
+<field-event-log *ngIf="applicationService.debug"></field-event-log>

@@ -1,0 +1,67 @@
+<ion-card class="donut-chart">
+    <ion-item class="no-highlights" lines="none">
+        <ion-text color="primary">
+            <h1 class="title-color strong-text" 
+                [style.--default-title-color]="titleColor.default"
+                [style.--title-color]="titleColor.override">
+                {{title.toUpperCase()}}
+            </h1>
+        </ion-text>
+        <ion-item slot="end" class="compress no-highlights select-period" lines="none">
+            <ion-label class="hide">Select Range</ion-label>
+            <ion-select ionSelectSmallerArrow slot="end" placeholder="Range" [value]="selectedRange" 
+                        (ionChange)="userDidChangeRange($event)" 
+                        (focus)="setAriaLabel($event)" attr.aria-label="{{title}} select range">
+                <ion-select-option *ngFor="let range of ranges" [value]="range">
+                    {{range.label}}
+                </ion-select-option>
+            </ion-select>
+        </ion-item>
+    </ion-item>
+    <ion-card-content>
+        <ion-row>
+            <ion-col size="8">
+                <loader *ngIf="isLoading"></loader>
+                <div *ngIf="!isLoading && !hasData" class="ion-padding-top ion-margin-top">
+                    <p class="ion-text-center">No data found</p>
+                </div>
+                <div #target class="chart" [@chartAnimation]="getChartVisibilityState()"></div>
+            </ion-col>
+            <ion-col size="4">
+                <ion-row>
+                    <div expand="full" class="completed background-color-dark"
+                        [style.--default-background-color-dark]="backGroundColors[0].default"
+                        [style.--background-color-dark]="backGroundColors[0].override">
+                        <h2 class="text-color-dark"
+                            [style.--default-text-color-dark]="textColors[0].default"
+                            [style.--text-color-dark]="textColors[0].override">
+                            {{completed.toLocaleString()}}
+                        </h2>
+                        <h3 class="text-color-dark"
+                            [style.--default-text-color-dark]="textColors[0].default"
+                            [style.--text-color-dark]="textColors[0].override">
+                            {{completedTitle.toUpperCase()}}
+                        </h3>
+                    </div>
+                </ion-row>
+                <ion-row>
+                    <div expand="full" class="incomplete background-color-light"
+                        [style.--default-background-color-light]="backGroundColors[1].default"
+                        [style.--background-color-light]="backGroundColors[1].override">
+                        <h2 class="text-color-light" 
+                            [style.--default-text-color-light]="textColors[1].default"
+                            [style.--text-color-light]="textColors[1].override">
+                            {{incomplete.toLocaleString()}}
+                        </h2>
+                        <h3 class="text-color-light"
+                            [style.--default-text-color-light]="textColors[1].default"
+                            [style.--text-color-light]="textColors[1].override">
+                            {{incompleteTitle.toUpperCase()}}
+                        </h3>
+                    </div>
+                </ion-row>
+            </ion-col>
+        </ion-row>
+    </ion-card-content>
+</ion-card>
+<div #chartColorReference class="chart-color-reference"></div>

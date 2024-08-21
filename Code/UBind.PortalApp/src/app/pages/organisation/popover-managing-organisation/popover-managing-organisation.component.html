@@ -1,0 +1,11 @@
+<ion-list class="entity-list custom-popover" lines="none">
+    <button (click)="assignManagingOrganisation()">
+        <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="account-plus-outline" svgIcon="account-plus-outline" class="start"></mat-icon>
+        <ion-label *ngIf="!managingOrganisationId">Assign Managing Organisation</ion-label>
+        <ion-label *ngIf="managingOrganisationId">Assign New Managing Organisation</ion-label>
+    </button>
+    <button *ngIf="managingOrganisationId" (click)="unassignManagingOrganisation()">
+        <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="account-remove-outline" svgIcon="account-remove-outline" class="start"></mat-icon>
+        <ion-label>Un-assign Managing Organisation</ion-label>
+    </button>
+</ion-list>

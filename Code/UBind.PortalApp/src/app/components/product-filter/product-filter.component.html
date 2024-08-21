@@ -1,0 +1,27 @@
+<ion-content>
+  <div class="filter-wrapper">
+    <div class="filter-head">
+      <ion-title>Filter Products</ion-title>
+    </div>
+    <div class="filter-content">
+      <ion-text>
+        <p>Select which product to include in the dashboard data.</p>
+      </ion-text>
+      <ion-list lines="none">
+        <ion-item *ngFor="let productCheckBox of productsCheckBoxes">
+          <ion-checkbox slot="start" [checked]="productCheckBox.isChecked" [name]="productCheckBox.id"
+            (ionChange)="productCheckboxChange($event)"></ion-checkbox>
+          <ion-label>{{productCheckBox.name}}</ion-label>
+        </ion-item>
+      </ion-list>
+    </div>
+    <div class="filter-buttons">
+      <ion-button fill="clear" strong="true" (click)="cancel()">
+        Cancel
+      </ion-button>
+      <ion-button fill="clear" strong="true" [disabled]="applyDisabled" (click)="applyChanges()">
+        Apply
+      </ion-button>
+    </div>
+  </div>
+</ion-content>

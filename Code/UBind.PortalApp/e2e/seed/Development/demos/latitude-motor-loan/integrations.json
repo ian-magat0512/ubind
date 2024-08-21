@@ -1,0 +1,47 @@
+{
+  "eventExporters": [
+    {
+      "id": "Email Policy Customer",
+      "events": [ "PolicyIssued" ],
+      "action": {
+        "type": "email",
+        "from": "Latitude Financial <latitudefinancial@aptiture.com>",
+        "to": {
+          "type": "formField",
+          "fieldName": "contactEmail"
+        },
+        "subject": "Your insurance policy",
+        "plainTextBody": {
+          "type": "razor",
+          "templateName": "email-policy-customer-text.cshtml"
+        },
+        "htmlBody": {
+          "type": "razor",
+          "templateName": "email-policy-customer-html.cshtml"
+        },
+        "attachments": [
+          {
+            "type": "document",
+            "templateName": "document-policy-schedule.docx",
+            "outputFileName": "Policy Schedule.pdf"
+          },
+          {
+            "type": "document",
+            "templateName": "document-tax-invoice.docx",
+            "outputFileName": "Tax Invoice.pdf"
+          },
+          {
+            "type": "file",
+            "templateName": "pds.pdf",
+            "outputFileName": "Product Disclosure Statement.pdf"
+          },
+          {
+            "type": "file",
+            "templateName": "fsg.pdf",
+            "outputFileName": "Financial Services Guide.pdf"
+          }
+        ]
+      }
+    }
+  ]
+}

@@ -1,0 +1,22 @@
+.small {
+    font-size: 18px;
+    width: 18px;
+    height: 18px;
+}
+
+.medium {
+    font-size: 24px;
+    width: 24px;
+    height: 24px;
+}
+
+.large {
+    font-size: 32px;
+    width: 32px;
+    height: 32px;
+}
+
+:host {
+    width: 32px;
+    height: 32px;
+}

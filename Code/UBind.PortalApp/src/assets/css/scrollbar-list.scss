@@ -1,0 +1,23 @@
+ion-content {
+    --overflow: hidden !important;
+    overflow: hidden !important;
+
+    ion-list {
+        overflow: auto !important;
+    }
+}
+
+ion-content > ion-segment + app-filter-chips + div > ion-list {
+    overflow: auto !important;
+    height: calc(100vh - 103px) !important;
+}
+
+ion-content > app-filter-chips + div > ion-list {
+    overflow: auto !important;
+    height: calc(100vh - 88px) !important;
+}
+
+ion-content > app-filter-chips + ion-list {
+    overflow: auto !important;
+    height: calc(100vh - 56px) !important;
+}

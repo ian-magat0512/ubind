@@ -1,0 +1,1222 @@
+
+html {
+    overflow-y: scroll;
+}
+@media (max-width: 768px) {
+    body {
+        padding-bottom: 40px;
+    }
+}
+
+
+article > *:first-child,
+div.field-content > *:first-child {
+    margin-top: 0;
+}
+
+.tooltip-icon,
+.tooltip-icon:hover,
+.tooltip-icon:focus,
+.tooltip-icon:active {
+    text-decoration: none;
+    cursor: pointer;
+    cursor: hand;
+    margin: -5px -5px -5px -2px;
+    padding: 5px;
+}
+
+.popover.top>.arrow {
+	border-top: none;
+}
+
+/*** Columns ***/
+
+#column-set {
+	backface-visibility: hidden;
+	transform: translate3d(0,0,0);
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: translate3d(0,0,0);
+}
+
+#sidebar-column {
+	width: 250px;
+	position: absolute;
+	right: 0;
+	z-index: 1;
+}
+
+#column-set.sidebar-not-present #sidebar-column {
+    display: none;
+}
+
+#section-column {
+	margin-right: 270px;
+	width: auto;
+	z-index: 1;
+}
+
+#column-set.sidebar-not-present #section-column {
+    margin-right: 0;
+}
+
+@media (max-width: 768px) {
+	#sidebar-column {
+		z-index: 1000;
+		width: auto;
+		position: relative;
+	}
+
+	#section-column {
+		margin-right: 0px;
+	}
+}
+
+.container-fluid {
+	padding: 0;
+}
+
+.webhook-loading {
+    width: 100px;
+    height: 100px;
+    background: url(/assets/loading-spinner.gif);
+    background-size: contain;
+}
+
+/*** Sidebar ***/
+
+@media (max-width: 768px) {
+
+    #sidebar aside {
+        display: none;
+    }
+
+    #sidebar .cell #paymentOption label {
+        margin-bottom: 0px;
+    }
+
+}
+
+#sidebar .table,
+#sidebar .cell > *:last-child {
+    margin-bottom: 0px;
+}
+
+/* Calculation */
+#sidebar #calculation .header:before {
+    width: 0;
+    height: 0;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-right: 10px solid transparent;
+    position: relative;
+    margin: -10px 0 -10px -10px;
+    left: -20px;
+    top: 20px;
+    display: table;
+    content: " ";
+}
+
+#sidebar #calculation .header {
+    text-align: center;
+}
+
+#sidebar #calculation .header .quote-reference {
+    margin-top: 0px !important
+}
+
+
+#sidebar #calculation .header p,
+#sidebar #calculation .footer p {
+    margin-bottom: 0;
+}
+
+
+#sidebar #calculation .body .price {
+    height: 60px;
+    transform: translateY(-7px);
+}
+
+#sidebar #calculation .body .price .cents {
+    position: relative;
+}
+
+#sidebar #calculation .body .price .detail {
+    margin-top: -5px;
+}
+
+#sidebar #calculation formly-field label.form-control-label,
+#sidebar #calculation formly-field h2,
+#sidebar #calculation formly-field h3,
+#sidebar #calculation formly-field h4,
+#sidebar #calculation formly-field p {
+    display: none;
+}
+
+#sidebar #calculation .form-group {
+	margin-top: 0;
+}
+
+#sidebar #calculation .body .price .loading-animation {
+    position: absolute;
+}
+
+#sidebar #calculation .body .summary ul {
+    list-style-type: none;
+    padding: 0;
+    margin: 0;
+}
+
+#sidebar #calculation .header .actions-panel {
+    display: none;
+}
+
+#sidebar #calculation .table {
+    /*margin: 0;*/
+}
+
+#sidebar #calculation .summary {
+    margin-bottom: 0px;
+}
+
+#sidebar #calculation .field-content {
+    display: none;
+}
+
+#sidebar #calculation .cell .instalment {
+    margin-bottom: 10px;
+}
+
+#sidebar #calculation .cell .instalment .instalmentlabel {
+    font-family: 'Source Sans Pro';
+    font-size: 15px;
+    font-weight: 700;
+    color: #253138;
+    padding-right: 3px;
+}
+
+@media (max-width: 768px) {
+
+    #sidebar #calculation {
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 0;
+    }
+	#sidebar #calculation > .header,
+	#sidebar #calculation > .footer {
+		display: flex;
+		flex-direction: column;
+	}
+
+	#sidebar #calculation {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-flex-wrap: wrap;
+		-ms-flex-wrap: wrap;
+		flex-wrap: wrap;
+	}
+
+	#sidebar #calculation > .header,
+	#sidebar #calculation> .footer {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: column;
+		-ms-flex-direction: column;
+		flex-direction: column;
+	}
+
+	#sidebar #calculation .header {
+		width: 50%;
+        display: none;
+	}
+
+	#sidebar #calculation .body {
+		width: 100%;
+	}
+
+    #sidebar #calculation .table {
+        display: table;
+        max-height: 300px;
+    }
+
+    #sidebar #calculation:not(.state-incomplete) .table {
+        margin-bottom: -15px;
+    }
+
+    #sidebar #calculation .price {
+        float: right;
+        position: relative;
+        top: -22px;
+        margin-bottom: -10px;
+    }
+
+    #sidebar #calculation .body .price .loading-animation {
+        position: initial !important;
+    }
+
+    #sidebar #calculation .loading-animation {
+        /* right: 30px; */
+        float: right;
+        margin-right: 30px;
+        margin-top: 10px;
+    }
+
+	#sidebar #calculation .cell {
+		display: table-cell;
+		vertical-align: middle;
+	}
+
+	#sidebar #calculation .arrow {
+		clear: both;
+	}
+
+	#sidebar #calculation .arrow:after {
+		width: 0; 
+		height: 0; 
+		border-top: 10px solid transparent;
+		border-right: 10px solid transparent; 
+		border-left: 10px solid transparent; 
+		position: relative;
+		margin: -10px 0 -10px -10px;
+		left: 50%;
+		top: 30px;
+		display: table;
+		content: " ";
+	}
+
+	#sidebar #calculation .body questions-widget + .message {
+		display: none;
+	}
+
+	#sidebar #calculation .body formly-field .form-group {
+		margin-bottom: 0;
+	}
+
+
+	#sidebar #calculation .header .actions-panel {
+		display: block;
+	}
+
+	#sidebar #calculation .body .actions-panel {
+		display: none;
+	}
+}
+
+
+/*** Footer Actions ***/
+
+nav#formFooter-actions .button-container {
+    float: left;
+}
+
+nav .btn-icon {
+    display: inline-block;
+    position: relative;
+    top: 2px;
+}
+
+nav .btn-icon.btn-icon-active {
+    display: none;
+}
+
+nav .btn-active .btn-icon {
+    display: none;
+}
+
+nav .btn-active .btn-icon.btn-icon-active {
+    display: inline-block;
+}
+
+/*** spinner ***/
+
+.spinner {
+    width: 18px;
+    height: 18px;
+    -webkit-animation: rotation 1.35s linear infinite;
+    animation: rotation 1.35s linear infinite;
+}
+
+.spinner.ie {
+    animation: custom-loader-md-dash 2s ease infinite, custom-loader-md-rotate 2s linear infinite !important;
+}
+
+@keyframes custom-loader-md-dash {
+    0% {
+        stroke-dasharray: 1, 95;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 85, 95;
+        stroke-dashoffset: -25;
+    }
+
+    100% {
+        stroke-dasharray: 85, 95;
+        stroke-dashoffset: -93;
+    }
+}
+
+@keyframes custom-loader-md-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes rotation
+{
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(270deg);
+        transform: rotate(270deg);
+    }
+}
+ 
+@keyframes rotation
+{
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(270deg);
+        transform: rotate(270deg);
+    }
+}
+.circle {
+    stroke-dasharray: 180;
+    stroke-dashoffset: 0;
+    -webkit-transform-origin: center;
+    -ms-transform-origin: center;
+    transform-origin: center;
+    -webkit-animation: turn 1.35s ease-in-out infinite;
+    animation: turn 1.35s ease-in-out infinite;
+}
+.spinner.ie .circle {
+    stroke-dasharray: 170, 200;
+    stroke-dashoffset: 30;
+    stroke-linecap: round;
+    -webkit-animation: none !important;
+    animation: none !important;
+}
+@-webkit-keyframes turn
+{
+    0% {
+        stroke-dashoffset: 180;
+    }
+
+    50% {
+        stroke-dashoffset: 45;
+        -webkit-transform: rotate(135deg);
+        transform: rotate(135deg);
+    }
+
+    100% {
+        stroke-dashoffset: 180;
+        -webkit-transform: rotate(450deg);
+        transform: rotate(450deg);
+    }
+}
+@keyframes turn
+{
+    0% {
+        stroke-dashoffset: 180;
+    }
+
+    50% {
+        stroke-dashoffset: 45;
+        -webkit-transform: rotate(135deg);
+        transform: rotate(135deg);
+    }
+
+    100% {
+        stroke-dashoffset: 180;
+        -webkit-transform: rotate(450deg);
+        transform: rotate(450deg);
+    }
+}
+div#section-column actions-widget button.btn svg {
+    overflow: visible;
+}
+button.btn svg {
+    margin-bottom: -4px;
+    width: 13px;
+    overflow: visible;
+}
+button.btn.btn-primary svg {
+    stroke:#fff;
+}
+button.btn.btn-secondary svg {
+    stroke: #ccc;
+}
+
+button.btn-primary:disabled div.btn-icon.btn-icon-loader {
+    display: inline-block;
+}
+button.btn-primary:disabled div.btn-icon.btn-icon-icon {
+    display: none;
+}
+
+button.btn-secondary.btn-active ~ button.btn-primary:disabled div.btn-icon.btn-icon-loader {
+    display: none;
+}
+button.btn-secondary.btn-active ~ button.btn-primary:disabled div.btn-icon.btn-icon-icon {
+    display: inline-block;
+}
+
+/* IE10+ */
+button.has-icon .btn-icon .ie-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: -71px 0px 0px -75px;
+    transform: scale(0.1);
+}
+button.has-icon .btn-icon .ie-loader:before,
+button.has-icon .btn-icon .ie-loader:before {
+    
+}
+.ie-loader,
+.ie-loader:before,
+.ie-loader:after {
+    border-radius: 50%;
+}
+.ie-loader {
+    color: #ccc;
+    font-size: 11px;
+    text-indent: -99999em;
+    margin: 0px auto;
+    position: relative;
+    width: 160px;
+    height: 160px;
+    box-shadow: inset 0 0 0 16px;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-transform: scale(0.3);
+    -ms-transform: scale(0.3);
+    transform: scale(0.3);
+}
+.ie-loader:before,
+.ie-loader:after {
+    position: absolute;
+    content: '';
+    background-color: #fff;
+    width: 83.2px;
+    height: 163.2px;
+}
+.ie-loader:before {
+    border-radius: 163.2px 0 0 163.2px;
+    top: -1.6px;
+    left: -1.6px;
+    -webkit-transform-origin: 81.6px 81.6px;
+    transform-origin: 81.6px 81.6px;
+    -webkit-animation: load2 2s infinite ease 1.5s;
+    animation: load2 2s infinite ease 1.5s;
+}
+.ie-loader:after {
+    border-radius: 0 163.2px 163.2px 0;
+    top: -1.6px;
+    left: 78.4px;
+    -webkit-transform-origin: 1.6px 81.6px;
+    transform-origin: 1.6px 81.6px;
+    -webkit-animation: load2 2s infinite ease;
+    animation: load2 2s infinite ease;
+}
+@-webkit-keyframes load2 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes load2 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+/* End IE11 */
+
+/*** Loader ***/
+
+.loading-animation .loader,
+.loading-animation .loader:before,
+.loading-animation .loader:after {
+	border-radius: 50%;
+	width: 2em;
+	height: 2em;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation: load7 0.6s infinite ease-in-out;
+	animation: load7 0.6s infinite ease-in-out;
+}
+.loading-animation .loader {
+	color: transparent;
+	font-size: 5px;
+	position: relative;
+	margin: 15px 0 0 50px;
+	text-indent: -9999em;
+	-webkit-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	transform: translateZ(0);
+	-webkit-animation-delay: -0.10s;
+	animation-delay: -0.10s;
+}
+.loading-animation .loader:before,
+.loading-animation .loader:after {
+	content: '';
+	position: absolute;
+	top: 0;
+}
+.loading-animation .loader:before {
+	left: -3.5em;
+	-webkit-animation-delay: -0.2s;
+	animation-delay: -0.2s;
+}
+.loading-animation .loader:after {
+	left: 3.5em;
+}
+@-webkit-keyframes load7 {
+	0%, 80%,
+	100% { box-shadow: 0 2.5em 0 -1.3em; }
+	40% { box-shadow: 0 2.5em 0 0; }
+}
+@keyframes load7 {
+	0%, 80%,
+	100% { box-shadow: 0 2.5em 0 -1.3em; }
+	40% { box-shadow: 0 2.5em 0 0; }
+}
+
+/*** Progress Bar ***/
+
+@media (max-width: 768px) {
+	#progress-bar {
+	}
+}
+
+#progress-bar {
+    display: flex;
+    flex-flow: row nowrap;
+	margin: 0 -10px;
+}
+
+#progress-bar .tab {
+	display: inline-block;
+    padding: 0 10px;
+    flex-grow: 1
+}
+
+#progress-bar .removed-items {
+    width: 25px;
+}
+
+/*** Radio ***/
+
+.radio input[type=radio] {
+  	position: absolute;
+  	width: 0;
+    visibility: hidden;
+}
+
+.radio label {
+	z-index: 9;
+	cursor: pointer;
+}
+
+
+.radio input[type=radio] ~ .check {
+  	position: absolute;
+	z-index: 4;
+	top: 1px;
+	left: 0;
+}
+
+.radio input[type=radio] ~ .check .inside {
+	display: none;
+}
+
+.radio input[type=radio]:checked ~ .check .inside {
+	display: block;
+	position: absolute;
+	z-index: 5;
+}
+
+/*** Checkbox ***/
+
+.checkbox input[type=checkbox] {
+  	position: absolute;
+  	visibility: hidden;
+}
+
+.checkbox label {
+	z-index: 9;
+	cursor: pointer;
+}
+
+
+.checkbox input[type=checkbox] ~ .check {
+  	position: absolute;
+	z-index: 4;
+	top: 1px;
+	left: 0;
+}
+
+.checkbox input[type=checkbox] ~ .check .inside {
+	display: none;
+}
+
+.checkbox input[type=checkbox]:checked ~ .check .inside {
+	display: block;
+	position: absolute;
+	z-index: 5;
+}
+
+/*** Toggle ***/
+
+.toggle input[type=checkbox] {
+    position: absolute;
+    visibility: hidden;
+}
+
+
+/*** Forms ***/
+
+formly-group {
+    width: 100%;
+}
+
+formly-field .form-control[disabled] .toggle label,
+formly-field .form-control[disabled] label.btn,
+formly-field .radio label.disabled
+{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+formly-field .checkbox label.disabled
+{
+    opacity: 0.5;
+    cursor: not-allowed;
+}
+
+formly-field .file-upload .disabled{
+    opacity: 0.5;
+}
+
+formly-field .btn-group {
+	display: block;
+}
+
+formly-field .btn-group input {
+    display: none;
+}
+
+formly-field label .btn-icon {
+    display: block;
+}
+
+formly-field buttons-field label span {
+    pointer-events: none;
+}
+
+formly-field label .btn-icon span {
+	position: relative;
+}
+
+buttons-field::after {
+    content: "";
+    display: table;
+    clear: both;
+}
+
+.form-group {
+	margin-bottom: 0px;
+}
+
+.form-control {
+	height: auto;
+	box-shadow: none;
+}
+
+.iframe-field {
+    width: 100%;
+    overflow: hidden;
+}
+
+textarea.form-control {
+    resize: vertical;
+    height: 120px;
+}
+
+.input-group-addon {
+	cursor: pointer;
+	cursor: hand;
+}
+
+.input-group .form-control:last-child {
+    border-top-right-radius: unset;
+    border-bottom-right-radius: unset;
+}
+
+.input-group .form-control:first-child {
+    border-top-left-radius: unset;
+    border-bottom-left-radius: unset;
+}
+
+.input-group *:last-child .form-control,
+.input-group-addon:last-child,
+.input-group-btn:first-child > .btn-group:not(:first-child) > .btn,
+.input-group-btn:first-child > .btn:not(:first-child),
+.input-group-btn:last-child > .btn, .input-group-btn:last-child > .btn-group > .btn,
+.input-group-btn:last-child > .dropdown-toggle {
+    border-top-left-radius: 0;
+    border-bottom-left-radius: 0;
+}
+
+.input-group *:first-child .form-control,
+.input-group-addon:first-child,
+.input-group-btn:first-child > .btn,
+.input-group-btn:first-child > .btn-group > .btn,
+.input-group-btn:first-child > .dropdown-toggle,
+.input-group-btn:last-child > .btn-group:not(:last-child) > .btn,
+.input-group-btn:last-child > .btn:not(:last-child):not(.dropdown-toggle) {
+    border-top-right-radius: 0;
+    border-bottom-right-radius: 0;
+}
+
+.repeating-question-set-form-container {
+    margin: 0 15px;
+}
+
+formly-field .repeating .btn-icon {
+    display: inline-block;
+    position: relative;
+}
+
+.fa .glyphicon {
+    font-size: inherit;
+}
+
+label.btn.btn-has-icon {
+	min-width: 82px;
+	min-height: 82px;
+}
+
+div.terms-and-conditions {
+    overflow-y: scroll;
+}
+
+div.terms-and-conditions ol {
+    margin: 0;
+}
+
+div.terms-and-conditions ol ol {
+    list-style-type: lower-alpha;
+}
+
+div.terms-and-conditions ol ol ol {
+    list-style-type: lower-roman;
+}
+
+/*** Date Selector ***/
+
+.ui-datepicker {
+    box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px;
+}
+
+.ui-datepicker td {
+	padding: 2px 1px 1px 2px;
+}
+
+.ui-datepicker-prev.ui-state-hover.ui-datepicker-prev-hover,
+.ui-datepicker-next.ui-state-hover.ui-datepicker-next-hover {
+	border: 0;
+	background: transparent;
+	cursor: pointer;
+	cursor: hand;
+}
+
+.ui-datepicker-calendar th,
+.ui-datepicker-calendar td {
+	width: 14%;
+}
+
+.ui-datepicker table {
+	margin-bottom: 0;
+}
+
+input[type=date].form-control,
+input[type=datetime-local].form-control,
+input[type=month].form-control,
+input[type=time].form-control {
+    line-height: normal;
+}
+
+
+@media (max-width: 767px) {
+    .input-group .form-control.non-native-date-input {
+        display: none;
+    }
+    .input-group .form-control.native-date-input {
+        display: table-cell;
+    }
+}
+
+@media (min-width: 768px) {
+    .input-group .form-control.non-native-date-input {
+        display: table-cell;
+    }
+    .input-group .form-control.native-date-input {
+        display: none;
+    }
+}
+
+
+/*** Shaking animation ***/
+
+.shake {
+	animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+
+
+/*** Flexbox ***/
+
+formly-field.row ,
+formly-field.row > formly-wrapper-description >
+formly-wrapper-validation-messages >
+formly-group > formly-form {
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+}
+
+formly-wrapper-description {
+    width: 100%;
+}
+
+formly-wrapper-validation-messages {
+    width: 100%;
+}
+
+formly-field.row [class*='col-']{
+    display: -webkit-box;
+    display: -webkit-flex;
+    display: -ms-flexbox;
+    display: flex;
+    -webkit-box-orient: vertical;
+    -webkit-box-direction: normal;
+    -webkit-flex-direction: column;
+    -ms-flex-direction: column;
+    flex-direction: column;
+}
+
+/*** IFrame ***/
+iframe {
+    width: 100%;
+    height: auto;
+}
+
+/*** Modal ***/
+
+.overlay {
+    position: fixed;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    background-color: rgba(0, 0, 0, 0);
+    z-index: 999;
+    margin:auto;
+}
+
+.dialog {
+    z-index: 1000;
+    position: absolute;
+    right: 0;
+    left: 0;
+    top: calc(100vh - 25%);
+    margin-right: auto;
+    margin-left: auto;
+    min-height: 140px;
+    width: 90%;
+    max-width: 520px;
+    background-color: #fff;
+    padding: 12px;
+    box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
+    vertical-align: middle
+}
+
+.dialog h2 {
+    display: inline;
+}
+
+.dialog p {
+    margin-top: 10px;
+}
+
+@media (min-width: 768px) {
+    .dialog {
+        top: 40px;
+    }
+}
+
+.dialog__close-btn {
+    border: 0;
+    background: none;
+    color: #2d2d2d;
+    position: absolute;
+    top: 8px;
+    right: 8px;
+    font-size: 1.2em;
+}
+
+select::-ms-expand {
+    display: none !important;
+}
+
+@media (max-width: 808px) {
+    .dialog {
+        top: calc(100vh - 95%);
+    }
+}
+/* iPad */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) { 
+    .datepicker-has-value {
+        padding: 13.5px 1.5em !important;
+    }
+    .datepicker-has-no-value {
+        padding: 1.5em !important;
+    }
+}
+
+/* Retina iPad */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px)
+and (-webkit-min-device-pixel-ratio: 2) { 
+    .datepicker-has-value {
+        padding: 13.5px 1.5em !important;
+    }
+    .datepicker-has-no-value {
+        padding: 1.5em !important;
+    }
+}
+
+/* iPad 1 & 2 */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px) 
+and (-webkit-min-device-pixel-ratio: 1) { 
+    .datepicker-has-value {
+        padding: 13.5px 1.5em !important;
+    }
+    .datepicker-has-no-value {
+        padding: 1.5em !important;
+    }
+}
+
+/* iPad mini */
+@media only screen 
+and (min-device-width : 768px) 
+and (max-device-width : 1024px)
+and (-webkit-min-device-pixel-ratio: 1) { 
+    .datepicker-has-value {
+        padding: 13.5px 1.5em !important;
+    }
+    .datepicker-has-no-value {
+        padding: 1.5em !important;
+    }
+}
+
+/* iPhone X */
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width : 812px)
+and (-webkit-device-pixel-ratio : 3) { 
+    .datepicker-has-value {
+        padding: 13.5px 1.5em !important;
+    }
+    .datepicker-has-no-value {
+        padding: 1.5em !important;
+    }
+}
+
+/* iPhone 6, 7, & 8 */
+@media only screen 
+and (min-device-width : 375px) 
+and (max-device-width : 667px) { 
+    .datepicker-has-value {
+        padding: 13.5px 1.5em !important;
+    }
+    .datepicker-has-no-value {
+        padding: 1.5em !important;
+    }
+}
+
+/* iPhone 6, 7, & 8 */
+@media only screen 
+and (min-device-width : 414px) 
+and (max-device-width : 736px) { 
+    .datepicker-has-value {
+        padding: 13.5px 1.5em !important;
+    }
+    .datepicker-has-no-value {
+        padding: 1.5em !important;
+    }
+}
+
+/* iPhone 5 & 5S */
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 568px) { 
+    .datepicker-has-value {
+        padding: 13.5px 1.5em !important;
+    }
+    .datepicker-has-no-value {
+        padding: 1.5em !important;
+    }
+}
+
+@media only screen 
+and (min-device-width : 320px) 
+and (max-device-width : 480px) { 
+    .datepicker-has-value {
+        padding: 13.5px 1.5em !important;
+    }
+    .datepicker-has-no-value {
+        padding: 1.5em !important;
+    }
+}
+
+@media (max-width: 449px) {
+    .quote-heading {
+        font-size: 32px;
+    }
+    formly-field .form-control {
+        font-size: 16px !important;
+    }
+}
+
+/*** iPhone and iOS Form Input Zoom Fixes ***/
+/* Fix Input Zoom on devices older than iPhone 5: */
+@media screen and (device-aspect-ratio: 2/3) {
+    select, textarea, input[type="text"], input[type="password"],
+    input[type="datetime"], input[type="datetime-local"],
+    input[type="date"], input[type="month"], input[type="time"],
+    input[type="week"], input[type="number"], input[type="email"],
+    input[type="url"],
+    formly-field .form-control {
+        font-size: 16px !important;
+    }
+}
+
+/* Fix Input Zoom on iPhone 5, 5C, 5S, iPod Touch 5g */
+@media screen and (device-aspect-ratio: 40/71) {
+    select, textarea, input[type="text"], input[type="password"],
+    input[type="datetime"], input[type="datetime-local"],
+    input[type="date"], input[type="month"], input[type="time"],
+    input[type="week"], input[type="number"], input[type="email"],
+    input[type="url"],
+    formly-field .form-control {
+        font-size: 16px !important;
+    }
+}
+
+/* Fix Input Zoom on iPhone 6, iPhone 6s, iPhone 7  */
+@media screen and (device-aspect-ratio: 375/667) {
+    select, textarea, input[type="text"], input[type="password"],
+    input[type="datetime"], input[type="datetime-local"],
+    input[type="date"], input[type="month"], input[type="time"],
+    input[type="week"], input[type="number"], input[type="email"],
+    input[type="url"],
+    formly-field .form-control {
+        font-size: 16px !important;
+    }
+}
+
+/* Fix Input Zoom on iPhone 6 Plus, iPhone 6s Plus, iPhone 7 Plus, iPhone 8, iPhone X, XS, XS Max  */
+@media screen and (device-aspect-ratio: 9/16) {
+    select, textarea, input[type="text"], input[type="password"],
+    input[type="datetime"], input[type="datetime-local"],
+    input[type="date"], input[type="month"], input[type="time"],
+    input[type="week"], input[type="number"], input[type="email"],
+    input[type="url"],
+    formly-field .form-control {
+        font-size: 16px !important;
+    }
+}
+
+html {
+    -webkit-text-size-adjust: none
+}
+
+select {
+    text-overflow: ellipsis;
+    overflow: hidden;
+}
+
+.toggle-field-wrapper {
+    position: relative;
+}
+    
+.toggle-field-wrapper > a {
+    position: absolute;
+    right: 0;
+    top: 0;
+    z-index: 9;
+    margin: 12px;
+    font-size: 20px;
+    color: #a0a0a0;
+}
+
+/* target ios only */
+app[isios="true"] sidebar-widget calculation-widget aside questions-widget formly-field div.btn-group#paymentOption {
+    margin-top: 60px !important;
+}

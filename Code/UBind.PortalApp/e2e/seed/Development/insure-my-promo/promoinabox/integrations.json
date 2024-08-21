@@ -1,0 +1,55 @@
+{
+  "eventExporters": [
+    {
+      "id": "Webhook Generate Policy Schedule",
+      "events": [ "PolicyIssued" ],
+      "action": {
+        "type": "http",
+        "url": {
+          "type": "environment",
+          "development": "https://ubind-application-uat.aptiture.com/exporttest",
+          "staging": "https://insuremypromo-promoinabox-uat.aptiture.com/api/merger/generator",
+          "production": "https://promoinabox.win/api/merger/generator"
+        },
+        "body": {
+          "type": "applicationData"
+        },
+        "contentType": "application/json"
+      }
+    },
+    {
+      "id": "Email PolicyIssued",
+      "events": [ "PolicyIssued" ],
+      "action": {
+        "type": "email",
+        "from": "Promo in a Box <hello@promoinabox.win>",
+        "to": {
+          "type": "formField",
+          "fieldName": "email"
+        },
+        "bcc": {
+          "type": "environment",
+          "default": "john.talavera@aptiture.com",
+          "staging": "john.talavera@aptiture.com",
+          "production": "john.talavera@aptiture.com"
+        },
+        "subject": "Your Promo in a Box Invoice",
+        "plainTextBody": {
+          "type": "razor",
+          "templateName": "email-invoice-customer-text.cshtml"
+        },
+        "htmlBody": {
+          "type": "razor",
+          "templateName": "email-invoice-customer-html.cshtml"
+        },
+        "attachments": [
+          {
+            "type": "document",
+            "templateName": "tax-invoice.docx",
+            "outputFileName": "tax-invoice.pdf"
+          }
+        ]
+      }
+    }
+  ]
+}

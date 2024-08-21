@@ -1,0 +1,4 @@
+<mat-icon *ngIf="library == iconLibrary.AngularMaterial" class="{{cssClass}}" [ngStyle]="cssStyle" aria-hidden="false" aria-label="{{name}}"
+    svgIcon="{{name}}"></mat-icon>
+<ion-icon *ngIf="library == iconLibrary.IonicV4" src="./assets/ionicons-v4/{{name}}.svg" class="{{cssClass}}" [ngStyle]="cssStyle" slot="{{slot}}" size="{{size}}"></ion-icon>
+<ion-icon *ngIf="library == iconLibrary.IonicV5" name="{{name}}" class="{{cssClass}}" [ngStyle]="cssStyle" size="{{size}}"></ion-icon>

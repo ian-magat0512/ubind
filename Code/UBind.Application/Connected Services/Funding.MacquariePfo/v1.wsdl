@@ -1,0 +1,375 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:xsd="http://www.w3.org/2001/XMLSchema" xmlns:tns="http://macquarie.com/mppo" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:HDR1="http://macquarie.com/MPPO" xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:HDR2="http://macquarie.com/mpf" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:soapjms="http://www.w3.org/2010/soapjms/" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" name="v1" targetNamespace="http://macquarie.com/mppo" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <xsd:schema xmlns:dx="http://macquarie.com/mpf" targetNamespace="http://macquarie.com/mpf">
+      <xsd:simpleType name="String_50">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="50" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="String_11">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="11" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="state">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="ACT" />
+          <xsd:enumeration value="NSW" />
+          <xsd:enumeration value="NT" />
+          <xsd:enumeration value="QLD" />
+          <xsd:enumeration value="SA" />
+          <xsd:enumeration value="TAS" />
+          <xsd:enumeration value="VIC" />
+          <xsd:enumeration value="WA" />
+          <xsd:enumeration value="NZ" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="String_20">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="20" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="String_5">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="5" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="entityType">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="Company" />
+          <xsd:enumeration value="IndividualSoleTrader" />
+          <xsd:enumeration value="Partnership" />
+          <xsd:enumeration value="Trust" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="String_10">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="10" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="String_30">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="30" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="money">
+        <xsd:restriction base="xsd:decimal">
+          <xsd:totalDigits value="18" />
+          <xsd:fractionDigits value="2" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="paymentFrequency">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="M" />
+          <xsd:enumeration value="Q" />
+          <xsd:maxLength value="1" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="String_12">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="12" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="String_500">
+        <xsd:restriction base="xsd:string">
+          <xsd:maxLength value="500" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="PaymentMethod">
+        <xsd:restriction base="xsd:string">
+          <xsd:enumeration value="CC" />
+          <xsd:enumeration value="DD" />
+          <xsd:maxLength value="2" />
+          <xsd:whiteSpace value="preserve" />
+        </xsd:restriction>
+      </xsd:simpleType>
+    </xsd:schema>
+    <xsd:schema xmlns:dx="http://macquarie.com/mpf" xmlns:dx2="http://macquarie.com/MPPO" targetNamespace="http://macquarie.com/mppo">
+      <xsd:import namespace="http://macquarie.com/mpf" />
+      <xsd:import namespace="http://macquarie.com/MPPO" />
+      <xsd:element name="getQuote" type="tns:getQuote" />
+      <xsd:element name="getQuoteResponse" type="tns:getQuoteResponse" />
+      <xsd:element name="getTermsAndConditions" type="tns:getTermsAndConditions" />
+      <xsd:element name="getTermsAndConditionsResponse" type="tns:getTermsAndConditionsResponse" />
+      <xsd:element name="healthCheck" type="tns:healthCheck" />
+      <xsd:element name="healthCheckResponse" type="tns:healthCheckResponse" />
+      <xsd:element name="updatePaymentDetailsRequest" type="tns:updatePaymentDetailsRequest" />
+      <xsd:element name="updatePaymentDetailsResponse" type="tns:updatePaymentDetailsResponse" />
+      <xsd:complexType name="getQuote">
+        <xsd:sequence>
+          <xsd:element name="getQuoteRequest" nillable="true" type="tns:getQuoteRequest" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getQuoteRequest">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="broker" type="tns:broker" />
+          <xsd:element name="client" type="tns:client" />
+          <xsd:element maxOccurs="unbounded" name="policies" type="tns:policy" />
+          <xsd:element minOccurs="0" name="firstInstalmentDate" nillable="true" type="xsd:date" />
+          <xsd:element minOccurs="0" name="paymentFrequency" nillable="true" type="dx:paymentFrequency" />
+          <xsd:element minOccurs="0" name="numberOfInstalments" nillable="true" type="tns:numberOfInstalments" />
+          <xsd:element minOccurs="0" name="commissionRate" nillable="true" type="tns:commissionRate" />
+          <xsd:element minOccurs="0" name="settlementDays" nillable="true" type="xsd:int" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="broker">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="brokerContactEmail" nillable="true" type="dx:String_50" />
+          <xsd:element minOccurs="0" name="affinitySchemeCode" type="dx:String_50" />
+          <xsd:element minOccurs="1" name="userName" type="dx:String_50" />
+          <xsd:element minOccurs="1" name="userPassword" type="dx:String_50" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="client">
+        <xsd:sequence>
+          <xsd:element name="legalName" type="dx:String_50" />
+          <xsd:element minOccurs="0" name="tradingName" nillable="true" type="dx:String_50" />
+          <xsd:element minOccurs="0" name="abn" nillable="true" type="dx:String_11" />
+          <xsd:element name="streetAddress" type="tns:address" />
+          <xsd:element minOccurs="0" name="postalAddress" type="tns:address" />
+          <xsd:element minOccurs="0" name="mobileNumber" nillable="true" type="dx:String_20" />
+          <xsd:element name="telephoneNumber" type="dx:String_20" />
+          <xsd:element minOccurs="0" name="fax" nillable="true" type="dx:String_20" />
+          <xsd:element name="email" type="dx:String_50" />
+          <xsd:element minOccurs="0" name="title" nillable="true" type="dx:String_5" />
+          <xsd:element name="firstName" type="dx:String_50" />
+          <xsd:element minOccurs="0" name="lastName" nillable="true" type="dx:String_50" />
+          <xsd:element name="entityType" type="dx:entityType" />
+          <xsd:element minOccurs="0" name="brokerClientReference" nillable="true" type="dx:String_20" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="address">
+        <xsd:sequence>
+          <xsd:element name="streetLine1" nillable="true" type="dx:String_50" />
+          <xsd:element minOccurs="0" name="streetLine2" nillable="true" type="dx:String_50" />
+          <xsd:element name="suburb" nillable="true" type="dx:String_50" />
+          <xsd:element name="state" type="dx:state" />
+          <xsd:element name="postCode" nillable="true" type="tns:postCode" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="postCode">
+        <xsd:restriction base="xsd:int">
+          <xsd:totalDigits value="4" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="policy">
+        <xsd:sequence>
+          <xsd:element name="policyNumber" type="dx:String_20" />
+          <xsd:element minOccurs="0" name="invoiceNumber" nillable="true" type="dx:String_20" />
+          <xsd:element name="policyClassCode" type="dx:String_10" />
+          <xsd:element name="policyUnderwriterCode" type="dx:String_30" />
+          <xsd:element minOccurs="0" name="policyInceptionDate" nillable="true" type="xsd:date" />
+          <xsd:element name="policyExpiryDate" type="xsd:date" />
+          <xsd:element name="policyAmount" type="dx:money" />
+          <xsd:element minOccurs="0" name="DEFTReferenceNumber" nillable="true" type="dx:String_50" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="numberOfInstalments">
+        <xsd:restriction base="xsd:int">
+          <xsd:totalDigits value="2" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="commissionRate">
+        <xsd:restriction base="xsd:decimal">
+          <xsd:totalDigits value="18" />
+          <xsd:fractionDigits value="4" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="getQuoteResponse">
+        <xsd:sequence>
+          <xsd:element name="getQuoteResponse" nillable="true" type="tns:getQuoteResponse2" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getQuoteResponse2">
+        <xsd:sequence>
+          <xsd:element name="loanNumber" type="dx:String_12" />
+          <xsd:element name="amountFinanced" nillable="true" type="dx:money" />
+          <xsd:element name="isOverThreshold" nillable="true" type="xsd:boolean" />
+          <xsd:element name="flatInterestRate" nillable="true" type="tns:flatInterestRate" />
+          <xsd:element name="totalInterestCharges" nillable="true" type="dx:money" />
+          <xsd:element name="totalAmountRepayable" nillable="true" type="dx:money" />
+          <xsd:element minOccurs="0" name="paymentFrequency" nillable="true" type="dx:paymentFrequency" />
+          <xsd:element name="numberOfInstalments" nillable="true" type="tns:numberOfInstalments2" />
+          <xsd:element name="firstInstalmentDate" nillable="true" type="xsd:date" />
+          <xsd:element name="lastInstalmentDate" nillable="true" type="xsd:date" />
+          <xsd:element name="initialInstalmentAmount" nillable="true" type="dx:money" />
+          <xsd:element name="ongoingInstalmentAmount" nillable="true" type="dx:money" />
+          <xsd:element name="applicationFee" nillable="true" type="dx:money" />
+          <xsd:element name="cancellationFee" nillable="true" type="dx:money" />
+          <xsd:element name="dishonourFee" nillable="true" type="dx:money" />
+          <xsd:element maxOccurs="unbounded" name="creditSurcharge" nillable="true" type="tns:creditCardSurcharge" />
+          <xsd:element maxOccurs="unbounded" name="systemReturn" nillable="true" type="dx2:systemResponse" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="flatInterestRate">
+        <xsd:restriction base="xsd:decimal">
+          <xsd:totalDigits value="18" />
+          <xsd:fractionDigits value="6" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:simpleType name="numberOfInstalments2">
+        <xsd:restriction base="xsd:int">
+          <xsd:totalDigits value="2" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="creditCardSurcharge">
+        <xsd:sequence>
+          <xsd:element name="cardType" type="dx:String_10" />
+          <xsd:element name="surchargePercent" type="tns:surchargePercent" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="surchargePercent">
+        <xsd:restriction base="xsd:decimal">
+          <xsd:totalDigits value="18" />
+          <xsd:fractionDigits value="6" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="getTermsAndConditions">
+        <xsd:sequence>
+          <xsd:element minOccurs="0" name="region" nillable="true" type="xsd:string" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="getTermsAndConditionsResponse">
+        <xsd:sequence>
+          <xsd:element name="terms" nillable="true" type="xsd:string" />
+          <xsd:element name="systemReturn" nillable="true" type="dx2:systemResponse" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="healthCheck">
+        <xsd:sequence />
+      </xsd:complexType>
+      <xsd:complexType name="healthCheckResponse">
+        <xsd:sequence>
+          <xsd:element name="boolean" nillable="true" type="xsd:boolean" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:complexType name="updatePaymentDetailsRequest">
+        <xsd:sequence>
+          <xsd:element name="loanNumber" type="dx:String_12" />
+          <xsd:element name="firstPaymentMethod" type="dx:PaymentMethod" />
+          <xsd:element name="ongoingPaymentMethod" nillable="true" type="dx:PaymentMethod" />
+          <xsd:element minOccurs="0" name="accountName" nillable="true" type="dx:String_50" />
+          <xsd:element minOccurs="0" name="bsb" nillable="true" type="tns:bsb" />
+          <xsd:element minOccurs="0" name="accountNumber" nillable="true" type="dx:String_50" />
+        </xsd:sequence>
+      </xsd:complexType>
+      <xsd:simpleType name="bsb">
+        <xsd:restriction base="xsd:int">
+          <xsd:totalDigits value="6" />
+        </xsd:restriction>
+      </xsd:simpleType>
+      <xsd:complexType name="updatePaymentDetailsResponse">
+        <xsd:sequence>
+          <xsd:element name="systemReturn" type="dx2:systemResponse" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+    <xsd:schema xmlns:dx="http://macquarie.com/mpf" xmlns:dx2="http://macquarie.com/MPPO" targetNamespace="http://macquarie.com/MPPO">
+      <xsd:import namespace="http://macquarie.com/mpf" />
+      <xsd:complexType name="systemResponse">
+        <xsd:sequence>
+          <xsd:element name="responseCode" nillable="true" type="dx:String_10" />
+          <xsd:element name="responseDescription" nillable="true" type="dx:String_500" />
+        </xsd:sequence>
+      </xsd:complexType>
+    </xsd:schema>
+  </wsdl:types>
+  <wsdl:message name="v1_PortType_getQuoteResponse">
+    <wsdl:part name="parameters" element="tns:getQuoteResponse" />
+  </wsdl:message>
+  <wsdl:message name="v1_PortType_getTermsAndConditionsResponse">
+    <wsdl:part name="parameters" element="tns:getTermsAndConditionsResponse" />
+  </wsdl:message>
+  <wsdl:message name="v1_PortType_healthCheck">
+    <wsdl:part name="parameters" element="tns:healthCheck" />
+  </wsdl:message>
+  <wsdl:message name="v1_PortType_updatePaymentDetailsResponse">
+    <wsdl:part name="parameters" element="tns:updatePaymentDetailsResponse" />
+  </wsdl:message>
+  <wsdl:message name="v1_PortType_healthCheckResponse">
+    <wsdl:part name="parameters" element="tns:healthCheckResponse" />
+  </wsdl:message>
+  <wsdl:message name="v1_PortType_getQuote">
+    <wsdl:part name="parameters" element="tns:getQuote" />
+  </wsdl:message>
+  <wsdl:message name="v1_PortType_getTermsAndConditions">
+    <wsdl:part name="parameters" element="tns:getTermsAndConditions" />
+  </wsdl:message>
+  <wsdl:message name="v1_PortType_updatePaymentDetailsRequest">
+    <wsdl:part name="parameters" element="tns:updatePaymentDetailsRequest" />
+  </wsdl:message>
+  <wsdl:portType name="v1_PortType">
+    <wsdl:operation name="updatePaymentDetails">
+      <wsdl:input message="tns:v1_PortType_updatePaymentDetailsRequest" />
+      <wsdl:output message="tns:v1_PortType_updatePaymentDetailsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getTermsAndConditions">
+      <wsdl:input message="tns:v1_PortType_getTermsAndConditions" />
+      <wsdl:output message="tns:v1_PortType_getTermsAndConditionsResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="getQuote">
+      <wsdl:input message="tns:v1_PortType_getQuote" />
+      <wsdl:output message="tns:v1_PortType_getQuoteResponse" />
+    </wsdl:operation>
+    <wsdl:operation name="healthCheck">
+      <wsdl:input message="tns:v1_PortType_healthCheck" />
+      <wsdl:output message="tns:v1_PortType_healthCheckResponse" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="MRBMPPO_MPPO_v1_Binder" type="tns:v1_PortType">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="updatePaymentDetails">
+      <soap12:operation soapAction="MRBMPPO_MPPO_v1_Binder_updatePaymentDetails" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" parts="parameters" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" parts="parameters" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getTermsAndConditions">
+      <soap12:operation soapAction="MRBMPPO_MPPO_v1_Binder_getTermsAndConditions" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" parts="parameters" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" parts="parameters" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="getQuote">
+      <soap12:operation soapAction="MRBMPPO_MPPO_v1_Binder_getQuote" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" parts="parameters" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" parts="parameters" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="healthCheck">
+      <soap12:operation soapAction="MRBMPPO_MPPO_v1_Binder_healthCheck" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" parts="parameters" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" parts="parameters" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="v1">
+    <wsdl:port name="MRBMPPO_MPPO_v1_Port" binding="tns:MRBMPPO_MPPO_v1_Binder">
+      <soap12:address location="https://www.macquariepacific.com/edge/test/Integration/MPPO/QuoteService.svc" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

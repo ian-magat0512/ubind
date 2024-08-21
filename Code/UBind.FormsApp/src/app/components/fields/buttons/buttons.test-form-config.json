@@ -1,0 +1,66 @@
+{
+    "version": "2.0.0",
+    "form": {
+        "defaultCurrencyCode": "AUD",
+        "questionSets": [{
+                "name": "Rating Primary",
+                "key": "ratingPrimary",
+                "fields": [
+                    {
+                        "$type": "buttons",
+                        "startsNewRow": true,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "name": "Test 1",
+                        "key": "test1",
+                        "questionSetKey": "ratingPrimary",
+                        "label": "Input",
+                        "dataType": "text",
+                        "question": "This is a test buttons field",
+                        "optionSetKey": "testOptions",
+                        "optionSetName": "Test Options"
+                      }
+                ]
+            }
+        ],
+        "optionSets": [
+            {
+                "key": "testOptions",
+                "name": "Test Options",
+                "options": [
+                    {
+                        "value": "first",
+                        "label": "The First",
+                        "icon": "fas fa-car"
+                    },
+                    {
+                        "value": "second",
+                        "label": "The Second",
+                        "icon": "fas fa-key"
+                    },
+                    {
+                        "value": "third",
+                        "label": "The Third",
+                        "icon": "fas fa-city"
+                    }
+                ]
+            }
+        ],
+        "workflowConfiguration": {
+            "purchaseQuote": {
+                "startScreenExpression": "true",
+                "articles": [
+                    {
+                        "heading": "ratingHeading",
+                        "text": "ratingText",
+                        "elements": [
+                            {
+                                "type": "questions",
+                                "name": "ratingPrimary"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

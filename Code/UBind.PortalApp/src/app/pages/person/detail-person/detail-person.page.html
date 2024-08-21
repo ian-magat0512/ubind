@@ -1,0 +1,45 @@
+﻿<ion-header>
+    <ion-toolbar color="primary" class="level-1">
+        <ng-container *ngIf='!layoutManager.splitPaneVisible then detailHeader'></ng-container>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ng-container *ngTemplateOutlet="detailHeader"></ng-container>
+    </ion-toolbar>
+
+    <loader *ngIf='isLoading'></loader>
+    <div *ngIf="!isLoading && !errorMessage">
+        <div>
+            <app-entity-details-list [@contentAnimation] [detailsListItems]="personDetailsListItems"
+                [hasItemLines]="false" [hasGroupLines]="true">
+            </app-entity-details-list>
+        </div>
+    </div>
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">{{ errorMessage }}</p>
+    </div>
+</ion-content>
+
+<ng-template #detailHeader>
+    <ion-buttons slot="start">
+        <ion-button id="arrow-back-ion-button" slot="icon-only" (click)="goBack()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="isLoading">Person</ion-title>
+    <ion-title *ngIf="!isLoading">
+        {{model ? model.fullName : ''}}
+    </ion-title>
+    <ion-buttons *ngIf="!isLoading" slot="end">
+        <ng-container>
+            <app-entity-action-button-list
+                [actionButtonList]="actionButtonList"
+                [getMoreButtonCallback]="showPersonPopover.bind(this)" 
+                [canShowMore]="true"
+                [flipMoreIcon]="flipMoreIcon">
+            </app-entity-action-button-list>
+        </ng-container>
+    </ion-buttons>
+</ng-template>

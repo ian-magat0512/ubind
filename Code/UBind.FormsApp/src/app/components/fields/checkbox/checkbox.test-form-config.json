@@ -1,0 +1,64 @@
+{
+    "version": "2.0.0",
+    "form": {
+        "defaultCurrencyCode": "AUD",
+        "questionSets": [{
+                "name": "Rating Primary",
+                "key": "ratingPrimary",
+                "fields": [
+                    {
+                        "$type": "checkbox",
+                        "placeholder": "Checkbox1",
+                        "startsNewRow": true,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "name": "Test 1",
+                        "key": "test1",
+                        "questionSetKey": "ratingPrimary",
+                        "dataType": "boolean",
+                        "question": "A checkbox"
+                      },
+                      {
+                        "$type": "checkbox",
+                        "placeholder": "Checkbox2",
+                        "startsNewRow": true,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "name": "Test 2",
+                        "key": "test2",
+                        "questionSetKey": "ratingPrimary",
+                        "dataType": "boolean",
+                        "question": "Another checkbox."
+                      },
+                      {
+                        "$type": "single-line-text",
+                        "startsNewRow": true,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "label": "Test 3",
+                        "name": "Test 3",
+                        "key": "test3",
+                        "questionSetKey": "ratingPrimary",
+                        "dataType": "text",
+                        "workflowRole": "none",
+                        "question": "This field should be hidden if test1 is checked."
+                    }
+                ]
+            }
+        ],
+        "workflowConfiguration": {
+            "purchaseQuote": {
+                "startScreenExpression": "true",
+                "articles": [
+                    {
+                        "heading": "ratingHeading",
+                        "text": "ratingText",
+                        "elements": [
+                            {
+                                "type": "questions",
+                                "name": "ratingPrimary"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

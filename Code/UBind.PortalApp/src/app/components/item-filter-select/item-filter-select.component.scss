@@ -1,0 +1,22 @@
+.container {
+    padding: 0 16px;
+    max-width: 767px;
+}
+
+ion-icon {
+    color: var(--entity-list-large-icon-color);
+}
+
+.item-label-container {
+    display: flex;
+    align-items: center;
+}
+
+.item-label {
+    /* Add some space between the icon and the text */
+    margin-left: 8px;
+}
+
+mat-form-field {
+    width: 100%;
+}

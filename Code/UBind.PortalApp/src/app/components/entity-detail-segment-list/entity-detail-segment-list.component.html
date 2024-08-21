@@ -1,0 +1,39 @@
+<loader *ngIf="!hasLoaded && !errorMessage"></loader>
+<ion-list *ngIf="hasLoaded && !errorMessage && itemList.length > 0" lines="none" class="entity-list"
+    (scroll)="addMoreData($event)" [@contentAnimation]>
+    <ng-container *ngIf="headers.length > 0">
+        <ion-item-group *ngFor="let header of headers">
+            <ion-item-divider>
+                <ion-label>{{ header }}</ion-label>
+            </ion-item-divider>
+            <ng-container *ngFor="let item of itemList">
+                <ion-item *ngIf="item.groupByValue == header" (click)="itemSelected(item)" button>
+                    <!--- load the template for rendering a list item from the parent component -->
+                    <ng-container [ngTemplateOutlet]="itemTemplate"
+                        [ngTemplateOutletContext]="{ $implicit: item }"></ng-container>
+                </ion-item>
+            </ng-container>
+        </ion-item-group>
+    </ng-container>
+    <ng-container *ngIf="headers.length == 0">
+        <ng-container *ngFor="let item of itemList">
+            <ion-item (click)="itemSelected(item)" button>
+                <!--- load the template for rendering a list item from the parent component -->
+                <ng-container [ngTemplateOutlet]="itemTemplate"
+                    [ngTemplateOutletContext]="{ $implicit: item }"></ng-container>
+            </ion-item>
+        </ng-container>
+    </ng-container>
+    <app-scroll-block [isLoadMoreDataEnabled]="pager.isLoadMoreDataEnabled" [infiniteScrollIsLoading]="isLoadingItems">
+    </app-scroll-block>
+</ion-list>
+<div *ngIf="hasLoaded && itemList.length == 0" class="tab-content content-error" [@contentAnimation]>
+    <p class="ion-text-center">
+        No {{entityTypeNamePlural | lowercase}} found
+    </p>
+</div>
+<div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+    <p class="ion-text-center">
+        {{ errorMessage }}
+    </p>
+</div>

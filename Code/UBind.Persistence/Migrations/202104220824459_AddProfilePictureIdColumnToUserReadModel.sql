@@ -1,0 +1,14 @@
+BEGIN TRANSACTION
+
+	BEGIN TRY
+		UPDATE UserReadModels SET ProfilePictureId = UserId WHERE ProfilePictureId IS NULL AND  UserId IN
+		(
+			SELECT Id FROM UserProfilePictures
+		)
+		
+	END TRY
+	BEGIN CATCH
+		ROLLBACK TRANSACTION
+	END CATCH
+
+COMMIT

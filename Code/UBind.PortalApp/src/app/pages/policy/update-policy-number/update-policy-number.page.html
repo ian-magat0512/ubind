@@ -1,0 +1,97 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf='!layoutManager.splitPaneVisible then detailHeader'></ng-container>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ng-container *ngTemplateOutlet='detailHeader'></ng-container>
+    </ion-toolbar>
+
+    <loader *ngIf="isLoading"></loader>
+
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">{{ errorMessage }}</p>
+    </div>
+
+    <form *ngIf="!isLoading && !errorMessage" [formGroup]="policyNumberUpdateForm">
+        <ion-list lines="none">
+            <ion-list-header>
+                <strong>Policy Number Update</strong>
+            </ion-list-header>
+            <ion-item>
+                A new available policy number can be assigned to this policy automatically, or you can manually enter a unique policy number.
+            </ion-item>
+
+            <ion-item>
+                <mat-radio-group formControlName="assignmentType" class="radio-group">
+                    <ion-label class="gray-label">Select Method</ion-label>
+                    <mat-radio-button class="radio-button" value="{{PolicyNumberAssignmentMethod.Automatic}}" [checked]="false" [disabled]="!arePolicyNumbersAvailable">
+                        Assign automatically
+                    </mat-radio-button>
+                    <mat-radio-button class="radio-button" value="{{PolicyNumberAssignmentMethod.Custom}}" [checked]="true">
+                        Enter a custom policy number
+                    </mat-radio-button>
+                </mat-radio-group>
+                <div class="error"
+                    *ngIf="policyNumberUpdateForm.dirty && policyNumberUpdateForm.get('assignmentType').invalid">
+                    You must select an assignment method
+                </div>
+            </ion-item>
+            
+            <ion-item *ngIf="policyNumberUpdateForm.get('assignmentType').value == PolicyNumberAssignmentMethod.Custom">
+                <ion-label position="stacked" class="gray-label item-input-label" 
+                [class.item-invalid]="policyNumberUpdateForm.get('policyNumber').errors
+                && policyNumberUpdateForm.get('policyNumber').touched">Policy Number</ion-label>
+                <ion-input class="item-input-field" formControlName="policyNumber"></ion-input>
+            </ion-item>
+            <div class="error validation-label" *ngIf="policyNumberUpdateForm.get('assignmentType').value == PolicyNumberAssignmentMethod.Custom &&
+                policyNumberUpdateForm.get('policyNumber').getError('sameNumberError')">
+                You must enter a new policy number
+            </div>
+            <div class="error validation-label" *ngIf="policyNumberUpdateForm.get('assignmentType').value == PolicyNumberAssignmentMethod.Custom &&
+                    policyNumberUpdateForm.get('policyNumber').getError('responseError')">
+                {{ assignmentErrorText }}
+            </div>
+            <div class="error validation-label" *ngIf="policyNumberUpdateForm.get('assignmentType').value == PolicyNumberAssignmentMethod.Custom &&
+                    policyNumberUpdateForm.get('policyNumber').getError('pattern')">
+                Policy numbers must contain only letters, numbers and the following special characters , . : ; - ( )
+            </div>
+            <div class="error validation-label" *ngIf="policyNumberUpdateForm.get('assignmentType').value == PolicyNumberAssignmentMethod.Custom &&
+                policyNumberUpdateForm.get('policyNumber').invalid &&
+                !policyNumberUpdateForm.get('policyNumber').getError('responseError') &&
+                !policyNumberUpdateForm.get('policyNumber').getError('sameNumberError') &&
+                !policyNumberUpdateForm.get('policyNumber').getError('pattern')">
+                You must enter a policy number
+            </div>
+
+            <ion-list-header>
+                <strong>Previous Policy Number</strong>
+            </ion-list-header>
+            <ion-item>
+                When assigning a new policy number, the previously assigned policy number can be added to the list of
+                policy numbers available for automatic assignment to new policies.
+            </ion-item>
+            <ion-item>
+                <mat-checkbox formControlName="isReusePreviousPolicyNumber">Reuse previous policy number</mat-checkbox>
+            </ion-item>
+        </ion-list>
+    </form>
+</ion-content>
+
+<ng-template #detailHeader>
+    <ion-buttons slot="start" class="cancelButton">
+        <ion-button slot="icon-only" (click)="backToPolicy()">
+            <ion-icon name="close"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title>Update Policy Number</ion-title>
+    <ion-buttons slot='end'>
+        <ion-button
+            *ubAllowAccess="[Permission.ManagePolicies, Permission.ManageAllPolicies, Permission.ManageAllPoliciesForAllOrganisations]"
+            (click)="updatePolicyNumber(policyNumberUpdateForm.value)">
+            UPDATE
+        </ion-button>
+    </ion-buttons>
+</ng-template>

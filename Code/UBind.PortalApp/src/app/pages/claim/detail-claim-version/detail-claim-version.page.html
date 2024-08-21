@@ -1,0 +1,108 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf="!layoutManager.splitPaneVisible then detailHeader"></ng-container>
+    </ion-toolbar>
+    <ng-container *ngIf='!layoutManager.splitPaneVisible then segmentList'></ng-container>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ng-container *ngTemplateOutlet="detailHeader"></ng-container>
+    </ion-toolbar>
+    <ng-container *ngIf='layoutManager.splitPaneVisible then segmentList'></ng-container>
+
+    <loader *ngIf="isLoading"></loader>
+
+    <div *ngIf="!isLoading && !errorMessage">
+        <div *ngIf="versionData" class="tab-content" [@contentAnimation]>
+            <div [ngSwitch]="segment">
+
+                <!--Details tab-->
+                <div *ngSwitchCase="'Details'">
+                    <app-entity-details-list [@contentAnimation]
+                                             [detailsListItems]="detailsListItems"
+                                             [hasItemLines]="false"
+                                             [hasGroupLines]="true"
+                                             [truncateDescription]="true">
+                    </app-entity-details-list>
+                </div>
+
+                <!-- Questions-->
+                <div *ngSwitchCase="'Questions'" class="tab-content" [@contentAnimation]>
+                    <app-questions-view [displayType]="displayType"
+                                        [questionItems]="questionItems"
+                                        [repeatingQuestionItems]="repeatingQuestionItems"></app-questions-view>
+                </div>
+
+                <!--Documents-->
+                <div *ngSwitchCase="'Documents'" class="tab-content" [@contentAnimation]>
+                    <ion-list class="entity-list" *ngIf="versionData.documents && versionData.documents?.length > 0"
+                              lines="none">
+                        <ion-item-group *ngFor="let header of documentHeaders">
+                            <ion-item-divider>
+                                <ion-label>{{header}}</ion-label>
+                            </ion-item-divider>
+                            <div *ngFor="let doc of versionData.documents" class="has-ion-list">
+                                <ion-item *ngIf="doc.dateGroupHeader == header"
+                                          (click)="download(doc.id, doc.fileName)" class="no-border-bottom">
+                                    <library-icon name="document" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+                                    <ion-label>
+                                        <div>{{ doc.fileName }}</div>
+                                        <p class="status">{{ doc.createdDateTime | date: 'dd MMM yyyy hh:mm' || '-'}}</p>
+                                    </ion-label>
+                                    <ion-label slot="end" class="grayed-label ion-text-wrap ion-text-end">{{ doc.fileSize }}</ion-label>
+                                </ion-item>
+                            </div>
+                        </ion-item-group>
+                    </ion-list>
+                    <div *ngIf="versionData.documents?.length == 0" class="tab-content content-error">
+                        <p class="ion-text-center">No documents found</p>
+                    </div>
+                </div>
+                <!-- Messages -->
+                <div *ngSwitchCase="'Messages'" class="tab-content-no-padding" [@contentAnimation]>
+                    <app-email-view [entityId]="claimVersionId" [entityType]="entityTypes.ClaimVersion"></app-email-view>
+                </div>
+            </div>
+        </div>
+    </div>
+</ion-content>
+
+<ng-template #detailHeader>
+    <ion-buttons *ngIf="versionData" slot="start">
+        <ion-button slot="icon-only" (click)="goBackOrClose()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="end">
+        <app-entity-action-button-list *ngIf="actionButtonList"
+            [actionButtonList]="actionButtonList"
+            [getMoreButtonCallback]="presentPopover.bind(this)"
+            [canShowMore]="shouldShowEditAdditionalProperties || (actions?.length > 0 && hasActionsIncludedInMenu)"
+            [flipMoreIcon]="flipMoreIcon">
+        </app-entity-action-button-list>
+    </ion-buttons>
+</ng-template>
+
+<ng-template #segmentList>
+    <ion-segment scrollable="true" scrollHorizontal scrollMousedrag
+                 [segmentSelectedScrollIntoView]="segment"
+                 [value]="segment"
+                 (ionChange)="handleSegmentClick($event)">
+        <ion-segment-button ionSegmentButtonEvent value="Details">
+            <ion-label>Details</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="Questions">
+            <ion-label>Questions</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="Documents">
+            <ion-label>Documents</ion-label>
+        </ion-segment-button>
+        <ng-container *ubAllowAccess="permission.ViewMessages">
+            <ion-segment-button ionSegmentButtonEvent value="Messages">
+                <ion-label>Messages</ion-label>
+            </ion-segment-button>
+        </ng-container>
+    </ion-segment>
+</ng-template>

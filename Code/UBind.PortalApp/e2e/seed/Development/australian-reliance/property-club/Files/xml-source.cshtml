@@ -1,0 +1,74 @@
+@model UBind.Application.Export.ViewModels.ApplicationEventViewModel
+<Import>
+  <Header>
+    <ExternalSystemCode>PropertyClub</ExternalSystemCode>
+    <LedgerName>PSCCONNE</LedgerName>
+  </Header>
+  <Client>
+    <TransactionCode>Add</TransactionCode>
+    <ExternalClientRef>@Model.Customer["id"]</ExternalClientRef>
+    <Name>@Model.Form["contactName"]</Name>
+    <TradingAs>@Model.Form["insuredName"]</TradingAs>
+    <ABN>@Model.Form["organisationABN"]</ABN>
+    <PostalAddress1>@Model.Form["residentialAddress"]</PostalAddress1>
+    <PostalAddress2></PostalAddress2>
+    <PostalCity>@Model.Form["residentialTown"]</PostalCity>
+    <PostalState>@Model.Form["residentialState"]</PostalState>
+    <PostalPostcode>@Model.Form["residentialPostcode"]</PostalPostcode>
+
+    <Telephone>@Model.Form["contactMobile"]</Telephone>
+    <Fax></Fax>
+
+
+    <Email>@Model.Form["contactEmail"]</Email>
+    <ComplianceType>Commercial</ComplianceType>
+    <Contacts>
+      <Contact>
+        <GivenName>@Model.Form["contactName"]</GivenName>
+        <Telephone>@Model.Form["contactMobile"]</Telephone>
+        <Mobile>@Model.Form["contactMobile"]</Mobile>
+      </Contact>
+    </Contacts>
+    <InternalClientGroupRef>PropertyCARE</InternalClientGroupRef>
+    <InternalAcctManRef>TRUIJENS</InternalAcctManRef>
+  </Client>
+  <Policy>
+    <TransactionCode>New</TransactionCode>
+    <ExternalClientRef>@Model.Customer["id"]</ExternalClientRef>
+    <ExternalPolicyRef>@Model.Quote["quoteNumber"]</ExternalPolicyRef>
+    <InternalUWRef>PROPERTYC</InternalUWRef>
+    <InternalClassRef>LIAB</InternalClassRef>
+
+    <InceptionDate>@Model.Calculation["risk1.custom.formattedStartDate"]</InceptionDate>
+    <ExpiryDate>@Model.Calculation["risk1.custom.formattedEndDate"]</ExpiryDate>
+    <IsRenewable>1</IsRenewable>
+    <PolicyNumber>@Model.Quote["quoteNumber"]</PolicyNumber> 
+    <ComplianceType>Retail</ComplianceType>
+
+
+    <Fee>@Model.Calculation["payment.custom.othersFee"].Replace('$', ' ')</Fee>
+    <FeeGST>@Model.Calculation["payment.custom.othersFeeGST"].Replace('$', ' ')</FeeGST>
+
+    <Schedule>INSERTSCHEDULECODEHERE ??</Schedule>
+    <InternalAcctManRef>TRUIJENS ?? </InternalAcctManRef>
+
+    <Base>@Model.Calculation["payment.total.premium"].Replace('$', ' ')</Base>
+    <BaseGST>@Model.Calculation["payment.total.GST"].Replace('$', ' ')</BaseGST>
+    <StampDuty>@Model.Calculation["payment.total.stampDuty"].Replace('$', ' ')</StampDuty>
+
+    <FireLevy>0.00</FireLevy>
+    <FireLevyGST>0.00</FireLevyGST>
+
+    <UWLevy>0.00</UWLevy>
+    <UWLevyGST>0.00</UWLevyGST>
+
+    <Commission>@Model.Calculation["payment.custom.commission"].Replace('$', ' ')</Commission>
+    <CommissionGST>@Model.Calculation["payment.custom.commissionGST"].Replace('$', ' ')</CommissionGST>
+
+    <SituationCode>JOEBLOGGS-3675 ??</SituationCode>
+    <Situation>Glenrowan ??</Situation>
+    <Associates/>
+    <UnderwrittenBy>BERKLEY</UnderwrittenBy>
+  </Policy>
+</Import>
+

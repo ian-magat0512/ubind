@@ -1,0 +1,70 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf="!layoutManager.splitPaneVisible">
+            <ion-buttons slot="start">
+                <ion-button slot="icon-only" (click)="closeButtonClicked()">
+                    <ion-icon name="close"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+            <ion-title>Generate Report</ion-title>
+            <ion-buttons slot="end">
+                <ion-button (click)="generateButtonClicked()">
+                    Generate
+                </ion-button>
+            </ion-buttons>
+        </ng-container>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ion-buttons slot="start">
+            <ion-button slot="icon-only" (click)="closeButtonClicked()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Generate Report</ion-title>
+        <ion-buttons slot="end">
+            <ion-button (click)="generateButtonClicked()">
+                Generate
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+
+    <loader *ngIf='isLoading'></loader>
+
+    <form [formGroup]="generateReportForm">
+        <ion-list lines="none" inset *ngIf="!isLoading">
+            <ion-item class="input"
+                      [class.ng-touched]="(formHasError || generateReportForm.get('fromDate').touched) && generateReportForm.get('fromDate').errors">
+                <ion-label position="stacked">From Date</ion-label>
+                <!-- <ion-datetime displayFormat="DD MMM YYYY" min="1997" max="2040" value="" formControlName="from"></ion-datetime> -->
+                <ion-input formControlName="fromDate" type="date"></ion-input>
+            </ion-item>
+            <div class="error"
+                 *ngIf="generateReportForm.get('fromDate').hasError('required') && (generateReportForm.get('fromDate').touched || formHasError)">
+                Date is invalid
+            </div>
+            <ion-item class="input"
+                      [class.ng-touched]="(formHasError || generateReportForm.get('toDate').touched) && generateReportForm.get('toDate').errors">
+                <ion-label position="stacked">To Date</ion-label>
+                <!-- <ion-datetime displayFormat="DD MMM YYYY" min="1997" max="2040" value="" formControlName="from"></ion-datetime> -->
+                <ion-input formControlName="toDate" type="date"></ion-input>
+            </ion-item>
+            <div class="error"
+                 *ngIf="generateReportForm.get('toDate').hasError('required') && (generateReportForm.get('toDate').touched || formHasError)">
+                Date is invalid
+            </div>
+            <ion-item lines="none">
+                <ion-list lines="none">
+                    <ion-list-header>
+                        <ion-label>Options</ion-label>
+                    </ion-list-header>
+                    <ion-item>
+                        <ion-label>Include Test Data</ion-label>
+                        <ion-checkbox slot="start" formControlName="includeTestData"></ion-checkbox>
+                    </ion-item>
+                </ion-list>
+            </ion-item>
+        </ion-list>
+    </form>
+</ion-content>

@@ -1,0 +1,33 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>    
+            Expression Registry
+        </mat-panel-title>
+        <mat-panel-description>
+           Expand to view expressions and their values
+        </mat-panel-description>
+    </mat-expansion-panel-header>            
+    <ng-container *ngFor="let expression of expressions">
+        <p class="debug">
+            <span class="debug-property">
+                <span class="key">Debug Identifier:</span><span class="value"> {{ expression.debugIdentifier }}</span>&nbsp;&nbsp;
+            </span>    
+            <span class="debug-property">
+                <span class="key">Source:</span><span class="value"> {{ expression.source }}</span>&nbsp;&nbsp;
+            </span>
+            <span class="debug-property">
+                <span class="key">Scope:</span><span class="value"> {{ expression.scope }}</span>&nbsp;&nbsp;
+            </span>
+            <span class="debug-property" *ngIf="expression.arguments.size">
+                <span class="key">Arguments:</span><span class="value">
+                    <ng-container *ngFor="let argument of expression.arguments | keyvalue">
+                        {{ argument.key }}={{ argument.value }} 
+                    </ng-container>
+                </span>&nbsp;&nbsp;
+            </span>    
+            <span class="debug-property">
+                <span class="key">Result:</span><span class="value"> {{ expression.latestResult }}</span>&nbsp;&nbsp;
+            </span>    
+        </p>
+    </ng-container>
+</mat-expansion-panel>

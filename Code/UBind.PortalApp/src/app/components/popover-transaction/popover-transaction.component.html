@@ -1,0 +1,11 @@
+<ion-list class="entity-list custom-popover" lines="none" style="margin: -1px 0 0">
+    <button (click)="close('createPayment')" *ngIf="shouldShowPopOverCreatePayment">
+        <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="cash" svgIcon="cash" class="start"></mat-icon>
+        <ion-label>Create Payment</ion-label>
+    </button>
+    <button (click)="close('createRefund')" *ngIf="shouldShowPopOverCreateRefund">
+        <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="cash-refund" svgIcon="cash-refund" class="start"></mat-icon>
+        <ion-label>Create Refund</ion-label>
+    </button>
+    <app-popover-actions [popOver]="this.popOverCtrl" [actions]="actions"></app-popover-actions>
+</ion-list>

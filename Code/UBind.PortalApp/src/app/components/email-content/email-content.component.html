@@ -1,0 +1,8 @@
+<div style="padding: 16px;">
+  <ng-container *ngIf="hasHtmlMessage(); else plainMessage">
+    <div [innerHTML]="htmlMessage"></div>
+  </ng-container>
+  <ng-template #plainMessage>
+    <div style="white-space: pre-line;">{{ email.plainMessage }}</div>
+  </ng-template>
+</div>

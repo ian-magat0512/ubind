@@ -1,0 +1,135 @@
+{
+  "eventExporters" : [
+    {
+      "id": "Pets Email Submission Admin",
+      "events" : [ "Submitted" ],
+      "action": {
+        "type": "email",
+        "from": "MGA Insurance <petindustry@mga.com>",
+        "to": {
+          "type": "environment",
+          "development": "john.talavera@aptiture.com",
+          "staging": "john.talavera@aptiture.com",
+          "production": "john.talavera@aptiture.com"
+        },
+        "subject": "New application submitted",
+        "plainTextBody": {
+          "type": "razor",
+          "templateName": "email-submission-admin-text.cshtml"
+        },
+        "htmlBody": {
+          "type": "razor",
+          "templateName": "email-submission-admin-html.cshtml"
+        },
+        "attachments": [
+          {
+            "type": "document",
+            "templateName": "ezipay-terms-and-conditions.docx",
+            "outputFileName": "Pay-by-the-month terms and conditions.pdf"
+          }
+        ]
+      }
+    },
+    {
+      "id": "Pets Email Submission Customer",
+      "events" : [ "Submitted" ],
+      "action": {
+        "type": "email",
+        "from": "MGA Insurance <petindustry@mga.com>",
+        "to": {
+          "type": "formField",
+          "fieldName": "email"
+        },
+        "subject": "Your application was successfully submitted",
+        "plainTextBody": {
+          "type": "razor",
+          "templateName": "email-submission-customer-text.cshtml"
+        },
+        "htmlBody": {
+          "type": "razor",
+          "templateName": "email-submission-customer-html.cshtml"
+        },
+        "attachments": [
+          {
+            "type": "document",
+            "templateName": "ezipay-terms-and-conditions.docx",
+            "outputFileName": "Pay-by-the-month terms and conditions.pdf"
+          },
+          {
+            "type": "file",
+            "templateName": "Austbroker Business Pack Policy Wording.pdf",
+            "outputFileName": "Policy Wording.pdf"
+          },
+          {
+            "type": "file",
+            "templateName": "FSG V13 0217.pdf",
+            "outputFileName": "Financial Services Guide.pdf"
+          }
+        ]
+      }
+    },
+    {
+      "id": "Pets Email Enquiry Dummy",
+      "events" : [ "Enquired" ],
+      "action": {
+        "type": "email",
+        "from": "MGA Insurance <petindustry@mga.com>",
+        "to": "john.talavera@aptiture.com",
+        "subject": "Pets initial enquiry trigger for dummy",
+        "plainTextBody": {
+          "type": "razor",
+          "templateName": "email-enquiry-admin-text.cshtml"
+        },
+        "htmlBody": {
+          "type": "razor",
+          "templateName": "email-enquiry-admin-html.cshtml"
+        }
+      }
+    },
+    {
+      "id": "Pets Email Enquiry Customer",
+      "events" : [ "Enquired" ],
+      "action": {
+        "type": "email",
+        "from": "MGA Insurance <petindustry@mga.com>",
+        "to": {
+          "type": "formField",
+          "fieldName": "email"
+        },
+        "subject": "Thank you for requesting a call-back",
+        "plainTextBody": {
+          "type": "razor",
+          "templateName": "email-enquiry-customer-text.cshtml"
+        },
+        "htmlBody": {
+          "type": "razor",
+          "templateName": "email-enquiry-customer-html.cshtml"
+        }
+      }
+    },
+    {
+      "id": "Pets Email Enquiry Admin",
+      "events" : [ "Enquired" ],
+      "action": {
+        "type": "email",
+        "from": "MGA Insurance <petindustry@mga.com>",
+        "to": {
+          "type": "environment",
+          "development": "john.talavera@aptiture.com",
+          "staging": "john.talavera@aptiture.com",
+          "production": "john.talavera@aptiture.com"
+        },
+        "bcc" : "john.talavera@aptiture.com",
+        "subject": "A customer requested a call-back",
+        "plainTextBody": {
+          "type": "razor",
+          "templateName": "email-enquiry-admin-text.cshtml"
+        },
+        "htmlBody": {
+          "type": "razor",
+          "templateName": "email-enquiry-admin-html.cshtml"
+        }
+      }
+    }
+  ]
+}

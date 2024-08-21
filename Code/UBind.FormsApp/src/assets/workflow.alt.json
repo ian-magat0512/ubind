@@ -1,0 +1,134 @@
+{
+    "workflowSteps": [
+		{
+			"name": "rating",
+			"displayTab": true,
+			"textLabel": "step1Name",
+			"questionSets":[
+				"rating"
+			],
+			"actions":[
+				{
+					"name": "sendEnquiry",
+					"directives": ["sendEnquiry"],
+					"destinationStep": "sendEnquiry"
+				},
+				{
+					"name": "step1Next",
+					"requiresValidQuestionSets": ["rating"],
+					"destinationStep": "details",
+					"primary": true
+				}
+			]
+		},
+		{
+			"name": "details",
+			"displayTab": true,
+			"textLabel": "step2Name",
+			"questionSets":[
+                "factFind"
+            ],
+			"actions":[
+				{
+					"name": "sendEnquiry",
+					"destinationStep": "sendEnquiry"
+				},
+				{
+					"name": "step2Back",
+					"destinationStep": "rating"
+				},
+				{
+					"name": "step2Next",
+					"requiresValidQuestionSets": [
+                        "factFind"
+                    ],
+					"destinationStep": "disclosure",
+					"primary": true
+				}
+			]
+		},
+		{
+			"name": "disclosure",
+			"displayTab": true,
+			"textLabel": "step2Name",
+			"questionSets":[
+                "disclosure"
+            ],
+			"actions":[
+				{
+					"name": "sendEnquiry",
+					"destinationStep": "sendEnquiry"
+				},
+				{
+					"name": "step2Back",
+					"destinationStep": "details"
+				},
+				{
+					"name": "step2Next",
+					"requiresValidQuestionSets": [
+                        "disclosure"
+                    ],
+					"destinationStep": "payment",
+					"primary": true
+				}
+			]
+		},
+		{
+			"name": "payment",
+			"displayTab": true,
+			"textLabel": "step3Name",
+			"questionSets":[
+                "contact",
+                "payment"
+            ],
+			"actions":[
+				{
+					"name": "sendEnquiry",
+					"requiresValidQuestionSets": ["contact"],
+					"destinationStep": "enquirySent"
+				},
+				{
+					"name": "step3Back",
+					"destinationStep": "rating"
+				},
+				{
+					"name": "step3Next",
+					"requiresValidQuestionSets": [
+                        "contact",
+                        "payment"
+                    ],
+					"destinationStep": "paymentMade",
+					"primary": true
+				}
+			]
+		},
+		{
+			"name": "paymentMade",
+			"questionSets":[],
+			"actions":[]
+		},
+		{
+			"name": "sendEnquiry",
+			"questionSets":[
+                "contact"
+            ],
+			"actions":[
+				{
+					"name": "step3Back",
+					"destinationStep": "rating"
+				},
+				{
+					"name": "sendEnquiry",
+					"requiresValidQuestionSets": ["contact"],
+					"destinationStep": "enquirySent",
+					"primary": true
+				}
+			]
+		},
+		{
+			"name": "enquirySent",
+			"questionSets":[],
+			"actions":[]
+		}
+	]
+}

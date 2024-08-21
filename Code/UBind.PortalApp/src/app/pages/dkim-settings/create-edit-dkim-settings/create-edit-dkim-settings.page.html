@@ -1,0 +1,11 @@
+﻿<app-detail-list-item-edit-form class="detail-list-item-edit-form"
+                                [title]="title"
+                                [items]="detailList"
+                                [isEdit]="isEdit"
+                                [editForm]="form"
+                                [fieldsOptions]="fieldOptions"
+                                [isLoading]="isLoading"
+                                [errorMessage]="errorMessage"
+                                (saveForm)="save($event)"
+                                (closeForm)="close()">
+</app-detail-list-item-edit-form>

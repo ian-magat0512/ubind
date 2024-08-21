@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf='!layoutManager.splitPaneVisible then detailHeader'></ng-container>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="left-pane" [@contentAnimation]>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ng-container *ngTemplateOutlet="detailHeader"></ng-container>
+    </ion-toolbar>
+
+    <ion-list lines="none" class="entity-list">
+        <mat-radio-group [value]="selectedReleaseId" (change)="change($event)">
+            <ng-container *ngFor="let release of releases">
+                <ion-item>
+                    <mat-radio-button slot="start" [value]="release.id"></mat-radio-button>
+                    <ion-label slot="end" (click)="selectRelease(release.id)">
+                        <span>Release {{release.number}}</span>
+                        <ion-icon name="cloud-done"
+                            [ngStyle]="{'transform': 'scale(0.6)'}">
+                        </ion-icon>
+                        <br>
+                        <p (click)="truncateDescription(release)" class="status"
+                            [class.ion-text-wrap]="!release.truncatedDescription ? null : release.truncatedDescription"
+                            [innerHTML]="release.description"></p>
+                    </ion-label>
+                </ion-item>
+            </ng-container>
+        </mat-radio-group>
+    </ion-list>
+    <div *ngIf="releases?.length == 0 && !errorMessage && !isLoading" class="tab-content content-error">
+        <p class="ion-text-center">No product release found</p>
+    </div>
+    <div *ngIf="errorMessage && !isLoading" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">{{ errorMessage }}</p>
+    </div>
+    <ng-container *ngIf="isLoading">
+        <loader></loader>
+    </ng-container>
+</ion-content>
+
+<ng-template #detailHeader>
+    <ion-buttons slot="start">
+        <ion-button slot="icon-only" (click)="closeButtonClicked()">
+            <ion-icon name="close"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title>Select Target Release</ion-title>
+    <ion-buttons slot="end">
+        <ion-button (click)="moveButtonClicked()">
+            Move
+        </ion-button>
+    </ion-buttons>
+</ng-template>

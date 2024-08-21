@@ -1,0 +1,36 @@
+form {
+    ion-list {
+        margin-top: 10px !important;
+
+        ion-list-header {
+            margin-bottom: -5px;
+            padding-left: 0px;
+        }
+
+        ion-item {
+            ion-radio {
+                padding-right: 10px;
+            }
+        }
+
+        ion-radio-group {
+            p {
+                margin-bottom: 10px;
+            }
+        }
+
+        div {
+            padding-top: 10px;
+        }
+
+        .radio-item {
+            margin-top: -10px;
+            margin-bottom: -10px;
+        }
+    }
+
+
+    ion-radio {
+        padding-right: 10px;
+    }
+}

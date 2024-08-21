@@ -1,0 +1,75 @@
+<ion-header>
+    <ion-toolbar color="primary" class="level-1">
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="start">
+            <ion-button slot="icon-only" (click)="userDidTapCloseButton()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="!layoutManager.splitPaneVisible">Renewal Transaction</ion-title>
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible && productFeatureSetting" slot="end">
+            <ion-button (click)="userDidTapSaveButton(form.value)">
+                Save
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ion-buttons slot="start">
+            <ion-button slot="icon-only" (click)="userDidTapCloseButton()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Renewal Transaction</ion-title>
+        <ion-buttons slot="end" *ngIf="productFeatureSetting">
+            <ion-button (click)="userDidTapSaveButton(form.value)">
+                Save
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+
+    <loader *ngIf='isLoading'></loader>
+    <div appScrollDetails>
+        <form [formGroup]="form" *ngIf="productFeatureSetting && !isLoading">
+            <ion-list lines="none" inset class="list-group">
+                <ion-label color="primary">
+                    <strong> Expired Policies</strong>
+                </ion-label>
+    
+                <ion-item>
+                    <ion-label>
+                        <span>Allow renewal of expired policies</span>
+                        <p>{{allowRenewalAfterExpiry ? 'Enabled': 'Disabled'}}</p>
+                    </ion-label>
+                    <ion-toggle color="primary" (ionChange)="toggleAllowRenewalAfterExpiry($event)" formControlName="allowRenewalAfterExpiry" checked="{{allowRenewalAfterExpiry}}"></ion-toggle>
+                </ion-item>
+            </ion-list>
+    
+            <ion-list lines="none" inset *ngIf="allowRenewalAfterExpiry" class="list-group">
+                <ion-label color="primary">
+                    <strong> Expired Policy Renewal Period</strong>
+                </ion-label>
+    
+                <ion-item>
+                    <span>For how long after a policy has expired should renewals be allowed?</span>
+                </ion-item>
+    
+                <ion-item>
+                    <ion-label position="stacked">Allow for (days)</ion-label>
+                    <ion-input formControlName="expiredPolicyRenewalPeriodDays"></ion-input>
+                </ion-item>
+                <div class="error" *ngIf="form.get('expiredPolicyRenewalPeriodDays').hasError('required') ; else isNumeric">
+                    This field is required
+                </div>
+                <ng-template #isNumeric>
+                    <div class="error" *ngIf="form.get('expiredPolicyRenewalPeriodDays').errors && form.get('expiredPolicyRenewalPeriodDays').touched">
+                        This field must only contain numerical characters ranging from 1 to 365
+                    </div>
+                </ng-template>
+    
+            </ion-list>
+        </form>
+    </div>
+
+</ion-content>

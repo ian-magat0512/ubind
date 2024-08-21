@@ -1,0 +1,9 @@
+<ion-list class="entity-list custom-popover" lines="none" style="margin: -1px 0 0;width: 250px;">
+    <ng-container *ngIf="canEditAdditionalPropertyValues">
+        <button (click)="close('editAdditionalPropertyValues')">
+            <library-icon name="brush" [library]="iconLibrary.IonicV4" [cssClass]="'start'" ></library-icon>
+            <ion-label>{{editPropertiesTitle}}</ion-label>
+        </button>
+    </ng-container>
+    <app-popover-actions [popOver]="this.popOverCtrl" [actions]="actions"></app-popover-actions>
+</ion-list>

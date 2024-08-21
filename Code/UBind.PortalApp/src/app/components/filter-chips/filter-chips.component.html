@@ -1,0 +1,15 @@
+﻿<section class="filter-chips" *ngIf="filterSelections?.length > 0">
+    <ion-button *ngFor="let filterSelection of filterSelections"
+                shape="round"
+                (click)="remove(filterSelection)"
+                [@contentAnimation]>
+        <ion-icon *ngIf="filterSelection.iconLibrary == iconLibrary.IonicV4 || filterSelection.iconLibrary == iconLibrary.IonicV5" 
+            slot="start"
+            [name]="filterSelection.IconLibrary == iconLibrary.IonicV5 ? filterSelection.icon : null"
+            [src]="filterSelection.iconLibrary == iconLibrary.IonicV4 ? './assets/ionicons-v4/' + filterSelection.icon + '.svg' : null">
+        </ion-icon>
+        <mat-icon *ngIf="filterSelection.iconLibrary == iconLibrary.AngularMaterial" class="mat-icon-extra-sm" aria-hidden="false" attr.aria-label="{{filterSelection.icon}}" svgIcon="{{filterSelection.icon}}" slot="start"></mat-icon>
+        <ion-label>{{ filterSelection.label }}</ion-label>
+        <ion-icon name='close' slot="end"></ion-icon>
+    </ion-button>
+</section>

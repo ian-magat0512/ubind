@@ -1,0 +1,31 @@
+<app-entity-list [title]="title"
+    [listItemNamePlural]="'policy claims'"
+    [entityRouteParamName]="'claimId'"
+    [entityLoaderService]="claimApiService"
+    [viewModelConstructor]="viewModelConstructor"
+    [itemTemplate]="claimListItemTemplate"
+    [itemSelectedHandler]="itemSelected.bind(this)"
+    [getDefaultHttpParamsCallback]="getDefaultHttpParams.bind(this)"
+    [entityTypeName]="'Claim'"
+    [ngStyle]="{'height': '100%'}">
+</app-entity-list>
+
+<ng-template #claimListItemTemplate let-item>
+    <library-icon name="alert" [library]="iconLibrary.IonicV4" [slot]="'start'" size="'large'"></library-icon>
+    <ion-label class="ion-text-wrap">
+        <div class="list-title">
+            {{item.fullName}}
+            <library-icon *ngIf="item.isTestData" 
+                name="logo-game-controller-a" 
+                [library]="iconLibrary.IonicV4" 
+                class="testdata-list-icon right-icon-text"
+                [cssClass]="'medium'">
+            </library-icon>
+        </div>
+        <p class="status"> {{item.productName}} </p>
+    </ion-label>
+    <ion-label class="ion-text-wrap ion-text-end" slot="end">
+        <div class="list-title">{{item.claimReference}}</div>
+        <p class="status">{{item.status | titlecase}}</p>
+    </ion-label>
+</ng-template>

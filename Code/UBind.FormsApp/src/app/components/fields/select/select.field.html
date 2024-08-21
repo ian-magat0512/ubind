@@ -1,0 +1,54 @@
+<options-field-debug *ngIf="applicationService.debug" [field]="this"></options-field-debug>
+
+<ng-container *ngIf="isLoading && !errorMessage">
+    <div class="loader">
+        <svg class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" id="select-loader-spinner">
+            <circle class="circle" fill="none" stroke="#999999" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="25"></circle>
+        </svg>
+    </div>
+</ng-container>
+<ng-container *ngIf="!errorMessage">
+    <select [id]="groupName | cssIdentifier"
+            [ngClass]="{'form-control': true, 'loading': isLoading }"
+            class="tabbable"
+            [name]="groupName"
+            [formControl]="formControl"
+            (change)="onChange($event)"
+            (keyup)="onKeyUp($event)"
+            (focus)="onFocus($event)"
+            (blur)="onBlur($event)"
+            [attr.aria-label] ="ariaLabelByKey"
+            (keydown)="onKeyDown($event)">
+        <ng-container *ngIf="!isLoading">
+            <ng-container *ngIf="numberOfSelectOptionsShown > 0">
+                <option value="">
+                    {{ placeholderText }}
+                </option>
+            </ng-container>
+            <ng-container *ngIf="numberOfSelectOptionsShown == 0">
+                <option value="">
+                    {{ noOptionsFoundText }}
+                </option>
+            </ng-container>
+            <ng-container *ngIf="!hideAllOptions">
+                <ng-container *ngFor="let option of selectOptions">
+                    <option *ngIf="option.render" [value]="option.value" [disabled]="option.disabled"  
+                        [hidden]="option.filtered" [innerHTML]="option.label"
+                        [ngClass]="option.cssClass ? option.cssClass : ''"
+                        [id]="option.id | cssIdentifier">
+                    </option>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+        <ng-container *ngIf="isLoading">
+            <option value="">
+                {{ loadingText }}
+            </option>
+    </ng-container>
+        </select>
+</ng-container>
+<div *ngIf="errorMessage" class="content-error fade-in">
+    <p text-center>
+        {{ errorMessage }}
+    </p>
+</div>

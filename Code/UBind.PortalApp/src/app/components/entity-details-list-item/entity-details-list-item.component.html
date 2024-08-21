@@ -1,0 +1,61 @@
+<ion-item class="{{detailsItem.ItemClass}} ion-align-items-start"
+          (click)="itemOnClick()"
+          [class.item-without-description]="itemWithoutDescription"
+          [class.item-with-description]="itemWithDescription"
+          [class.list-view-item]="detailsItem.IsListViewOnly"
+          tabindex="0">
+    <div *ngIf="detailsItem.IsRoundIcon && detailsItem.Icon!='none'"
+         class="round-icon-container"
+         [class.round-icon-container-normal]="!detailsItem.IsListViewOnly"
+         [class.round-icon-container-in-list]="detailsItem.IsListViewOnly"
+         slot="start">
+        <ion-icon name="{{detailsItem.Icon}}"
+                  class="round-icon"
+                  [class.round-icon-card-view]="isCardView"
+                  aria-label="icon"></ion-icon>
+    </div>
+    <library-icon *ngIf="!detailsItem.IsRoundIcon && detailsItem.Icon != 'none'"
+        [name]="detailsItem.Icon" 
+        [library]="detailsItem.IconLibrary"
+        [ngClass]="detailsItem.IconClass"
+        [cssClass]="detailsItem.IconLibrary == iconLibrary.AngularMaterial ? 'mat-icon-md' : ''"
+        [slot]="'start'"
+        [size]="'large'">
+    </library-icon>
+    <ion-label *ngIf="!detailsItem.isMultiLine">
+        <label #title [ngClass]="labelCssClass" [innerHTML]="detailsItem.DisplayValue"></label>
+        <p class="grayed-label" [class.text-wrap]="!truncateDescription" [innerHTML]="detailsItem.Description">
+        </p>
+    </ion-label>
+    <ion-label *ngIf="detailsItem.isMultiLine">
+        <div #title [ngClass]="labelCssClass" *ngFor="let item of detailsItem.multilineItems; let i = index" [innerHTML]="item" class="multiline"></div>
+        <p class="grayed-label" [class.text-wrap]="!truncateDescription" [innerHTML]="detailsItem.Description">
+        </p>
+    </ion-label>
+    <ion-buttons slot="end">
+        <ion-button *ngIf="detailsItem.ActionIcon" slot="icon-only" (click)="actionIconOnClick()">
+            <library-icon (click)="actionIconOnClick()"
+                (keydown.enter)="actionIconOnClick()"
+                (keydown.space)="actionIconOnClick()"
+                cssClass="medium"
+                class="action-icon"
+                tabindex="0"
+                name="{{detailsItem.ActionIcon ? detailsItem.ActionIcon.Icon : 'none'}}" 
+                [library]="detailsItem.IconLibrary">
+            </library-icon>
+        </ion-button>
+        <ng-container *ngFor="let actionIcon of detailsItem.ActionIcons; let i = index">
+            <ion-button slot="icon-only" (click)="actionIconsOnClick($event, i)">
+                <library-icon (click)="actionIconsOnClick($event, i)"
+                    (keydown.enter)="actionIconsOnClick($event, i)"
+                    (keydown.space)="actionIconsOnClick($event, i)"
+                    cssClass="medium"
+                    class="action-icon"
+                    tabindex="0"
+                    name="{{actionIcon ? actionIcon.Icon : 'none'}}" 
+                    [library]="detailsItem.IconLibrary">
+                </library-icon>
+            </ion-button>
+        </ng-container>
+    </ion-buttons>
+</ion-item>

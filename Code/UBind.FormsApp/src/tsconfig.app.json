@@ -1,0 +1,23 @@
+{
+    "extends": "../tsconfig.json",
+    "compilerOptions": {
+        "outDir": "../out-tsc/app",
+        "baseUrl": "./",
+        "types": [
+            "node",
+            "resize-observer-browser",
+        ],
+        "typeRoots": [
+            "../node_modules/@types"
+        ],
+        "target": "es2016",
+        "module": "es2020",
+    },
+    "files": [
+        "main.ts",
+        "polyfills.ts"
+    ],
+    "include": [
+        "src/**/*.d.ts"
+    ]
+}

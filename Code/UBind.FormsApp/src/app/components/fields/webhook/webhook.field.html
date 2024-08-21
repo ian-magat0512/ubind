@@ -1,0 +1,8 @@
+<field-debug *ngIf="applicationService.debug" [field]="this">
+     <span class="debug-property">
+         <span class="key">Url:</span><span class="value"> {{ url }}</span>
+     </span>
+ </field-debug> 
+<ng-container *ngIf="loading">
+     <div class="material-webhook"></div>
+</ng-container>

@@ -1,0 +1,39 @@
+<div appScrollDetails>
+    <ion-list [class.hidden]="isCardView && !isListViewOnly" lines="{{hasItemLines ? '' : 'none'}}" class="details-list" [class.list-view-only]="isListViewOnly">
+        <ng-container *ngFor="let group of itemGroups; let i = index">
+            <ion-item-group *ubAllowAccess="group.allowedPermissions; operation: 'OR'" [class.address-group]="group.name.toLowerCase() === 'address'">
+                <ion-item-divider class="details-group-item-divider" *ngIf="hasGroupLines && i > 0">
+                </ion-item-divider>
+                <div *ngFor="let item of group.items; let j = index">
+                    <app-entity-details-list-item [isCardView]="isCardView" [truncateDescription]="doesTruncateDescription" [detailsItem]="item" [showIcon]="j == 0"></app-entity-details-list-item>
+                </div>
+            </ion-item-group>
+       </ng-container>
+    </ion-list>
+    <div [class.hidden]="!isCardView || isListViewOnly">
+        <div class="card-container" [ngClass]="columnClass">
+            <div *ngFor="let card of cards; let i = index; " class="details-item-card ubind-card">
+                <ion-card *ubAllowAccess="card.allowedPermissions; operation: 'OR'" class="details-item-card ubind-card"
+                          [class.large-bottom-margin]="card.largeBottomMargin" [class.small-bottom-margin]="card.smallBottomMargin">
+                    <ion-card-header class="details-item-card-header">
+                        <ion-card-title><label>{{card.title}}</label></ion-card-title>
+                    </ion-card-header>
+                    <ion-card-content class="details-item-card-content">
+                        <ion-list lines="{{hasItemLines ? '' : 'none'}}" class="entity-list">
+                            <div>
+                                <ion-item-group *ngFor="let group of card.groups; let g = index" [class.address-group]="group.name.toLowerCase() === 'address'">
+                                    <ion-item-divider class="details-group-item-divider" *ngIf="hasGroupLines && g > 0">
+                                    </ion-item-divider>
+                                    <div *ngFor="let item of group.items; let j = index">
+                                        <app-entity-details-list-item [isCardView]="isCardView" [truncateDescription]="doesTruncateDescription" [detailsItem]="item" [showIcon]="j == 0" [isAdjustClass]="group.name.toLowerCase() === 'person'"></app-entity-details-list-item>
+                                    </div>
+                                </ion-item-group>
+                            </div>
+                        </ion-list>
+                    </ion-card-content>
+                </ion-card>
+            </div>
+        </div>
+    </div>
+</div>
+

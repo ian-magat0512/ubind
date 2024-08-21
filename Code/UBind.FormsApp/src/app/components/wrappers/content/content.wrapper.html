@@ -1,0 +1,12 @@
+<div class="field-content">
+    <h2 *ngIf="values.heading2" [innerHTML]="values.heading2 | safeHtml"></h2>
+    <h3 *ngIf="values.heading3" [innerHTML]="values.heading3 | safeHtml"></h3>
+    <h4 *ngIf="values.heading4" [innerHTML]="values.heading4 | safeHtml"></h4>
+    <p *ngIf="values.paragraph" [innerHTML]="values.paragraph | safeHtml"></p>
+    <ng-container *ngIf="values.terms">
+        <div [innerHTML]="values.terms | safeHtml" class="terms-and-conditions"></div>
+    </ng-container>
+    <ng-container *ngIf="values.customHTML">
+    <div class="html" [innerHTML]="values.customHTML | safeHtml"></div></ng-container>
+</div>
+<ng-container #fieldComponent></ng-container>

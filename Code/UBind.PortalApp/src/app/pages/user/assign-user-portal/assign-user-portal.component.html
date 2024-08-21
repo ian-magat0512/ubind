@@ -1,0 +1,9 @@
+﻿<app-assign-portal
+    class="assign-portal-wrapper"
+    [assignPortalEntityType]="assignPortalEntityType"
+    [selectedEntityOrganisationId]="selectedUserOrganisationId"
+    [selectedEntityTenantId]="selectedUserTenantId"
+    [userType]="userType"
+    [existingAssignedPortalId]="existingAssignedPortalId"
+    (assignButtonClicked)="handleAssignPortalButtonClicked($event)"
+></app-assign-portal>

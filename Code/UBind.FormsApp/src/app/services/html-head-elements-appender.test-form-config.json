@@ -1,0 +1,51 @@
+{
+    "version": "2.0.0",
+    "form": {
+        "defaultCurrencyCode": "AUD",
+        "questionSets": [{
+                "name": "Test Question Set 1",
+                "key": "testQuestionSet1",
+                "fields": [{
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "required": false,
+                        "affectsPremium": false,
+                        "affectsTriggers": false,
+                        "requiredForCalculations": false,
+                        "private": false,
+                        "displayable": true,
+                        "canChangeWhenApproved": false,
+                        "resetForNewQuotes": false,
+                        "startsNewRow": false,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "label": "Test Field 1",
+                        "name": "Test Field 1",
+                        "key": "testField1",
+                        "tooltip": "This is a test tooltip",
+                        "questionSetKey": "testQuestionSet1",
+                        "dataType": "text",
+                        "workflowRole": "none"
+                    }
+                ]
+            }
+        ],
+        "repeatingQuestionSets": [],
+        "optionSets": [],
+        "textElements": [],
+        "theme": {
+        },
+        "workflowConfiguration": {
+            "step1": {
+                "startScreenExpression": "true",
+                "articles": [{
+                        "elements": [{
+                                "type": "questions",
+                                "name": "testQuestionSet1"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

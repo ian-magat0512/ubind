@@ -1,0 +1,17 @@
+{
+    "schemaVersion": "1.0.0",
+    "outboundEmailServers": [
+        {
+            "name": "Test SMTP Server",
+            "alias": "testSmtpServer",
+            "description": "A test SMTP server.",
+
+            "protocol": "SMTP",
+            "encryptionMethod": "SSL",
+            "hostname": "mail.abcinsurance.com.au",
+            "port": 995,
+            "username": "contact@abcinsurance.com.au",
+            "password": "9#J8&s@fDO"
+        }
+    ]
+}

@@ -1,0 +1,108 @@
+{
+    "exports": [
+        {
+            "name": "Real-time quote events",
+            "status": "active",
+            "trigger": {
+                "type": "realTime"
+            },
+            "eventTypes": [
+                "quote"
+            ],
+            "actions": [
+                {
+                    "type": "email",
+                    "to": "carl.andersson@aptiture.com",
+                    "cc": "something@else.com",
+                    "bcc": "last@one.com",
+                    "from": "can.we@have.this.com",
+                    "subject": "A new quote has been generated",
+                    "textBodyTemplate": {
+                        "type": "razor",
+                        "outputFormat": "text",
+                        "source": "CODE_REF"
+                    },
+                    "htmlBodyTemplate": {
+                        "type": "razor",
+                        "outputFormat": "html",
+                        "source": "CODE_REF"
+                    },
+                    "attachments": [
+                        {
+                            "type": "pdf",
+                            "fileName": "filename.pdf",
+                            "template" : {
+                                "type": "docx",
+                                "outputFormat": "pdf",
+                                "source": "FILE_REF"
+                            }
+                        }
+                    ]
+                },
+                {
+                    "type": "webhook",
+                    "URL": "https://www.someurl.com.au/path/",
+                    "payloadTemplate": {
+                        "type": "razor",
+                        "outputFormat": "urlEncoded",
+                        "source": "CODE_REF"
+                    }
+                }
+            ]
+        },
+        {
+            "name": "Daily activity report",
+            "status": "active",
+            "trigger": {
+                "type": "periodic",
+                "frequency": "daily",
+                "start": "2017-08-11T12:00:00.000Z"
+            },
+            "eventTypes": [
+                "enquiry",
+                "quote",
+                "payment"
+            ],
+            "actions": [
+                {
+                    "type": "email",
+                    "to": "carl.andersson@aptiture.com",
+                    "cc": "something@else.com",
+                    "bcc": "last@one.com",
+                    "from": "can.we@have.this.com",
+                    "subject": "Your daily activity summary",
+                    "textBodyTemplate": {
+                        "type": "razor",
+                        "outputFormat": "text",
+                        "source": "CODE_REF"
+                    },
+                    "htmlBodyTemplate": {
+                        "type": "razor",
+                        "outputFormat": "html",
+                        "source": "CODE_REF"
+                    },
+                    "attachments": [
+                        {
+                            "type": "csv",
+                            "fileName": "filename.csv",
+                            "template" : {
+                                "type": "razor",
+                                "outputFormat": "csv",
+                                "source": "CODE_REF"
+                            }
+                        },
+                        {
+                            "type": "pdf",
+                            "fileName": "filename.pdf",
+                            "template" : {
+                                "type": "docx",
+                                "outputFormat": "pdf",
+                                "source": "FILE_REF"
+                            }
+                        }
+                    ]
+                }
+            ]
+        }
+    ]
+}

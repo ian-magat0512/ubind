@@ -1,0 +1,1 @@
+SELECT  COUNT(1) FROM [RedBook].[VEMake_View] WHERE @Year BETWEEN StartYear AND LatestYear

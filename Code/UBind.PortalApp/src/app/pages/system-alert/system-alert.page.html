@@ -1,0 +1,51 @@
+<ion-header>
+  <ion-toolbar class="level-1">
+      <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="start">
+          <ion-button slot="icon-only" (click)="userDidTapCloseButton()">
+              <ion-icon name="close"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+      <ion-title *ngIf="!layoutManager.splitPaneVisible">{{headTitle}} {{model.systemAlertType.name | lowercase}} threshold</ion-title>
+      <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="end">
+          <ion-button (click)="userDidTapSaveButton(systemAlertForm.value)">
+              Save
+          </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-toolbar *ngIf="layoutManager.splitPaneVisible && model && model.systemAlertType" class="level-2">
+      <ion-buttons slot="start">
+          <ion-button slot="icon-only" (click)="userDidTapCloseButton()">
+              <ion-icon name="close"></ion-icon>
+          </ion-button>
+      </ion-buttons>
+      <ion-title>{{headTitle}} {{model.systemAlertType.name | lowercase}} threshold</ion-title>
+      <ion-buttons slot="end">
+          <ion-button (click)="userDidTapSaveButton(systemAlertForm.value)">
+              Save
+          </ion-button>
+      </ion-buttons>
+  </ion-toolbar>
+  <div appScrollDetails>
+      <form [formGroup]="systemAlertForm" *ngIf="(headTitle === 'Edit' && model && model.systemAlertType) || headTitle !== 'Edit'">
+          <ion-list lines="none" inset>
+              <ion-item class="input" [class.ng-touched]="(formHasError || systemAlertForm.get('warningThreshold').touched) && systemAlertForm.get('warningThreshold').errors">
+                  <ion-label position="stacked">Warning threshold</ion-label>
+                  <ion-input formControlName="warningThreshold"></ion-input>
+              </ion-item>
+              <div class="error" *ngIf="systemAlertForm.get('warningThreshold').errors && (systemAlertForm.get('warningThreshold').touched || formHasError)">
+                  This field must only contain numerical characters ranging from 0 to 9999
+              </div>
+              <ion-item class="input" [class.ng-touched]="(formHasError || systemAlertForm.get('criticalThreshold').touched) && systemAlertForm.get('criticalThreshold').errors">
+                  <ion-label position="stacked">Critical threshold</ion-label>
+                  <ion-input formControlName="criticalThreshold"></ion-input>
+              </ion-item>
+              <div class="error" *ngIf="systemAlertForm.get('criticalThreshold').errors && (systemAlertForm.get('criticalThreshold').touched || formHasError)">
+                This field must only contain numerical characters ranging from 0 to 9999
+              </div>
+          </ion-list>
+      </form>
+  </div>
+</ion-content>

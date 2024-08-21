@@ -1,0 +1,12 @@
+<ion-list class="entity-list custom-popover" lines="none" style="margin: -1px 0 0">
+    <ng-container *ubAllowAccess="permission.ExportPolicies">
+        <button *ngIf="export && !isMutual" (click)="close('export')">
+            <library-icon name="download" [library]="iconLibrary.IonicV4" [cssClass]="'start'" ></library-icon>
+            <ion-label>Export Policies</ion-label>
+        </button>
+        <button *ngIf="export && isMutual" (click)="close('export')">
+            <library-icon name="download" [library]="iconLibrary.IonicV4" [cssClass]="'start'" ></library-icon>
+            <ion-label>Export Protections</ion-label>
+        </button>
+    </ng-container>
+</ion-list>

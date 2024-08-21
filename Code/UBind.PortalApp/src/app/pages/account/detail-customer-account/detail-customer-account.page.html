@@ -1,0 +1,28 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ion-buttons slot='start'>
+            <ion-menu-toggle *ngIf="!layoutManager.canShowFixedMenu()">
+                <ion-button>
+                    <ion-icon slot="icon-only" name="menu"></ion-icon>
+                </ion-button>
+            </ion-menu-toggle>
+        </ion-buttons>
+        <ion-title>{{ title }}</ion-title>
+        <ion-buttons slot='end'>
+            <ng-container *ubAllowAccess="permission.EditMyAccount">
+                <app-entity-action-button-list
+                    [actionButtonList]="actionButtonList">
+                </app-entity-action-button-list>
+            </ng-container>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="left-pane">
+    <loader *ngIf="isLoading"></loader>
+    <app-entity-details-list *ngIf="!isLoading" [detailsListItems]="accountDetailsListItems" [@contentAnimation]
+        [hasItemLines]="false"
+        [hasGroupLines]="true"
+        [truncateDescription]="true">
+    </app-entity-details-list>
+</ion-content>

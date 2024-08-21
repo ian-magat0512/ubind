@@ -1,0 +1,206 @@
+<loader *ngIf="!refundOrPriceData"></loader>
+<ion-list *ngIf="refundOrPriceData">
+  <!--Base Premium-->
+  <ion-item tabindex="0">
+    <ion-label *ngIf="isMutual">Base Contribution</ion-label>
+    <ion-label *ngIf="!isMutual">Base Premium</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.basePremium | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <!--Terrorism Premium-->
+  <ion-item *ngIf="showTerrorismPremium" tabindex="0">
+    <ion-label>Terrorism Premium</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.terrorismPremium | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <!-- ESL -->
+  <app-expandable-item *ngIf="showEsl && refundOrPriceData.currencyCode != 'PGK'" [expandContent]="eslContentData"
+    [titleData]="eslTitleData" expandHeight="350px" [expanded]="false"
+    [isExpandable]="isExpandable"></app-expandable-item>
+  <!--GST-->
+  <ion-item tabindex="0">
+    <ion-label *ngIf="isMutual">Contribution GST</ion-label>
+    <ion-label *ngIf="!isMutual">Premium GST</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.premiumGst | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <!--Stamp Duty-->
+  <app-expandable-item *ngIf="refundOrPriceData.currencyCode != 'PGK'" [expandContent]="stampDutyContentData"
+    [titleData]="stampDutyTitleData" expandHeight="350px" [expanded]="false"
+    [isExpandable]="isExpandable"></app-expandable-item>
+  <!--Total Premium-->
+  <ion-item tabindex="0">
+    <ion-label>Total Premium</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.totalPremium | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+   <!--Commission-->
+   <ion-item *ngIf="showCommision" tabindex="0">
+    <ion-label>Commission</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.commission | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <ion-item *ngIf="showCommision" tabindex="0">
+    <ion-label>Commission GST</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.commissionGst| currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <!--Broker Fee-->
+  <ion-item *ngIf="showBrokerFee" tabindex="0">
+    <ion-label>Broker Fee</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.brokerFee | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <ion-item *ngIf="showBrokerFee" tabindex="0">
+    <ion-label>Broker Fee GST</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.brokerFeeGst| currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+ <!--Underwriter Fee-->
+  <ion-item *ngIf="showUnderwriterFee" tabindex="0">
+    <ion-label>Underwriter Fee</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{( refundOrPriceData.underwriterFee | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <ion-item *ngIf="showUnderwriterFee" tabindex="0">
+    <ion-label>Underwriter Fee GST</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.underwriterFeeGst | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <!--Roadside Assistance Fee-->
+  <ion-item *ngIf="showRoadsideAssistanceFee" tabindex="0">
+    <ion-label>Roadside Assistance Fee</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.roadsideAssistanceFee | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <ion-item *ngIf="showRoadsideAssistanceFee" tabindex="0">
+    <ion-label>Roadside Assistance Fee GST</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.roadsideAssistanceFeeGst | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <!--Policy Fee-->
+  <ion-item *ngIf="showPolicyFee" tabindex="0">
+    <ion-label>Policy Fee</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.policyFee | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <ion-item *ngIf="showPolicyFee" tabindex="0">
+    <ion-label>Policy Fee GST</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.policyFeeGst | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <!--Partner Fee-->
+  <ion-item *ngIf="showPartnerFee" tabindex="0">
+    <ion-label>Partner Fee</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.partnerFee | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <ion-item *ngIf="showPartnerFee" tabindex="0">
+    <ion-label>Partner Fee GST</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.partnerFeeGst | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <!--Administration Fee-->
+  <ion-item *ngIf="showAdministrationFee" tabindex="0">
+    <ion-label>Administration Fee</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.administrationFee | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <ion-item *ngIf="showAdministrationFee" tabindex="0">
+    <ion-label>Administration Fee GST</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.administrationFeeGst | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <!--Establishment Fee-->
+  <ion-item *ngIf="showEstablishmentFee" tabindex="0">
+    <ion-label>Establishment Fee</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.establishmentFee | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <ion-item *ngIf="showEstablishmentFee" tabindex="0">
+    <ion-label>Establishment Fee GST</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.establishmentFeeGst | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <!--Interest Charges-->
+  <ion-item *ngIf="showInterest" tabindex="0">
+    <ion-label>Interest</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.interest | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <ion-item *ngIf="showInterestGst" tabindex="0">
+    <ion-label>Interest GST</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.interestGst | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <!--Merchant Fees-->
+  <ion-item *ngIf="showMerchantFees" tabindex="0">
+    <ion-label>Merchant Fees</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{( refundOrPriceData.merchantFees | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <ion-item *ngIf="showMerchantFeesGst" tabindex="0">
+    <ion-label>Merchant Fees GST</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{( refundOrPriceData.merchantFeesGst | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <!--Service Fees-->
+  <ion-item *ngIf="showServiceFees" tabindex="0">
+    <ion-label>Service Fees</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{( refundOrPriceData.serviceFees | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <!--Transaction Costs-->
+  <ion-item *ngIf="showTransactionCosts" tabindex="0">
+    <ion-label>Transaction Costs</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{( refundOrPriceData.transactionCosts | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <ion-item *ngIf="showTransactionCostsGst" tabindex="0">
+    <ion-label>Transaction Costs GST</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{( refundOrPriceData.transactionCostsGst | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <!--Total GST-->
+  <ion-item *ngIf="showTotalGst" tabindex="0">
+    <ion-label>Total GST</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.totalGst | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+  <!--Total Payable-->
+  <ion-item tabindex="0">
+    <ion-label *ngIf="!isRefund">Total Payable</ion-label>
+    <ion-label *ngIf="isRefund">Total Refundable</ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end">
+      {{(refundOrPriceData.totalPayable | currency : refundOrPriceData.currencyCode : 'symbol-narrow') || '-'}}
+    </ion-label>
+  </ion-item>
+</ion-list>

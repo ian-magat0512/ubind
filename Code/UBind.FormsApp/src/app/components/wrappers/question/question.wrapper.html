@@ -1,0 +1,4 @@
+<ng-container *ngIf="question">
+    <p class="question" [innerHTML]="question | safeHtml"></p>
+</ng-container>
+<ng-container #fieldComponent></ng-container>

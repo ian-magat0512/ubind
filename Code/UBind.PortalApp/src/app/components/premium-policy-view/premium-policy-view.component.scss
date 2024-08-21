@@ -1,0 +1,10 @@
+ion-item {
+    span.premium-definition {
+        font-size: 15px !important;
+    }
+}
+
+ion-item.boundary-item{
+    border-width: 0  !important;
+    --inner-border-width: 0 !important;
+}

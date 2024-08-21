@@ -1,0 +1,39 @@
+<app-segmented-entity-list [title]="title"
+                           [listItemNamePlural]="'quotes'"
+                           [entityRouteParamName]="'quoteId'"
+                           [entityLoaderService]="quoteApiService"
+                           [viewModelConstructor]="viewModelConstructor"
+                           [segments]="segments"
+                           [defaultSegment]="defaultSegment"
+                           [filterStatuses]="filterStatuses"
+                           [filterByDates]="filterByDates"
+                           [itemTemplate]="quoteListItemTemplate"
+                           [getSelectedIdCallback]="getSelectedId.bind(this)"
+                           [entityTypeName]="'Quote'"
+                           [getDefaultHttpParamsCallback]="getDefaultHttpParamsCallback.bind(this)"
+                           [getUserFilterSelectionCallback]="getUserFilterChips.bind(this)"
+                           (listQueryParamsGenerated)="onListQueryParamsGenerated($event)"
+                           [additionalActionButtonList]="additionalActionButtonList"
+                           [ngStyle]="{'height': '100%'}">
+</app-segmented-entity-list>
+
+<ng-template #quoteListItemTemplate let-item>
+    <library-icon name="{{item.iconName}}" [library]="iconLibrary.AngularMaterial" cssClass="mat-icon-md"></library-icon>
+    <ion-label class="ion-text-wrap">
+        <div class="quote-title-or-name">
+            <span>{{item.quoteTitle || item.customerName || 'Quote'}}</span>
+            <library-icon *ngIf="item.isTestData" 
+                name="logo-game-controller-a" 
+                [library]="iconLibrary.IonicV4" 
+                class="testdata-list-icon right-icon-text">
+            </library-icon>
+        </div>
+        <p class="status">
+            {{ item.productName }}
+        </p>
+    </ion-label>
+    <ion-label class="ion-text-wrap ion-text-end" slot="end">
+        <div class="list-title">{{item.quoteNumber || 'N/A'}}</div>
+        <p class="status">{{ item.lastModifiedTime || item.createdTime }}</p>
+    </ion-label>
+</ng-template>

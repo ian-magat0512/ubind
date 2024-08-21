@@ -1,0 +1,72 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ion-title role="heading" aria-level="1">
+            Activate Account
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content [ngClass]="{'vertical-align-content': !layoutManager.isMobile()}">
+
+    <loader *ngIf="isLoading"></loader>
+
+    <!--Desktop/Tablet UI-->
+    <ion-card class="account-card" *ngIf="!layoutManager.isMobile() && !isLoading">
+        <ion-card-header>
+            <ion-card-title>
+                Activate Account
+            </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <div class="account-container">
+                <ng-container [ngTemplateOutlet]="activateFormTemplate"></ng-container>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+    <!--Mobile UI-->
+    <div class="account-container ion-padding" *ngIf="layoutManager.isMobile() && !isLoading">
+        <ng-container [ngTemplateOutlet]="activateFormTemplate"></ng-container>
+    </div>
+
+</ion-content>
+
+<app-powered-by class="left"></app-powered-by>
+
+<ng-template #activateFormTemplate>
+    <form [formGroup]="activateAccountForm" (ngSubmit)="userDidTapSetPassword(activateAccountForm.value)">
+        <ion-list lines="none">
+            <p>To activate your {{ portalTitle || organisationName || tenantName }} account please enter and confirm your password below.</p>
+            <div class="accountForm ion-margin-bottom">
+                <ion-item class="input" [class.ng-touched]="(formHasErrors || activateAccountForm.get('password').touched) && activateAccountForm.get('password').errors">
+                    <ion-label position='floating'>New Password</ion-label>
+                    <ion-input formControlName="password" type="password"></ion-input>
+                </ion-item>
+                <div class="error" *ngIf="(formHasErrors || activateAccountForm.get('password').touched) && activateAccountForm.get('password').invalid">
+                    <div class="account-error" *ngIf="activateAccountForm.get('password').hasError('required')">
+                        Password is required
+                    </div>
+                    <div class="account-error" *ngIf="activateAccountForm.get('password').hasError('pattern')">
+                        Your password must be at least 12 characters long and must contain at least one uppercase letter, one lowercase letter, one number and one special character (a character that is neither a letter nor a number)
+                    </div>
+                </div>
+                <ion-item class="input" [class.ng-touched]="(formHasErrors || activateAccountForm.get('confirmPassword').touched) && activateAccountForm.get('confirmPassword').errors">
+                    <ion-label position='floating'>Confirm Password</ion-label>
+                    <ion-input formControlName="confirmPassword" type="password"></ion-input>
+                </ion-item>
+                <div class="error" *ngIf="(formHasErrors || activateAccountForm.get('confirmPassword').touched) && (activateAccountForm.get('confirmPassword').invalid || activateAccountForm.hasError('mismatchedPasswords'))">
+                    <div class="account-error" *ngIf="activateAccountForm.hasError('mismatchedPasswords') && activateAccountForm.get('password').valid && !activateAccountForm.get('confirmPassword').hasError('required')">
+                        Passwords do not match
+                    </div>
+                    <div class="account-error" *ngIf="activateAccountForm.get('confirmPassword').hasError('required')">
+                        Password confirmation is required
+                    </div>
+                </div>
+                <div class="error" *ngIf="errorDisplay">{{ errorDisplay }}</div>
+            </div>
+            <ion-button expand="block" type="submit">Activate Account</ion-button>
+            <ion-button class="ion-margin-top" expand="block" type="button" color="light" (click)="userDidTapCancel()">Cancel</ion-button>
+        </ion-list>
+    </form>
+</ng-template>

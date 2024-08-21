@@ -1,0 +1,25 @@
+<app-segmented-entity-list #eventElement 
+                           [title]="title"
+                           [listItemNamePlural]="'tenants'"
+                           [entityRouteParamName]="'tenantId'"
+                           [entityLoaderService]="tenantApiService"
+                           [viewModelConstructor]="viewModelConstructor"
+                           [segments]="segments"
+                           [defaultSegment]="defaultSegment"
+                           [filterStatuses]="filterStatuses"
+                           [sortOptions]="sortOptions"
+                           [filterByDates]="filterByDates"
+                           [itemTemplate]="tenantListItemTemplate"
+                           [entityTypeName]="'Tenant'"
+                           [itemSelectedHandler]="itemSelected.bind(this)"
+                           [getSelectedIdCallback]="getSelectedId.bind(this)"
+                           (listQueryParamsGenerated)="onListQueryParamsGenerated($event)"
+                           [additionalActionButtonList]="additionalActionButtonList"
+                           [entityPathSegment]="'tenant'"
+                           [ngStyle]="{'height': '100%'}">
+</app-segmented-entity-list>
+
+<ng-template #tenantListItemTemplate let-item>
+    <library-icon name="cloud-circle" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'" [cssClass]="'align-icon'"></library-icon>
+    <ion-label>{{item.name}}</ion-label>
+</ng-template>

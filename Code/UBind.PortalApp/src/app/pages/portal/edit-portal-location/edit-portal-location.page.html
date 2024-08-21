@@ -1,0 +1,21 @@
+<app-detail-list-item-edit-form class="detail-list-item-edit-form"
+                                [title]="title"
+                                [items]="detailsList"
+                                [isEdit]="true"
+                                [editForm]="form"
+                                [fieldsOptions]="fieldOptions"
+                                [isLoading]="isLoading"
+                                [errorMessage]="errorMessage"
+                                (saveForm)="save($event)"
+                                (closeForm)="close()">
+    <!-- content projection start -->
+    <div *ngIf="isEmbeddingExternally" class="kb-more-info-box mat-elevation-z2">
+        <ion-icon class="box-left-icon" name="help-circle-outline" size="large"></ion-icon>
+        <h5>Embedding Portals</h5>
+        <p>You can find more information on how to embed a portal on an external web page in our online knowledge base.</p>
+        <p class="go-to-kb"><ion-icon name="link" size="medium"></ion-icon><a href="https://kb.ubind.io/display/UM/How+to+embed+a+uBind+portal+into+an+existing+website" target="_blank">Visit knowledgebase</a></p>
+    </div>
+    <!-- content projection end -->
+</app-detail-list-item-edit-form>
+
+                    

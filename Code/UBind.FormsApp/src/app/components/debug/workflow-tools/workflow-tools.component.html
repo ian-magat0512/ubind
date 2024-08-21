@@ -1,0 +1,22 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>    
+            Workflow Tools
+        </mat-panel-title>
+        <mat-panel-description>
+           Navigate to a step in the workflow
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form [formGroup]="form">
+        <mat-list>
+            <mat-list-item *ngFor="let workflowStepName of workflowStepNames; index as index">
+                <div class="workflow-step-row">
+                    <div class="workflow-step-name">{{workflowStepName}}</div>
+                    <button mat-icon-button color="accent" (click)="onWorkflowStepClicked(workflowStepName)">
+                        <mat-icon>arrow_right_alt</mat-icon>
+                    </button>
+                </div>
+            </mat-list-item>        
+        </mat-list>        
+    </form>
+</mat-expansion-panel>

@@ -1,0 +1,9 @@
+<app-detail-list-item-edit-form class="detail-list-item-edit-form"
+                                [title]="title"
+                                [isLoading]="isLoading"
+                                [errorMessage]="errorMessage"
+                                [items]="detailList"
+                                [editForm]="form"
+                                (saveForm)="userDidTapSaveButton($event)"
+                                (closeForm)="userDidTapCloseButton()">
+</app-detail-list-item-edit-form>

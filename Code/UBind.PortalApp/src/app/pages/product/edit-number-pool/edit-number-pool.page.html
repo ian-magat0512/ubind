@@ -1,0 +1,68 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="start">
+            <ion-button slot="icon-only" (click)="onCancel()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="!layoutManager.splitPaneVisible">Edit {{isMutual && numberType ? numberType.replace('Policy', 'Protection') : numberType}} Numbers</ion-title>
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible && !isLoading && !errorMessage" slot="end">
+            <ion-button id="create-product-save-btn" (click)="onSave()">
+                Save
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ion-buttons slot="start">
+            <ion-button slot="icon-only" (click)="onCancel()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Edit {{isMutual && numberType ? numberType.replace('Policy', 'Protection') : numberType}} Numbers</ion-title>
+        <ion-buttons slot="end" *ngIf="!isLoading && !errorMessage">
+            <ion-button id="create-product-save-btn" (click)="onSave()">
+                Save
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+
+    <loader *ngIf='isLoading'></loader>
+    <div appScrollDetails *ngIf="!isLoading && !errorMessage">
+        <form [formGroup]="numberPoolForm">
+            <ion-list inset>
+
+                <ion-item no-paddng>
+                    <ion-label position="stacked">Development {{isMutual && numberType ? numberType.replace('Policy', 'Protection') : numberType}} Numbers</ion-label>
+                    <ion-textarea #ionictextarea formControlName="developmentNumbers" rows="8" type="text"
+                                    spellcheck="false">
+                    </ion-textarea>  
+                </ion-item>
+
+                <ion-item no-paddng>
+                    <ion-label position="stacked">Staging {{isMutual && numberType ? numberType.replace('Policy', 'Protection') : numberType}} Numbers</ion-label>
+                    <ion-textarea #ionictextarea formControlName="stagingNumbers" rows="8" type="text"
+                                    spellcheck="false">
+                    </ion-textarea>
+                </ion-item>
+
+                <ion-item no-paddng>
+                    <ion-label position="stacked">Production {{isMutual && numberType ? numberType.replace('Policy', 'Protection') : numberType}} Numbers</ion-label>
+                    <ion-textarea #ionictextarea formControlName="productionNumbers" rows="8" type="text"
+                                    spellcheck="false">
+                    </ion-textarea>
+                </ion-item>
+
+            </ion-list>
+        </form>
+    </div>
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">
+            {{ errorMessage }}
+        </p>
+    </div>
+    
+</ion-content>

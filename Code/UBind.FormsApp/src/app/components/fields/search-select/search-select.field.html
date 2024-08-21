@@ -1,0 +1,52 @@
+<options-field-debug *ngIf="applicationService.debug" [field]="this">
+    <span class="debug-property">
+        <span class="key">Search Term:</span><span class="value"> {{ this.searchTerm }}</span>&nbsp;&nbsp;
+    </span>
+    <span class="debug-property">
+        <span class="key">Selected Item:</span><span class="value"> {{ this.selectedItem }}</span>&nbsp;&nbsp;
+    </span>
+    <span class="debug-property">
+        <span class="key">Input Field Value:</span><span class="value"> {{ this.inputFieldElement.value }}</span>&nbsp;&nbsp;
+    </span>
+    <span class="debug-property">
+        <span class="key">No Options Found Text:</span><span class="value"> {{ noOptionsFoundText }}</span>&nbsp;&nbsp;
+    </span>
+</options-field-debug>
+<ng-select #ngSelect
+           [id]="fieldPath | cssIdentifier"
+           class="search-select"
+           [attr.name]="fieldPath | cssIdentifier"
+           bindLabel="label"
+           bindValue="value"
+           clearAllText="Clear"
+           [formControl]="formControl"
+           [items]="visibleSelectOptions"
+           [searchFn]="optionMatches.bind(this)"
+           [appendTo]="'body'"
+           [placeholder]="placeholderText"
+           [closeOnSelect]="true"
+           [clearOnBackspace]="false" 
+           [clearSearchOnAdd]="false"
+           [notFoundText]="isLoading ? 'Loading...' : searchTerm == null || searchTerm == '' ? '' : noOptionsFoundText"
+           (change)="onChangeSelection($event)"
+           (search)="onTypeSearchTerm($event)"
+           (blur)="onBlur($event)"           
+           (focus)="onFocus($event)"
+           (clear)="onClear()"
+           (close)="onClose()"
+           [attr.inputmode]="keyboardInputMode"
+           [(ngModel)]="selectedItem"
+           [virtualScroll]="isVirtualScrollEnabled"
+           >
+</ng-select>
+
+<div #searchLoader class="loader" style="visibility:hidden;height:0px" id="search-loader">
+    <svg class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg" id="search-select-loader-spinner">
+        <circle class="circle" fill="none" stroke="#999999" stroke-width="6" stroke-linecap="round" cx="33" cy="33" r="25"></circle>
+    </svg>
+</div>
+<div *ngIf="errorMessage" class="content-error fade-in">
+    <p text-center>
+        {{ errorMessage }}
+    </p>
+</div>

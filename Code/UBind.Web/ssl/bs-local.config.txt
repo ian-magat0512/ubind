@@ -1,0 +1,14 @@
+﻿# These instructions have been made for Windows 10.
+# To generate the certification, use the following powershell command
+# You may need to run powershell as an administrator if you get an access denied error
+New-SelfSignedCertificate -CertStoreLocation Cert:\LocalMachine\My -DnsName "bs-local.com" -FriendlyName "Browserstack Local" -NotAfter (Get-Date).AddYears(10)
+
+# Once you've generated the cert it will be in the windows certificate store.
+# Using cortana, search for "certificates"
+# If you ran powershell as administrator, select "manage computer certificates", otherwise select "manage user certificates"
+# Find the certificate under "Personal > Certificates"
+# Move the certificate into "Trusted Root Certification Authorities"
+# Export it to a pfx file.
+# Select "Yes" to export the private key
+# Select to protect it with the password "password".
+# Save it to this folder, with the filename "bs-local.com.pfx"

@@ -1,0 +1,16 @@
+<ng-container *ngIf="applicationService.debug">
+    <p class="debug">
+        <span class="debug-property">
+            <span class="key">Content Field:</span><span class="value"> {{ key }}</span>&nbsp;&nbsp;
+        </span>
+        <span class="debug-property">
+            <span class="key">Valid:</span><span class="value"> {{ valid }}</span>
+        </span>    
+    </p>
+</ng-container>
+
+<input
+    type="hidden"
+    class="content-field"
+    [name]="key"
+    [formControl]="formControl" />

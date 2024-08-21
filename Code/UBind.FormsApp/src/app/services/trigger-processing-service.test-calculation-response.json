@@ -1,0 +1,320 @@
+{
+    "calculationResultId": "fd993007-279c-451a-a42f-1ecdf42cdea4",
+    "formDataUpdateId": "00ad1d8f-2f11-48c8-a327-4e3cbb77a0d4",
+    "calculationResult": {
+		"state": "premiumComplete",
+		"questions": {
+			"ratingPrimary": {
+				"occupation": "Antenna Installers",
+				"liabilityLimit": "$5,000,000.00",
+				"tools": "$8,000.00",
+				"turnover": "150k-300k",
+				"employees": "1",
+				"ratingState": "VIC",
+				"manualEndorsementResetTimestamp": "1610011526973"
+			},
+			"ratingSecondary": {},
+			"dates": {
+				"policyStartDate": "07/01/2021",
+				"policyEndDate": "07/02/2021",
+				"policyStartDateInput": "07/01/2021"
+			},
+			"contact": {},
+			"details": {
+				"testRepeating": []
+			},
+			"cancellation": {},
+			"disclosure": {},
+			"summary": {},
+			"paymentMethods": {},
+			"paymentOptions": {
+				"paymentOption": "Monthly",
+				"paymentMethod": "Premium Funding"
+			},
+			"refundMethods": {},
+			"purchaseCompleted": {},
+			"agentDetails": {},
+			"enquiry": {},
+			"review": {
+				"manualEndorsement": false
+			},
+			"reviewMessage": {},
+			"endorsement": {
+				"loadingFactor": 1,
+				"additionalPremium": "$0.00"
+			},
+			"endorsementMessage": {},
+			"statusVariables": {
+				"variableUserType": "customer",
+				"variableUserHasAccount": "FALSE",
+				"variableCustomerHasAccount": "FALSE",
+				"variableQuoteHasCustomer": "FALSE",
+				"variableQuoteHadCustomerOnCreation": "FALSE",
+				"variableQuoteType": "newBusiness",
+				"variableQuoteState": "nascent",
+				"variableFinancialTransactionType": "payment",
+				"variableReferrerURL": "https://localhost:44366/assets/landing-page.html?tenant=carl&product=dev&environment=development&debug=true",
+				"variableApplicationURL": "https://localhost:44366",
+				"variableAssetsFolderURL": "https://localhost:44366/assets/carl/dev/development",
+				"variableApplicationMode": "create",
+				"variableProductEnvironment": "development",
+				"variableCurrentWorkflowStep": "purchaseQuote",
+				"variablePreviousWorkflowStep1": "purchaseQuote"
+			}
+		},
+		"risk1": {
+			"settings": {
+				"riskName": "Something",
+				"fieldCodePrefix": "S"
+			},
+			"ratingFactors": {
+				"tools": 8000,
+				"ratingState": "VIC",
+				"customPremium": "",
+				"policyStartDate": "07/01/2021",
+				"loadingFactor": 1,
+				"additionalPremium": 0,
+				"specialConditions": "",
+				"variableQuoteState": "nascent"
+			},
+			"checks": {
+				"hasActiveEndorsementTrigger": true,
+				"includeRisk": true
+			},
+			"premium": {
+				"basePremium": 450,
+				"applicableLoadingFactor": 1,
+				"applicableAdditionalPremium": 0,
+				"loadedPremium": 450,
+				"premiumPercentACT": 0,
+				"premiumPercentNSW": 0,
+				"premiumPercentNT": 0,
+				"premiumPercentQLD": 0,
+				"premiumPercentSA": 0,
+				"premiumPercentTAS": 0,
+				"premiumPercentVIC": 1,
+				"premiumPercentWA": 0
+			},
+			"other": {
+				"specialConditions": "N/A"
+			},
+			"statutoryRates": {
+				"riskType": "General",
+				"ESLApplicability": "Not Applicable",
+				"jurisdiction": "VIC",
+				"policyStartDate": "07/01/2021",
+				"ESLRate": 0,
+				"GSTRate": 0.1,
+				"SDRateACT": 0,
+				"SDRateNSW": 0.09,
+				"SDRateNT": 0.1,
+				"SDRateQLD": 0.09,
+				"SDRateSA": 0.11,
+				"SDRateTAS": 0.1,
+				"SDRateVIC": 0.1,
+				"SDRateWA": 0.1
+			},
+			"payment": {
+				"premium": 450,
+				"ESL": 0,
+				"GST": 45,
+				"SDACT": 0,
+				"SDNSW": 0,
+				"SDNT": 0,
+				"SDQLD": 0,
+				"SDSA": 0,
+				"SDTAS": 0,
+				"SDVIC": 49.5,
+				"SDWA": 0,
+				"total": 544.5
+			}
+		},
+		"risk2": {
+			"settings": {
+				"riskName": "Else",
+				"fieldCodePrefix": "E"
+			},
+			"ratingFactors": {
+				"ratingState": "VIC",
+				"policyStartDate": "07/01/2021"
+			},
+			"checks": {
+				"includeRisk": true
+			},
+			"premium": {
+				"propertyCover": 0,
+				"travelCover": 0,
+				"basePremium": 0,
+				"premiumPercentACT": 0,
+				"premiumPercentNSW": 0,
+				"premiumPercentNT": 0,
+				"premiumPercentQLD": 0,
+				"premiumPercentSA": 0,
+				"premiumPercentTAS": 0,
+				"premiumPercentVIC": 1,
+				"premiumPercentWA": 0
+			},
+			"other": {
+				"something": "Val"
+			},
+			"statutoryRates": {
+				"riskType": "Professional Indemnity",
+				"ESLApplicability": "Applicable",
+				"jurisdiction": "VIC",
+				"policyStartDate": "07/01/2021",
+				"ESLRate": 0.3,
+				"GSTRate": 0.1,
+				"SDRateACT": 0,
+				"SDRateNSW": 0.05,
+				"SDRateNT": 0.1,
+				"SDRateQLD": 0.09,
+				"SDRateSA": 0.11,
+				"SDRateTAS": 0.1,
+				"SDRateVIC": 0.1,
+				"SDRateWA": 0.1
+			},
+			"payment": {
+				"premium": 0,
+				"ESL": 0,
+				"GST": 0,
+				"SDACT": 0,
+				"SDNSW": 0,
+				"SDNT": 0,
+				"SDQLD": 0,
+				"SDSA": 0,
+				"SDTAS": 0,
+				"SDVIC": 0,
+				"SDWA": 0,
+				"total": 0
+			}
+		},
+		"triggers": {
+			"review": {
+				"toolsCover5k": false,
+				"toolsCover12k": false,
+				"membershipNumberChanged": false,
+				"manualSelection": false
+			},
+			"endorsement": {
+				"toolsCover8k": false,
+				"toolsCover12k": false,
+				"history": false,
+				"insolvency": false,
+				"manualSelection": false,
+				"manualTriggerDuringReview": false
+			},
+			"decline": {
+				"turnover150k": false,
+				"manualSelection": false
+			},
+			"error": {
+				"noCoverSelected": false
+			}
+		},
+		"payment": {
+			"outputVersion": 2,
+			"priceComponents": {
+				"basePremium": "$450.00",
+				"ESL": "$0.00",
+				"premiumGST": "$45.00",
+				"stampDutyACT": "$0.00",
+				"stampDutyNSW": "$0.00",
+				"stampDutyNT": "$0.00",
+				"stampDutyQLD": "$0.00",
+				"stampDutySA": "$0.00",
+				"stampDutyTAS": "$0.00",
+				"stampDutyVIC": "$49.50",
+				"stampDutyWA": "$0.00",
+				"stampDutyTotal": "$49.50",
+				"totalPremium": "$544.50",
+				"commission": "$90.00",
+				"commissionGST": "$9.00",
+				"brokerFee": "$0.00",
+				"brokerFeeGST": "$0.00",
+				"underwriterFee": "$0.00",
+				"underwriterFeeGST": "$0.00",
+				"interest": "$0.00",
+				"merchantFees": "$0.00",
+				"transactionCosts": "$0.00",
+				"totalGST": "$45.00",
+				"totalPayable": "$544.50"
+			},
+			"instalments": {
+				"instalmentsPerYear": "12",
+				"instalmentAmount": "$45.38"
+			},
+			"iQumulate": {
+				"interestRate": "8.90%",
+				"instalments": 1,
+				"instalmentAmount": "$548.54",
+				"initialInstalmentAmount": "$608.54",
+				"paymentFrequency": "Monthly"
+			}
+		}
+	},
+    "quoteId": "079a63dc-a82b-41d2-b41a-849c6fa3ca44",
+    "quoteState": "nascent",
+    "quoteReference": null,
+    "amountPayable": "$544.50",
+    "priceBreakdown": {
+        "basePremium": "$450.00",
+        "ESL": "$0.00",
+        "premiumGST": "$45.00",
+        "stampDutyACT": "$0.00",
+        "stampDutyNSW": "$0.00",
+        "stampDutyNT": "$0.00",
+        "stampDutyQLD": "$0.00",
+        "stampDutySA": "$0.00",
+        "stampDutyTAS": "$0.00",
+        "stampDutyVIC": "$49.50",
+        "stampDutyWA": "$0.00",
+        "commission": "$90.00",
+        "commissionGST": "$9.00",
+        "brokerFee": "$0.00",
+        "brokerFeeGST": "$0.00",
+        "underwriterFee": "$0.00",
+        "underwriterFeeGST": "$0.00",
+        "totalGST": "$45.00",
+        "interest": "$0.00",
+        "merchantFees": "$0.00",
+        "transactionCosts": "$0.00",
+        "stampDutyTotal": "$49.50",
+        "totalPremium": "$544.50",
+        "totalPayable": "$544.50"
+    },
+    "refundBreakdown": {
+        "basePremium": "$0.00",
+        "ESL": "$0.00",
+        "premiumGST": "$0.00",
+        "stampDutyACT": "$0.00",
+        "stampDutyNSW": "$0.00",
+        "stampDutyNT": "$0.00",
+        "stampDutyQLD": "$0.00",
+        "stampDutySA": "$0.00",
+        "stampDutyTAS": "$0.00",
+        "stampDutyVIC": "$0.00",
+        "stampDutyWA": "$0.00",
+        "commission": "$0.00",
+        "commissionGST": "$0.00",
+        "brokerFee": "$0.00",
+        "brokerFeeGST": "$0.00",
+        "underwriterFee": "$0.00",
+        "underwriterFeeGST": "$0.00",
+        "totalGST": "$0.00",
+        "interest": "$0.00",
+        "merchantFees": "$0.00",
+        "transactionCosts": "$0.00",
+        "stampDutyTotal": "$0.00",
+        "totalPremium": "$0.00",
+        "totalPayable": "$0.00"
+    },
+    "premiumFundingProposal": {
+        "proposalId": "9dc87f83-fb00-404f-ae18-d764f79f7a77",
+        "total": "$574.49",
+        "paymentFrequency": "Monthly",
+        "numberOfInstalments": 11,
+        "initialInstalmentAmount": "$78.59",
+        "regularInstalmentAmount": "$49.59",
+        "acceptanceUrl": null
+    }
+}

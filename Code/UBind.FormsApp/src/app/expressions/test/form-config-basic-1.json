@@ -1,0 +1,118 @@
+{
+    "baseConfiguration": {
+        "questionSetsKeys": [
+            "ratingPrimary",
+            "test1",
+            "test2",
+            "test3"
+        ],
+        "questionSetsKeysNested": {
+            "ratingPrimary": [
+                "test1",
+                "test2",
+                "test3"
+            ]
+        },
+        "displayableFields": [
+            "test1",
+            "test2",
+            "test3"
+        ],
+        "questionMetadata": {
+            "questionSets": {
+                "ratingPrimary": {
+                    "test1": {
+                        "dataType": "text",
+                        "displayable": true,
+                        "canChangeWhenApproved": false,
+                        "private": false,
+                        "resetForNewQuotes": false
+                    },
+                    "test2": {
+                        "dataType": "text",
+                        "displayable": true,
+                        "canChangeWhenApproved": false,
+                        "private": false,
+                        "resetForNewQuotes": false
+                    },
+                    "test3": {
+                        "dataType": "text",
+                        "displayable": true,
+                        "canChangeWhenApproved": false,
+                        "private": false,
+                        "resetForNewQuotes": false
+                    }
+                }
+            }
+        }
+    },
+    "questionSets": {
+        "ratingPrimary": [{
+                "className": "row",
+                "fieldGroup": []
+            }, 
+            {
+                "className": "row",
+                "fieldGroup": [
+                    {
+                        "key": "test1",
+                        "type": "input-field",
+                        "className": "col-xs-12",
+                        "templateOptions": {
+                            "label": "Input",
+                            "question": "Type an input value here:"
+                        }
+                    }
+                ]
+            },
+            {
+                "className": "row",
+                "fieldGroup": [
+                    {
+                        "key": "test2",
+                        "type": "input-field",
+                        "className": "col-xs-12",
+                        "templateOptions": {
+                            "calculatedValue": "test1",
+                            "label": "Copy Test",
+                            "description": "This field should display a copy of whatever you enter in the input field.",
+                            "disabledCondition": "true"
+                        }
+                    }
+                ]
+            },
+            {
+                "className": "row",
+                "fieldGroup": [
+                    {
+                        "key": "test3",
+                        "type": "input-field",
+                        "className": "col-xs-12",
+                        "templateOptions": {
+                            "label": "Hidden Test",
+                            "description": "This field should be hidden if you enter 'hide' in the input field.",
+                            "hideCondition": "test1 == 'hide'"
+                        }
+                    }
+                ]
+            }
+        ]
+    },
+    "workflow": {
+        "purchaseQuote": {
+            "startScreenExpression": "true",
+            "articles": [
+                {
+                    "heading": "ratingHeading",
+                    "text": "ratingText",
+                    "elements": [
+                        {
+                            "type": "questions",
+                            "name": "ratingPrimary"
+                        }
+                    ]
+                }
+            ]
+        }
+    }
+}

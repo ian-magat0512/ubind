@@ -1,0 +1,9 @@
+﻿<ng-container *ngFor="let actionItem of actions">
+    <button (click)="executeAction(actionItem)" *ngIf="actionItem.includeInMenu">
+        <library-icon [name]="actionItem.actionIcon" 
+            [library]="actionItem.iconLibrary" 
+            [cssClass]="actionItem.iconLibrary == iconLibrary.AngularMaterial ? 'start mat-icon-sm' : 'start'">
+        </library-icon>
+        <ion-label>{{actionItem.actionName | titlecase}}</ion-label>
+    </button>
+</ng-container>

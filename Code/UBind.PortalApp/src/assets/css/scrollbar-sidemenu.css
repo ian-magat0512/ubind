@@ -1,0 +1,8 @@
+ion-content {
+    --overflow: hidden !important;
+    overflow: hidden !important;
+}
+ion-content ion-list {
+    overflow: auto !important;
+    height: calc(100vh - 90px) !important;
+}

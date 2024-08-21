@@ -1,0 +1,71 @@
+<p class="debug">
+    <span class="debug-property">
+        <span class="key">{{ field.fieldType | titlecase }} Field:</span><span class="value"> {{ field.key }}</span>&nbsp;&nbsp;
+    </span>
+    <ng-container *ngIf="field.fieldType != 'attachment'">
+        <span class="debug-property">
+            <span class="key">Value:</span><span class="value"> {{ field.formControl.value != null ? field.formControl.value : '(null)' }}</span>&nbsp;&nbsp;
+        </span>
+        <span class="debug-property" *ngIf="field.formControl.value != field.expressionsFieldValue || applicationService.debugLevel >= 4">
+            <span class="key">Expression Value:</span><span class="value"> {{ field.expressionsFieldValue != null ? field.expressionsFieldValue : '(null)' }}</span>&nbsp;&nbsp;
+        </span>
+        <span *ngIf="field.defaultValue !== null" class="debug-property">
+            <span class="key">Default Value:</span><span class="value"> {{ field.defaultValue }}</span>&nbsp;&nbsp;
+        </span>
+        <span  *ngIf="field.initialValue !== null" class="debug-property">
+            <span class="key">Initial Value:</span><span class="value"> {{ field.initialValue }}</span>&nbsp;&nbsp;
+        </span>
+        <span *ngIf="field.data" class="debug-property">
+            <span class="key">Field Data:</span><span class="value"> <pre>{{ field.data | json }}</pre> </span>&nbsp;&nbsp;
+        </span>
+    </ng-container>        
+    <span class="debug-property">
+        <span class="key">Valid:</span><span class="value"> {{ field.valid }}</span>
+    </span>
+    <span *ngIf="field.disabled" class="debug-property">
+        <span class="key">Disabled:</span><span class="value"> {{ field.disabled }}</span>
+    </span>
+    <span *ngIf="field.readOnly" class="debug-property">
+        <span class="key">Read Only:</span><span class="value"> {{ field.readOnly }}</span>
+    </span>
+    <span class="debug-property" *ngIf="applicationService.debugLevel >= 2">
+        <span class="key">Touched:</span><span class="value"> {{ field.formControl.touched}}</span>
+    </span>
+    <span *ngIf="(field.dataStoringFieldConfiguration.calculatedValueTriggerExpression
+                && applicationService.debugLevel >= 3) || applicationService.debugLevel >= 4" 
+        class="debug-property">
+        <span class="key">Calculated Trigger Expression:</span><span class="value"
+        > {{ field.dataStoringFieldConfiguration.calculatedValueTriggerExpression }}</span>
+    </span>
+    <span *ngIf="(field.dataStoringFieldConfiguration.calculatedValueConditionExpression
+                && applicationService.debugLevel >= 3) || applicationService.debugLevel >= 4" 
+        class="debug-property">
+        <span class="key">Calculated Condition Expression:</span><span class="value"
+        > {{ field.dataStoringFieldConfiguration.calculatedValueConditionExpression }}</span>
+    </span>
+    <span *ngIf="(field.dataStoringFieldConfiguration.calculatedValueExpression
+                && applicationService.debugLevel >= 3) || applicationService.debugLevel >= 4" 
+          class="debug-property">
+        <span class="key">Calculated Value Expression:</span><span class="value"
+        > {{ field.dataStoringFieldConfiguration.calculatedValueExpression }}</span>
+    </span>
+    <span *ngIf="field.interactiveFieldConfiguration.disabledConditionExpression
+                && applicationService.debugLevel >= 3 || applicationService.debugLevel >= 4" 
+        class="debug-property">
+        <span class="key">Disabled Condition Expression:</span><span class="value"
+        > {{ field.interactiveFieldConfiguration.disabledConditionExpression }}</span>
+    </span>
+    <span *ngIf="field.affectsPremium" class="debug-property">
+        <span class="key">Affects Premium:</span><span class="value"> {{ field.affectsPremium }}</span>
+    </span>
+    <span *ngIf="field.affectsTriggers" class="debug-property">
+        <span class="key">Affects Triggers:</span><span class="value"> {{ field.affectsTriggers }}</span>
+    </span>
+    <span *ngIf="field.requiredForCalculation" class="debug-property">
+        <span class="key">Required For Calculation:</span><span class="value"> {{ field.requiredForCalculation }}</span>
+    </span>
+    <span class="debug-property" *ngIf="applicationService.debugLevel >= 3">
+        <span class="key">Scope:</span><span class="value"> {{ field.scope }}</span>
+    </span>
+    <ng-content></ng-content>
+</p>

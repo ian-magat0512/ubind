@@ -1,0 +1,24 @@
+<app-entity-list [title]="title"
+                 [listItemNamePlural]="listItemNamePlural"
+                 [entityRouteParamName]="'policyTransactionId'"
+                 [entityLoaderService]="policyTransactionApiService"
+                 [viewModelConstructor]="viewModelConstructor"
+                 [itemTemplate]="policyTransactionListItemTemplate"
+                 [itemSelectedHandler]="itemSelected.bind(this)"
+                 [getDefaultHttpParamsCallback]="getDefaultHttpParams.bind(this)"
+                 [entityTypeName]="'PolicyTransaction'"
+                 [ngStyle]="{'height': '100%'}"
+                 [overrideHideFunnel] = "true">
+                 
+</app-entity-list>
+
+<ng-template #policyTransactionListItemTemplate let-item>
+    <library-icon name="{{ item.iconName }}" [library]="iconLibrary.AngularMaterial" [cssClass]="'mat-icon-md'" ></library-icon>
+    <ion-label>
+        <div class="list-title"> {{ isMutual ? 'Protection' : 'Policy' }} {{ item.alternateEventTypeSummary | titlecase }} </div>
+        <p class="status">The {{ isMutual ? 'protection' : 'policy' }} was {{ item.alternateEventTypeSummary }} effective on {{ item.effectiveDate | date : 'dd MMM yyyy' }}</p>
+    </ion-label>
+    <span slot="end" class="ion-text-right">
+        {{item.createdTime}}
+    </span>
+</ng-template>

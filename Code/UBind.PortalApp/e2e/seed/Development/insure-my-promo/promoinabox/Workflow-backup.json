@@ -1,0 +1,253 @@
+{
+  "step1": {
+    "startScreen": true,
+    "tabIndex": 1,
+    "articles": [
+      {
+        "elements": [
+          {
+            "type": "questions",
+            "name": "promotion"
+          }
+        ]
+      }
+    ],
+    "actions": {
+      "next": {
+        "operations": [ "calculation" ],
+        "requiresValidQuestionSets": [ "promotion" ],
+        "destinationStep": "step2",
+        "primary": true
+      }
+    }
+  },
+  "step2": {
+    "tabIndex": 2,
+    "articles": [
+      {
+        "elements": [
+          {
+            "type": "questions",
+            "name": "summary"
+          }
+        ]
+      }
+    ],
+    "sidebar": [
+      {
+        "type": "aside",
+        "name": "summary1"
+      },
+      {
+        "type": "aside",
+        "name": "summary2"
+      },
+      {
+        "type": "aside",
+        "name": "summary3"
+      },
+      {
+        "type": "aside",
+        "name": "summary4"
+      }
+    ],
+    "actions": {
+      "back": {
+        "destinationStep": "step1"
+      },
+      "next": {
+        "requiresValidQuestionSets": [ "summary" ],
+        "destinationStep": "step3",
+        "primary": true
+      }
+    }
+  },
+  "step3": {
+    "tabIndex": 3,
+    "articles": [
+      {
+        "elements": [
+          {
+            "type": "questions",
+            "name": "details1"
+          },
+          {
+            "type": "questions",
+            "name": "details2",
+			"hidden": "questionSetsAreValid(['details1']) != true"
+          },
+          {
+            "type": "questions",
+            "name": "details3",
+			"hidden": "questionSetsAreValid(['details2']) != true"
+          },
+          {
+            "type": "questions",
+            "name": "details4",
+			"hidden": "questionSetsAreValid(['details3']) != true"
+          },
+          {
+            "type": "questions",
+            "name": "details5",
+			"hidden": "questionSetsAreValid(['details4']) != true"
+          },
+          {
+            "type": "questions",
+            "name": "details6",
+			"hidden": "questionSetsAreValid(['details5']) != true"
+          }
+        ]
+      }
+    ],
+    "sidebar": [
+      {
+        "type": "aside",
+        "name": "details1"
+      },
+      {
+        "type": "aside",
+        "name": "details2"
+      },
+      {
+        "type": "aside",
+        "name": "details3"
+      }
+    ],
+    "actions": {
+      "back": {
+        "destinationStep": "step2"
+      },
+      "next": {
+        "requiresValidQuestionSets": [ "details1", "details2" , "details3" , "details4" , "details5" , "details6" ],
+        "destinationStep": "step4",
+        "primary": true
+      }
+    }
+  },
+  "step4": {
+    "tabIndex": 4,
+    "articles": [
+      {
+        "elements": [
+          {
+            "type": "questions",
+            "name": "logo"
+          }
+        ]
+      }
+    ],
+    "sidebar": [
+      {
+        "type": "aside",
+        "name": "logo1"
+      },
+      {
+        "type": "aside",
+        "name": "logo2"
+      },
+      {
+        "type": "aside",
+        "name": "logo3"
+      }
+    ],
+    "actions": {
+      "back": {
+        "destinationStep": "step3"
+      },
+      "next": {
+        "requiresValidQuestionSets": [ "logo" ],
+        "destinationStep": "step5",
+        "primary": true
+      }
+    }
+  },
+	"step5": {
+		"tabIndex": 5,
+		"articles": [
+			{
+				"elements": [
+					{
+						"type": "questions",
+						"name": "review"
+					}
+				]
+			}
+		],
+    "sidebar": [
+      {
+        "type": "aside",
+        "name": "review1"
+      },
+      {
+        "type": "aside",
+        "name": "review2"
+      }
+    ],
+		"actions": {
+			"back": {
+				"destinationStep": "step4"
+			},
+			"next": {
+				"requiresValidQuestionSets": ["review"],
+				"destinationStep": "step6",
+				"primary": true
+			}
+		}
+	},
+	"step6": {
+		"tabIndex": 6,
+		"articles": [
+			{
+				"elements": [
+					{
+						"type": "questions",
+						"name": "paymentOptions"
+					}
+				]
+			}
+		],
+    "sidebar": [
+      {
+        "type": "aside",
+        "name": "review1"
+      },
+      {
+        "type": "aside",
+        "name": "review2"
+      },
+      {
+        "type": "aside",
+        "name": "payment"
+      }
+    ],
+		"actions": {
+			"back": {
+				"destinationStep": "step5"
+			},
+			"next": {
+				"operations": ["creditCardPayment","invoice", "policy"],
+				"requiresValidQuestionSets": ["paymentOptions"],
+				"destinationStep": "successPage",
+				"primary": true
+			}
+		}
+	},
+  "successPage": {
+    "articles": [
+      {
+        "heading": "successHeading",
+        "text": "successText"
+      }
+    ],
+    "sidebar": [
+      {
+        "type": "aside",
+        "name": "complete1"
+      },
+      {
+        "type": "aside",
+        "name": "complete2"
+      }
+    ]
+  }
+}

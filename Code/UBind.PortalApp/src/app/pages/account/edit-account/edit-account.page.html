@@ -1,0 +1,122 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf="!layoutManager.splitPaneVisible">
+            <ion-buttons slot="start">
+                <ion-button slot="icon-only" (click)="userDidTapCancelButton()">
+                    <ion-icon name="close"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+            <ion-title>Edit Account Details</ion-title>
+            <ion-buttons *ngIf="!isLoading && !errorMessage" slot="end">
+                <ion-button (click)="userDidTapSaveButton(userForm.value)">
+                    Save
+                </ion-button>
+            </ion-buttons>
+        </ng-container>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="left-pane">
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ion-buttons slot="start">
+            <ion-button slot="icon-only" (click)="userDidTapCancelButton()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Edit Account Details</ion-title>
+        <ion-buttons slot="end" *ngIf="!isLoading && !errorMessage">
+            <ion-button (click)="userDidTapSaveButton(userForm.value)">
+                Save
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+
+    <loader *ngIf="isLoading"></loader>
+
+    <form [formGroup]="userForm" *ngIf="!isLoading && !errorMessage">
+        <ion-list lines="none" inset>
+            <!--Preferred Name-->
+            <ion-item class="input" [class.ng-touched]="userForm.get('preferredName').errors && userForm.get('preferredName').touched">
+                <ion-label position="floating">Preferred Name</ion-label>
+                <ion-input formControlName='preferredName'></ion-input>
+            </ion-item>
+            <div class="error" *ngIf="showValidationError('preferredName', 'required')">
+                Preferred Name is required
+            </div>
+            <div class="error" *ngIf="showValidationError('preferredName', 'pattern')">
+                Preferred Name must start with a letter, and may only contain letters, spaces, hyphens, apostrophes, commas and period characters
+            </div>
+            <!-- Full name -->
+            <ion-item class="input" [class.ng-touched]="userForm.get('fullName').errors && userForm.get('fullName').touched">
+                <ion-label position="floating">Full Name</ion-label>
+                <ion-input formControlName="fullName"></ion-input>
+            </ion-item>
+            <div class="error" *ngIf="showValidationError('fullName', 'required')">
+                Full Name is required
+            </div>
+
+            <div class="error" *ngIf="showValidationError('fullName', 'pattern')">
+                Full Name must start with a letter, and may only contain letters, spaces, hyphens, apostrophes, commas and period characters
+            </div>
+
+
+            <!-- Personal email -->
+            <ion-item class="input" [class.ng-touched]="userForm.get('email').errors && userForm.get('email').touched">
+                <ion-label position="floating">Personal Email</ion-label>
+                <ion-input formControlName="email" type="email"></ion-input>
+            </ion-item>
+            <div class="error" *ngIf="showValidationError('email', 'required')">
+                Your email is required
+            </div>
+
+            <div class="error" *ngIf="showValidationError('email', 'email')">
+                Your email must be a valid email address
+            </div>
+
+
+            <!-- Work email -->
+            <ion-item class="input" [class.ng-touched]="userForm.get('alternativeEmail').errors && userForm.get('alternativeEmail').touched">
+                <ion-label position="floating">Alternative Email</ion-label>
+                <ion-input formControlName="alternativeEmail" type="email"></ion-input>
+            </ion-item>
+            <div class="error" *ngIf="showValidationError('alternativeEmail', 'email')">
+                Your alternative email must be a valid email address
+            </div>
+
+
+            <!-- Mobile phone -->
+            <ion-item class="input" [class.ng-touched]="userForm.get('mobilePhone').errors && userForm.get('mobilePhone').touched">
+                <ion-label position="floating">Mobile Phone</ion-label>
+                <ion-input formControlName="mobilePhone" type="tel"></ion-input>
+            </ion-item>
+            <div class="error" *ngIf="showValidationError('mobilePhone', 'pattern')">
+                Must be a valid australian mobile number (e.g. 04 xxxx xxxx, +61 4 xxxx xxxx, 05 xxxx xxxx, or +61 5
+                xxxx xxxx)
+            </div>
+
+            <!-- Home phone -->
+            <ion-item class="input" [class.ng-touched]="userForm.get('preferredName').errors && userForm.get('homePhone').touched">
+                <ion-label position="floating">Home Phone</ion-label>
+                <ion-input formControlName="homePhone" type="tel"></ion-input>
+            </ion-item>
+            <div class="error" *ngIf="showValidationError('homePhone', 'pattern')">
+                Must be a valid australian phone number (e.g. 0x xxxx xxxx, or +61 x xxxx xxxx)
+            </div>
+
+            <!-- Work phone -->
+            <ion-item class="input" [class.ng-touched]="userForm.get('workPhone').errors && userForm.get('workPhone').touched">
+                <ion-label position="floating">Work Phone</ion-label>
+                <ion-input formControlName="workPhone" type="tel"></ion-input>
+            </ion-item>
+            <div class="error" *ngIf="showValidationError('workPhone', 'pattern')">
+                Must be a valid australian phone number (e.g. 0x xxxx xxxx, or +61 x xxxx xxxx)
+            </div>
+
+        </ion-list>
+    </form>
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">
+            {{ errorMessage }}
+        </p>
+    </div>
+</ion-content>

@@ -1,0 +1,47 @@
+<ion-content>
+    <div class="filter-wrapper">
+        <div class="filter-head">
+            <ion-title>{{filterTitle}}</ion-title>
+        </div>
+        <div class="filter-content">
+            <form [formGroup]='filterForm'>
+                <ion-list lines="none" inset="true">
+                    <ion-item class="input">
+                        <ion-label position="stacked">Created After</ion-label>
+                        <ion-input formControlName="createdAfter" type="date" (ionChange)='determineWhetherApplyButtonShouldBeEnabled()'></ion-input>
+                    </ion-item>
+                    <ion-item class="input">
+                        <ion-label position="stacked">Created Before</ion-label>
+                        <ion-input formControlName="createdBefore" type="date" (ionChange)='determineWhetherApplyButtonShouldBeEnabled()'></ion-input>
+                    </ion-item>
+                    <ion-list-header *ngIf="getControls('statusList').length > 0">
+                        <ion-label>{{statusTitle}}</ion-label>
+                    </ion-list-header>                    
+
+                    <ion-item formArrayName="statusList" *ngFor="let control of getControls('statusList'); index as i">
+                        <ion-label class="checkbox-label">{{statuses[i].name}}</ion-label>
+                        <ion-checkbox slot='start' [formControlName]="i" (ionChange)='determineWhetherApplyButtonShouldBeEnabled()'></ion-checkbox>
+                    </ion-item>
+                    <ng-container *ngIf="userType == 'Client'">
+                        <ion-list-header>
+                            <ion-label>Client's Option</ion-label>
+                        </ion-list-header>
+                        <ion-item>
+                            <ion-label class="checkbox-label">Include Test Data</ion-label>
+                            <ion-checkbox slot='start' formControlName="includeTestData" (ionChange)='determineWhetherApplyButtonShouldBeEnabled()'>
+                            </ion-checkbox>
+                        </ion-item>
+                    </ng-container>
+                </ion-list>
+            </form>
+        </div>
+        <div class="filter-buttons">
+            <ion-button fill='clear' strong="true" (click)='cancel()'>
+                Cancel
+            </ion-button>
+            <ion-button fill='clear' strong="true" [disabled]='nullValues' (click)='applyChanges()'>
+                Apply
+            </ion-button>
+        </div>
+    </div>
+</ion-content>

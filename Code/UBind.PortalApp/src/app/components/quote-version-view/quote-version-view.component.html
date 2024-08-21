@@ -1,0 +1,26 @@
+<loader *ngIf="isLoadingVersions"></loader>
+<ng-container *ngIf="!isLoadingVersions && !versionsErrorMessage">
+    <ion-list class="entity-list" *ngIf="quoteVersionList?.length > 0" lines="none">
+        <div *ngFor="let quoteVersionItem of quoteVersionList">
+            <ion-item (click)="gotoVersionDetail(quoteVersionItem)" button>
+                <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="calculator" svgIcon="calculator"></mat-icon>
+                <ion-label>
+                    <div class="list-title"> Version {{ quoteVersionItem.quoteVersionNumber }} </div>
+                    <p class="status">{{ quoteVersionItem.createdDate }}</p>
+                </ion-label>
+                <ion-label slot="end" class="grayed-label ion-text-end">
+                    <div class="list-title" *ngIf="quoteVersionItem.quoteNumber" >
+                        {{ quoteVersionItem.referenceNumber }}
+                    </div>
+                    <p class="status">{{ quoteVersionItem.lastModifiedTime || quoteVersionItem.createdTime }}</p>
+                </ion-label>
+            </ion-item>
+        </div>
+    </ion-list>
+<div *ngIf="quoteVersionList?.length == 0" class="tab-content content-error" [@contentAnimation]>
+    <p class="ion-text-center">No versions found</p>
+</div>
+</ng-container>
+<div *ngIf="versionsErrorMessage" class="tab-content content-error" [@contentAnimation]>
+    <p class="ion-text-center">{{ versionsErrorMessage }}</p>
+</div>

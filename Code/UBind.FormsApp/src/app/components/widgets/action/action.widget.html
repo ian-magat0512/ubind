@@ -1,0 +1,79 @@
+<ng-container *ngIf="applicationService.debug">
+    <p class="debug">
+        <span class="debug-property">
+            <span class="key">Action Button:</span><span class="value"> {{ name }}</span>
+        </span>
+        <span class="debug-property">
+            <span class="key">Primary:</span><span class="value"> {{ primary }}</span>
+        </span>
+        <span class="debug-property" *ngIf="autoTriggerExpression">
+            <span class="key">Auto Triggered:</span><span class="value"> {{ autoTriggered }}</span>
+        </span>
+        <span class="debug-property" *ngIf="changeApplicationModeTo">
+            <span class="key">Change Application Mode To:</span><span class="value"> {{ changeApplicationModeTo }}</span>
+        </span>
+        <span class="debug-property" *ngIf="!render">
+            <span class="key">Hidden:</span><span class="value"> {{ !render }}</span>
+        </span>
+        <span class="debug-property" *ngIf="(hiddenExpressionSource && applicationService.debugLevel >= 3) || applicationService.debugLevel >= 4">
+            <span class="key">Hidden Expression:</span><span class="value"> {{ hiddenExpressionSource }}</span>
+        </span>
+        <span class="debug-property" *ngIf="!render">
+            <span class="key">Disabled:</span><span class="value"> {{ disabled }}</span>
+        </span>
+        <span class="debug-property" *ngIf="(disabledExpressionSource && applicationService.debugLevel >= 3) || applicationService.debugLevel >= 4">
+            <span class="key">Disabled Expression:</span><span class="value"> {{ disabledExpressionSource }}</span>
+        </span>
+        <span class="debug-property" *ngIf="!render">
+            <span class="key">Busy:</span><span class="value"> {{ busy }}</span>
+        </span>
+        <span class="debug-property" *ngIf="(disabledExpressionSource && applicationService.debugLevel >= 3) || applicationService.debugLevel >= 4">
+            <span class="key">Busy Expression:</span><span class="value"> {{ busyExpressionSource }}</span>
+        </span>
+        <span class="debug-property" *ngIf="(autoTriggerExpressionSource && applicationService.debugLevel >= 3) || applicationService.debugLevel >= 4">
+            <span class="key">Auto Trigger Expression:</span><span class="value"> {{ autoTriggerExpressionSource }}</span>
+        </span>
+        <span class="debug-property" *ngIf="applicationService.debugLevel >= 2">
+            <span class="key">Location:</span><span class="value"> {{ location }}</span>
+        </span>
+        <span class="debug-property" *ngIf="applicationService.debugLevel >= 3">
+            <span class="key">Widget Position:</span><span class="value"> {{ widgetPosition }}</span>
+        </span>
+    </p>
+</ng-container>
+<button [id]="cssPrefix + name | cssIdentifier"
+        *ngIf="render"
+        [class.btn]="true"
+        [class.btn-primary]="primary"
+        [class.btn-secondary]="!primary"
+        [class.btn-active]="active"
+        [class.disabled]="disabled"
+        [class.busy]="busy"
+        [disabled]="disabled && !applicationService.debug"
+        (click)="onActionClick()"
+        [class]="cssClass"
+        [class.has-icon]="usedIcon || active">
+   
+    <div class="btn-icon-swap">
+        <div class="btn-icon btn-icon-active btn-icon-loader"
+             [id]="'btn-icon-loader-' + cssPrefix + name | cssIdentifier">
+            <svg *ngIf="!isIE11" class="spinner" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"
+                 [id]="'preloader-' + cssPrefix + name | cssIdentifier">
+                <circle class="circle" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+            </svg>
+            <svg *ngIf="isIE11" class="spinner ie" viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg"
+                 [id]="'preloader-' + cssPrefix + name | cssIdentifier">
+                <circle class="circle" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+            </svg>
+        </div>
+
+        <div *ngIf="usedIcon" class="btn-icon btn-icon-inactive btn-icon-icon"
+             [id]="'btn-icon-icon-' + cssPrefix + name | cssIdentifier">
+            <span class="{{ usedIcon }}"></span>
+        </div>
+    </div>
+
+    <ng-content></ng-content>
+
+    <span class="btn-label">{{ usedLabel }}</span>
+</button>

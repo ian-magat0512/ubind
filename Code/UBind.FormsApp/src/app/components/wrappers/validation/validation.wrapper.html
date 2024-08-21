@@ -1,0 +1,4 @@
+<ng-container #fieldComponent></ng-container>
+<div *ngIf="showError && field.formControl.errors != null">
+    <small class="text-muted text-danger" role="alert" [id]="validationId"><formly-validation-message [field]="field"></formly-validation-message></small>
+</div>

@@ -1,0 +1,71 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ion-buttons id="menu-btn" slot="start">
+            <ion-menu-toggle *ngIf="!layoutManager.canShowFixedMenu()">
+                <ion-button>
+                    <ion-icon slot="icon-only" name="menu"></ion-icon>
+                </ion-button>
+            </ion-menu-toggle>
+        </ion-buttons>
+        <ion-title *ngIf="!layoutManager.isMenuExpanded()" [style.margin-left]="layoutManager.isMenuDisabled() ? '16px' : '0px'" [class.has-portal-title]="hasPortalTitle">
+            <span class="logo"></span>
+            <span class="tenant-name">{{ tenantName }}</span>
+            <span class="organisation-name">{{ organisationName }}</span>
+            <span class="portal-title">{{ portalTitle }}</span>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <div class="card-container">    
+        <ng-container *ngIf="!(hasPolicyFeature && policiesForRenewal.length != 0) else policyRenewalCard"></ng-container>
+        <ng-container *ngIf="!hasPolicyFeature else policyCard"></ng-container>
+        <ng-container *ngIf="!hasClaimFeature else claimCard"></ng-container>
+        <ng-container *ngIf="!hasQuoteFeature else quoteCard"></ng-container>  
+    </div>
+
+    <ng-template #policyRenewalCard>
+        <app-customer-policy-for-renewal-card
+        *ubAllowAccess="[permission.ViewPolicies, permission.ViewAllPolicies, permission.ViewAllPoliciesFromAllOrganisations]"
+        [permission] ="permission"
+        [policiesForRenewal] ="policiesForRenewal"
+        [isLoading] = "isRenewalPolicyLoading">
+        </app-customer-policy-for-renewal-card>
+    </ng-template>
+      
+    <ng-template #policyCard>
+        <app-customer-policy-card 
+        *ubAllowAccess="[permission.ViewPolicies, permission.ViewAllPolicies, permission.ViewAllPoliciesFromAllOrganisations]"
+        [permission] ="permission"
+        [policies] ="policies"
+        [isLoading] =  "isPolicyLoading"
+        (userDidTapRowEmitter) ="userDidTapPolicy($event)"
+        (userDidTapInactiveEntityEmitter) = "userDidTapInactivePolicies()">
+        </app-customer-policy-card>
+    </ng-template>
+
+    <ng-template #claimCard>
+        <app-customer-claim-card
+        *ubAllowAccess="[permission.ViewClaims, permission.ViewAllClaims, permission.ViewAllClaimsFromAllOrganisations]"
+        [permission] ="permission"
+        [claims] ="claims"
+        [policies] ="policies"
+        [isLoading] =  "isClaimsLoading"
+        (userDidTapRowEmitter) ="userDidTapClaim($event)"
+        (userDidTapInactiveEntityEmitter) = "userDidTapInactiveClaims()"
+        (userDidTapNewEntityEmitter) = "userDidTapNewClaim()">
+        </app-customer-claim-card>
+    </ng-template>
+
+    <ng-template #quoteCard>
+        <app-customer-quote-card
+        *ubAllowAccess="[permission.ViewQuotes, permission.ViewAllQuotes, permission.ViewAllQuotesFromAllOrganisations]"
+        [permission] ="permission"
+        [quotes] ="quotes"
+        [isLoading] =  "isQuoteLoading"
+        (userDidTapRowEmitter) ="userDidTapQuote($event)"
+        (userDidTapInactiveEntityEmitter) = "userDidTapOlderQuotes()"
+        (userDidTapNewEntityEmitter) = "userDidTapNewQuote()"
+        ></app-customer-quote-card>
+    </ng-template>
+
+</ion-content>

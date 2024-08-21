@@ -1,0 +1,190 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf='!layoutManager.splitPaneVisible then detailHeader'></ng-container>
+    </ion-toolbar>
+    <ng-container *ngIf='!layoutManager.splitPaneVisible then segmentList'></ng-container>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ng-container *ngTemplateOutlet="detailHeader"></ng-container>
+    </ion-toolbar>
+
+    <ng-container *ngIf='layoutManager.splitPaneVisible then segmentList'></ng-container>
+
+    <div [ngSwitch]="segment">
+
+        <!--Details tab-->
+        <div *ngSwitchCase="'Details'">
+            <loader *ngIf='isLoading'></loader>
+            <div *ngIf="!isLoading && !errorMessage">
+                <app-entity-details-list [@contentAnimation]
+                                         [detailsListItems]="detailsListItems"
+                                         [hasItemLines]="false"
+                                         [hasGroupLines]="true"
+                                         [truncateDescription]="true">
+                </app-entity-details-list>
+            </div>
+            <!--error-->
+            <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+                <p text-center>{{ errorMessage }}</p>
+            </div>
+        </div>
+
+        <!--Settings tab-->
+        <div *ngSwitchCase="'Settings'" class="tab-content" [@contentAnimation]>
+            <loader *ngIf='isLoadingSettings'></loader>
+            <div *ngIf="!isLoadingSettings && !settingsErrorMessage">
+                <ion-list lines="none" class="entity-list">
+                    <ion-list-header>
+                        <ion-label>
+                            <strong>Styling</strong>
+                        </ion-label>
+                    </ion-list-header>
+                    <ion-item (click)="editStyling()" class="item item-link" button>
+                        <ion-icon slot="start" name="brush" size="large"></ion-icon>
+                        <ion-label>
+                            <span>Portal Theme</span>
+                            <p class="status">Set a custom stylesheet or inline styles</p>
+                        </ion-label>
+                    </ion-item>
+
+                    <ion-list-header *ngIf="emailTemplateSettings && emailTemplateSettings.length > 0">
+                        <ion-label>
+                            <strong>Email Templates</strong>
+                        </ion-label>
+                    </ion-list-header>
+                    <ion-item *ngFor="let emailTemplateSetting of emailTemplateSettings; let i = index"
+                              class="item item-link no-border-bottom">
+                        <library-icon name="mail" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+                        <ion-label (click)="userDidTapTemplateItem(emailTemplateSetting)"
+                                   tabindex="0" role="link" class="link"
+                                   (keydown.enter)="userDidTapTemplateItem(emailTemplateSetting)"
+                                   (keydown.space)="userDidTapTemplateItem(emailTemplateSetting)">
+                            <div>{{emailTemplateSetting.name}}</div>
+                            <p class="status">{{emailTemplateSetting?.subject}}</p>
+                        </ion-label>
+                        <ion-toggle color="primary" name="email-template-setting-{{i}}" 
+                            [ngModel]="!emailTemplateSetting.disabled"
+                            (ngModelChange)="userDidChangeEmailTemplateStatus($event, emailTemplateSetting)">
+                        </ion-toggle>
+                    </ion-item>
+
+                    <ion-list-header *ngIf="productPortalSettings && productPortalSettings.length > 0">
+                        <ion-label>
+                            <strong>Allow New Quotes For Products</strong>
+                        </ion-label>
+                    </ion-list-header>
+                    <ion-item *ngFor="let setting of productPortalSettings" class="item item-link no-border-bottom">
+                        <library-icon name="cube" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+                        <ion-label>
+                            <div>{{setting.name}}</div>
+                            <p class="status">{{ setting.isNewQuotesAllowed ? "Enabled" : "Disabled" }}</p>
+                        </ion-label>
+                        <ion-toggle color="primary" (ionChange)="productPortalSettingChanged($event, setting)"
+                                    checked="{{ setting.isNewQuotesAllowed }}"></ion-toggle>
+                    </ion-item>
+
+                    <ion-list-header *ngIf="portal.userType == PortalUserType.Customer">
+                        <ion-label>
+                            <strong>Customer User Accounts</strong>
+                        </ion-label>
+                    </ion-list-header>
+                    <ion-item *ngIf="portal.userType == PortalUserType.Customer">
+                        <library-icon name="person" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+                        <ion-label>
+                            <div>Allow Creation From Login Page</div>
+                            <p class="status">{{ allowCustomerSelfAccountCreation ? "Enabled" : "Disabled" }}</p>
+                        </ion-label>
+                        <ion-toggle color="primary" (ionChange)="accountCreationSettingChanged($event)"
+                            [checked]="allowCustomerSelfAccountCreation"></ion-toggle>
+                    </ion-item>
+
+                    <ion-list-header>
+                        <ion-label>
+                            <strong>Portal Location</strong>
+                        </ion-label>
+                    </ion-list-header>
+                    <ion-item (click)="editDevelopmentUrl()" class="item item-link" button>
+                        <library-icon name="browsers" [library]="iconLibrary.IonicV4" size="large" slot="start"></library-icon>
+                        <ion-label>
+                            <span>Development</span>
+                            <p class="status">{{ developmentUrl }}</p>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item (click)="editStagingUrl()" class="item item-link" button>
+                        <library-icon name="browsers" [library]="iconLibrary.IonicV4" size="large" slot="start"></library-icon>
+                        <ion-label>
+                            <span>Staging</span>
+                            <p class="status">{{ stagingUrl }}</p>
+                        </ion-label>
+                    </ion-item>
+                    <ion-item (click)="editProductionUrl()" class="item item-link" button>
+                        <library-icon name="browsers" [library]="iconLibrary.IonicV4" size="large" slot="start"></library-icon>
+                        <ion-label>
+                            <span>Production</span>
+                            <p class="status">{{ productionUrl }}</p>
+                        </ion-label>
+                    </ion-item>
+
+                    <ion-list-header>
+                        <ion-label>
+                            <strong>Sign-In Methods</strong>
+                        </ion-label>
+                    </ion-list-header>
+                    <loader class="compact" *ngIf="isLoadingSignInMethods"></loader>
+                    <ng-container *ngIf="!isLoadingSignInMethods">
+                        <ion-item (click)="signInMethodsClicked($event)" button>
+                            <mat-icon class="mat-icon-md sso-icon" aria-hidden="false" aria-label="card-account-details icon" 
+                                    svgIcon="card-account-details"></mat-icon>
+                            <ion-label>
+                                Single Sign-On
+                                <br>
+                                <p class="status">{{enabledSignInMethodsCount > 0 ? enabledSignInMethodsCount : 'No' }} enabled sign-in methods</p>
+                            </ion-label>
+                        </ion-item>
+                    </ng-container>
+
+                </ion-list>
+            </div>
+            <!--error-->
+            <div *ngIf="settingsErrorMessage" class="tab-content content-error" [@contentAnimation]>
+                <p text-center>{{ settingsErrorMessage }}</p>
+            </div>
+        </div>
+        
+    </div>
+</ion-content>
+
+<ng-template #detailHeader>
+    <ion-buttons *ngIf="!layoutManager.splitPaneVisible || canGoBack" slot="start">
+        <ion-button slot="icon-only" (click)="goBack()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="end">
+        <ng-container>
+            <app-entity-action-button-list
+                [actionButtonList]="actionButtonList"
+                [getMoreButtonCallback]="presentPopover.bind(this)"
+                [canShowMore]="canShowMore"
+                [flipMoreIcon]="flipMoreIcon">
+            </app-entity-action-button-list>
+        </ng-container>
+    </ion-buttons>
+</ng-template>
+
+<ng-template #segmentList>
+    <ion-segment scrollable="true" [value]="segment"
+                (ionChange)="segmentChanged($event)"
+                 scrollHorizontal scrollMousedrag
+                 [segmentSelectedScrollIntoView]="segment">
+        <ion-segment-button ionSegmentButtonEvent value="Details">
+            <ion-label>Details</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent *ubAllowAccess="permission.ManagePortals" value="Settings">
+            <ion-label>Settings</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+</ng-template>

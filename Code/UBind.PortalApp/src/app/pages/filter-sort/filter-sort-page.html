@@ -1,0 +1,10 @@
+<app-detail-list-item-edit-form
+    class="detail-list-item-edit-form"
+    [title]="filterSortTitle"
+    [items]="filterSortDetails"
+    [editForm]="filterSortForm"
+    [fieldsOptions]="fieldOptions"
+    [saveTitle]="saveTitle"
+    [isLoading]="false"
+    (saveForm)="applyChanges($event)"
+    (closeForm)="returnToPrevious()"></app-detail-list-item-edit-form>

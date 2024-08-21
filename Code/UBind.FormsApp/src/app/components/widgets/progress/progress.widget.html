@@ -1,0 +1,106 @@
+<nav id="progress-bar" *ngIf="include && initialised" [attr.aria-label]="'progress-bar'"
+    [@progressBarAnimation]="visibleState"
+    [class.show-visuals]="progressWidgetSettings.showVisuals"
+    [class.no-visuals]="!progressWidgetSettings.showVisuals"
+    [class.show-numbers]="progressWidgetSettings.showNumbers"
+    [class.show-icons]="progressWidgetSettings.showIcons"
+    [class.equal-width-steps]="progressWidgetSettings.useEqualWidthSteps"
+    [class.show-line-for-last-step]="showLineForLastStep"
+    [class.show-line-for-collapsed-steps]="showLineForCollapsedSteps"
+    [class.hide-line-for-collapsed-steps]="!showLineForCollapsedSteps"
+    [style.--progress-widget-active-color]="progressWidgetSettings.activeColor"
+    [style.--progress-widget-active-fade-out-color]="progressWidgetSettings.activeFadeOutColor"
+    [style.--progress-widget-past-color]="progressWidgetSettings.pastColor"
+    [style.--progress-widget-past-fade-out-color]="progressWidgetSettings.pastFadeOutColor"
+    [style.--progress-widget-future-color]="progressWidgetSettings.futureColor"
+    [style.--progress-widget-future-fade-out-color]="progressWidgetSettings.futureFadeOutColor"
+    [style.--progress-widget-symbol-container-size]="progressWidgetSettings.symbolContainerSize"
+    [style.--progress-widget-empty-symbol-container-size]="progressWidgetSettings.emptySymbolContainerSize"
+    [style.--progress-widget-line-thickness]="progressWidgetSettings.lineThickness"
+    [style.--progress-widget-icon-color]="progressWidgetSettings.iconColor"
+    [style.--progress-widget-number-color]="progressWidgetSettings.numberColor"
+    [style.--progress-widget-icon-font-size]="progressWidgetSettings.iconFontSize"
+    [style.--progress-widget-number-font-size]="progressWidgetSettings.numberFontSize"
+    [style.--progress-widget-number-font-weight]="progressWidgetSettings.numberFontWeight"
+    [style.--progress-widget-number-font-family]="progressWidgetSettings.numberFontFamily"
+    [style.--progress-widget-symbol-container-margin]="progressWidgetSettings.symbolContainerMargin"
+    [style.--progress-widget-symbol-container-border-radius]="progressWidgetSettings.symbolContainerBorderRadius"
+    [style.--progress-widget-collapsed-step-line-width]="collapsedStepLineWidth"
+>
+    <div *ngIf="!progressWidgetSettings.showVisuals && showLeftStepsTruncatedIndicator" class="steps-truncated steps-truncated-left">
+        <h4 [class.inactive]='true' [attr.aria-hidden]="true">
+            <i class="fa fa-chevron-left steps-truncated-icon"></i>
+        </h4>
+    </div>
+
+    <ng-container *ngFor="let item of progressSteps">
+        <div *ngIf="item.render && !item.truncated"
+            [class.tab]="true"
+            [class.progress-step]="true"
+            [class.first]="item.first"
+            [class.last]="item.last"
+            [class.has-next]="item.hasNext"
+            [class.has-previous]="item.hasPrevious"
+            [class.active]="item.active"
+            [class.inactive]="!item.active"
+            [class.next-truncated]="item.hasNext && item.nextTruncated"
+            [class.previous-truncated]="item.hasPrevious && item.previousTruncated"
+            [class.next-active]="item.hasNext && item.nextActive"
+            [class.previous-active]="item.hasPrevious && item.previousActive"
+            [class.next-inactive]="item.hasNext && !item.nextActive"
+            [class.previous-inactive]="item.hasPrevious && !item.previousActive"
+            [class.future]="item.future" 
+            [class.past]="item.past"
+            [class.debug]="applicationService.debug" 
+            [class.can-navigate]="item.canClickToNavigate"            
+            >
+            <div *ngIf="progressWidgetSettings.showVisuals" class="progress-step-visual-container">
+                <div class="progress-step-line-container before-symbol">
+                    <div class="progress-step-line">
+                        <div *ngIf="item.previousActive && progressWidgetSettings.showCompletion"
+                            class="completion-line"
+                            [style.width.%]="completionLinePart2WidthPercent"
+                        ></div>
+                    </div>
+                </div>
+                <div [class.progress-step-symbol-container]="true"
+                     [class.clickable]="item.canClickToNavigate" (click)="onProgressStepClick(item)">
+                    <div class="progress-step-symbol">
+                        <i *ngIf="progressWidgetSettings.showIcons && item.icon"
+                            class="progress-step-icon {{ item.icon }}"
+                        ></i>
+                        <span *ngIf="progressWidgetSettings.showNumbers 
+                            && (!progressWidgetSettings.showIcons || !item.icon)"
+                            class="progress-step-number"
+                        >{{ item.renderIndex + 1 }}</span>
+                    </div>
+                </div>
+                <div class="progress-step-line-container after-symbol">
+                    <div class="progress-step-line">
+                        <div *ngIf="item.active && progressWidgetSettings.showCompletion"
+                            class="completion-line"
+                            [class.fade-out]="item.nextTruncated && stepPercentageComplete > 50.0"
+                            [style.width.%]="item.nextTruncated ? stepPercentageComplete : completionLinePart1WidthPercent"
+                        ></div>
+                    </div>
+                </div>
+            </div>
+            <div class="progress-step-heading-container">
+                <h4 [class.active]="item.active"
+                    [class.inactive]="!item.active"
+                    [class.clickable]="item.canClickToNavigate"
+                    (click)="onProgressStepClick(item)">
+                <i *ngIf="item.titleIcon" [class]="item.titleIcon"></i>
+                {{ item.title }}
+            </h4>
+            </div>
+        </div>
+    </ng-container>
+
+    <div *ngIf="!progressWidgetSettings.showVisuals && showRightStepsTruncatedIndicator"
+        class="steps-truncated steps-truncated-right">
+        <h4 [class.inactive]='true' [attr.aria-hidden]="true">
+            <i class="fa fa-chevron-right steps-truncated-icon"></i>
+        </h4>
+    </div>
+</nav>

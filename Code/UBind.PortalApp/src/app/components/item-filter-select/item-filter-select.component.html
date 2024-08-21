@@ -1,0 +1,26 @@
+<div class="container">
+    <mat-form-field>
+        <input matInput [placeholder]="placeholder" (keyup)="onFilterChanged($event.target.value)" />
+    </mat-form-field>
+
+    <mat-radio-group aria-label="Select an item">
+        <mat-radio-button *ngFor="let item of filteredItems"
+                        [value]="item"
+                        (change)="onItemSelected(item)">
+            <div class="item-label-container">
+                <mat-icon *ngIf="item.iconLibrary == IconLibrary.AngularMaterial"
+                        class="mat-icon-md"
+                        aria-hidden="false"
+                        [attr.aria-label]="item.icon"
+                        svgIcon="{{item.icon}}"></mat-icon>
+                <ion-icon *ngIf="item.iconLibrary == IconLibrary.Ionic"
+                        slot="start"
+                        name="{{item.icon}}"
+                        size="large"></ion-icon>
+                <i *ngIf="item.iconLibrary == IconLibrary.FontAwesome"
+                class="fa {{item.icon}}"></i>
+                <span class="item-label">{{ item.name }}</span>
+            </div>
+        </mat-radio-button>
+    </mat-radio-group>
+</div>

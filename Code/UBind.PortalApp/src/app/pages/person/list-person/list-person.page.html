@@ -1,0 +1,31 @@
+﻿<app-entity-list [title]="title"
+                 [listItemNamePlural]="'people'"
+                 [entityRouteParamName]="'personId'"
+                 [entityLoaderService]="personService"
+                 [viewModelConstructor]="viewModelConstructor"
+                 [itemTemplate]="peopleListItemTemplate"
+                 [entityTypeName]="'Person'"
+                 [sortOptions]="sortOptions"
+                 [filterByDates]="filterByDates"
+                 [itemSelectedHandler]="itemSelected.bind(this)"
+                 [getDefaultHttpParamsCallback]="getDefaultHttpParams.bind(this)"
+                 (listQueryParamsGenerated)="onListQueryParamsGenerated($event)"
+                 [additionalActionButtonList]="additionalActionButtonList"
+                 [entityPathSegment]="'person'"
+                 [ngStyle]="{'height': '100%'}">
+</app-entity-list>
+
+<ng-template #peopleListItemTemplate let-item>
+    <div class="round-icon-container person">
+        <library-icon name="person" [library]="iconLibrary.IonicV5" [slot]="'start'" [cssClass]="'round-icon'" class="round-icon"></library-icon>
+    </div>
+    <ion-label class="ion-text-wrap">
+        <div>{{item.fullName}}</div>
+        <p class="status"
+           [innerHTML]="item.id == primaryPersonId 
+                ? item.description
+                    ? item.description + ' · Primary' 
+                    : 'Primary'
+                : item.description"></p>
+    </ion-label>
+</ng-template>

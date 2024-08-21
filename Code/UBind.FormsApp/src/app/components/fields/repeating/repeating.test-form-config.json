@@ -1,0 +1,87 @@
+{
+    "version": "2.0.0",
+    "form": {
+        "defaultCurrencyCode": "AUD",
+        "questionSets": [{
+                "name": "Rating Primary",
+                "key": "ratingPrimary",
+                "fields": [{
+                        "$type": "repeating",
+                        "questionSetNameToRepeat": "Test Repeating",
+                        "questionSetKeyToRepeat": "testRepeating",
+                        "displayRepeatingInstanceHeading": true,
+                        "repeatingInstanceName": "Test Repeating",
+                        "repeatingInstanceHeadingLevel": 3,
+                        "displayMode": "list",
+                        "displayable": true,
+                        "startsNewRow": false,
+                        "startsNewRevealGroup": false,
+                        "label": "Test Repeating",
+                        "name": "Test Repeating",
+                        "key": "testRepeating",
+                        "questionSetKey": "ratingPrimary",
+                        "dataType": "repeating",
+                        "minimumQuantityExpression": "1"
+                    }
+                ]
+            }
+        ],
+        "repeatingQuestionSets": [{
+                "repeatingFieldKey": "testRepeating",
+                "name": "Test Repeating",
+                "key": "testRepeating",
+                "fields": [{
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "required": true,
+                        "autoTriggerCalculatedValue": true,
+                        "affectsPremium": false,
+                        "affectsTriggers": false,
+                        "requiredForCalculations": false,
+                        "private": false,
+                        "displayable": true,
+                        "canChangeWhenApproved": false,
+                        "resetForNewQuotes": false,
+                        "calculationWorkbookCellLocation": {
+                            "sheetIndex": 2,
+                            "rowIndex": 7,
+                            "colIndex": 9
+                        },
+                        "startsNewRow": true,
+                        "startsNewRevealGroup": false,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "bootstrapColumnsSmall": 6,
+                        "bootstrapColumnsMedium": 6,
+                        "bootstrapColumnsLarge": 6,
+                        "label": "First Name",
+                        "name": "First Name",
+                        "key": "firstName",
+                        "questionSetKey": "testRepeating",
+                        "dataType": "text",
+                        "workflowRole": "none"
+                    }
+                ]
+            }
+        ],
+        "textElements": [],
+        "workflowConfiguration": {
+            "purchaseQuote": {
+                "startScreenExpression": "true",
+                "articles": [
+                    {
+                        "heading": "ratingHeading",
+                        "text": "ratingText",
+                        "elements": [
+                            {
+                                "type": "questions",
+                                "name": "ratingPrimary"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "triggers": [],
+    "calculatesUsingStandardWorkbook": true
+}

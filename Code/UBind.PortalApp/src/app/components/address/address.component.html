@@ -1,0 +1,72 @@
+﻿<form [formGroup]="form">
+    <ion-row>
+        <ion-col size-xs="12" size-sm="8" size-md="12" size-lg="8" class="form-repeating-label-col">
+            <ion-item>
+                <ion-label class="gray-label item-input-label" [class.item-invalid]="form.get('address').errors && form.get('address').touched" position="stacked">
+                    Address
+                </ion-label>
+                <ion-input class="item-input-field" formControlName="address" [id]="name + 'address'" type="text" (keyup)="onAddressKeyup('address',$event)" (ionBlur)="onAddressBlur('address')"></ion-input>
+                <div class="error-container">
+                    <div class="error validation-label" *ngIf="form.get('address').errors && !form.get('address').hasError('required') && form.get('address').touched">
+                        Not a valid street address
+                    </div>
+                    <div class="error validation-label" *ngIf="form.get('address').hasError('required') && form.get('address').touched">
+                        Street address is required
+                    </div>
+                </div>
+            </ion-item>
+        </ion-col>
+        <ion-col size-xs="12" size-sm="4" size-md="12" size-lg="4" class="form-repeating-label-col">
+            <ion-item>
+                <ion-label class="gray-label item-input-label" [class.item-invalid]="form.get('suburb').errors && form.get('suburb').touched" position="stacked">
+                    Suburb
+                </ion-label>
+                <ion-input formControlName="suburb" [id]="name + 'suburb'" class="item-input-field" type="text" (keyup)="onAddressKeyup('suburb',$event)" (ionBlur)="onAddressBlur('suburb')"></ion-input>
+                <div class="error-container">
+                    <div class="error validation-label" *ngIf="form.get('suburb').errors && !form.get('suburb').hasError('required') && form.get('suburb').touched">
+                        Not a valid suburb name
+                    </div>
+                    <div class="error validation-label" *ngIf="form.get('suburb').hasError('required') && form.get('suburb').touched">
+                        Suburb is required
+                    </div>
+                </div>
+            </ion-item>
+        </ion-col>
+        <ion-col size-xs="6" size-sm="4" size-md="6" size-lg="4" class="form-repeating-label-col form-select-label">
+
+            <mat-label class="select-label"
+                [class.item-invalid]="form.get('state').errors && form.get('state').touched" >State</mat-label>
+            <mat-form-field appearance="none">
+                <mat-select class="mat-item-select-field" formControlName="state" id="{{name + 'state'}}" 
+                (selectionChange)="onAddressKeyup('state',$event);onAddressBlur('postcode')" >
+                    <mat-option *ngFor="let option of stateOptions" value="{{ option.value }}" >
+                        {{option.label}}
+                    </mat-option>
+                </mat-select>
+                <mat-error *ngIf="form.get('state').hasError('required') && form.get('state').touched">
+                    State is required
+                </mat-error>
+            </mat-form-field>
+              
+        </ion-col>
+        <ion-col size-xs="6" size-sm="4" size-md="6" size-lg="4" class="form-repeating-label-col">
+            <ion-item>
+                <ion-label class="gray-label item-input-label" [class.item-invalid]="form.get('postcode').errors && form.get('postcode').touched" position="stacked">
+                    Postcode
+                </ion-label>
+                <ion-input class="item-input-field" formControlName="postcode" [id]="name + 'postcode'" type="text" (keyup)="onAddressKeyup('postcode',$event)" (ionBlur)="onAddressBlur('postcode')"></ion-input>
+                <div class="error-container">
+                    <div class="error validation-label" *ngIf="form.get('postcode').errors && !form.get('postcode').hasError('required') && form.get('postcode').touched">
+                        Postcode does not match selected state
+                    </div>
+                    <div class="error validation-label" *ngIf="form.get('postcode').hasError('required') && form.get('postcode').touched">
+                        Postcode is required
+                    </div>
+                </div>
+            </ion-item>
+        </ion-col>
+
+        <!--This is where content projection will be inserted-->
+        <ng-content></ng-content>
+    </ion-row>
+</form>

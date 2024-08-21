@@ -1,0 +1,24 @@
+<aside role="region" [id]="id | cssIdentifier" [@asideAnimation]="'in'" [attr.aria-label]="id">
+    <ng-container *ngIf="header">
+        <div class="header">
+            <div class="table">
+                <div class="cell" [innerHTML]="header | safeHtml"></div>
+            </div>
+        </div>
+    </ng-container>
+
+    <ng-container *ngIf="body">
+        <div class="body">
+            <div class="table">
+                <div class="cell" [innerHTML]="body | safeHtml"></div>
+            </div>
+        </div>
+    </ng-container>
+    <ng-container *ngIf="footer">
+        <div class="footer">
+            <div class="table">
+                <div class="cell" [innerHTML]="footer | safeHtml"></div>
+            </div>
+        </div>
+    </ng-container>
+</aside>

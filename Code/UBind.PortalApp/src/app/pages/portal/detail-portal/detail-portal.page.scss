@@ -1,0 +1,18 @@
+:host {
+    .item {
+        cursor: auto;
+
+        ion-label {
+            opacity: 1 !important;
+        }
+
+        .toggle-disabled {
+            opacity: 1 !important;
+        }
+    }
+
+    .item-link {
+        cursor: auto !important;
+    }
+}
+

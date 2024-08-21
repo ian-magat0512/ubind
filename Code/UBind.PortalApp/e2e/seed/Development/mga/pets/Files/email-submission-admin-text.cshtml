@@ -1,0 +1,20 @@
+@model UBind.Application.Export.ViewModels.ApplicationEventViewModel
+
+An online application has been completed for Pet Industry Insurance.
+
+@if (Model.Calculation["questions.paymentOptions.paymentOption"].ToString() == "Monthly") {
+    if (Model.Form["paymentMethod"] == "Visa" || Model.Form["paymentMethod"] == "Mastercard") {
+        @:The customer has selected to pay monthly using credit card. Please call @Model.Form["name"] on @if (Model.Form["mobile"] != "") { @Model.Form["mobile"] } else { @Model.Form["phone"] } to obtain the credit card details.
+    } else {
+        @:The customer has selected to pay monthly using Direct Debit. The bank details are included below
+    }
+} else {
+    @:The customer has selected to pay annually.
+}
+
+Application Details:
+
+@Model.Form.PrettyPrint()
+
+
+MGA Insurance Brokers

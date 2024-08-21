@@ -1,0 +1,278 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="start">
+            <ion-button id="arrow-back-ion-button" slot="icon-only" (click)="goBack()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="!layoutManager.splitPaneVisible && tenant != null">
+            {{tenant.name}}
+        </ion-title>
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="end">
+            <ng-container>
+                <app-entity-action-button-list
+                    [actionButtonList]="actionButtonList"
+                    [getMoreButtonCallback]="presentPopover.bind(this)"
+                    [canShowMore]="canShowMore"
+                    [flipMoreIcon]="flipMoreIcon">
+                </app-entity-action-button-list>
+            </ng-container>
+        </ion-buttons>
+    </ion-toolbar>
+    <ng-container *ngIf='!layoutManager.splitPaneVisible then segmentList'></ng-container>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ion-title *ngIf="tenant != null">
+            {{tenant.name}}
+        </ion-title>
+        <ion-buttons slot="end">
+            <ng-container>
+                <app-entity-action-button-list
+                    [actionButtonList]="actionButtonList"
+                    [getMoreButtonCallback]="presentPopover.bind(this)"
+                    [canShowMore]="canShowMore"
+                    [flipMoreIcon]="flipMoreIcon">
+                </app-entity-action-button-list>
+            </ng-container>
+        </ion-buttons>
+    </ion-toolbar>
+
+    <ng-container *ngIf='layoutManager.splitPaneVisible then segmentList || isLoading'></ng-container>
+
+    <div *ngIf="!isLoading && !errorMessage">
+        <div [ngSwitch]="segment">
+            <!--Details tab-->
+
+            <div *ngSwitchCase="'Details'">
+                <app-entity-details-list [@contentAnimation]
+                                         [detailsListItems]="detailsListItems"
+                                         [hasItemLines]="false"
+                                         [hasGroupLines]="true"
+                                         [truncateDescription]="true">
+                </app-entity-details-list>
+            </div>
+
+            <!--Settings tab-->
+            <div *ngSwitchCase="'Settings'" class="tab-content" [@contentAnimation]>
+                <loader *ngIf='isLoadingSettings'></loader>
+                <ng-container *ngIf="!isLoadingSettings && !settingsErrorMessage">
+                    <ion-list id="detail-tenant-settings-list" lines="none"
+                              class="detail-tenant-settings-list settings-list">
+                        <ion-list-header>
+                            <ion-label>
+                                <strong>Features</strong>
+                            </ion-label>
+                        </ion-list-header>
+
+                        <ion-item *ngFor="let feature of featureSettings">
+                            <library-icon name="{{feature.icon}}" 
+                                [library]="feature.iconLibrary" 
+                                [slot]="'start'" 
+                                [size]="'large'" 
+                                [cssClass]="feature.iconLibrary == iconLibrary.AngularMaterial ? 'mat-icon-md' : null">
+                            </library-icon>
+                            <ion-label>
+                                <div> {{feature.name}} </div>
+                                <p class="status">{{feature.disabled ? 'Disabled': 'Enabled'}}</p>
+                            </ion-label>
+                            <ion-toggle id="{{feature.name.toLowerCase().split(' ').join('-')}}-ion-toggle" color="primary" (ionChange)="updateFeatureSetting($event, feature)" checked="{{ !feature.disabled }}"></ion-toggle>
+                        </ion-item>
+
+                        <ion-list-header *ngIf="emailTemplateSettings && emailTemplateSettings.length > 0">
+                            <ion-label>
+                                <strong>Email Templates</strong>
+                            </ion-label>
+                        </ion-list-header>
+                        <ion-item *ngFor="let emailTemplateSetting of emailTemplateSettings">
+                            <library-icon name="mail" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+                            <ion-label (click)="userDidTapTemplateItem(emailTemplateSetting)" class="link">
+                                <div>{{emailTemplateSetting.name}}</div>
+                                <p class="status">{{emailTemplateSetting?.subject}}</p>
+                            </ion-label>
+                            <ion-toggle color="primary" (ionChange)="userDidChangeEmailTemplateStatus($event, emailTemplateSetting.id)" checked="{{ !emailTemplateSetting.disabled }}"></ion-toggle>
+                        </ion-item>
+                    </ion-list>
+                    <ion-list lines="none" class="settings-list detail-tenant-settings-list">
+                        <ion-list-header>
+                            <ion-label>
+                                <strong>System Alerts</strong>
+                            </ion-label>
+                        </ion-list-header>
+                        <ion-item *ngFor="let systemAlert of systemAlerts">
+                            <library-icon name="{{systemAlert.systemAlertType.icon}}" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+                            <ion-label (click)="editSystemAlert(systemAlert)" class="link">
+                                <div>{{systemAlert.systemAlertType.name}}</div>
+                                <p class="status">{{systemAlert.alertMessage}}</p>
+                            </ion-label>
+
+                            <ion-toggle color="primary" (ionChange)="updateSystemAlertStatus($event, systemAlert)" checked="{{ !systemAlert.disabled }}"></ion-toggle>
+                        </ion-item>
+                    </ion-list>
+                    <ion-list lines="none" class="settings-list detail-tenant-settings-list">
+                        <ion-list-header>
+                            <ion-label>
+                                <strong>Security</strong>
+                            </ion-label>
+                        </ion-list-header>
+                        <ion-item (click)="editSessionExpiry()" button>
+                            <library-icon name="lock" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+                            <ion-label class="link-text">
+                                <div> Session Expiry </div>
+                                <p class="status" *ngIf="sessionSettings && sessionSettings.sessionExpiryMode == sessionExpiryMode.FixedPeriod">
+                                    Expire after {{sessionSettings.fixLengthTimeout}} {{sessionSettings.fixLengthTimeoutInPeriodType | lowercase}}s
+                                </p>
+                                <p class="status" *ngIf="sessionSettings && sessionSettings.sessionExpiryMode == sessionExpiryMode.InactivityPeriod">
+                                    Expire after {{sessionSettings.idleTimeout}} {{sessionSettings.idleTimeoutPeriodType | lowercase}}s of inactivity
+                                </p>
+                            </ion-label>
+                        </ion-item>
+                        <ion-item (click)="editPasswordExpiry()" button>
+                            <library-icon name="timer" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+                            <ion-label class="link-text">
+                                <div> Password Expiry </div>
+                                <p class="status" *ngIf="passwordExpirySettings && passwordExpirySettings.passwordExpiryEnabled">
+                                    Expire after {{passwordExpirySettings.maxPasswordAgeDays}} days
+                                </p>
+                                <p class="status" *ngIf="passwordExpirySettings && !passwordExpirySettings.passwordExpiryEnabled">
+                                    Disabled
+                                </p>
+                            </ion-label>
+                        </ion-item>
+                    </ion-list>
+                    <app-additional-properties-settings-view
+                        *ubAllowAccess="permission.ManageAdditionalPropertyDefinitions"
+                        [additionalPropertyDefinitions]="additionalPropertyDefinitions"
+                        [contextType]="additionalPropertyContextType"
+                        (handleOnClick)="additionalPropertyContextSettingItemClicked($event)">
+                    </app-additional-properties-settings-view>  
+                    <ion-list *ubAllowAccess="permission.ViewDataTables" lines="none" class="settings-list detail-tenant-settings-list">
+                        <ion-list-header>
+                            <ion-label>
+                                <strong>Data Tables</strong>
+                            </ion-label>
+                        </ion-list-header>
+                        <ion-item (click)="navigateToDataTableDefinition()" button>
+                            <library-icon name="grid" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+                            <ion-label class="link-text">
+                                Data Tables
+                                <br>
+                                <p class="status">
+                                    {{dataTables?.length ? dataTables.length : 'No'}} data table{{dataTables?.length != 1 ? 's' : ''}}
+                                </p>
+                            </ion-label>
+                        </ion-item>
+                    </ion-list>
+                </ng-container>
+                <div *ngIf="settingsErrorMessage" class="tab-content content-error" [@contentAnimation]>
+                    <p class="ion-text-center">{{ settingsErrorMessage }}</p>
+                </div>
+            </div>
+
+            <!--Products tab-->
+            <div *ngSwitchCase="'Products'" class="tab-content" [@contentAnimation]>
+                <loader *ngIf="isLoadingProducts"></loader>
+                <ng-container *ngIf="!isLoadingProducts && !productsErrorMessage">
+                    <ion-list id="detail-tenant-product-ion-list" *ngIf="products && products.length > 0" class="entity-list" lines="none">
+                        <ion-item *ngFor="let product of products" [class.selected]="selected.id == product.id"
+                                  (click)="productSelected(product)" (keydown.enter)="productSelected(product)"
+                                  (keydown.space)="productSelected(product)" tabindex="0" button>
+                            <library-icon name="cube" [library]="iconLibrary.IonicV4" [slot]="'start'" cssClass="medium"></library-icon>
+                            <ion-label class="ion-text-wrap">
+                                <div>{{product.name}}</div>
+                                <p class="status">{{product.createdDateTime | date: 'dd MMM yyyy'}}</p>
+                            </ion-label>
+                            <ion-label class="ion-text-wrap ion-text-end" slot="end">
+                                <div class="list-title">{{product.alias}}</div>
+                                <p class="status">{{product.disabled? 'Disabled' : 'Active'}}</p>
+                            </ion-label>
+                        </ion-item>
+                    </ion-list>
+                    <div *ngIf="products && products.length === 0" class="tab-content content-error">
+                        <p class="ion-text-center">No products found</p>
+                    </div>
+                </ng-container>
+                <div *ngIf="productsErrorMessage" class="tab-content content-error" [@contentAnimation]>
+                    <p class="ion-text-center">{{ productsErrorMessage }}</p>
+                </div>
+            </div>
+            
+            <!--Organisations tab-->
+            <div *ngSwitchCase="'Organisations'" class="tab-content-no-padding" [@contentAnimation]>
+                <app-entity-detail-segment-list #organisationsList
+                    [entityTypeNamePlural]="'organisations'"
+                    [itemTemplate]="organisationListItemTemplate"
+                    [viewModelConstructor]="organisationTypeViewModel"
+                    [itemSelectedHandler]="organisationSelected.bind(this)"
+                    [getSegmentListCallback]="getSegmentOrganisationList.bind(this)"
+                    [ngStyle]="{'height': '100%'}">
+                </app-entity-detail-segment-list>
+            </div>
+
+            <!--Reports tab-->
+            <div *ngSwitchCase="'Reports'" class="tab-content" [@contentAnimation]>
+                <loader *ngIf="isLoadingReports"></loader>
+                <ng-container *ngIf="!isLoadingReports && !reportsErrorMessage">
+                    <ion-list *ngIf="reports?.length > 0" lines="none" class="entity-list">
+                        <ion-item *ngFor="let report of reports" (click)="reportSelected(report)" button>
+                            <library-icon name="today" [library]="iconLibrary.IonicV4" [slot]="'start'"></library-icon>
+                            <ion-label class="ion-text-wrap">
+                                <div> {{report.name}} </div>
+                                <p class="status"> {{report.description}}</p>
+                            </ion-label>
+                        </ion-item>
+                    </ion-list>
+                    <div *ngIf="reports?.length === 0" class="tab-content content-error">
+                        <p class="ion-text-center">
+                            No reports found
+                        </p>
+                    </div>
+                </ng-container>
+                <div *ngIf="reportsErrorMessage" class="tab-content content-error" [@contentAnimation]>
+                    <p class="ion-text-center">{{ reportsErrorMessage }}</p>
+                </div>
+            </div>
+
+        </div>
+    </div>
+
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">{{ errorMessage }}</p>
+    </div>
+</ion-content>
+
+<ng-template #segmentList>
+    <ion-segment id="detail-tenant-segment" scrollable="true"
+        [value]="segment" 
+        (ionChange)="segmentChanged($event)"
+        scrollHorizontal scrollMousedrag [segmentSelectedScrollIntoView]="segment">
+        <ion-segment-button ionSegmentButtonEvent value="Details">
+            <ion-label>Details</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent *ubAllowAccess="permission.ViewTenants" value="Settings">
+            <ion-label>Settings</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent *ubAllowAccess="permission.ViewProducts" value="Products">
+            <ion-label>Products</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent
+            *ubAllowAccess="[permission.ViewOrganisations, permission.ViewAllOrganisations]"
+            value="Organisations">
+            <ion-label>Organisations</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent *ubAllowAccess="permission.ViewReports" value="Reports">
+            <ion-label>Reports</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+</ng-template>
+
+<ng-template #organisationListItemTemplate let-item>
+    <library-icon name="business" [library]="iconLibrary.IonicV4" [slot]="'start'" cssClass="medium"></library-icon>
+    <ion-label text-wrap>
+        <div>{{ item.name }}</div>
+        <p class="status">
+            {{ item.isActive ? 'Active' : 'Disabled' }} {{ item.isDefault ? ' &#183; Default' : '' }}
+        </p>
+    </ion-label>
+</ng-template>

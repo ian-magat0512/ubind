@@ -1,0 +1,106 @@
+@import "../../../../theme/variables.scss";
+
+.card-container {
+    width: 100%;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(350px, 1fr));
+    grid-auto-rows: min-content;
+    grid-gap: 0;
+}
+
+#renewal-card {
+    color: white !important;
+    background-color: #E11C66 !important;
+}
+
+.ubind-card {
+
+    ion-card-header {
+        color: var(--ion-color-primary);
+        font-size: 24px;
+        font-weight: 500;
+        padding: 16px 16px 8px;
+    }
+
+    ion-card-content {
+        padding: 0 0 !important;
+    }
+
+    p {
+        padding-left: 16px;
+
+        &.label-col {
+            white-space: nowrap;
+            overflow-x: hidden;
+            text-overflow: ellipsis;
+        }
+    }
+
+    p.status {
+        color: var(--ion-color-medium);
+        padding-left: 0px;
+    }
+
+    h2 {
+        margin-top: 0 !important;
+    }
+
+    ion-list:hover,
+    ion-item,
+    ion-label {
+        cursor: pointer !important;
+    }
+
+    ion-row {
+        display: flex;
+        -webkit-box-orient: horizontal;
+        -webkit-box-direction: normal;
+        flex-direction: row;
+        flex-wrap: nowrap;
+
+        ion-col {
+            padding: 5px 0;
+            position: relative;
+            width: 100%;
+            min-height: 1px;
+            flex-basis: 0;
+            flex-grow: 1;
+            max-width: 100%;
+        }
+    }
+
+    ion-avatar {
+        ion-icon {
+            color: var(--ion-color-dark);
+        }
+    }
+
+    ion-card {
+        ion-icon, mat-icon {
+            position: relative;
+        }
+    }
+}
+
+ion-content {
+    --overflow: hidden !important;
+    overflow: hidden !important;
+    --padding-end: 0;
+}
+
+.preloader-wrapper {
+    height: 50px;
+    margin-top: -40px;
+    margin-bottom: 20px;
+}
+
+ion-content>div,
+ion-content div.tab-content:not(.content-error) {
+    overflow: auto !important;
+    height: calc(100vh - 85px) !important;
+    padding: 10px 10px;
+}
+
+ion-title {
+    text-transform: capitalize;
+}

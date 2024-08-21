@@ -1,0 +1,97 @@
+﻿<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf='!layoutManager.splitPaneVisible then detailHeader'></ng-container>
+    </ion-toolbar>
+    <ng-container *ngIf='!layoutManager.splitPaneVisible then segmentList'></ng-container>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ng-container *ngTemplateOutlet="detailHeader"></ng-container>
+    </ion-toolbar>
+    <ng-container *ngIf='layoutManager.splitPaneVisible then segmentList'></ng-container>
+
+    <loader *ngIf='isLoading'></loader>
+    <div *ngIf="!isLoading && !errorMessage">
+        <div [ngSwitch]="segment">
+            <!-- Details -->
+            <div *ngSwitchCase="'Details'">
+                <app-entity-details-list [@contentAnimation]
+                                         [detailsListItems]="detailsListItems"
+                                         [hasItemLines]="false"
+                                         [hasGroupLines]="true"
+                                         [truncateDescription]="true">
+                </app-entity-details-list>
+            </div>
+
+            <!--Message-->
+            <div *ngSwitchCase="'Message'" class="tab-content text-style" [@contentAnimation]>
+                <app-email-content [email]="email"></app-email-content>
+            </div>
+
+            <!--Attachments-->
+            <ion-list *ngSwitchCase="'Attachments'" class="tab-content entity-list" [@contentAnimation]>
+                <div *ngFor="let document of email.documents" class="link-text">
+                    <ion-item (click)="download(document.attachmentId, document.name)"
+                              class="no-border has-attachment" button>
+                        <library-icon name="document" [library]="iconLibrary.IonicV4" [slot]="'start'" [cssStyle]="{'margin-left': '-5px'}" [size]="'large'"></library-icon>
+                        <ion-label class="ion-text-wrap" ellipsis>
+                            <div class="list-title">{{document.name}}</div>
+                            <p class="grayed-pointer">{{ document.size }}</p>
+                        </ion-label>
+                    </ion-item>
+                </div>
+                <div *ngIf="segment && (email?.documents?.length == 0 || !email.documents) && !errorMessage"
+                     class="tab-content content-error" [@contentAnimation]>
+                    <p class="ion-text-center">
+                        No attachments found
+                    </p>
+                </div>
+            </ion-list>
+        </div>
+    </div>
+
+    <!--error-->
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">{{ errorMessage }}</p>
+    </div>
+</ion-content>
+
+<ng-template #detailHeader>
+    <ion-buttons slot="start" *ngIf="!layoutManager.splitPaneVisible || (layoutManager.splitPaneVisible && canGoBack)">
+        <ion-button slot="icon-only" (click)="goBack()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title>
+        Email: {{ email?.subject  }}
+    </ion-title>
+    <ion-buttons slot="end">
+        <ng-container>
+            <app-entity-action-button-list
+                [actionButtonList]="actionButtonList"
+                [getMoreButtonCallback]="presentPopover.bind(this)"
+                [canShowMore]="actions?.length > 0 && hasActionsIncludedInMenu"
+                [flipMoreIcon]="flipMoreIcon">
+            </app-entity-action-button-list>
+        </ng-container>
+    </ion-buttons>
+</ng-template>
+
+<ng-template #segmentList>
+    <ion-segment scrollable="true" 
+                 [value]="segment"
+                 (ionChange)="segmentChanged($event)"
+                 scrollHorizontal scrollMousedrag
+                 [segmentSelectedScrollIntoView]="segment">
+        <ion-segment-button ionSegmentButtonEvent value="Details">
+            <ion-label>Details</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="Message">
+            <ion-label>Message</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="Attachments">
+            <ion-label>Attachments</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+</ng-template>

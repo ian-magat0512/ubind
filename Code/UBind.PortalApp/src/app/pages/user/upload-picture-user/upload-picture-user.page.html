@@ -1,0 +1,44 @@
+<ion-header>
+  <ion-toolbar class="level-1">
+    <ion-buttons *ngIf='!layoutManager.splitPaneVisible' slot="start">
+      <ion-button slot="icon-only" (click)="userDidTapCancelButton(file.files)">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-buttons *ngIf='!layoutManager.splitPaneVisible && file.files.length > 0' slot="end">
+      <ion-button (click)="userDidTapSaveButton(file.files)">
+        Save
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-toolbar *ngIf='layoutManager.splitPaneVisible' class="level-2">
+    <ion-buttons slot="start">
+      <ion-button slot="icon-only" (click)="userDidTapCancelButton(file.files)">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>
+      Edit Picture
+    </ion-title>
+    <ion-buttons slot="end">
+      <ion-button *ngIf="file.files.length > 0" (click)="userDidTapSaveButton(file.files)">
+        Save
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+  <div>
+    <div class="avatar-container">
+        <img class="detail-img" [src]="profilePictureUrl" alt="Image" (error)="setDefaultImg($event)" />
+    </div>
+    <div class="upload">
+      <ion-button color="primary" (click)="file.click()">
+            Choose New Picture
+      </ion-button>
+    </div>
+    <input #file type="file" (change)="updatePicture(file.files)" />
+  </div>
+
+</ion-content>

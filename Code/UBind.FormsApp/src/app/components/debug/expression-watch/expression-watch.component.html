@@ -1,0 +1,56 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>    
+            Expression Watch
+        </mat-panel-title>
+        <mat-panel-description>
+           Type or paste in expressions and watch them as their values change
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form [formGroup]="form">
+        <div class="expression-input">
+            <mat-form-field>
+                <input matInput placeholder="type or paste in an expression..." formControlName="source">
+            </mat-form-field>
+            <button mat-icon-button (click)="addButtonClicked()">
+                <mat-icon>add</mat-icon>
+            </button>
+        </div>
+        <mat-list>
+            <mat-list-item *ngFor="let watchedExpression of watchedExpressions; index as index">
+                <div class="watched-expression-row">
+                    <span class="debug">
+                        <div class="debug-property">
+                            <span class="key">Expression Source:</span><span class="value"> {{ watchedExpression.source }}</span>&nbsp;&nbsp;
+                        </div>    
+                        <ng-container *ngIf="watchedExpression.error">
+                            <div class="debug-property">
+                                <span class="key">Error:</span>
+                                <ng-container *ngIf="!watchedExpression.errorIsObject">
+                                    <span class="value"> {{ watchedExpression.error }}</span>
+                                </ng-container>
+                                <ng-container *ngIf="watchedExpression.errorIsObject">
+                                    <ngx-json-viewer [json]="watchedExpression.error" [expanded]="false"></ngx-json-viewer>
+                                </ng-container>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="!watchedExpression.error">
+                            <div class="debug-property">
+                                <span class="key">Result:</span>
+                                <ng-container *ngIf="!watchedExpression.resultIsObject">
+                                    <span class="value"> {{ watchedExpression.resultAsString }}</span>
+                                </ng-container>
+                                <ng-container *ngIf="watchedExpression.resultIsObject">
+                                    <ngx-json-viewer [json]="watchedExpression.expression.latestResult" [expanded]="false"></ngx-json-viewer>
+                                </ng-container>
+                            </div>    
+                        </ng-container>            
+                    </span>
+                    <button mat-icon-button color="accent" (click)="removeButtonClicked(index)">
+                        <mat-icon>delete</mat-icon>
+                    </button>
+                </div>
+            </mat-list-item>        
+        </mat-list>        
+    </form>
+</mat-expansion-panel>

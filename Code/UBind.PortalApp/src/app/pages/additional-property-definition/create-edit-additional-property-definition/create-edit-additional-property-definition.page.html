@@ -1,0 +1,11 @@
+﻿<app-detail-list-item-edit-form class="detail-list-item-edit-form"
+                                [title]="title"
+                                [items]="detailList"
+                                [editForm]="additionalPropertyForm"
+                                [fieldsOptions]="fieldOptions"
+                                [fieldShowHideRules]="fieldShowHideRules"
+                                [isLoading]="isLoading"
+                                [errorMessage]="errorMessage"
+                                (saveForm)="userDidTapSaveButton()"
+                                (closeForm)="userDidTapCloseButton()">
+</app-detail-list-item-edit-form>

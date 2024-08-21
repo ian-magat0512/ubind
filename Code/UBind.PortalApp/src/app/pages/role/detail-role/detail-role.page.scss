@@ -1,0 +1,16 @@
+.detail-role-permission-list {
+    cursor: pointer;
+}
+
+ion-title ion-icon {
+    position: relative;
+    top: 2px;
+    transform: scale(0.9);
+    color: #757575;
+}
+
+ion-label ion-icon.right-icon-text {
+    position: relative;
+    top: 3px;
+    transform: scale(0.8);
+}

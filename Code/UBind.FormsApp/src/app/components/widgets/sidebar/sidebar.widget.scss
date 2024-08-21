@@ -1,0 +1,15 @@
+#sidebar { 
+    position: relative;
+}  
+
+:host.mobile-width {
+    position: relative;
+    top: -1px;
+    
+    #sidebar {
+    
+        &.scrolling {
+            visibility: hidden;
+        }
+    }
+}

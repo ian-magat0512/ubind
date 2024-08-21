@@ -1,0 +1,50 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf='!layoutManager.splitPaneVisible then detailHeader'></ng-container>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+  <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+      <ng-container *ngTemplateOutlet="detailHeader"></ng-container>
+  </ion-toolbar>
+
+  <loader *ngIf='isLoading'></loader>
+  <div *ngIf="!isLoading && !errorMessage">
+      <div>
+          <div>
+              <app-entity-details-list [@contentAnimation]
+                                       [detailsListItems]="detailsListItems"
+                                       [hasItemLines]="false"
+                                       [hasGroupLines]="true">
+              </app-entity-details-list>
+          </div>
+      </div>
+  </div>
+
+  <!--error-->
+  <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+      <p class="ion-text-center">{{ errorMessage }}</p>
+  </div>
+</ion-content>
+
+<ng-template #detailHeader>
+    <ion-buttons slot="start" *ngIf="!layoutManager.splitPaneVisible || (layoutManager.splitPaneVisible && canGoBack)">
+        <ion-button slot="icon-only" (click)="goBack()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title>
+        Sms: {{ sms?.message  }}
+    </ion-title>
+    <ion-buttons slot="end">
+        <ng-container>
+            <app-entity-action-button-list
+                [actionButtonList]="actionButtonList"
+                [getMoreButtonCallback]="presentPopover.bind(this)"
+                [canShowMore]="actions?.length > 0 && hasActionsIncludedInMenu"
+                [flipMoreIcon]="flipMoreIcon">
+            </app-entity-action-button-list>
+        </ng-container>
+    </ion-buttons>
+</ng-template>

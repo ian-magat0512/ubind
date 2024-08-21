@@ -1,0 +1,13 @@
+<?xml version="1.0" encoding="utf-8"?>
+<coreProperties xmlns:dc="http://purl.org/dc/elements/1.1/" xmlns:dcterms="http://purl.org/dc/terms/" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns="http://schemas.openxmlformats.org/package/2006/metadata/core-properties">
+  <dc:creator>tmssoftware</dc:creator>
+  <dc:description>FlexCel Studio for .NET is a library to do reporting on Excel files based on templates, to read and write Excel files, and to export them to PDF or HTML.
+
+This package contains all the core cross platform functionality and is probably the only FlexCel package you need to reference. The Additional TMS.FlexCel.WinForms and TMS.FlexCel.WebForms add components specific to those platforms, but are normally not needed.
+
+Supports "Classic" .NET from .NET 2.0 to 4.8, iOS, macOS, Android, .NET Core and Windows Universal Apps.</dc:description>
+  <dc:identifier>TMS.FlexCel</dc:identifier>
+  <version>7.9.0.0</version>
+  <keywords>xls xlsx flexcel excel</keywords>
+  <lastModifiedBy>NuGet, Version=5.8.1.7021, Culture=neutral, PublicKeyToken=31bf3856ad364e35;Microsoft Windows NT 10.0.19042.0;.NET Framework 4.7.2</lastModifiedBy>
+</coreProperties>

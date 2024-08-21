@@ -1,0 +1,30 @@
+form button {
+    height: 34px;
+}
+
+.toolbar {
+    height: 34px;
+
+    .generate-buttons {
+        display: inline;
+        float: left;
+
+        button {
+            margin-right: 20px;
+        }
+    }
+    
+    .other-buttons {
+        float: right;
+        display: inline;
+
+        button {
+            margin-left: 20px;
+        }
+    }    
+}
+
+.output {
+    margin-top: 20px;
+    clear: both;
+}

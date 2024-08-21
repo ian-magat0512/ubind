@@ -1,0 +1,25 @@
+ion-title ion-icon {
+    position: relative;
+    top: 2px;
+    transform: scale(0.9);
+    color: #757575;
+}
+
+ion-label ion-icon.right-icon-text {
+    position: relative;
+    top: 3px;
+    transform: scale(0.8);
+}
+
+
+ion-content {
+    ion-toolbar {
+        border-bottom: 1px solid #dedede;
+        --min-height: 45px !important;
+        min-height: 47px !important;
+
+        ion-title {
+            margin-top: 2px;
+        }
+    }
+}

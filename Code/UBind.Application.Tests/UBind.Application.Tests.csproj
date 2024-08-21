@@ -1,0 +1,184 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>net6.0</TargetFramework>
+    <ImplicitUsings>enable</ImplicitUsings>
+    <Nullable>enable</Nullable>
+    <ParallelTestExecution>true</ParallelTestExecution>
+    <MaxDegreeOfParallelism>0</MaxDegreeOfParallelism>
+    <IsPackable>false</IsPackable>
+    <IsPublishable>false</IsPublishable>
+    <PlatformTarget>x64</PlatformTarget>
+    <IsPublishable>false</IsPublishable>
+  </PropertyGroup>
+  <PropertyGroup>
+	  <!-- CS1591: This setting suppresses the CS1591 warning for missing XML comments on publicly visible types or members 
+	    We are suppressing CS1591 because we dont want property and method have a required comment.-->
+	  <NoWarn>CS1591;</NoWarn>
+  </PropertyGroup>
+
+	<ItemGroup>
+		<FrameworkReference Include="Microsoft.AspNetCore.App" />
+	</ItemGroup>
+	
+  <ItemGroup>
+    <AdditionalFiles Include="..\stylecop.json">
+      <Link>stylecop.json</Link>
+    </AdditionalFiles>
+  </ItemGroup>
+    <ItemGroup>
+        <None Remove="FlexCel\flexCelWorkbook.xlsx" />
+        <None Remove="FlexCel\flexCelWorkbookRatingFactorTest.xlsx" />
+        <None Remove="FlexCel\flexCelWorkbook_misconfig.xlsx" />
+        <None Remove="Product\Component\Configuration\Parsers\carl-dev-Workbook.xlsx" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <Content Include="FlexCel\flexCelWorkbook.xlsx">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="FlexCel\flexCelWorkbookRatingFactorTest.xlsx">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="FlexCel\flexCelWorkbook_misconfig.xlsx">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+        <Content Include="Product\Component\Configuration\Parsers\carl-dev-Workbook.xlsx">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </Content>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Reference Include="FlexCel">
+            <HintPath>..\packages\TMS.FlexCel.7.9.0\lib\net5.0\FlexCel.dll</HintPath>
+            <Private>True</Private>
+        </Reference>
+    </ItemGroup>
+
+    <ItemGroup>
+        <Folder Include="Attributes\" />
+        <Folder Include="Services\Search\" />
+    </ItemGroup>
+
+    <ItemGroup>
+        <None Update="appsettings.localtest.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Automations\Providers\File\TestFiles\cgu_500px.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Automations\Providers\File\TestFiles\Customer view on laptop.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Automations\Providers\File\TestFiles\iag.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Automations\Providers\File\TestFiles\random-text.txt">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Automations\Providers\File\TestFiles\random-text.zip">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Automations\Providers\File\TestFiles\saml-logo.png">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Automations\Providers\File\TestFiles\something-that-is-not-a-zip-file.zip">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Automations\Providers\File\TestFiles\zipped-up-stuff-pw.zip">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Automations\Providers\File\TestFiles\zipped-up-stuff.ext">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Automations\Providers\File\TestFiles\zipped-up-stuff.zip">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Automations\Providers\List\TestFiles\rainfall.kml">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Automations\Providers\List\TestFiles\something-that-is-not-a-zip-file.zip">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Automations\Providers\List\TestFiles\zipped-up-stuff.ext">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Automations\Providers\List\TestFiles\zipped-up-stuff.zip">
+          <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="Commands\Release\testWorkbook.xlsx">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Services\DelimiterSeparatedValues\TestSample_psv.psv">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Templates\Documents\doc-quote-summary-test-2.doc">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Templates\Documents\doc-quote-summary-test.doc">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Templates\Documents\doc-ub-4120b.doc">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Templates\Documents\document-certificate-of-currency.dotx">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Templates\Documents\document-cover-letter.dotx">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Templates\Documents\document-policy-schedule.dotx">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Templates\Documents\document-quote-schedule.dotx">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="Templates\Documents\document-tax-invoice.dotx">
+            <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+        <None Update="TestFiles\rainfall.kml">
+            <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+        </None>
+        <None Update="xunit.runner.json">
+          <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
+        </None>
+    </ItemGroup>
+
+    <ItemGroup>
+        <PackageReference Include="AutoBogus" Version="2.13.1" />
+        <PackageReference Include="AutoMoq" Version="2.0.0" />
+        <PackageReference Include="eWAY.Rapid.netstandard" Version="2.0.0" />
+        <PackageReference Include="Hangfire.Core" Version="1.8.*" />
+        <PackageReference Include="Microsoft.CodeAnalysis.CSharp" Version="4.5.0" />
+        <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="7.0.3">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="Microsoft.NET.Test.Sdk" Version="17.5.0" />
+        <PackageReference Include="Microsoft.VisualStudio.Services.Client" Version="16.205.1" />
+        <PackageReference Include="MimeMapping" Version="2.0.0" />
+		<PackageReference Include="Moq" Version="4.18.3" />
+		<PackageReference Include="Namotion.Reflection" Version="2.0.10" />
+        <PackageReference Include="Newtonsoft.Json" Version="13.0.3" />
+        <PackageReference Include="NodaTime.Serialization.JsonNet" Version="3.0.1" />
+        <PackageReference Include="SharpZipLib.NETStandard" Version="1.0.7" />
+        <PackageReference Include="StyleCop.Analyzers" Version="1.1.118">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+        <PackageReference Include="xunit" Version="2.4.2" />
+        <PackageReference Include="xunit.runner.visualstudio" Version="2.4.5">
+          <PrivateAssets>all</PrivateAssets>
+          <IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>
+        </PackageReference>
+    </ItemGroup>
+
+  <ItemGroup>
+    <ProjectReference Include="..\UBind.Application\UBind.Application.csproj" />
+    <ProjectReference Include="..\UBind.Domain.Tests\UBind.Domain.Tests.csproj" />
+    <ProjectReference Include="..\UBind.Domain\UBind.Domain.csproj" />
+    <ProjectReference Include="..\UBind.Persistence\UBind.Persistence.csproj" />
+    <ProjectReference Include="..\UBind.Web\UBind.Web.csproj" />
+  </ItemGroup>
+
+</Project>

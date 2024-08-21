@@ -1,0 +1,65 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="start">
+            <ion-button slot="icon-only" (click)="userDidTapCloseButton()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="!layoutManager.splitPaneVisible">{{headingEnvironment}} Deployment Targets</ion-title>
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible && model" slot="end">
+            <ion-button (click)="userDidTapSaveButton(deploymentSettingForm.value)">
+                Save
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ion-buttons slot="start">
+            <ion-button slot="icon-only" (click)="userDidTapCloseButton()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>{{headingEnvironment}} Deployment Targets</ion-title>
+        <ion-buttons slot="end" *ngIf="model">
+            <ion-button (click)="userDidTapSaveButton(deploymentSettingForm.value)">
+                Save
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+
+    <loader *ngIf='isLoading'></loader>
+    <div appScrollDetails>
+        <form [formGroup]="deploymentSettingForm" *ngIf="!isLoading && !errorMessage">
+            <ion-list lines="none" inset>
+                <ion-list-header style="padding-left: 0px;">
+                    <ion-label>
+                        <strong>Setting Deployment Targets</strong>
+                    </ion-label>
+                </ion-list-header>
+                <ion-item>
+                    <div>
+                        Enter domain names in the text area line by line. Wildcards can be used for subdomains, e.g. *.mydomain.com
+                    </div>
+                </ion-item>
+                <ion-item [class.ng-touched]="(formHasError || deploymentSettingForm.get('urls').touched) && deploymentSettingForm.get('urls').errors">
+                    <ion-label position="stacked">Deployment Targets</ion-label>
+                    <ion-textarea id="url-textarea" #urlsIonicTextArea description formControlName="urls" type="text" rows="6" autofocus
+                                  style="font-weight:bold"></ion-textarea>
+                </ion-item>
+                <div class="error" *ngIf="deploymentSettingForm.get('urls').errors && deploymentSettingForm.get('urls').touched">
+                    This field must only contain characters ranging from 0 to 99999
+                </div>
+                <div class="error" *ngIf="formHasError">
+                    {{errorMessage}}
+                </div>
+            </ion-list>
+        </form>
+        <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+            <p class="ion-text-center">
+                {{ errorMessage }}
+            </p>
+        </div>
+    </div>
+</ion-content>

@@ -1,0 +1,415 @@
+:host {
+    --progress-widget-active-color: rgb(19, 146, 255);
+    --progress-widget-active-fade-out-color: rgba(19, 146, 255, 0);
+    --progress-widget-past-color: rgb(69, 199, 133);
+    --progress-widget-past-fade-out-color: rgba(69, 199, 133, 0);
+    --progress-widget-future-color: rgb(197, 197, 197);
+    --progress-widget-future-fade-out-color: rgba(197, 197, 197, 0);
+    --progress-widget-symbol-container-size: 30px;
+    --progress-widget-empty-symbol-container-size: 20px;
+    --progress-widget-line-thickness: 6px;
+    --progress-widget-icon-color: white;
+    --progress-widget-number-color: white;
+    --progress-widget-icon-font-size: 11px;
+    --progress-widget-number-font-size: 14px;
+    --progress-widget-number-font-weight: 600;
+    --progress-widget-number-font-family: sans-serif;
+    --progress-widget-symbol-container-margin: -1px;
+    --progress-widget-symbol-container-border-radius: 30px;
+    --progress-widget-collapsed-step-line-width: 4px;
+
+    #progress-bar {
+        display: flex;
+
+        &.no-visuals {
+            display: flex;
+        }
+
+        .progress-step {
+            flex-grow: 1;
+            flex-shrink: 1;
+            flex-basis: auto;
+        }
+
+        &.equal-width-steps .progress-step {
+            flex-basis: 0%;   
+        }
+
+        .progress-step.debug:hover, .progress-step.can-navigate .clickable:hover {
+            cursor: pointer;
+        }
+
+        /* The original version of the progress widget is the one with no visuals */
+        &.no-visuals {
+            margin: 0 -10px 20px -10px;
+
+            .progress-step {
+                padding: 0 10px;
+                flex-grow: 1;
+                display: flex;
+                flex-direction: column-reverse;
+            }
+
+            .steps-truncated {
+                display: flex;
+                padding: 0 10px;
+            }
+    
+            .steps-truncated-icon {
+                font-size: 16px;
+                margin: 0 2px 0 2px;
+                top: -1px;
+                position: relative;
+            }
+        }
+
+        /* The new and updated progress widget has visuals */
+        &.show-visuals {
+            padding-top: 25px;
+
+            h4 {
+                text-align: center;
+            }
+
+            .progress-step {
+                display: inline-block;
+
+                .progress-step-visual-container {
+                    display: flex;
+                    flex-direction: row;
+                    margin-bottom: 8px;
+                    height: var(--progress-widget-empty-symbol-container-size);
+
+                    .progress-step-line-container {
+                        flex-grow: 99;
+                        display: flex;
+                        flex-direction: column;
+                        justify-content: center;
+                    }
+
+                    .progress-step-symbol-container {
+                        height: var(--progress-widget-empty-symbol-container-size);
+                        width: var(--progress-widget-empty-symbol-container-size);
+                        border-radius: var(--progress-widget-symbol-container-border-radius);
+                        border: var(--progress-widget-line-thickness) solid var(--progress-widget-future-color);
+                        margin: 0 var(--progress-widget-symbol-container-margin);
+                    }
+                }
+
+                &.active {
+                    .progress-step-visual-container {
+                        .progress-step-symbol-container {
+                            border-color: var(--progress-widget-active-color);
+                        }
+                    }
+
+                    &.has-previous {
+                        .before-symbol {
+                            .progress-step-line {
+                                background-color: var(--progress-widget-past-color);
+                            }
+                        }
+                        
+                        &.previous-truncated {
+                            .before-symbol {
+                                .progress-step-line {
+                                    background: linear-gradient(
+                                        270deg,
+                                        var(--progress-widget-past-color) 25%,
+                                        var(--progress-widget-past-fade-out-color) 100%);
+                                }
+                            }
+                        }
+                    }
+
+                    &.has-next {
+                        .after-symbol {
+                            .progress-step-line {
+                                background-color: var(--progress-widget-future-color);
+
+                                .completion-line {
+                                    background-color: var(--progress-widget-active-color);
+                                }    
+                            }
+                        }
+
+                        &.next-truncated {
+                            .after-symbol {
+                                .progress-step-line, .completion-line.fade-out {
+                                    background: linear-gradient(
+                                        90deg,
+                                        var(--progress-widget-active-color) 25%,
+                                        var(--progress-widget-active-fade-out-color) 100%);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.previous-active {
+                    .before-symbol {
+                        .progress-step-line {
+                            .completion-line {
+                                background-color: var(--progress-widget-active-color);
+                            }
+                        }
+                    }
+                }
+
+                &.past {
+                    .progress-step-visual-container {
+                        .progress-step-symbol-container {
+                            border-color: var(--progress-widget-past-color);
+                        }
+                    }
+
+                    &.has-previous {
+                        .before-symbol {
+                            .progress-step-line {
+                                background-color: var(--progress-widget-past-color);
+                            }
+                        }
+                        
+                        &.previous-truncated {
+                            .before-symbol {
+                                .progress-step-line {
+                                    background: linear-gradient(
+                                        270deg,
+                                        var(--progress-widget-past-color) 25%,
+                                        var(--progress-widget-past-fade-out-color) 100%);
+                                }
+                            }
+                        }                        
+                    }
+
+                    &.has-next {
+                        .after-symbol {
+                            .progress-step-line {
+                                background-color: var(--progress-widget-past-color);
+                            }
+                        }
+                        
+                        &.next-truncated {
+                            .after-symbol {
+                                .progress-step-line {
+                                    background: linear-gradient(
+                                        90deg,
+                                        var(--progress-widget-past-color) 25%,
+                                        var(--progress-widget-past-fade-out-color) 100%);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.future {
+                    .progress-step-visual-container {
+                        .progress-step-symbol-container {
+                            border-color: var(--progress-widget-future-color);
+                        }
+                    }
+
+                    &.has-previous {
+                        .before-symbol {
+                            .progress-step-line {
+                                background-color: var(--progress-widget-future-color);
+                            }
+                        }
+                        
+                        &.previous-truncated {
+                            .before-symbol {
+                                .progress-step-line {
+                                    background: linear-gradient(
+                                        270deg,
+                                        var(--progress-widget-future-color) 25%,
+                                        var(--progress-widget-future-fade-out-color) 100%);
+                                }
+                            }
+                        }                        
+                    }
+
+                    &.has-next {
+                        .after-symbol {
+                            .progress-step-line {
+                                background-color: var(--progress-widget-future-color);
+                            }
+                        }
+
+                        &.next-truncated {
+                            .after-symbol {
+                                .progress-step-line {
+                                    background: linear-gradient(
+                                        90deg,
+                                        var(--progress-widget-future-color) 25%,
+                                        var(--progress-widget-future-fade-out-color) 100%);
+                                }
+                            }
+                        }
+                    }
+                }
+
+                &.has-previous, &.has-next {
+                    .progress-step-line, .completion-line {
+                        height: var(--progress-widget-line-thickness);
+                    }
+                }
+            }
+
+            /* CSS to apply if we're showing numbers or icons */
+            &.show-numbers, &.show-icons {
+                .progress-step {
+                    .progress-step-visual-container {
+                        height: var(--progress-widget-symbol-container-size);
+
+                        .progress-step-symbol-container {
+                            width: var(--progress-widget-symbol-container-size);
+                            height: var(--progress-widget-symbol-container-size);
+                            position: relative;
+
+                            .progress-step-symbol {
+                                position: absolute;
+                                text-align: center;
+                                width: var(--progress-widget-symbol-container-size);
+                                height: var(--progress-widget-symbol-container-size);
+                                line-height: var(--progress-widget-symbol-container-size);
+                                display: flex;
+        
+                                .progress-step-icon {
+                                    font-size: var(--progress-widget-icon-font-size);
+                                    color: var(--progress-widget-icon-color);
+                                    line-height: var(--progress-widget-symbol-container-size);
+                                    width: 100%;
+                                }
+
+                                .progress-step-number {
+                                    font-family: var(--progress-widget-number-font-family);
+                                    font-weight: var(--progress-widget-number-font-weight);
+                                    font-size: var(--progress-widget-number-font-size);
+                                    color: var(--progress-widget-number-color);
+                                    width: 100%;
+                                }
+                            }
+                        }
+                    }
+
+                    &.past {
+                        .progress-step-symbol-container {
+                            border: none;
+                            background-color: var(--progress-widget-past-color);
+                        }
+                    }
+
+                    &.active {
+                        .progress-step-symbol-container {
+                            border: none;
+                            background-color: var(--progress-widget-active-color);
+                        }
+                    }
+
+                    &.future {
+                        .progress-step-symbol-container {
+                            border: none;
+                            background-color: var(--progress-widget-future-color);
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+    &.simple-mode {
+        #progress-bar.show-visuals {
+            display: flex;
+            padding-top: 15px;
+            margin-bottom: 10px;
+        
+            .progress-step {
+                flex-grow: 0;
+
+                &.active,
+                &.previous-active {
+                    flex-grow: 1;
+                }
+
+                .progress-step-heading-container {
+                    display: none;
+                }
+            }
+
+            .progress-step.active .progress-step-visual-container .progress-step-line-container.before-symbol,
+            .progress-step.previous-inactive .progress-step-visual-container .progress-step-line-container.before-symbol,
+            .progress-step.inactive .progress-step-visual-container .progress-step-line-container.after-symbol {
+                width: calc(var(--progress-widget-collapsed-step-line-width) / 2);
+                max-width: calc(var(--progress-widget-collapsed-step-line-width) / 2);
+            }
+
+            .progress-step.first .progress-step-visual-container .progress-step-symbol-container {
+                margin-left: 0;
+            }
+            .progress-step.last .progress-step-visual-container .progress-step-symbol-container {
+                margin-right: 0;
+            }
+
+            .progress-step.first .progress-step-visual-container .progress-step-line-container.before-symbol,
+            .progress-step.last .progress-step-visual-container .progress-step-line-container.after-symbol {
+                width: 0px;
+                max-width: 0px;
+            }
+
+            &.show-line-for-last-step {
+                .progress-step {
+                    &.active.last {
+                        .progress-step-visual-container {
+                            .progress-step-symbol-container {
+                                margin-right: var(--progress-widget-symbol-container-margin);
+                            }
+
+                            .progress-step-line-container.after-symbol {
+                                width: inherit;
+                                max-width: inherit;
+
+                                .progress-step-line {
+                                    background-color: var(--progress-widget-future-color);
+        
+                                    .completion-line {
+                                        background-color: var(--progress-widget-active-color);
+                                    }    
+                                }
+                            }   
+                        }
+                    }
+                }    
+            }
+
+            &.hide-line-for-collapsed-steps {
+                .progress-step {
+                    &.inactive {
+                        .progress-step-symbol-container {
+                            margin-left: 0;
+                        }
+                    }
+
+                    &.previous-active {
+                        .progress-step-symbol-container {
+                            margin-left: var(--progress-widget-symbol-container-margin);
+                        }
+                    }
+
+                    &.inactive:last-child .progress-step-symbol-container {
+                        margin-right: 0;
+                    }
+
+                    &.active .progress-step-symbol-container {
+                        margin-left: 0;
+                    }
+                }
+            }
+        }
+    }
+
+    @media (max-width: 449px) {
+        nav#progress-bar.no-visuals {
+            display: none !important;            
+        }
+    }
+}

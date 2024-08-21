@@ -1,0 +1,31 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ion-buttons id="menu-btn" slot='start'>
+            <ion-menu-toggle *ngIf="!layoutManager.canShowFixedMenu()">
+                <ion-button>
+                    <ion-icon slot="icon-only" name="menu"></ion-icon>
+                </ion-button>
+            </ion-menu-toggle>
+        </ion-buttons>
+        <ion-title *ngIf="!layoutManager.isMenuExpanded()" style="margin-left: 0px" role="heading" aria-level="1">
+            {{title}}
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <div>
+    <ng-container *ngFor="let menuButton of menuButtons">
+      <button (click)="menuButtonClicked(menuButton)">
+        <div class="button-inner">
+          <ion-icon 
+            [name]="menuButton.iconLibrary == iconLibrary.IonicV5 ? menuButton.icon : null"
+            [src]="menuButton.iconLibrary == iconLibrary.IonicV4 ? './assets/ionicons-v4/' + menuButton.icon + '.svg' : null">
+          </ion-icon>
+          <br />
+          <span>{{menuButton.title}}</span>
+        </div>
+      </button>
+    </ng-container>
+  </div>
+</ion-content>

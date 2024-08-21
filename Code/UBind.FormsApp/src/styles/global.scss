@@ -1,0 +1,1656 @@
+
+html {
+	overflow-y: scroll;
+}
+/* Removed this because it was causing claims headings to jut up against the top of the portal
+article {
+	>* {
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+}
+*/
+
+div.field-content {
+	>* {
+		&:first-child {
+			margin-top: 0;
+		}
+	}
+}
+
+formly-field div.help-message small.text-muted {
+    line-height: 1.65;
+}
+
+.mobile-width {
+	body {
+		padding-bottom: 40px;
+	}
+}
+
+
+/*** Columns ***/
+
+#column-set {
+	backface-visibility: hidden;
+	transform: translate3d(0,0,0);
+	-webkit-backface-visibility: hidden;
+	-webkit-transform: translate3d(0,0,0);
+	z-index: 1;
+	position: relative;
+}
+#sidebar-column-ubind {
+	width: 275px;
+	position: absolute;
+	right: 0;
+	z-index: 1;
+}
+#column-set.sidebar-not-present {
+	#sidebar-column-ubind {
+		display: none;
+	}
+	#section-column-ubind {
+		margin-right: 0;
+	}
+}
+#section-column-ubind {
+	margin-right: 295px;
+	width: auto;
+	z-index: 2;
+	position: relative;
+}
+
+.container-fluid {
+	padding: 0;
+}
+.webhook-loading {
+	width: 100px;
+	height: 100px;
+	background: url(/assets/loading-spinner.gif);
+	background-size: contain;
+}
+.mobile-width {
+	#sidebar-column-ubind {
+		z-index: 1000;
+		width: auto;
+		position: relative;
+	}
+	#section-column-ubind {
+		margin-right: 0px;
+	}
+}
+
+/* Calculation */
+/* These styles need to be added globally so we can style the formly child components of the calculation widget, 
+   since angular doesn't allow a parent compoent to style it's children without breaking view encapsulation 
+   https://stackoverflow.com/questions/36527605/how-to-style-child-components-from-parent-components-css-file
+*/
+
+
+#sidebar {    
+
+    /* to remove margin-top: 15px from some workbooks */
+    /*
+    .body .summary {
+        margin-top: 0 !important;
+    }
+    */
+
+    /*
+    .body .message {
+        padding-bottom: 1em;
+    }
+    */
+
+    #calculation {
+        questions-widget {
+            form {
+                margin-block-end: 0;
+            }
+        }
+		formly-field {
+			label.form-control-label {
+				display: none;
+			}
+			h2 {
+				display: none;
+			}
+			h3 {
+				display: none;
+			}
+			h4 {
+				display: none;
+			}
+			p {
+				display: none;
+            }
+            
+            /* This is to stop old workbooks from setting margin-bottom: -10px */
+            div.btn-group {
+                margin-bottom: 0 !important;
+            }
+        
+		}
+		.form-group {
+            margin-top: 0;
+            
+            .btn {
+                margin-bottom: 0;
+            }
+        }
+        .field-content {
+            margin-bottom: 0;
+        }   
+        
+        .loader {
+            left: -25px;
+            top: 12px;
+        }
+    }
+}
+.body {
+	/* Had to comment this out because it was hiding the message in the sidebar on the first calculation result
+	questions-widget {
+		&+.message {
+			display: none;
+		}
+	}
+	*/
+	formly-field {
+		.form-group {
+			margin-bottom: 0;
+        }
+	}
+}
+
+.mobile-width {
+	#sidebar {
+		#calculation {
+			.body questions-widget { 
+                margin-top: 0;
+
+                formly-field {
+                    padding-left: 0;
+                    padding-right: 0;
+                }
+            }
+			form { 
+                margin-block-end: 0;
+            }
+
+            .row {
+                margin-left: 0;
+                margin-right: 0;
+            }
+        }
+        
+        .body {
+            width: 100%;
+        }
+        
+        .body .message {
+            padding-bottom: 0;
+
+            .resp-premium-stat {
+                float: none !important;
+                text-align: left !important;
+            }
+        }       
+	}
+	.container-fluid {
+		margin-left: 0;
+		margin-right: 0;
+	}
+    /* removed this since it was adding extra padding on mobile size which is the opposite of what we want: */
+    /*
+	formly-field.row {
+		display: inherit;
+		margin-left: 0;
+		margin-right: 0;
+	}
+    */
+	formly-field {
+		.btn-group {
+			display: flex;
+		}
+	}
+}
+
+/*** Footer Actions ***/
+
+nav#formFooter-actions {
+	.button-container {
+		float: left;
+	}
+
+    .btn {
+        margin-right: 15px;
+        margin-bottom: 15px;
+    }
+}
+
+nav, ubind-action-widget {
+    .btn-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+    }
+
+    button.has-icon .btn-icon-swap {
+        position: relative;
+        margin-right: 8px;
+        width: 11px;
+        left: -2px;
+    }
+
+
+    button .btn-icon-swap {
+        position: relative;
+        width: 0px;
+        left: 0px;
+    }
+
+
+    .btn {
+        display: flex;
+        flex-direction: row;
+        align-items: center;
+        justify-content: center;
+
+        .btn-icon {
+            margin: 0;
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            -ms-transform: translate(-50%, -50%);
+            transform: translate(-50%, -50%);
+
+            .spinner {
+                position: relative;
+                top: -2px;
+            }
+
+            .glyphicon {
+                top: 0;
+            }
+        }
+
+        .btn-icon.btn-icon-active {
+            display: none;
+        }
+    }
+
+    .btn-active {
+        .btn-icon {
+            display: none;
+        }
+
+        .btn-icon.btn-icon-active {
+            display: inline-block;
+        }
+    }
+}
+
+#calculation nav .btn-container {
+    display: block;
+}
+
+div.content-body .action-in-progress {
+	position: fixed;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100%;
+	background-color: transparent;
+	z-index: 9999;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	cursor: progress;
+
+	* {
+		pointer-events: none !important;
+		user-select: none !important;
+		-webkit-user-select: none;
+	}
+  }
+
+  @keyframes spin {
+	0% { transform: rotate(0deg); }
+	100% { transform: rotate(360deg); }
+  }
+
+/*** spinner ***/
+
+.spinner {
+    width: 18px;
+    height: 18px;
+    -webkit-animation: rotation 1.35s linear infinite;
+    animation: rotation 1.35s linear infinite;
+}
+
+.spinner.ie {
+    animation: custom-loader-md-dash 2s ease infinite, custom-loader-md-rotate 2s linear infinite !important;
+}
+
+@keyframes custom-loader-md-dash {
+    0% {
+        stroke-dasharray: 1, 95;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 85, 95;
+        stroke-dashoffset: -25;
+    }
+
+    100% {
+        stroke-dasharray: 85, 95;
+        stroke-dashoffset: -93;
+    }
+}
+
+@keyframes custom-loader-md-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}
+
+@-webkit-keyframes rotation
+{
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(270deg);
+        transform: rotate(270deg);
+    }
+}
+ 
+@keyframes rotation
+{
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+
+    100% {
+        -webkit-transform: rotate(270deg);
+        transform: rotate(270deg);
+    }
+}
+.circle {
+    stroke-dasharray: 180;
+    stroke-dashoffset: 0;
+    -webkit-transform-origin: center;
+    -ms-transform-origin: center;
+    transform-origin: center;
+    -webkit-animation: turn 1.35s ease-in-out infinite;
+    animation: turn 1.35s ease-in-out infinite;
+}
+.spinner.ie .circle {
+    stroke-dasharray: 170, 200;
+    stroke-dashoffset: 30;
+    stroke-linecap: round;
+    -webkit-animation: none !important;
+    animation: none !important;
+}
+@-webkit-keyframes turn
+{
+    0% {
+        stroke-dashoffset: 180;
+    }
+
+    50% {
+        stroke-dashoffset: 45;
+        -webkit-transform: rotate(135deg);
+        transform: rotate(135deg);
+    }
+
+    100% {
+        stroke-dashoffset: 180;
+        -webkit-transform: rotate(450deg);
+        transform: rotate(450deg);
+    }
+}
+@keyframes turn
+{
+    0% {
+        stroke-dashoffset: 180;
+    }
+
+    50% {
+        stroke-dashoffset: 45;
+        -webkit-transform: rotate(135deg);
+        transform: rotate(135deg);
+    }
+
+    100% {
+        stroke-dashoffset: 180;
+        -webkit-transform: rotate(450deg);
+        transform: rotate(450deg);
+    }
+}
+
+
+div#section-column-ubind actions-widget button.btn svg {
+    overflow: visible;
+}
+button.btn svg {
+    margin-bottom: -4px;
+    width: 13px;
+    overflow: visible;
+}
+button.btn.btn-primary svg {
+    stroke:#fff;
+}
+button.btn.btn-secondary svg {
+    stroke: #ccc;
+}
+
+button.busy.has-icon div.btn-icon.btn-icon-loader {
+    display: inline-block;
+}
+
+button.busy {
+	div .btn-icon.btn-icon-loader {
+		display: inline-block;
+	}
+
+	div .btn-icon.btn-icon-icon {
+		display: none;
+	}
+
+	.btn-icon-swap {
+		position: relative;
+		margin-right: 8px;
+		width: 11px;
+		left: -2px;
+	}
+}
+
+/*
+button.btn-secondary.btn-active {
+	div .btn-icon.btn-icon-loader {
+		display: none;
+	}
+
+	div .btn-icon.btn-icon-icon {
+		display: inline-block;
+	}
+}
+*/
+
+/* IE10+ */
+button.has-icon .btn-icon .ie-loader {
+    position: absolute;
+    top: 0;
+    left: 0;
+    margin: -71px 0px 0px -75px;
+    transform: scale(0.1);
+}
+.ie-loader,
+.ie-loader:before,
+.ie-loader:after {
+    border-radius: 50%;
+}
+.ie-loader {
+    color: #ccc;
+    font-size: 11px;
+    text-indent: -99999em;
+    margin: 0px auto;
+    position: relative;
+    width: 160px;
+    height: 160px;
+    box-shadow: inset 0 0 0 16px;
+    -webkit-transform: translateZ(0);
+    -ms-transform: translateZ(0);
+    transform: translateZ(0);
+    -webkit-transform: scale(0.3);
+    -ms-transform: scale(0.3);
+    transform: scale(0.3);
+}
+.ie-loader:before,
+.ie-loader:after {
+    position: absolute;
+    content: '';
+    background-color: #fff;
+    width: 83.2px;
+    height: 163.2px;
+}
+.ie-loader:before {
+    border-radius: 163.2px 0 0 163.2px;
+    top: -1.6px;
+    left: -1.6px;
+    -webkit-transform-origin: 81.6px 81.6px;
+    transform-origin: 81.6px 81.6px;
+    -webkit-animation: load2 2s infinite ease 1.5s;
+    animation: load2 2s infinite ease 1.5s;
+}
+.ie-loader:after {
+    border-radius: 0 163.2px 163.2px 0;
+    top: -1.6px;
+    left: 78.4px;
+    -webkit-transform-origin: 1.6px 81.6px;
+    transform-origin: 1.6px 81.6px;
+    -webkit-animation: load2 2s infinite ease;
+    animation: load2 2s infinite ease;
+}
+@-webkit-keyframes load2 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+@keyframes load2 {
+    0% {
+        -webkit-transform: rotate(0deg);
+        transform: rotate(0deg);
+    }
+    100% {
+        -webkit-transform: rotate(360deg);
+        transform: rotate(360deg);
+    }
+}
+/* End IE11 */
+
+/*** Loader ***/
+
+.loading-animation .loader,
+.loading-animation .loader:before,
+.loading-animation .loader:after {
+	border-radius: 50%;
+	width: 2em;
+	height: 2em;
+	-webkit-animation-fill-mode: both;
+	animation-fill-mode: both;
+	-webkit-animation: load7 0.6s infinite ease-in-out;
+	animation: load7 0.6s infinite ease-in-out;
+}
+.loading-animation .loader {
+	color: transparent;
+	font-size: 5px;
+	position: relative;
+	margin: 15px 0 0 50px;
+	text-indent: -9999em;
+	-webkit-transform: translateZ(0);
+	-ms-transform: translateZ(0);
+	transform: translateZ(0);
+	-webkit-animation-delay: -0.10s;
+	animation-delay: -0.10s;
+}
+.loading-animation .loader:before,
+.loading-animation .loader:after {
+	content: '';
+	position: absolute;
+	top: 0;
+}
+.loading-animation .loader:before {
+	left: -3.5em;
+	-webkit-animation-delay: -0.2s;
+	animation-delay: -0.2s;
+}
+.loading-animation .loader:after {
+	left: 3.5em;
+}
+@-webkit-keyframes load7 {
+	0%, 80%,
+	100% { box-shadow: 0 2.5em 0 -1.3em; }
+	40% { box-shadow: 0 2.5em 0 0; }
+}
+@keyframes load7 {
+	0%, 80%,
+	100% { box-shadow: 0 2.5em 0 -1.3em; }
+	40% { box-shadow: 0 2.5em 0 0; }
+}
+
+/*** Radio ***/
+
+.radio {
+	input[type=radio] {
+		position: absolute;
+		width: 0;
+		visibility: hidden;
+		&~.check {
+			position: absolute;
+			z-index: 4;
+			top: 1px;
+			left: 0;
+			.inside {
+				display: none;
+			}
+		}
+		&:checked {
+			&~.check {
+				.inside {
+					display: block;
+					position: absolute;
+					z-index: 5;
+				}
+			}
+		}
+	}
+	label {
+		z-index: 9;
+		cursor: pointer;
+	}
+}
+
+
+/*** Checkbox ***/
+
+.checkbox {
+	input[type=checkbox] {
+		position: absolute;
+		visibility: hidden;
+		&~.check {
+			position: absolute;
+			z-index: 4;
+			top: 1px;
+			left: 0;
+			.inside {
+				display: none;
+			}
+		}
+		&:checked {
+			&~.check {
+				.inside {
+					display: block;
+					position: absolute;
+					z-index: 5;
+				}
+			}
+		}
+	}
+	label {
+		z-index: 9;
+		cursor: pointer;
+	}
+}
+
+/*** Toggle ***/
+
+.toggle input[type=checkbox] {
+    position: absolute;
+    visibility: hidden;
+}
+
+
+/*** Forms ***/
+$standardGrey: #a0a0a0;
+
+/*** Attachments / file uploads ***/
+/* Reset old workbook CSS */
+.form-control.file-upload {
+    padding-top: 6px;
+    padding-bottom: 6px;
+}
+
+/*** Date Selector ***/
+formly-group {
+	width: 100%;
+}
+formly-field {
+	.form-control[disabled] {
+		.toggle {
+			label {
+				opacity: 0.5;
+				cursor: not-allowed;
+			}
+		}
+		label.btn {
+			opacity: 0.5;
+			cursor: not-allowed;
+		}
+	}
+	.radio {
+		label.disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+		}
+	}
+	.checkbox {
+		label.disabled {
+			opacity: 0.5;
+			cursor: not-allowed;
+		}
+	}
+	.btn-group {
+		display: block;
+		input {
+			display: none;
+		}
+	}
+	label {
+		.btn-icon {
+			display: block;
+			span {
+				position: relative;
+			}
+		}
+	}
+	buttons-field {
+		label {
+			span {
+				pointer-events: none;
+			}
+		}
+	}   
+	.repeating {
+		.btn-add-item, .btn-remove-item{
+			.btn-icon {
+				display: inline-block;
+				position: relative;
+			}
+		}
+    }    
+    .toggle-field-wrapper {
+        position: relative;
+        >a {
+            position: absolute;
+            right: 0;
+            top: 0;
+            z-index: 9;
+            margin: 12px;
+            font-size: 20px;
+            color: $standardGrey;
+        }
+    }
+    container-wrapper {
+        display: block;
+    }
+	span.input-group-addon {
+		&:last-child {
+			right: 42px;
+		}
+	}
+}
+buttons-field {
+	&::after {
+		content: "";
+		display: table;
+		clear: both;
+	}
+}
+.form-group {
+    display: block;
+	margin-bottom: 0px;
+}
+.form-control {
+	height: auto;
+	box-shadow: none;
+}
+.iframe-field {
+	width: 100%;
+	overflow: hidden;
+}
+textarea.form-control {
+	resize: vertical;
+	height: 120px;
+}
+.input-group-addon {
+	cursor: pointer;
+	cursor: hand;
+	&:last-child {
+		border-top-left-radius: 0;
+		border-bottom-left-radius: 0;
+	}
+	&:first-child {
+		border-top-right-radius: 0;
+		border-bottom-right-radius: 0;
+	}
+}
+.input-group {
+	.form-control {
+		&:last-child {
+			border-top-right-radius: unset;
+			border-bottom-right-radius: unset;
+		}
+		&:first-child {
+			border-top-left-radius: unset;
+			border-bottom-left-radius: unset;
+		}
+	}
+	* {
+		&:last-child {
+			.form-control {
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
+			}
+		}
+		&:first-child {
+			.form-control {
+				border-top-right-radius: 0;
+				border-bottom-right-radius: 0;
+			}
+		}
+	}
+}
+
+formly-field addons-wrapper.currency-code .input-group-addon {
+    font-weight: 700;
+
+    &:first-child ~ * .form-control {
+        padding-left: 52px;
+    }
+}
+
+.input-group-btn {
+	&:first-child {
+		>.btn-group {
+			&:not(:first-child) {
+				>.btn {
+					border-top-left-radius: 0;
+					border-bottom-left-radius: 0;
+				}
+			}
+			>.btn {
+				border-top-right-radius: 0;
+				border-bottom-right-radius: 0;
+			}
+		}
+		>.btn {
+			&:not(:first-child) {
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
+			}
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+		>.dropdown-toggle {
+			border-top-right-radius: 0;
+			border-bottom-right-radius: 0;
+		}
+	}
+	&:last-child {
+		>.btn {
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+			&:not(:last-child) {
+				&:not(.dropdown-toggle) {
+					border-top-right-radius: 0;
+					border-bottom-right-radius: 0;
+				}
+			}
+		}
+		>.btn-group {
+			>.btn {
+				border-top-left-radius: 0;
+				border-bottom-left-radius: 0;
+			}
+			&:not(:last-child) {
+				>.btn {
+					border-top-right-radius: 0;
+					border-bottom-right-radius: 0;
+				}
+			}
+		}
+		>.dropdown-toggle {
+			border-top-left-radius: 0;
+			border-bottom-left-radius: 0;
+		}
+	}
+}
+.repeating-question-set-form-container {
+	margin: 0 15px;
+}
+.fa {
+	.glyphicon {
+		font-size: inherit;
+	}
+}
+label.btn.btn-has-icon {
+	min-width: 82px;
+	/* min-height: 82px; */
+}
+div.terms-and-conditions {
+	overflow-y: scroll;
+	ol {
+		margin: 0;
+		ol {
+			list-style-type: lower-alpha;
+			ol {
+				list-style-type: lower-roman;
+			}
+		}
+	}
+}
+.ui-datepicker {
+	box-shadow: rgba(0, 0, 0, 0.2) 0px 5px 10px;
+	td {
+		padding: 2px 1px 1px 2px;
+	}
+	table {
+		margin-bottom: 0;
+	}
+}
+.ui-datepicker-prev.ui-state-hover.ui-datepicker-prev-hover {
+	border: 0;
+	background: transparent;
+	cursor: pointer;
+	cursor: hand;
+}
+.ui-datepicker-next.ui-state-hover.ui-datepicker-next-hover {
+	border: 0;
+	background: transparent;
+	cursor: pointer;
+	cursor: hand;
+}
+.ui-datepicker-calendar {
+	th {
+		width: 14%;
+	}
+	td {
+		width: 14%;
+	}
+}
+input[type=date].form-control {
+	line-height: normal;
+}
+input[type=datetime-local].form-control {
+	line-height: normal;
+}
+input[type=month].form-control {
+	line-height: normal;
+}
+input[type=time].form-control {
+	line-height: normal;
+}
+
+/*** Shaking animation ***/
+
+formly-form label-wrapper {
+    // we need it to be a block element so we can shake it.
+    display: block;
+}
+
+.shake {
+	animation: shake 0.82s cubic-bezier(.36,.07,.19,.97) both;
+}
+
+@keyframes shake {
+  10%, 90% {
+    transform: translate3d(-1px, 0, 0);
+  }
+  
+  20%, 80% {
+    transform: translate3d(2px, 0, 0);
+  }
+
+  30%, 50%, 70% {
+    transform: translate3d(-4px, 0, 0);
+  }
+
+  40%, 60% {
+    transform: translate3d(4px, 0, 0);
+  }
+}
+
+/*** Flexbox ***/
+
+
+formly-field.row {
+	display: -webkit-box;
+	display: -webkit-flex;
+	display: -ms-flexbox;
+	display: flex;
+	-webkit-flex-wrap: wrap;
+	-ms-flex-wrap: wrap;
+	flex-wrap: wrap;
+
+    formly-group {
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+    }
+
+	[class*='col-'] {
+		display: -webkit-box;
+		display: -webkit-flex;
+		display: -ms-flexbox;
+		display: flex;
+		-webkit-box-orient: vertical;
+		-webkit-box-direction: normal;
+		-webkit-flex-direction: column;
+		-ms-flex-direction: column;
+		flex-direction: column;
+	}
+}
+formly-wrapper-description {
+	width: 100%;
+}
+formly-wrapper-validation-messages {
+	width: 100%;
+}
+
+/* get rid of strange red bottom border in fields inside repeating question sets */
+formly-wrapper-fieldset > div.has-error .form-control {
+	border-color: inherit;
+}
+
+formly-form question-wrapper .question {
+	display: inline !important;
+	margin-bottom: 5px;
+}
+
+formly-form label-wrapper question-wrapper .question {
+	display: block !important;
+	margin-bottom: 0px;
+}
+
+/*** IFrame ***/
+iframe {
+    width: 100%;
+    height: auto;
+}
+
+/*** Modal ***/
+
+$almostBlack: #2d2d2d;
+$background_color_1: rgba(0, 0, 0, 0);
+$background_color_2: #fff;
+
+.overlay {
+	position: fixed;
+	top: 0;
+	bottom: 0;
+	left: 0;
+	right: 0;
+	background-color: $background_color_1;
+	z-index: 999;
+	margin: auto;
+}
+.dialog {
+	z-index: 1000;
+	position: absolute;
+	right: 0;
+	left: 0;
+	top: calc(100vh - 25%);
+	margin-right: auto;
+	margin-left: auto;
+	min-height: 140px;
+	width: 90%;
+	max-width: 520px;
+	background-color: $background_color_2;
+	padding: 12px;
+	box-shadow: 0 7px 8px -4px rgba(0, 0, 0, 0.2), 0 13px 19px 2px rgba(0, 0, 0, 0.14), 0 5px 24px 4px rgba(0, 0, 0, 0.12);
+	vertical-align: middle;
+	h2 {
+		display: inline;
+	}
+	p {
+		margin-top: 10px;
+	}
+}
+.dialog__close-btn {
+	border: 0;
+	background: none;
+	color: $almostBlack;
+	position: absolute;
+	top: 8px;
+	right: 8px;
+	font-size: 1.2em;
+}
+
+select {
+    padding: 10px;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+select::-ms-expand {
+    display: none;
+}
+
+select-field {
+    overflow: hidden;
+    position: relative;
+    display: block;
+}
+
+select-field:after {
+	content: "\f0d7";
+	font-family: FontAwesome;
+	position: absolute;
+	right: 0;
+	top: 0px;
+	z-index: 1;
+	padding-top: 13px;
+	padding-right: 12px;
+	padding-bottom: 11px;
+	height: 100%;
+	pointer-events: none;
+	color: #999999;
+}
+
+select.ui-datepicker-month,
+select.ui-datepicker-year {
+    background: linear-gradient(45deg, transparent 50%, gray 50%), linear-gradient(135deg, gray 50%, transparent 50%) !important;
+    background-position: calc(100% - 12px) calc(1em + 2px), calc(100% - 7px) calc(1em + 2px), calc(100% - 2.5em) 0.5em !important;
+    background-size: 5px 5px, 5px 5px, 1px 1.5em !important;
+    background-repeat: no-repeat !important;
+    background-color: #FFFFFF !important;
+	padding: 4px 10px;
+}
+
+input.native-date-input {
+	-webkit-appearance: none !important;
+	-moz-appearance: none !important;
+	padding-right: 0px !important;
+	padding-left: 35px !important;
+}
+@media (min-width: 768px) {
+	.dialog {
+		top: 40px;
+	}
+}
+@media (max-width: 808px) {
+	.dialog {
+		top: calc(100vh - 95%);
+	}
+}
+
+@supports (-webkit-touch-callout: none) {
+	/* iPad */
+	@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) {
+		input.native-date-input {
+			-webkit-appearance: none !important;
+			-moz-appearance: none !important;
+			padding-right: 1.5em !important;
+		}
+
+		.datepicker-has-value {
+			padding: 13.5px 2em !important;
+		}
+
+		.datepicker-has-no-value {
+			padding: 1.5em !important;
+		}
+	}
+	/* Retina iPad */
+	@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (-webkit-min-device-pixel-ratio: 2) {
+		input.native-date-input {
+			-webkit-appearance: none !important;
+			-moz-appearance: none !important;
+			padding-right: 1.5em !important;
+		}
+
+		.datepicker-has-value {
+			padding: 13.5px 2em !important;
+		}
+
+		.datepicker-has-no-value {
+			padding: 1.5em !important;
+		}
+	}
+	/* iPad 1 & 2 */
+	@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+		input.native-date-input {
+			-webkit-appearance: none !important;
+			-moz-appearance: none !important;
+			padding-right: 1.5em !important;
+		}
+
+		.datepicker-has-value {
+			padding: 10.5px 2em !important;
+		}
+
+		.datepicker-has-no-value {
+			padding: 1.5em !important;
+		}
+	}
+	/* iPad mini */
+	@media only screen and (min-device-width : 768px) and (max-device-width : 1024px) and (-webkit-min-device-pixel-ratio: 1) {
+		input.native-date-input {
+			-webkit-appearance: none !important;
+			-moz-appearance: none !important;
+			padding-right: 1.5em !important;
+		}
+
+		.datepicker-has-value {
+			padding: 10.5px 2em !important;
+		}
+
+		.datepicker-has-no-value {
+			padding: 1.5em !important;
+		}
+	}
+	/* iPhone X */
+	@media only screen and (min-device-width : 375px) and (max-device-width : 812px) and (-webkit-device-pixel-ratio : 3) {
+		input.native-date-input {
+			-webkit-appearance: none !important;
+			-moz-appearance: none !important;
+			padding-right: 1.5em !important;
+		}
+
+		.datepicker-has-value {
+			padding: 13.5px 2em !important;
+		}
+
+		.datepicker-has-no-value {
+			padding: 1.5em !important;
+		}
+	}
+	/* iPhone 6, 7, & 8 */
+	@media only screen and (min-device-width : 375px) and (max-device-width : 667px) {
+		input.native-date-input {
+			-webkit-appearance: none !important;
+			-moz-appearance: none !important;
+			padding-right: 1.5em !important;
+		}
+
+		.datepicker-has-value {
+			padding: 13.5px 2em !important;
+		}
+
+		.datepicker-has-no-value {
+			padding: 1.5em !important;
+		}
+	}
+	/* iPhone 6, 7, & 8 */
+	@media only screen and (min-device-width : 414px) and (max-device-width : 736px) {
+		input.native-date-input {
+			-webkit-appearance: none !important;
+			-moz-appearance: none !important;
+			padding-right: 1.5em !important;
+		}
+
+		.datepicker-has-value {
+			padding: 13.5px 2em !important;
+		}
+
+		.datepicker-has-no-value {
+			padding: 1.5em !important;
+		}
+	}
+	/* iPhone 5 & 5S */
+	@media only screen and (min-device-width : 320px) and (max-device-width : 568px) {
+		input.native-date-input {
+			-webkit-appearance: none !important;
+			-moz-appearance: none !important;
+			padding-right: 1.5em !important;
+		}
+
+		.datepicker-has-value {
+			padding: 13.5px 2em !important;
+		}
+
+		.datepicker-has-no-value {
+			padding: 1.5em !important;
+		}
+	}
+
+	@media only screen and (min-device-width : 320px) and (max-device-width : 480px) {
+		input.native-date-input {
+			-webkit-appearance: none !important;
+			-moz-appearance: none !important;
+			padding-right: 1.5em !important;
+		}
+
+		.datepicker-has-value {
+			padding: 13.5px 2em !important;
+		}
+
+		.datepicker-has-no-value {
+			padding: 1.5em !important;
+		}
+	}
+
+	/*** iPhone and iOS Form Input Zoom Fixes ***/
+	/* Fix Input Zoom on devices older than iPhone 5: */
+	@media screen and (device-aspect-ratio: 2/3) {
+		select, textarea, input[type="text"], input[type="password"],
+		input[type="datetime"], input[type="datetime-local"],
+		input[type="date"], input[type="month"], input[type="time"],
+		input[type="week"], input[type="number"], input[type="email"],
+		input[type="url"],
+		formly-field .form-control {
+			font-size: 16px !important;
+		}
+	}
+	/* Fix Input Zoom on iPhone 5, 5C, 5S, iPod Touch 5g */
+	@media screen and (device-aspect-ratio: 40/71) {
+		select, textarea, input[type="text"], input[type="password"],
+		input[type="datetime"], input[type="datetime-local"],
+		input[type="date"], input[type="month"], input[type="time"],
+		input[type="week"], input[type="number"], input[type="email"],
+		input[type="url"],
+		formly-field .form-control {
+			font-size: 16px !important;
+		}
+	}
+	/* Fix Input Zoom on iPhone 6, iPhone 6s, iPhone 7  */
+	@media screen and (device-aspect-ratio: 375/667) {
+		select, textarea, input[type="text"], input[type="password"],
+		input[type="datetime"], input[type="datetime-local"],
+		input[type="date"], input[type="month"], input[type="time"],
+		input[type="week"], input[type="number"], input[type="email"],
+		input[type="url"],
+		formly-field .form-control {
+			font-size: 16px !important;
+		}
+	}
+	/* Fix Input Zoom on iPhone 6 Plus, iPhone 6s Plus, iPhone 7 Plus, iPhone 8, iPhone X, XS, XS Max  */
+	@media screen and (device-aspect-ratio: 9/16) {
+		select, textarea, input[type="text"], input[type="password"],
+		input[type="datetime"], input[type="datetime-local"],
+		input[type="date"], input[type="month"], input[type="time"],
+		input[type="week"], input[type="number"], input[type="email"],
+		input[type="url"],
+		formly-field .form-control {
+			font-size: 16px !important;
+		}
+	}
+
+	html {
+		-webkit-text-size-adjust: none;
+	}
+
+	select {
+		text-overflow: ellipsis;
+		overflow: hidden;
+	}
+}
+
+.input-group.search-input span.input-group-addon:first-child {
+	z-index: 8888;
+}
+
+.ng-select.ng-select-single .ng-select-container .ng-value-container .ng-input {
+	top: 6px !important;
+	padding-left: 28px !important;
+}
+
+.ng-dropdown-panel, .ng-dropdown-panel.ng-select-bottom {
+	display: block;
+	z-index: 9999 !important;
+}
+
+
+.input-group.search-input .form-control, 
+.input-group.search-input .input-group-addon, 
+.input-group.search-input .input-group-btn {
+	display: block;
+}
+
+.has-error .input-group.search-input .input-group-addon {
+	background-color: inherit;
+	border-color: inherit;
+}
+
+.no-background-color {
+	background-color: transparent !important;
+}
+
+.ng-select.ng-select-single.ng-select-filtered .ng-select-container .ng-value-container .ng-value {
+	visibility: visible !important;
+}
+
+div.btn-group:after {
+	content: "";
+	display: table;
+	clear: both;
+}
+
+.debug {
+    background-color: #ffff11;
+	border: 1px solid #ffdd00;
+    color: #ff0000;
+    font-size: 12px;
+    font-family: sans-serif;	
+
+	&:hover {
+		position: relative;
+		z-index: 1000;
+		background-color: #ffff00;
+		border: 1px dashed #dd2222;		
+		color: #dd2222;
+	}
+
+    .debug-property {
+        margin-right: 10px;
+        /*white-space: nowrap;*/
+        display: inline-block;
+
+        .key {
+            font-weight: bold;
+        }
+    }    
+}
+
+p.debug {
+	margin-right: 10px;
+	padding-left: 10px;
+	display: inline-block;
+}
+
+expression-watch .mat-list-item-content {
+    padding: 0 !important;
+}
+
+.content-error p {
+    color: #b00020;
+    font-size: 13px;
+}
+
+.fade-in {
+    animation: fadeIn ease 2s;
+    -webkit-animation: fadeIn ease 2s;
+    -moz-animation: fadeIn ease 2s;
+    -o-animation: fadeIn ease 2s;
+    -ms-animation: fadeIn ease 2s;
+}
+@keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}  
+@-moz-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}    
+@-webkit-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}    
+@-o-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}    
+@-ms-keyframes fadeIn {
+    0% {opacity:0;}
+    100% {opacity:1;}
+}
+
+table.summary-table {
+    border-collapse: collapse;
+  
+	th {
+		font-weight: 500;
+		padding-top: 5px;
+		padding-bottom: 5px;
+		vertical-align: bottom;
+		text-align: left;
+		border-bottom: 1px solid #999;
+	}
+
+	.summary-name {
+		width: 50%;
+	}
+
+	.summary-value {
+		width: 50%;
+	}
+
+	td {
+		padding-top: 5px;
+		padding-bottom: 5px;
+		border-top: 1px solid #e0e0e0;
+		vertical-align: top;		
+	}
+
+	tr.summary-repeating-heading td {
+		font-weight: 500;
+	}
+
+	tr.summary-repeating-item td.summary-name {
+		padding-left: 15px;
+	}
+}
+
+.popover {
+	display: block;
+	padding: 0px !important;
+	z-index: 9999 !important;
+}
+
+.popover.top {
+	margin:0px;
+}
+
+.popover.bottom {
+	margin:0px;
+}
+
+.arrow {
+	margin-left: 0px !important;
+}
+
+.fade.out{
+	visibility: hidden;
+}
+
+.preloaded-icons {
+    position: absolute;
+    height: 0;
+    overflow: hidden;
+    visibility: hidden;
+}
+
+/*
+Fix to stop the whole page scrolling down and hiding the portal header.
+This happens because we use the browsers "scrollIntoView" method, which sometimes
+glitches and scrolls the whole page instead of just the div.
+*/
+app ion-app, .ion-page {
+    overflow: unset !important;
+}
+
+/* Animations */
+formly-field .form-group, .repeating-add-button-container {
+    animation: 0.5s ease-in-out 0s 1 normal forwards running fadeIn;
+}
+
+@keyframes fadeIn{
+    0%{
+        opacity: 0;
+    }
+    100%{
+        opacity: 1;
+    }
+}
+
+.no-layout {
+    display: none !important;
+}
+
+.no-display {
+    display: none !important;
+}
+
+.mobile-width #calculation .message > .message-appendix {
+    display: none;
+}
+
+.mobile-width.no-trigger #sidebar #calculation .message {
+    display: none;
+}
+
+.mobile-width #sidebar buttons-field label.btn {
+    font-size: 10px;
+}
+
+#sidebar #calculation .body nav button {
+    margin-top: 0;
+    margin-bottom: 12px;
+}
+
+.mobile-width.no-trigger.calculation-state-incomplete web-form #sidebar-column-ubind {
+    display: none;
+}
+
+body.modal-popup app {
+    margin-bottom: 0;
+}
+
+/** TOOLTIP WIDGET **/
+h2 ubind-tooltip-widget {
+    position: relative;
+    bottom: 4px;
+}
+
+h3 ubind-tooltip-widget {
+    position: relative;
+    bottom: 3px;
+}
+
+h4 ubind-tooltip-widget {
+    position: relative;
+    bottom: 2px;
+}
+
+h4 ubind-tooltip-widget {
+    position: relative;
+    bottom: 1px;
+}
+
+.mobile-width {
+    #calculation {
+        .body {
+            .price {
+                float: right;
+				height: 48px;
+
+				.currency-major-units {
+					font-size: 35px;
+				}
+	
+				.currency-minor-units {
+					font-size: 15px;
+				}
+			}
+
+			.price-loader {
+				float: right;
+				min-height: 0;
+				margin-top: 0;
+				margin-bottom: 0;
+			}
+
+		}
+	}
+}
+
+#calculation {
+    .body {
+        .price-loader {
+            display: flex;  
+        }
+    }
+}

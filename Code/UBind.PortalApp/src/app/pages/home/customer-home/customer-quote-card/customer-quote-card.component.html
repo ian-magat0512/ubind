@@ -1,0 +1,39 @@
+<ion-card class="ubind-card">
+      <ion-card-header>
+          My Quotes
+      </ion-card-header>
+      <ion-card-content>
+          <div class="preloader-wrapper" *ngIf="isLoading">
+              <loader></loader>
+          </div>
+          <ion-list lines="none" *ngIf="quotes?.length > 0" class="entity-list">
+              <ion-item *ngFor="let quote of quotes" (click)="userDidTapQuote(quote)">
+                <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="calculator" svgIcon="calculator" slot="start"></mat-icon>
+                  <ion-label class="ion-text-wrap list-title">
+                      <div>{{quote.productName}}</div>
+                      <p class="status">{{quote.createdDate}}</p>
+                  </ion-label>
+                  <ion-label class="ion-text-wrap ion-text-end list-title" slot="end">
+                    <div>{{quote.quoteNumber}}</div>
+                      <p class="status">{{quote.status}}</p>
+                  </ion-label>
+              </ion-item>
+          </ion-list>
+          <ion-row *ngIf="!isLoading && quotes.length == 0" class="content-error ion-padding-left">
+              <p class="ion-text-center">No active quotes found</p>
+          </ion-row>
+          <ion-row>
+              <ion-col class="ion-float-left">
+                  <ion-button fill="clear" size="small" (click)="userDidTapInactiveQuotes()">
+                    <library-icon name="filing" [library]="iconLibrary.IonicV4" cssClass="small" [cssStyle]="{'margin-right': '2px'}"></library-icon> INACTIVE QUOTES
+                  </ion-button>
+              </ion-col>
+              <ion-col class="ion-text-end">
+                  <ion-button *ngIf="isCreateNewQuoteEnabled" fill="clear" size="small"
+                   (click)="userDidTapNewQuote()">
+                      <library-icon name="alert" [library]="iconLibrary.IonicV4" cssClass="small" [cssStyle]="{'margin-right': '2px'}"></library-icon> NEW QUOTE
+                  </ion-button>
+              </ion-col>
+          </ion-row>
+      </ion-card-content>
+  </ion-card>

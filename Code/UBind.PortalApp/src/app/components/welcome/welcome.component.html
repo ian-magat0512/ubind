@@ -1,0 +1,14 @@
+<h1>Good {{ partOfDay }}, {{ preferredName }}</h1>
+<p *ngIf="!canManageQuotes">Let's get started.</p>
+<ng-container *ngIf="canViewQuotes">
+    <p *ngIf="canManageQuotes && numberOfIncompleteQuotes > 0">You have {{ numberOfIncompleteQuotes }} incomplete {{ numberOfIncompleteQuotes > 1 ? 'quotes' : 'quote' }}.</p>
+    <p *ngIf="canManageQuotes && numberOfIncompleteQuotes == 0">Why don't you create a new quote?</p>    
+    <ion-button *ngIf="canManageQuotes" (click)="userDidTapStartNewQuote()">
+        <ion-icon slot="icon-only" name="add"></ion-icon>
+        &nbsp;Start New Quote
+    </ion-button>
+    <ion-button (click)="userDidTapViewQuotes()">
+        <mat-icon class="mat-icon-sm" aria-hidden="false" aria-label="calculator" svgIcon="calculator"></mat-icon>
+        &nbsp;View {{ canViewAllQuotes ? 'All': 'My' }} Quotes
+    </ion-button>
+</ng-container>

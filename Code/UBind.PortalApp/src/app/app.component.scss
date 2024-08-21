@@ -1,0 +1,245 @@
+.desktop-side-menu {
+    float: left;
+    height: 100%;
+    width: 201px;
+
+    ion-content {
+        border-right: 1px solid #e0e0e0;
+
+        div {
+            cursor: pointer;
+        }
+
+        library-icon {
+            font-size: 24px;
+            margin: 0 21px 0 -12px;
+            margin-right: 26px !important;
+        }
+
+        ion-label {
+            font-size: 16px;
+            margin: 0;
+        }
+    }
+}
+
+.desktop-split-pane {
+    float: left;
+    margin-left: 201px;
+}
+
+.toggle-desktop-side-menu-button {
+    background: none;
+    border: none;
+    padding: 0;
+    color: #fff;
+    margin-left: 0;
+    margin-top: 4px;
+}
+
+.desktop-profile-icon {
+    position: absolute;
+    z-index: 999;
+    right: 0;
+    margin: 8px 15px 0 0;
+    width: 40px;
+    height: 40px;
+    cursor: pointer;
+    border-radius: 50%;
+    overflow: hidden;
+}
+
+.desktop-profile-icon:focus {
+    outline: none;
+    background-color: rgba(var(--ion-color-primary-contrast-rgb,255,255,255),0.1);
+    border-radius: 2px;
+}
+
+.toggle-desktop-side-menu-button {
+    outline: none;
+    padding: 0;
+    margin: 0 16px 0 16px;
+    width: 32px;
+    min-width: 32px;
+    --min-width: 32px;
+    --padding-start: 0;
+    --padding-end: 0;
+
+    ion-button {
+        width: 32px;
+        height: 32px;
+        --padding-start: 0;
+        --padding-end: 0;
+        margin: 0;
+
+        library-icon {
+            width: 24px !important;
+            height: 24px !important;
+        }
+    }
+}
+
+.margin-left-55px {
+    margin-left: 55px;
+    transition: 250ms ease-in-out;
+}
+
+ion-title {
+    text-transform: capitalize;
+
+    .name, .subtitle {
+        text-transform: initial;
+    }
+}
+
+ion-content {
+    --overflow: hidden !important;
+    overflow: hidden !important;
+}
+
+ion-content ion-list {
+    overflow: auto !important;
+    height: calc(100vh - 65px) !important;
+}
+
+.ionpage {
+    color: blue;
+
+    ion-action-sheet {
+        position: initial !important;
+        color: blue !important;
+
+        ion-backdrop {
+            display: none !important;
+            color: blue !important;
+        }
+    }
+}
+
+.no-backdrop {
+    position: initial !important;
+
+    ion-backdrop {
+        display: none !important;
+    }
+}
+
+.no-backdrop {
+    position: initial !important;
+
+    ion-backdrop {
+        display: none !important;
+    }
+}
+
+.desktop-sidebar-title {
+    padding: 0 !important;
+}
+
+ion-toolbar.base-toolbar {
+    --padding-start: 0;
+    padding-left: 0 !important;
+}
+
+@media (max-width: 1199px) {
+    ion-content ion-list {
+        height: calc(100vh - 275px) !important;
+    }
+}
+
+/**
+ * Custom criteria for smaller screens
+ *
+ */
+
+/* iphone 6, 6s, 7, 8 and related viewports */
+@media only screen and (min-device-width: 375px) and (max-device-height: 667px) and (-webkit-device-pixel-ratio: 2) {
+    ion-content ion-list {
+        height: calc(100vh - 235px) !important;
+    }
+}
+
+/* iphone 6+, 6s+, 7+, 8+ and related viewports */
+@media only screen and (min-device-width: 414px) and (max-device-height: 736px) and (-webkit-device-pixel-ratio: 3) {
+    ion-content ion-list {
+        height: calc(100vh - 235px) !important;
+    }
+}
+
+/* galaxy s9, galaxy s8 related viewports */
+@media only screen and (min-device-width: 360px) and (max-device-height: 740px) and (-webkit-device-pixel-ratio: 3) {
+    ion-content ion-list {
+        height: calc(100vh - 215px) !important;
+    }
+}
+
+/* galaxy s9+, galaxy s8+ related viewports */
+@media only screen and (min-device-width: 412px) and (max-device-height: 846px) {
+    ion-content ion-list {
+        height: calc(100vh - 210px) !important;
+    }
+}
+
+.inner-padding-offset {
+    --inner-padding-end: 15px !important;
+}
+
+/**
+ * IE10+
+ */
+@media all and (-ms-high-contrast: none), (-ms-high-contrast: active) {
+    ion-content {
+        ion-list {
+            overflow: auto !important;
+            height: 98% !important;
+        }
+    }
+
+    ion-menu {
+        ion-header {
+            ion-toolbar {
+                height: 130px !important;
+                padding: 0 !important;
+
+                div.toolbar-content {
+                    padding-top: 0 !important;
+                }
+
+                div.mobile-profile-icon {
+                    margin-bottom: 30px !important;
+                    margin-top: 0 !important;
+                }
+
+                ion-title {
+                    height: 100px !important;
+                    margin-top: -60px !important;
+                    margin-left: 21px !important;
+
+                    p.name {
+                        margin-top: 0 !important;
+                    }
+
+                    p.subtitle {
+                        margin-top: 60px !important;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.desktop-side-menu {
+    ion-list {
+        ion-item {
+            ion-icon:not([name="link"]):not(.right-icon-text) {
+                color: black !important;
+                font-size: 24px !important;
+                min-width: 40px !important;
+            }
+        }
+    }
+}
+
+ion-menu ion-title {
+    line-height: normal;
+}

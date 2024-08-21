@@ -1,0 +1,396 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf='!layoutManager.splitPaneVisible then detailHeader'></ng-container>
+    </ion-toolbar>
+    <ng-container *ngIf='!layoutManager.splitPaneVisible then segmentList'></ng-container>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ng-container *ngTemplateOutlet="detailHeader"></ng-container>
+    </ion-toolbar>
+    <ng-container *ngIf='layoutManager.splitPaneVisible then segmentList'></ng-container>
+
+    <div [ngSwitch]="segment">
+
+        <!--Details tab-->
+        <div *ngSwitchCase="'Details'">
+            <loader *ngIf='isLoading'></loader>
+            <ng-container *ngIf="!isLoading && !errorMessage">
+                <app-entity-details-list [@contentAnimation]
+                                        [detailsListItems]="detailsListItems"
+                                        [hasItemLines]="false"
+                                        [hasGroupLines]="true"
+                                        [truncateDescription]="true">
+                </app-entity-details-list>
+            </ng-container>            
+            <!--error-->
+            <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+                <p text-center>{{ errorMessage }}</p>
+            </div>
+        </div>
+
+        <!--Source tab-->
+        <div *ngSwitchCase="'Source'" class="tab-content" [@contentAnimation]>
+            <loader *ngIf='isLoadingSourceFiles'></loader>
+            <ng-container *ngIf="!isLoadingSourceFiles && !sourceFilesErrorMessage">
+                <div *ngIf="sourceFilesFound" class="tab-content" [@contentAnimation]>
+                    <ion-item-group *ngFor="let componentType of componentTypes">
+                        <ng-container *ngIf="rootFiles[componentType]?.length > 0">
+                            <ion-item-divider>
+                                <ion-label>{{componentType | titlecase}} Configuration</ion-label>
+                            </ion-item-divider>
+                            <div *ngFor="let file of rootFiles[componentType]; last as isLastRoot">
+                                <ion-item (click)="openFile(file)" [class.no-border-bottom]="isLastRoot">
+                                    <ion-label>{{file.sourceType}}</ion-label>
+                                    <ion-label slot="end" class="grayed-label ion-text-wrap ion-text-end">
+                                        <ion-icon name="link"></ion-icon>
+                                        {{file.fileName}}
+                                    </ion-label>
+                                </ion-item>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="privateFiles[componentType]?.length > 0">
+                            <ion-item-divider>
+                                <ion-label>{{componentType | titlecase}} Private Files</ion-label>
+                            </ion-item-divider>
+                            <div *ngFor="let file of privateFiles[componentType]; last as isLastChild">
+                                <ion-item (click)="openFile(file)" [class.no-border-bottom]="isLastChild">
+                                    <ion-label>{{file.sourceType}}</ion-label>
+                                    <ion-label slot="end" class="grayed-label ion-text-wrap ion-text-end">
+                                        <ion-icon name="link"></ion-icon>
+                                        {{file.fileName}}
+                                    </ion-label>
+                                </ion-item>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="assetFiles[componentType]?.length > 0">
+                            <ion-item-divider>
+                                <ion-label>{{componentType | titlecase}} Public Assets</ion-label>
+                            </ion-item-divider>
+                            <div *ngFor="let file of assetFiles[componentType]; last as isLastAsset">
+                                <ion-item (click)="openFile(file)" [class.no-border-bottom]="isLastAsset">
+                                    <ion-label>{{file.sourceType}}</ion-label>
+                                    <ion-label slot="end" class="grayed-label ion-text-wrap ion-text-end">
+                                        <ion-icon name="link"></ion-icon>
+                                        {{file.fileName}}
+                                    </ion-label>
+                                </ion-item>
+                            </div>
+                        </ng-container>
+                    </ion-item-group>
+                </div>
+                <div *ngIf="!sourceFilesFound"
+                        class="tab-content content-error" [@contentAnimation]>
+                    <p class="ion-text-center">
+                        No source files found
+                    </p>
+                </div>
+            </ng-container>
+            <div *ngIf="sourceFilesErrorMessage" class="tab-content content-error" [@contentAnimation]>
+                <p class="ion-text-center">{{ sourceFilesErrorMessage }}</p>
+            </div>
+        </div>
+
+        <!--Releases tab-->
+        <div *ngSwitchCase="'Releases'" class="tab-content-no-padding" [@contentAnimation]>
+            <app-entity-detail-segment-list #releaseList
+                [entityTypeNamePlural]="'releases'"
+                [itemTemplate]="releaseListItemTemplate"
+                [viewModelConstructor]="releaseTypeViewModel"
+                [itemSelectedHandler]="releaseSelected.bind(this)"
+                [getSegmentListCallback]="getSegmentReleaseList.bind(this)"
+                (itemsFirstLoadedEvent)="releasesLoaded($event)"
+                [ngStyle]="{'height': '100%'}">
+            </app-entity-detail-segment-list>
+        </div>
+
+        <!--Settings tab-->
+        <div *ngSwitchCase="'Settings'" class="tab-content" [@contentAnimation]>
+            <loader *ngIf='isLoadingSettings'></loader>
+            <ng-container *ngIf="!isLoadingSettings && !settingsErrorMessage">
+                <ion-list lines="none" class="detail-product-settings-list settings-list">
+                    <!--Numbers-->
+                    <ion-list-header>
+                        <ion-label>
+                            <strong>Number Pools</strong>
+                        </ion-label>
+                    </ion-list-header>
+
+                    <ion-item *ngFor="let numberPoolId of numberPoolIds"
+                                (click)="editNumberPool(numberPoolId)" button>
+                        <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="shield" svgIcon="shield"></mat-icon>
+                        <ion-label>
+                            <div>{{ (isMutual ? numberPoolId.replace('policy', 'protection') : numberPoolId) | replace:'-':' ' | titlecase }} Numbers</div>
+                            <p class="status" *ngIf="numberPoolCount[numberPoolId] != -1">{{ numberPoolCount.get(numberPoolId) }} available</p>
+                        </ion-label>
+                    </ion-item>
+
+                    <!--Quote Expiry Settings-->
+                    <ion-list-header>
+                        <ion-label>
+                            <strong>Expiry</strong>
+                        </ion-label>
+                    </ion-list-header>
+                    <ion-item class="link" (click)="editQuoteExpirySettings()" button>
+                        <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="calculator" svgIcon="calculator"></mat-icon>
+                        <ion-label>
+                            <div>Quote Expiry</div>
+                            <p class="status">{{product.quoteExpirySettings.enabled?"Quotes expire after "+product.quoteExpirySettings.expiryDays+" days":"Quote expiry is disabled" }}</p>
+                        </ion-label>
+                    </ion-item>
+
+                        <!--Quote Transactions Types-->
+                        <ion-list-header>
+                            <ion-label>
+                                <strong>Quotes</strong>
+                            </ion-label>
+                        </ion-list-header>
+                        <ion-item *ngFor="let quoteTypeSetting of quoteTypeSettings">
+                            <mat-icon class="mat-icon-md" aria-hidden="false" attr.aria-label="{{quoteTypeSetting.iconName}}" svgIcon="{{quoteTypeSetting.iconName}}"></mat-icon>
+                            <ion-label (click)="userDidTapUserTransaction(quoteTypeSetting)"
+                                    [class.link]="quoteTypeSetting.productFeatureSettingItem == 'QuoteRenewalTransactions'">
+                                <div>{{quoteTypeSetting.name}}</div>
+                                <p class="status">{{quoteTypeSetting.isEnabled ? 'Enabled': 'Disabled'}}</p>
+                            </ion-label>
+                            <ion-toggle color="primary" class="toggle"
+                                        (ionChange)="userDidToggleQuoteTransaction($event, quoteTypeSetting)"
+                                        checked="{{ quoteTypeSetting.isEnabled }}"></ion-toggle>
+                        </ion-item>
+
+                        <!--Policy Transactions Types-->
+                        <ion-list-header>
+                            <ion-label>
+                                <strong>Policy Transactions</strong>
+                            </ion-label>
+                        </ion-list-header>
+                        <ion-item *ngFor="let policyTransactionTypeSetting of policyTransactionTypeSettings">
+                            <mat-icon class="mat-icon-md" aria-hidden="false" attr.aria-label="{{policyTransactionTypeSetting.iconName}}" svgIcon="{{policyTransactionTypeSetting.iconName}}"></mat-icon>
+                            <ion-label (click)="userDidTapUserTransaction(policyTransactionTypeSetting)"
+                                       [class.link]="policyTransactionTypeSetting.productFeatureSettingItem == 'RenewalTransactions'">
+                                <div>{{policyTransactionTypeSetting.name}}</div>
+                                <p class="status">{{policyTransactionTypeSetting.isEnabled ? 'Enabled': 'Disabled'}}</p>
+                            </ion-label>
+                            <ion-toggle color="primary" class="toggle"
+                                        (ionChange)="userDidTogglePolicyTransaction($event, policyTransactionTypeSetting)"
+                                        checked="{{ policyTransactionTypeSetting.isEnabled }}"></ion-toggle>
+                        </ion-item>
+
+                        <!--Organisations-->
+                        <ion-list-header>
+                            <ion-label>
+                                <strong>Organisations</strong>
+                            </ion-label>
+                        </ion-list-header>
+                        <ion-item *ngFor="let organisationSetting of organisationSettings">
+                            <mat-icon class="mat-icon-md" aria-hidden="false" attr.aria-label="{{organisationSetting.iconName}}" svgIcon="{{organisationSetting.iconName}}"></mat-icon>
+                            <ion-label>
+                                <div class="non-clickable-item">{{organisationSetting.name}}</div>
+                                <p class="status">{{organisationSetting.isEnabled ? 'Enabled' : 'Disabled'}}</p>
+                            </ion-label>
+                            <ion-toggle color="primary" class="toggle"
+                                        (ionChange)="userDidToggleOrganisationSetting($event, organisationSetting)"
+                                        checked="{{ organisationSetting.isEnabled }}"></ion-toggle>
+                        </ion-item>
+
+                        <!--Refund Setting-->
+                        <ion-list-header>
+                            <ion-label>
+                                <strong>Refunds</strong>
+                            </ion-label>
+                        </ion-list-header>
+                        <ion-item class="link" (click)="editRefundSettings()" button>
+                            <library-icon name="close-circle" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+                            <ion-label>
+                                <div>Refund Settings</div>
+                                <p class="status">{{refundRuleDescription}}</p>
+                            </ion-label>
+                        </ion-item>
+
+                        <!--Claims-->
+                        <ion-list-header>
+                            <ion-label>
+                                <strong>Claims</strong>
+                            </ion-label>
+                        </ion-list-header>
+                        <ion-item *ngFor="let claimSetting of claimSettings">
+                            <mat-icon class="mat-icon-md" aria-hidden="false" attr.aria-label="{{claimSetting.iconName}}" svgIcon="{{claimSetting.iconName}}"></mat-icon>
+                            <ion-label >
+                                <div class="non-clickable-item">{{claimSetting.name}}</div>
+                                <p class="status">{{claimSetting.isEnabled ? 'Enabled': 'Disabled'}}</p>
+                            </ion-label>
+                            <ion-toggle color="primary" class="toggle"
+                                        (ionChange)="userDidToggleClaimSetting($event, claimSetting)"
+                                        checked="{{ claimSetting.isEnabled }}"></ion-toggle>
+                        </ion-item>
+
+                    <!--Email Templates-->
+                    <ion-list-header>
+                        <ion-label>
+                            <strong>Email Templates</strong>
+                        </ion-label>
+                    </ion-list-header>
+                    <ion-item *ngFor="let emailTemplateSetting of emailTemplateSettings">
+                        <library-icon name="mail" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+                        <ion-label (click)="userDidTapTemplateItem(emailTemplateSetting)">
+                            <div class="link">{{emailTemplateSetting.name}}</div>
+                            <p class="status link">{{emailTemplateSetting?.subject}}</p>
+                        </ion-label>
+                        <ion-toggle color="primary"
+                                    (ionChange)="userDidChangeEmailTemplateStatus($event, emailTemplateSetting, emailTemplateSetting.id)"
+                                    checked="{{ !emailTemplateSetting.disabled }}"></ion-toggle>
+                    </ion-item>
+
+                    <!--System Alerts-->
+                    <ion-list-header>
+                        <ion-label>
+                            <strong>System Alerts</strong>
+                        </ion-label>
+                    </ion-list-header>
+                    <ion-item *ngFor="let systemAlert of systemAlerts">
+                        <library-icon name="{{systemAlert.systemAlertType.icon}}" [library]="iconLibrary.IonicV4" [size]="'large'"></library-icon>
+                        <ion-label (click)="editSystemAlert(systemAlert)">
+                            <div class="link">{{isMutual ? systemAlert.systemAlertType.name.replace('Policy', 'Protection') : systemAlert.systemAlertType.name}}</div>
+                            <p class="status link">{{systemAlert.disabled ? 'Disabled': systemAlert.alertMessage}}</p>
+                        </ion-label>
+                        <ion-toggle color="primary" (ionChange)="updateSystemAlertStatus($event, systemAlert)" checked="{{ !systemAlert.disabled }}"></ion-toggle>
+                    </ion-item>
+
+                    <!--Deployment Targets-->
+                    <ion-list-header>
+                        <ion-label>
+                            <strong>Restrict Deployment</strong>
+                        </ion-label>
+                    </ion-list-header>
+                    <ion-item>
+                        <library-icon name="browsers" [library]="iconLibrary.IonicV4" [size]="'large'"></library-icon>
+                        <ion-label (click)="editDeploymentSettings('development')"
+                                    (keydown.space)="editDeploymentSettings('development')"
+                                    (keydown.enter)="editDeploymentSettings('development')" tabindex="0">
+                            <div class="link">Development</div>
+                            <p class="status link">{{deploymentSetting.development.join(', ')}}</p>
+                        </ion-label>
+                        <ion-toggle color="primary"
+                                    (ionChange)="updateDeploymentSettingsActiveState($event, 'development')"
+                                    checked="{{ deploymentSetting.developmentIsActive }}"></ion-toggle>
+                    </ion-item>
+                    <ion-item>
+                        <library-icon name="browsers" [library]="iconLibrary.IonicV4" [size]="'large'"></library-icon>
+                        <ion-label (click)="editDeploymentSettings('staging')"
+                                    (keydown.space)="editDeploymentSettings('staging')"
+                                    (keydown.enter)="editDeploymentSettings('staging')" tabindex="0">
+                            <div class="link">Staging</div>
+                            <p class="status link">{{deploymentSetting.staging.join(', ')}}</p>
+                        </ion-label>
+                        <ion-toggle color="primary"
+                                    (ionChange)="updateDeploymentSettingsActiveState($event, 'staging')"
+                                    checked="{{ deploymentSetting.stagingIsActive }}"></ion-toggle>
+                    </ion-item>
+                    <ion-item>
+                        <library-icon name="browsers" [library]="iconLibrary.IonicV4" [size]="'large'"></library-icon>
+                        <ion-label (click)="editDeploymentSettings('production')"
+                                    (keydown.enter)="editDeploymentSettings('production')"
+                                    (keydown.space)="editDeploymentSettings('production')" tabindex="0">
+                            <div class="link">Production</div>
+                            <p class="status link">{{deploymentSetting.production.join(', ')}}</p>
+                        </ion-label>
+                        <ion-toggle color="primary"
+                                    (ionChange)="updateDeploymentSettingsActiveState($event, 'production')"
+                                    checked="{{ deploymentSetting.productionIsActive }}"></ion-toggle>
+                    </ion-item>
+                </ion-list>
+                <app-product-release-selection-view *ngIf="productReleaseSettings"
+                    [productReleaseSettings]="productReleaseSettings"
+                    (handleClick)="releaseSelectionSettingItemClicked($event)">
+                </app-product-release-selection-view>
+                <app-additional-properties-settings-view
+                    *ubAllowAccess="permission.ManageAdditionalPropertyDefinitions"
+                    [additionalPropertyDefinitions]="additionalPropertyDefinitions"
+                    [contextType]="additionalPropertyContextType"
+                    (handleOnClick)="additionalPropertyContextSettingItemClicked($event)">
+                </app-additional-properties-settings-view>
+                <ion-list *ubAllowAccess="permission.ViewDataTables" lines="none" class="settings-list detail-tenant-settings-list">
+                    <ion-list-header>
+                        <ion-label>
+                            <strong>Data Tables</strong>
+                        </ion-label>
+                    </ion-list-header>
+                    <ion-item (click)="navigateToDataTableDefinition()" button>
+                        <library-icon name="grid" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+                        <ion-label class="link-text">
+                            <div>Data Tables</div>
+                            <p class="status">
+                                {{dataTables?.length ? dataTables.length : 'No'}} data table{{dataTables?.length != 1 ? 's' : ''}}
+                            </p>
+                        </ion-label>
+                    </ion-item>
+                </ion-list>
+            </ng-container>
+            <div *ngIf="settingsErrorMessage" class="tab-content content-error" [@contentAnimation]>
+                <p class="ion-text-center">{{ settingsErrorMessage }}</p>
+            </div>
+        </div>
+
+    </div> <!-- segment switch -->
+</ion-content>
+
+<ng-template #segmentList>
+    <ion-segment id="detail-product-segment" scrollable="true"
+                 [value]="segment" (ionChange)="segmentChanged($event)"
+                 scrollHorizontal scrollMousedrag
+                 [segmentSelectedScrollIntoView]="segment">
+        <ion-segment-button ionSegmentButtonEvent value="Details">
+            <ion-label>Details</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="Source">
+            <ion-label>Source</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent *ubAllowAccess="permission.ViewReleases" value="Releases">
+            <ion-label>Releases</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent *ubAllowAccess="permission.ManageProducts" value="Settings">
+            <ion-label>Settings</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+</ng-template>
+
+<ng-template #detailHeader>
+    <ion-buttons *ngIf="!layoutManager.splitPaneVisible || canGoBack" slot="start">
+        <ion-button slot="icon-only" (click)="goBack()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title>{{title}}</ion-title>
+    <ion-buttons slot="end">
+        <ng-container>
+            <app-entity-action-button-list *ngIf="actionButtonList && !isLoading"
+                [actionButtonList]="actionButtonList"
+                [getMoreButtonCallback]="presentPopover.bind(this)"
+                [canShowMore]="(canShowMore || (actions?.length > 0 && hasActionsIncludedInMenu)) && !isLoading"
+                [flipMoreIcon]="flipMoreIcon">
+            </app-entity-action-button-list>
+        </ng-container>
+    </ion-buttons>
+</ng-template>
+
+<ng-template #releaseListItemTemplate let-item>
+    <library-icon name="cube" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+    <ion-label>
+        <div>
+            Release {{ item.number }}
+            <ion-icon class="right-icon-text" *ngIf="item.status == releaseStatus.Initializing"
+                        name="cloud-upload" [ngStyle]="{'transform': 'scale(0.6)'}">
+            </ion-icon>
+            <ion-icon class="right-icon-text" *ngIf="item.status == releaseStatus.Succeeded"
+                        name="cloud-done" [ngStyle]="{'transform': 'scale(0.6)'}">
+            </ion-icon>
+            <ion-icon class="right-icon-text" *ngIf="item.status == releaseStatus.Failed"
+                        name="bug" [ngStyle]="{'transform': 'scale(0.6)'}">
+            </ion-icon>
+        </div>
+        <p class="status">{{ item.label }}</p>
+    </ion-label>
+    <ion-label slot="end" class="grayed-label ion-text-wrap ion-text-end">
+        {{ item.createdDateTime | date:'shortTime' }}
+    </ion-label>
+</ng-template>

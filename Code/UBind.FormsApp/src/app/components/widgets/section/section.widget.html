@@ -1,0 +1,39 @@
+<p *ngIf="applicationService.debug" class="debug">
+    <span class="debug-property">
+        <span class="key">Section:</span><span class="value"> {{ stepName }}</span>
+    </span>
+    <span class="debug-property">
+        <span class="key">Valid:</span><span class="value"> {{ childrenValidityTracker.valid }}</span>
+    </span>
+    <span class="debug-property">
+        <span class="key">Invalid Children Count:</span><span class="value"> {{ childrenValidityTracker.invalidChildCount }}</span>
+    </span>
+</p>
+<section class="section workflow-step-{{ stepName }}">
+    <ng-container *ngFor="let article of articles">
+        <ng-container *ngIf="applicationService.debug && !article.render">
+            <p class="debug">
+                <span class="debug-property">
+                    <span class="key">Article:</span><span class="value"> {{ article.name }}</span>
+                </span>
+                <span class="debug-property">
+                    <span class="key">Hidden:</span><span class="value"> {{ !article.render }}</span>
+                </span>
+                <span class="debug-property" *ngIf="article.hiddenExpression">
+                    <span class="key">Hidden Expression:</span><span class="value"> {{ article.hiddenExpression.source }}</span>
+                </span>
+            </p>
+        </ng-container>                        
+        <article-widget *ngIf="renderMethod == RenderMethod.Eager || (article.render && article.canDisplay)
+            " 
+            [definition]="article.definition" 
+            [stepName]="article.stepName"
+            [index]="article.index"
+            [displayMode]="article.displayMode"
+            [sectionArticleElementStartingIndex]="article.sectionArticleElementStartingIndex"
+            [parentSectionWidgetChildrenValidityTracker]="childrenValidityTracker"
+            [hiddenExpression]="article.hiddenExpression"
+            [style.display]="article.render && article.canDisplay ? 'inherit': 'none'">
+        </article-widget>
+    </ng-container>    
+</section>

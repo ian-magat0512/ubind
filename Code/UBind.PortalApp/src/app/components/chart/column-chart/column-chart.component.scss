@@ -1,0 +1,141 @@
+$break-small: 768px;
+
+:host {
+  display: block;
+  width: 100%;
+
+  @media only screen and (min-width: $break-small) {
+    height: 366px;
+  }
+
+  ion-card {
+    @media only screen and (min-width: $break-small) {
+      height: 356px;
+    }
+  }
+
+  ion-text {
+    width: 100%;
+
+    h1 {
+      font-size: 18px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      overflow-wrap: break-word;
+      word-wrap: break-word;
+      max-width: 100%;
+    }
+  }
+
+  ion-col {
+    width: 50%;
+
+    h2 {
+      font-size: 24px;
+    }
+
+    h3 {
+      font-size: 16px;
+    }
+
+    h2, h3 {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      max-width: 100%;
+      white-space: nowrap;
+    }
+  }
+
+  .chart-title {
+    white-space: normal;
+    overflow-wrap: break-word;
+    word-wrap: break-word;
+    hyphens: none;
+    margin-right: 2px;
+  }
+
+  ion-select {
+    padding-top: 20px;
+    margin-left: 0px;
+    font-size: 14px;
+    color: #222428;
+  }
+
+  .number-generated {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: white;
+    padding: 10px;
+  }
+
+  .total {
+    display: block;
+    width: 100%;
+    height: 100%;
+    color: black;
+    padding: 10px;
+
+    span.currency {
+      color: white !important;
+      font-size: 24px !important;
+    }
+  }
+
+  .chart {
+    display: block;
+    width: 100%;
+  }
+
+  ion-item.select-period.ion-focused,
+  ion-item.select-month.ion-focused {
+    ion-select {
+      background-color: #f1f1f1;
+    }
+  }
+}
+
+ion-item.compress-container {
+  --inner-padding-end: 0px;
+  --padding-start: 0px;
+  --padding-end: 0px;
+}
+
+.currency-color {
+  color: #ffffff;
+}
+
+.column-chart {
+  --default-background-color-dark: #00695c;
+  --default-background-color-light: #26a69a;
+  --background-color-dark: var(--default-background-color-dark);
+  --background-color-light: var(--default-background-color-light);
+
+  --default-text-color-dark: #ffffff;
+  --default-text-color-light: #ffffff;
+  --text-color-dark: var(--default-text-color-dark);
+  --text-color-light: var(--default-text-color-light);
+
+  --default-title-color: #00695c;
+  --title-color: var(--default-title-color);
+
+  .background-color-dark {
+    background-color: var(--background-color-dark, --default-background-color-dark);
+  }
+
+  .background-color-light {
+    background-color: var(--background-color-light, --default-background-color-light);
+  }
+
+  .text-color-dark {
+    color: var(--text-color-dark, --default-text-color-dark);
+  }
+
+  .text-color-light {
+    color: var(--text-color-light, --default-text-color-light);
+  }
+
+  .title-color {
+    color: var(--title-color, --default-title-color);
+  }
+}

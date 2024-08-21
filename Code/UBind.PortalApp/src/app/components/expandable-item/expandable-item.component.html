@@ -1,0 +1,15 @@
+<ion-item (click)="expandItem()" *ngIf="titleData" button>
+    {{title}}
+    <library-icon *ngIf="isExpandable && hasContent()" [name]="!expanded ? 'arrow-dropdown' : 'arrow-dropup'" 
+        [library]="iconLibrary.IonicV4"
+        cssClass="medium"
+        [cssStyle]="{'margin-top': '5px'}">
+    </library-icon>
+    <ion-label class="ion-text-wrap ion-text-end" slot="end">{{titleText}}</ion-label>
+</ion-item>
+<div *ngIf="this.expanded" #expandWrapper [@contentAnimation]>
+    <ion-item *ngFor="let item of expandContentHeaders" tabindex="0">
+        <ion-label>{{item}}</ion-label>
+        <ion-label class="ion-text-wrap ion-text-end" slot="end">{{expandContent[item]}}</ion-label>
+    </ion-item>
+</div>

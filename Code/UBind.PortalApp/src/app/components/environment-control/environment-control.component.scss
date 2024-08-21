@@ -1,0 +1,105 @@
+:host {
+    > div {
+        z-index: 100;
+        border-top-left-radius: 15px;
+        --border-radius: 25px;
+        --border-top-left-radius: 15px;
+        --border-top-right-radius: 1%;
+        --border-bottom-left-radius: 1%;
+        --border-bottom-right-radius: 1%;
+        --border-radius: var(--border-top-left-radius) var(--border-top-right-radius) var(--border-bottom-right-radius)
+            var(--border-bottom-left-radius);
+        font-size: 14px;
+        letter-spacing: 0.06em;
+        --inner-padding-end: 0;
+
+        position: fixed;
+        bottom: 0;
+        right: 0;
+    }
+
+    .ion-black {
+        --height: 45px;
+        --ripple-color: #000000;
+        --border-color: #000000;
+        --ion-color-dark: #000000;
+        --ion-color-dark-rgb: 0, 0, 0;
+        --ion-color-dark-contrast: #ffffff;
+        --ion-color-dark-contrast-rgb: 255, 255, 255;
+        --ion-color-dark-shade: #000000;
+        --ion-color-dark-tint: #1a1a1a;
+        height: 45px;
+        background: black;
+        color: white;
+        background-color: black;
+        --background: #000;
+    }
+
+    div,
+    ion-button,
+    ion-item {
+        .disabled {
+            pointer-events: none !important;
+        }
+
+        .clickable {
+            cursor: pointer;
+            pointer-events: auto !important;
+        }
+
+        ion-label {
+            text-transform: none;
+            padding-bottom: 2px;
+        }
+
+        ion-icon {
+            color: white !important;
+            font-size: 20px;
+            min-width: 10px;
+            margin-right: 7px;
+            margin-left: -1px;
+            padding-bottom: 2px;
+        }
+
+        .ellipsis {
+            color: #ffffff;
+            font-size: 20px;
+            --padding-start: 14px;
+            --padding-end: 14px;
+        }
+    }
+}
+
+.environment-control{
+    display: flex;
+    align-items: center;
+    background: black;
+    padding-left: 20px;
+
+    .environment-control-text{
+        display: flex;
+        align-items: center;
+        margin-right: 20px;
+    }
+
+    ion-button:focus{
+        --background-focused: blue;
+        background-color: blue;
+    }
+}
+
+.environment-control-button{
+    margin-left: -20px;
+    
+    button{
+        margin: 4px 2px;
+        padding: 0px 14px;
+    }
+    button:focus{
+        outline: none;
+        background-color: #383a3e !important;
+    }
+    button:hover{
+        background-color: #383a3e !important;
+    }
+}

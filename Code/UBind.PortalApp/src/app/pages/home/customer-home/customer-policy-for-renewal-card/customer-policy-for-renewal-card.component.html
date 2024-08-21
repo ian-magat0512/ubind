@@ -1,0 +1,31 @@
+<div>
+    <ion-card *ngFor="let policy of policiesForRenewal" class="renewal-card">
+        <ion-card-header>
+            <mat-icon style="padding-right: 8px" class="mat-icon-md" aria-hidden="false" aria-label="shield" svgIcon="shield"></mat-icon>
+            <label *ngIf="!isMutual">Renew Policy</label>
+            <label *ngIf="isMutual">Renew Protection</label>
+        </ion-card-header>
+        <ion-card-content>
+            <div class="preloader-wrapper" *ngIf="isLoading && !policy">
+                <loader></loader>
+            </div>
+            <ion-row style="padding-bottom: 8px;">
+                <ion-label class="ion-text-wrap" *ngIf="!isMutual">
+                    Your {{policy.productName}} policy {{policy.policyNumber}} {{ getDisplayDatePhrase(policy.expiryDate) }}.
+                    Would you like to renew your policy now?
+                </ion-label>
+                <ion-label class="ion-text-wrap" *ngIf="isMutual">
+                    Your {{policy.productName}} protection {{policy.policyNumber}} {{ getDisplayDatePhrase(policy.expiryDate) }}.
+                    Would you like to renew your protection now?
+                </ion-label>
+            </ion-row>
+            <ion-row>
+                <ion-button (click)="userDidTapRenewPolicy(policy)" fill="outline">
+                    <ion-icon class="renew-button" style="font-size:large;" name="refresh" slot="start"></ion-icon>
+                    <label *ngIf="!isMutual">RENEW POLICY</label>
+                    <label *ngIf="isMutual">RENEW PROTECTION</label>
+                </ion-button>
+            </ion-row>
+        </ion-card-content>
+    </ion-card>
+</div>

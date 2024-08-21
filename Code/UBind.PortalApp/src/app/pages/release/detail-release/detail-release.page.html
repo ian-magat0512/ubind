@@ -1,0 +1,128 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf='!layoutManager.splitPaneVisible then detailHeader'></ng-container>
+    </ion-toolbar>
+    <ng-container *ngIf='!layoutManager.splitPaneVisible then segmentList'></ng-container>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ng-container *ngTemplateOutlet="detailHeader"></ng-container>
+    </ion-toolbar>
+    <ng-container *ngIf='layoutManager.splitPaneVisible then segmentList'></ng-container>
+
+    <div [ngSwitch]="segment">
+
+        <!--Details tab-->
+        <div *ngSwitchCase="'Details'">
+            <loader *ngIf='isLoading'></loader>
+            <ng-container *ngIf="!isLoading && !errorMessage">
+                <app-entity-details-list [@contentAnimation]
+                                            [detailsListItems]="detailsListItems"
+                                            [hasItemLines]="false"
+                                            [hasGroupLines]="true">
+                </app-entity-details-list>
+            </ng-container>
+            <!--error-->
+            <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+                <p text-center>{{ errorMessage }}</p>
+            </div>
+        </div>
+
+        <!--Source tab-->
+        <div *ngSwitchCase="'Source'" class="tab-content" [@contentAnimation]>
+            <loader *ngIf='isLoadingSourceFiles'></loader>
+            <ng-container *ngIf="!isLoadingSourceFiles && !sourceFilesErrorMessage">
+                <div *ngIf="sourceFilesFound" class="tab-content" [@contentAnimation]>
+                    <ion-item-group *ngFor="let componentType of componentTypes">
+                        <ng-container *ngIf="rootFiles[componentType]?.length > 0">
+                            <ion-item-divider>
+                                <ion-label>{{componentType | titlecase}} Configuration</ion-label>
+                            </ion-item-divider>
+                            <div *ngFor="let file of rootFiles[componentType]; last as isLastRoot">
+                                <ion-item (click)="openFile(file)" [class.no-border-bottom]="isLastRoot">
+                                    <ion-label>{{file.sourceType}}</ion-label>
+                                    <ion-label slot="end" class="grayed-label ion-text-wrap ion-text-end">
+                                        <ion-icon name="link"></ion-icon>
+                                        {{file.fileName}}
+                                    </ion-label>
+                                </ion-item>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="privateFiles[componentType]?.length > 0">
+                            <ion-item-divider>
+                                <ion-label>{{componentType | titlecase}} Private Files</ion-label>
+                            </ion-item-divider>
+                            <div *ngFor="let file of privateFiles[componentType]; last as isLastChild">
+                                <ion-item (click)="openFile(file)" [class.no-border-bottom]="isLastChild">
+                                    <ion-label>{{file.sourceType}}</ion-label>
+                                    <ion-label slot="end" class="grayed-label ion-text-wrap ion-text-end">
+                                        <ion-icon name="link"></ion-icon>
+                                        {{file.fileName}}
+                                    </ion-label>
+                                </ion-item>
+                            </div>
+                        </ng-container>
+                        <ng-container *ngIf="assetFiles[componentType]?.length > 0">
+                            <ion-item-divider>
+                                <ion-label>{{componentType | titlecase}} Public Assets</ion-label>
+                            </ion-item-divider>
+                            <div *ngFor="let file of assetFiles[componentType]; last as isLastAsset">
+                                <ion-item (click)="openFile(file)" [class.no-border-bottom]="isLastAsset">
+                                    <ion-label>{{file.sourceType}}</ion-label>
+                                    <ion-label slot="end" class="grayed-label ion-text-wrap ion-text-end">
+                                        <ion-icon name="link"></ion-icon>
+                                        {{file.fileName}}
+                                    </ion-label>
+                                </ion-item>
+                            </div>
+                        </ng-container>
+                    </ion-item-group>
+                </div>
+                <div *ngIf="!sourceFilesFound"
+                        class="tab-content content-error" [@contentAnimation]>
+                    <p class="ion-text-center">
+                        No source files found
+                    </p>
+                </div>
+            </ng-container>
+            <div *ngIf="sourceFilesErrorMessage" class="tab-content content-error" [@contentAnimation]>
+                <p class="ion-text-center">{{ sourceFilesErrorMessage }}</p>
+            </div>
+        </div>        
+
+    </div> <!-- segment switch -->
+</ion-content>
+
+<ng-template #segmentList>
+    <ion-segment id="detail-release-segment" scrollable="true"
+                 [value]="segment" (ionChange)="segmentChanged($event)"
+                 scrollHorizontal scrollMousedrag
+                 [segmentSelectedScrollIntoView]="segment">
+        <ion-segment-button ionSegmentButtonEvent value="Details">
+            <ion-label>Details</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="Source">
+            <ion-label>Source</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+</ng-template>
+
+<ng-template #detailHeader>
+    <ion-buttons *ngIf="!layoutManager.splitPaneVisible || canGoBack" slot="start">
+        <ion-button slot="icon-only" (click)="goBack()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title>{{ title }}</ion-title>
+    <ion-buttons slot="end">
+        <ng-container>
+            <app-entity-action-button-list *ngIf="actionButtonList && !isLoading"
+                [actionButtonList]="actionButtonList"
+                [getMoreButtonCallback]="presentPopover.bind(this)"
+                [canShowMore]="(canShowMore || (actions?.length > 0 && hasActionsIncludedInMenu)) && !isLoading"
+                [flipMoreIcon]="flipMoreIcon">
+            </app-entity-action-button-list>
+        </ng-container>
+    </ion-buttons>
+</ng-template>

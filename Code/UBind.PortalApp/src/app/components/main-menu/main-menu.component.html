@@ -1,0 +1,104 @@
+<ion-list *ngIf="!slide" class="side-menu-ion-list main-menu" lines="none">
+    <ng-container *ngTemplateOutlet="menuItems"></ng-container>               
+</ion-list>
+
+<ion-list *ngIf="slide" class="side-menu-ion-list-slide main-menu" lines="none">
+    <div class="side-menu">
+        <ion-menu-toggle auto-hide="false">
+            <ng-container *ngTemplateOutlet="menuItems"></ng-container>
+        </ion-menu-toggle>
+    </div>
+    <div *ngIf="canChangeEnvironment" class="side-menu">
+        <hr>
+        <div>
+            <ion-item class="sidebar-menu-header-container">
+                <ion-label class="sidebar-menu-header">Display</ion-label>
+            </ion-item>
+        </div>
+        <div>
+            <ion-item (click)="userDidTapEnvironment()" style="height: 48px; min-height: 48px; --min-height: 48px;">
+                <library-icon name="construct"
+                    [library]="iconLibrary.IonicV4"
+                    class="ion-margin-horizontal">
+                </library-icon>
+                <ion-label>Environment</ion-label>
+                <ion-icon slot="end" name="{{isAccordionExpanded?'chevron-up':'chevron-down'}}" class="ion-margin-horizontal" style="margin-right: 0;font-size: 16px !important;min-width: 16px !important;width: 16px !important;margin-top: 15px;"></ion-icon>
+            </ion-item>
+        </div>
+
+        <div class="accordion-menu {{ isAccordionExpanded?'expanded':''}}">
+            <ion-menu-toggle>
+                <div *ngFor="let env of availableEnvironments">
+                    <ion-item
+                        (click)="environmentChange(env)"
+                        tabindex="0"
+                        (keydown.enter)="environmentChange(env)"
+                        (keydown.space)="environmentChange(env)"
+                        routerLinkActive="activated">
+                        <ion-icon class="slidein-sidebar-icon submenu-icon" *ngIf="env != environment" slot="start" style="margin-left: 70px !important; margin-right: 20px !important;"></ion-icon>
+                        <ion-icon class="slidein-sidebar-icon submenu-icon" *ngIf="env == environment" slot="start" name="checkmark" style="margin-left: 70px !important; margin-right: 20px !important;"></ion-icon>
+                        <ion-label>{{env}}</ion-label>
+                    </ion-item>
+                </div>
+            </ion-menu-toggle>
+        </div>
+    </div>
+    <div class="side-menu">
+        <hr>
+        <div>
+            <ion-item class="sidebar-menu-header-container">
+                <ion-label class="sidebar-menu-header">Account</ion-label>
+            </ion-item>
+            <ion-menu-toggle auto-hide="false">
+                <ion-item *ubAllowAccess="permission.ViewMyAccount"
+                    (click)="userDidTapMyAccount()" 
+                    tabindex="0"
+                    (keydown.enter)="userDidTapMyAccount()"
+                    (keydown.space)="userDidTapMyAccount()"
+                    routerLinkActive="activated">
+                    <library-icon name="settings"
+                        [library]="iconLibrary.IonicV4"
+                        class="slidein-sidebar-icon ion-margin-horizontal">
+                    </library-icon>
+                    <ion-label>My Account</ion-label>
+                </ion-item>
+                <ion-item
+                    (click)="userDidTapSignout()" 
+                    tabindex="0"
+                    (keydown.enter)="userDidTapSignout()"
+                    (keydown.space)="userDidTapSignout()"
+                    routerLinkActive="activated">
+                    <library-icon name="log-out"
+                        [library]="iconLibrary.IonicV4"
+                        class="slidein-sidebar-icon ion-margin-horizontal">
+                    </library-icon>
+                    <ion-label>Sign Out</ion-label>
+                </ion-item>
+            </ion-menu-toggle>
+        </div>
+    </div>
+</ion-list>
+
+<ng-template #menuItems>
+    <div *ngFor="let p of appPages">
+        <ion-item *ngIf="p.icon != ''" 
+            [routerDirection]="'root'" 
+            (click)="userDidTapMenuItems(p)"                         
+            (keydown.enter)="userDidTapMenuItems(p)"
+            (keydown.space)="userDidTapMenuItems(p)" 
+            tabindex="0"
+            role="link" 
+            [attr.data-href]="p.navigate.commands[0]"
+            [routerLink]="p.navigate.commands[0]"
+            routerLinkActive="activated">
+            <library-icon [name]="p.icon" 
+                [library]="p.iconLibrary"
+                [cssClass]="p.iconLibrary == iconLibrary.AngularMaterial ? 'mat-icon-sm' : ''" 
+                class="ion-margin-horizontal" 
+                slot="start" 
+                [class.desktop-side-menu-icon]="!layoutManager.canShowFloatingMenu()">
+            </library-icon>
+            <ion-label [class.desktop-side-menu-label]="!layoutManager.canShowFloatingMenu()"> {{p.title}} </ion-label>
+        </ion-item>
+    </div>
+</ng-template>

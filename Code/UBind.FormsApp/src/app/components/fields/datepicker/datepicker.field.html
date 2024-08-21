@@ -1,0 +1,42 @@
+<field-debug *ngIf="applicationService.debug" [field]="this">
+    <span class="debug-property">
+        <span class="key">Native:</span><span class="value"> {{ isNative }}</span>
+    </span>
+    <span *ngIf="isNative" class="debug-property">
+        <span class="key">Native Field Value:</span><span class="value"> {{ nativeDateFieldValue }}</span>
+    </span>
+</field-debug>
+<input
+    *ngIf="!isNative"
+    class="form-control non-native-date-input tabbable"
+    [name]="key"
+    [id]="htmlId"
+    [formControl]="formControl"
+    [formatTextInput]="textInputFormat"
+    (change)="onChange($event)"
+    (keyup)="onKeyUp($event)"
+    (keydown)="onKeyDown($event)"
+    (focus)="onFocus($event)"
+    (blur)="onBlur($event)" 
+    (click)="onClick($event)"
+    tabindex="0"
+    [attr.inputmode]="keyboardInputMode"
+    [attr.aria-label]="ariaLabelByKey"/>
+<input
+    *ngIf="isNative"
+    type="date"
+    [class.datepicker-has-value]="nativeDateFieldValue != ''"
+    [class.datepicker-has-no-value]="nativeDateFieldValue == ''"
+    [class.ng-invalid]="!valid"
+    [class.ng-valid]="valid"
+    class="form-control native-date-input tabbable"
+    [name]="key"
+    [id]="htmlId"
+    [ngModel]="nativeDateFieldValue"
+    (ngModelChange)="ngModelChange($event)"
+    (keyup)="onKeyUp($event)"
+    (keydown)="onKeyDown($event)"
+    (focus)="onFocus($event)"
+    (blur)="onBlur($event)" 
+    [attr.inputmode]="keyboardInputMode"
+    tabindex="0"/>

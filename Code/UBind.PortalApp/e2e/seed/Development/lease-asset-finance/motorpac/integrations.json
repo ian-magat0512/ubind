@@ -1,0 +1,40 @@
+{
+  "eventExporters": [
+    {
+      "id": "Webhook Request Call-Back",
+      "events": [ "Enquired" ],
+      "action": {
+        "type": "http",
+        "url": {
+            "type": "environment",
+            "development" : "https://ubind-application-uat.aptiture.com/exporttest",
+            "staging" : "https://ubind-application-uat.aptiture.com/exporttest",
+            "production" : "https://hooks.zapier.com/hooks/catch/3023778/a9pnht/"
+        },
+        "body": {
+          "type": "razor",
+          "templateName": "webhook-request-callback.cshtml"
+        },
+        "contentType": "application/x-www-form-urlencoded"
+      }
+    },
+    {
+      "id": "Webhook Generate Printable PDF",
+      "events": [ "Submitted" ],
+      "action": {
+        "type": "http",
+        "url": {
+            "type": "environment",
+            "development" : "https://ubind-application-uat.aptiture.com/exporttest",
+            "staging" : "https://ubind-application-uat.aptiture.com/exporttest",
+            "production" : "https://www.webmerge.me/merge/157256/4zedkj"
+        },
+        "body": {
+          "type": "razor",
+          "templateName": "webhook-generate-printable-pdf.cshtml"
+        },
+        "contentType": "application/x-www-form-urlencoded"
+      }
+    }
+  ]
+}

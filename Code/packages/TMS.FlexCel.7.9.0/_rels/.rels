@@ -1,0 +1,5 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Relationships xmlns="http://schemas.openxmlformats.org/package/2006/relationships">
+  <Relationship Type="http://schemas.microsoft.com/packaging/2010/07/manifest" Target="/TMS.FlexCel.nuspec" Id="RE80E6F3EA0825C90" />
+  <Relationship Type="http://schemas.openxmlformats.org/package/2006/relationships/metadata/core-properties" Target="/package/services/metadata/core-properties/30cc437545ff4023ba00626086ce0ee6.psmdcp" Id="R7EB11D9A488F238F" />
+</Relationships>

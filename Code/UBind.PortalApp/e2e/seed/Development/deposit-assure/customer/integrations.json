@@ -1,0 +1,120 @@
+{
+  "eventExporters": [
+    {
+        "id": "DepositAssure-Consumer Email Submission Admin",
+        "events": [ "Submitted" ],
+        "action": {
+            "type": "email",
+            "from": "Deposit Bond Application - Concierge Service <bonds@depositassure.com.au>",
+            "to": {
+                 "type": "environment",
+                 "development": "gene.rivera@aptiture.com",
+                 "staging": "bonds@depositassure.com.au",
+                 "production": "bonds@depositassure.com.au"
+            },
+            "subject": "New application submitted",
+            "plainTextBody": {
+                "type": "razor",
+                "templateName": "email-submission-admin-text.cshtml"
+            },
+            "htmlBody": {
+                "type": "razor",
+                "templateName": "email-submission-admin-html.cshtml"
+            },
+            "attachments": [
+                {
+                    "type": "upload",
+                    "fieldName": "photoIdApplicant1",
+                    "outputFileName": "Photo ID - Applicant 1.*"
+                }, 
+                {
+                    "type": "upload",
+                    "fieldName": "photoIdApplicant2",
+                    "outputFileName": "Photo ID - Applicant 2.*"
+                }, 
+                {
+                    "type": "upload",
+                    "fieldName": "photoIdApplicant3",
+                    "outputFileName": "Photo ID - Applicant 3.*"
+                }, 
+                {
+                    "type": "upload",
+                    "fieldName": "photoIdApplicant4",
+                    "outputFileName": "Photo ID - Applicant 4.*"
+                }, 
+                {
+                    "type": "upload",
+                    "fieldName": "photoIdApplicant5",
+                    "outputFileName": "Photo ID - Applicant 5.*"
+                },
+                {
+                    "type": "upload",
+                    "fieldName": "purchaseContractAttachment",
+                    "outputFileName": "Contract of Sale.*"
+                },
+                {
+                    "type": "upload",
+                    "fieldName": "financeApprovalLetterAttachment",
+                    "outputFileName": "Finance Approval Letter.*"
+                },
+                {
+                    "type": "upload",
+                    "fieldName": "additionalSourceOfFundsAttachment",
+                    "outputFileName": "Additional Source of Funds.*"
+                },
+                {
+                    "type": "upload",
+                    "fieldName": "saleContractAttachment",
+                    "outputFileName": "Contract of Sale (for property sale).*"
+                },
+                {
+                    "type": "upload",
+                    "fieldName": "additionalSupportingDocuments[0].additionalSupportingDocumentAttachment",
+                    "outputFileName": "Additional Supporting Document 1.*"
+                },
+                {
+                    "type": "upload",
+                    "fieldName": "additionalSupportingDocuments[1].additionalSupportingDocumentAttachment",
+                    "outputFileName": "Additional Supporting Document 2.*"
+                },
+                {
+                    "type": "upload",
+                    "fieldName": "additionalSupportingDocuments[2].additionalSupportingDocumentAttachment",
+                    "outputFileName": "Additional Supporting Document 3.*"
+                },
+                {
+                    "type": "upload",
+                    "fieldName": "additionalSupportingDocuments[3].additionalSupportingDocumentAttachment",
+                    "outputFileName": "Additional Supporting Document 4.*"
+                },
+                {
+                    "type": "upload",
+                    "fieldName": "additionalSupportingDocuments[4].additionalSupportingDocumentAttachment",
+                    "outputFileName": "Additional Supporting Document 5.*"
+                }
+            ]
+        }
+    },
+    {
+        "id": "DepositAssure-Consumer Email Submission Broker",
+        "events": [ "Submitted" ],
+        "action": {
+            "type": "email",
+            "from": "Deposit Bond Application - Concierge Service <bonds@depositassure.com.au>",
+            "to": {
+                "type": "formField",
+                "fieldName": "brokerEmail"
+            },
+            "subject": "Thank you for referring to Deposit Assure’s Concierge team.",
+            "plainTextBody": {
+                "type": "razor",
+                "templateName": "email-submission-broker-text.cshtml"
+            },
+            "htmlBody": {
+                "type": "razor",
+                "templateName": "email-submission-broker-html.cshtml"
+            }
+        } 
+    }
+  ]
+}

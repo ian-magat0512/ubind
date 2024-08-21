@@ -1,0 +1,45 @@
+<ion-list lines="none" class="account-popover">
+    <div *ngIf="showEnvironmentSelection">
+        <ion-item class="sidebar-menu-header-container">
+            <ion-label class="sidebar-menu-header">Display</ion-label>
+        </ion-item>
+        <button button (click)="clickEnvironmentSelection($event)">
+            <library-icon name="construct"
+                [library]="iconLibrary.IonicV4"
+                [slot]="'start'"
+                [cssStyle]="{'font-size': '22px'}"
+                [cssClass]="'grayed-icon start ion-margin-horizontal'">
+            </library-icon>
+            <ion-label style="font-size:14px;">Environment</ion-label>
+            <library-icon name="arrow-dropright"
+                [library]="iconLibrary.IonicV4"
+                [slot]="'end'"
+                [cssStyle]="{'font-size': '23px'}"
+                [cssClass]="'grayed-icon end'">
+            </library-icon>
+        </button>
+        <hr />
+        <ion-item class="sidebar-menu-header-container">
+            <ion-label class="sidebar-menu-header">Account</ion-label>
+        </ion-item>
+    </div>
+
+    <button *ubAllowAccess="permission.ViewMyAccount" button (click)="userDidTapMyAccount($event)">
+        <library-icon name="settings"
+            [library]="iconLibrary.IonicV4"
+            [slot]="'start'"
+            [cssStyle]="{'font-size': '22px'}"
+            [cssClass]="'grayed-icon start ion-margin-horizontal'">
+        </library-icon>
+        <ion-label style="font-size:14px;">My Account</ion-label>
+    </button>
+    <button button (click)="userDidTapSignout($event)">
+        <library-icon name="log-out"
+            [library]="iconLibrary.IonicV4"
+            [slot]="'start'"
+            [cssStyle]="{'font-size': '22px'}"
+            [cssClass]="'rayed-icon start ion-margin-horizontal'">
+        </library-icon>
+        <ion-label style="font-size:14px;">Sign Out</ion-label>
+    </button>
+</ion-list>

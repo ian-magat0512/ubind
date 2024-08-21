@@ -1,0 +1,52 @@
+/**
+ * Material Preloader
+ */
+
+.material-webhook {
+    margin: auto;
+    text-align: center;
+}
+.material-preloader {
+    margin: auto;
+    text-align: center;
+    margin-top: 20px;
+    margin-bottom: 20px;
+}
+.custom-loader-md {
+    position: relative;
+    fill: transparent;
+    stroke: #ccc;
+    stroke-width: 3;
+    animation: custom-loader-md-dash 2s ease infinite, custom-loader-md-rotate 2s linear infinite;
+}
+circle.ie {
+    stroke-dasharray: 69, 200;
+    stroke-dashoffset: -10;
+    stroke-linecap: round;
+}
+@keyframes custom-loader-md-dash {
+    0% {
+        stroke-dasharray: 1, 95;
+        stroke-dashoffset: 0;
+    }
+
+    50% {
+        stroke-dasharray: 85, 95;
+        stroke-dashoffset: -25;
+    }
+
+    100% {
+        stroke-dasharray: 85, 95;
+        stroke-dashoffset: -93;
+    }
+}
+
+@keyframes custom-loader-md-rotate {
+    0% {
+        transform: rotate(0deg);
+    }
+
+    100% {
+        transform: rotate(360deg);
+    }
+}

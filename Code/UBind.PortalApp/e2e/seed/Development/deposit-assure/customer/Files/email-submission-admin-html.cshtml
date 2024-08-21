@@ -1,0 +1,15 @@
+@model UBind.Application.Export.ViewModels.ApplicationEventViewModel
+
+<p style="font-family: Arial; font-size:13px;">An online application has been completed for Deposit Assure.</p>
+
+<p style="font-family: Arial; font-size:13px;">&nbsp;</p>
+
+<p style="font-family: Arial; font-size:13px;">Partner : @Model.Form["partnerId"]</p>
+
+<h4 style="text-indent:15px; padding: 20px 0; background: #e6eaea; width: 60%; font-family: Arial; font-size:13px;">Application Details</h4>
+
+@Raw(Model.Form.PrettyPrintHtml())
+
+<h4 style="text-indent:15px; padding: 20px 0; background: #e6eaea; width: 60%; font-family: Arial; font-size:13px;">&nbsp;</h4>
+
+<p style="font-family: Arial; font-size:13px;"><br/><strong>Best regards<br/>Deposit Assure Brokers</strong><br />&nbsp;</p>

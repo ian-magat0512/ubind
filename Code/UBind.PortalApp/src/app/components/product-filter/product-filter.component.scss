@@ -1,0 +1,76 @@
+:host {
+  background: rgba(0, 0, 0, 0.4);
+
+  ion-content {
+    position: absolute;
+  }
+
+  ion-item {
+    --background-focused: none;
+    --background-hover: none;
+    --ripple-color: transparent !important;
+  }
+
+  .filter-wrapper {
+    background: var(--ion-color-white);
+    height: 440px;
+
+    ion-list-header {
+      border-top: none;
+      padding-left: 0px;
+      color: #757575;
+    }
+    .list-md {
+      padding: 0 0 !important;
+      margin: -1px 16px 5px;
+    }
+    .filter-head {
+      padding-top: 10px;
+      padding-bottom: 10px;
+      font-size: 15px;
+      border-bottom: 1.5px solid #dedede;
+    }
+    .filter-content {
+      padding-left: 12px;
+      padding-right: 12px;
+      height: 345px;
+      overflow: auto; 
+      
+      ion-list{
+        margin-left: 0px;
+      }
+    }
+    .filter-buttons {
+      border-top: 1.5px solid #dedede;
+      display: inline-block;
+      width: 100%;
+      padding: 2px 15% 2px;
+    }
+    form {
+      margin-top: 1px;
+    }
+    ion-checkbox {
+      margin: 3px 30px 3px 0px;
+
+      &:focus {
+        outline: none;
+      }
+    }
+    ion-label {
+      margin: 11px 0 10px;
+      color: var(--ion-color-font-secondary);
+    }
+    ion-label.checkbox-label {
+      color: var(--ion-color-dark);
+    }
+  }
+}
+
+ion-content {
+  --overflow: hidden !important;
+  overflow: hidden !important;
+}
+ion-content div.filter-content {
+  overflow: auto !important;
+  height: 345px !important;
+}

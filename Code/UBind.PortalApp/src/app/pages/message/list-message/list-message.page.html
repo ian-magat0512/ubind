@@ -1,0 +1,35 @@
+﻿<app-segmented-entity-list [title]="title"
+                           [listItemNamePlural]="'messages'"
+                           [entityRouteParamName]="'id'"
+                           [entityLoaderService]="messageService"
+                           [viewModelConstructor]="viewModelConstructor"
+                           [segments]="segments"
+                           [defaultSegment]="defaultSegment"
+                           [filterStatuses]="filterStatuses"
+                           [sortOptions]="sortOptions"
+                           [filterByDates]="filterByDates"
+                           [itemTemplate]="messageListItemTemplate"
+                           [getUserFilterSelectionCallback]="getUserFilterChips.bind(this)"
+                           (listQueryParamsGenerated)="onListQueryParamsGenerated($event)"
+                           [entityTypeName]="'Message'"
+                           [entityPathSegment]="'message'"
+                           [ngStyle]="{'height': '100%'}" 
+                           [itemSelectedHandler]="itemSelected">
+</app-segmented-entity-list>
+
+<ng-template #messageListItemTemplate let-item>
+    <library-icon [name]="item.type === 'email' ? 'mail' : 'text'" 
+        [library]="iconLibrary.IonicV4" 
+        [slot]="'start'" 
+        [size]="'large'" 
+        [cssClass]="'align-icon'">
+    </library-icon>
+    <ion-label class='long-label' ellipsis>
+        <div class="ion-text-wrap" ellipsis>{{ item.recipient }}</div>
+        <p class="status" ellipsis>{{ item.subject ? item.subject : item.message }}</p>
+    </ion-label>
+    <ion-label class="ion-text-wrap ion-text-end" slot="end">
+        <ion-icon color="dark" *ngIf="item.hasAttachment" name="attach" slot="end" class="icon-pull-right" size="small"></ion-icon>
+        <p class="status grayed-label">{{ item.createdDateTime | date: "hh:mm aaa" }}</p>
+    </ion-label>
+</ng-template>

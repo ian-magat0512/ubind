@@ -1,0 +1,6 @@
+<ion-list class="entity-list custom-popover" lines="none" style="margin: -1px 0 0">
+    <button *ngIf="permission.EditAdditionalPropertyValues" (click)="doAction('editAdditionalPropertyValues')">
+        <library-icon name="brush" [library]="iconLibrary.IonicV4" [cssClass]="'start'"></library-icon>
+        <ion-label>Edit Version Properties</ion-label>
+    </button>
+</ion-list>

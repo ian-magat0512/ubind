@@ -1,0 +1,40 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf='!layoutManager.splitPaneVisible then detailHeader'></ng-container>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ng-container *ngTemplateOutlet="detailHeader"></ng-container>
+    </ion-toolbar>
+
+    <loader *ngIf='isLoading'></loader>
+    <div *ngIf="!isLoading && !errorMessage">
+        <app-static-item-filter-select
+            [items]="organisationItems"
+            (itemSelected)="onItemSelected($event)"
+            placeholder="Filter organisations">
+        </app-static-item-filter-select>
+    </div>
+    <!--error-->
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p text-center>{{ errorMessage }}</p>
+    </div>
+</ion-content>
+
+<ng-template #detailHeader>
+    <ion-buttons slot="start">
+        <ion-button slot="icon-only" (click)="goBack()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title>
+        Assign Managing Organisation
+    </ion-title>
+    <ion-buttons slot="end" *ngIf="selectedItem">
+        <ion-button (click)="assignButtonClicked()">
+            Assign
+        </ion-button>
+    </ion-buttons>
+</ng-template>

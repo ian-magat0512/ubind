@@ -1,0 +1,25 @@
+<loader *ngIf="isLoadingDocuments"></loader>
+<ng-container *ngIf="!isLoadingDocuments && !documentErrorMessage">
+<ion-list class="entity-list" *ngIf="documents?.length > 0" lines="none">
+    <ion-item-group *ngFor="let header of documentHeaders">
+        <ion-item-divider>
+            <ion-label>{{header}}</ion-label>
+        </ion-item-divider>
+        <div *ngFor="let doc of documents">
+            <ion-item *ngIf="doc.dateGroupHeader == header" (click)="download(doc.id, doc.fileName)" button>
+                <library-icon name="document" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+                <ion-label class="grayed-label ion-text-wrap list-title">
+                    <div>{{ doc.fileName }}</div>
+                    <p class="status">{{ doc.createdDateTime | date: 'dd MMM yyyy hh:mm' || '-'}}</p>
+                </ion-label>
+                <ion-label slot="end" class="grayed-label ion-text-wrap ion-text-end">
+                    {{ doc.fileSize }}
+                </ion-label>
+            </ion-item>
+        </div>
+    </ion-item-group>
+</ion-list>
+<div *ngIf="documents?.length == 0" class="tab-content content-error" [@contentAnimation]>
+    <p class="ion-text-center">No documents found</p>
+</div>
+

@@ -1,0 +1,87 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf='!layoutManager.splitPaneVisible then detailHeader'></ng-container>
+    </ion-toolbar>
+    <ng-container *ngIf='!layoutManager.splitPaneVisible then segmentList'></ng-container>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ng-container *ngTemplateOutlet="detailHeader"></ng-container>
+    </ion-toolbar>
+    <ng-container *ngIf='layoutManager.splitPaneVisible then segmentList'></ng-container>
+
+    <div *ngIf="!errorMessage">
+        <div [ngSwitch]="segment">
+
+            <!-- Details -->
+            <div *ngSwitchCase="'Details'">
+                <loader *ngIf='isLoading'></loader>
+                <app-entity-details-list [@contentAnimation]
+                                         [detailsListItems]="detailsListItems"
+                                         [hasItemLines]="false"
+                                         [hasGroupLines]="true"
+                                         [truncateDescription]="true">
+                </app-entity-details-list>
+            </div>
+
+            <div *ngSwitchCase="'History'">
+                <app-entity-detail-segment-list
+                    [entityTypeNamePlural]="'Report Files'"
+                    [itemTemplate]="reportHistoryListItemTemplate"
+                    [viewModelConstructor]="reportFileViewModel"
+                    [itemSelectedHandler]="reportFileClicked.bind(this)"
+                    [getSegmentListCallback]="getSegmentHistoryList.bind(this)"
+                    [ngStyle]="{'height': '100%'}">
+                </app-entity-detail-segment-list>
+            </div>
+        </div>
+    </div>
+
+    <!--error-->
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">{{ errorMessage }}</p>
+    </div>
+</ion-content>
+
+<ng-template #detailHeader>
+    <ng-container>
+        <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot='start'>
+            <ion-button slot="icon-only" (click)="closeButtonClicked()">
+                <ion-icon name="arrow-back"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>{{title}}</ion-title>
+        <ion-buttons slot="end">
+            <app-entity-action-button-list
+                [actionButtonList]="actionButtonList"
+                [getMoreButtonCallback]="showModalButtonClicked.bind(this)"
+                [canShowMore]="actions?.length > 0 && hasActionsIncludedInMenu"
+                [flipMoreIcon]="flipMoreIcon">
+            </app-entity-action-button-list>
+        </ion-buttons>
+    </ng-container>
+</ng-template>
+
+<ng-template #segmentList>
+    <ion-segment scrollable="true" [value]="segment" (ionChange)="segmentChanged($event)" scrollHorizontal scrollMousedrag [segmentSelectedScrollIntoView]="segment">
+        <ion-segment-button ionSegmentButtonEvent value="Details">
+            <ion-label>Details</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="History">
+            <ion-label>History</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+</ng-template>
+
+<ng-template #reportHistoryListItemTemplate let-item>
+    <library-icon name="document" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+    <ion-label class="ion-text-wrap">
+        <div class="list-title">{{title}}</div>
+        <p class="status"> {{item.filename}}</p>
+    </ion-label>
+    <ion-label class="ion-text-wrap" slot="end">
+        <div class="list-title">{{moment(item.createdDateTime).format('HH:mm A')}}</div>
+        <p class="status">{{formatBytes(item.size)}}</p>
+    </ion-label>
+</ng-template>

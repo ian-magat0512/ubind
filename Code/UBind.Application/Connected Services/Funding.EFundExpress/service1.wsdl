@@ -1,0 +1,573 @@
+<?xml version="1.0" encoding="utf-8"?>
+<wsdl:definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/" xmlns:soapenc="http://schemas.xmlsoap.org/soap/encoding/" xmlns:tm="http://microsoft.com/wsdl/mime/textMatching/" xmlns:mime="http://schemas.xmlsoap.org/wsdl/mime/" xmlns:tns="http://efund.com.au/express/" xmlns:http="http://schemas.xmlsoap.org/wsdl/http/" xmlns:s="http://www.w3.org/2001/XMLSchema" xmlns:soap12="http://schemas.xmlsoap.org/wsdl/soap12/" targetNamespace="http://efund.com.au/express/" xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/">
+  <wsdl:types>
+    <s:schema elementFormDefault="qualified" targetNamespace="http://efund.com.au/express/">
+      <s:element name="GetInterestRates">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BrokerLoginID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetInterestRatesResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetInterestRatesResult" type="tns:eFundExpressRate" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="eFundExpressRate">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="tns:RateReturnType" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="DomesticInterestRate" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="CommercialInterestRate" type="s:float" />
+          <s:element minOccurs="1" maxOccurs="1" name="PBMPlusInterestRate" type="s:float" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="RateReturnType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Fail" />
+          <s:enumeration value="Success" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="CreateFundingDocuments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="eFundExpress" type="tns:eFundExpressObject" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="eFundExpressObject">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ClientRequestID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BrokerLoginID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="TypeOfContract" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IssueOption" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IssueCopy" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContactPerson" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="DirectorName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientABN" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientDOB" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StreetAddress1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StreetAddress2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StreetSuburb" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StreetState" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StreetPostcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientPhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientMobile" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientFax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientEmail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientPolicies" type="tns:ArrayOfClientPolicy" />
+          <s:element minOccurs="1" maxOccurs="1" name="FundingPeriod" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="BrokerURL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BrokerExitURL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="FortnightlyInstalments" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ArrayOfClientPolicy">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ClientPolicy" nillable="true" type="tns:ClientPolicy" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ClientPolicy">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="UnderwriterName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PolicyClass" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PolicyNumber" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PolicyInception" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PolicyExpiry" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PolicyPremium" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PolicyInvoice" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateFundingDocumentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateFundingDocumentsResult" type="tns:eFundExpressQuote" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="eFundExpressQuote">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ContractID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="tns:ReturnType" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContractPDF" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="TermsAndConditionsPDF" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="eFundLink" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientRequestID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="eFundLoginText" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ReturnType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Fail" />
+          <s:enumeration value="Success" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="CreateMultipleFundingDocuments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="eFundExpress" type="tns:ArrayOfEFundExpressObject" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfEFundExpressObject">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="eFundExpressObject" nillable="true" type="tns:eFundExpressObject" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateMultipleFundingDocumentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateMultipleFundingDocumentsResult" type="tns:ArrayOfEFundExpressQuote" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="ArrayOfEFundExpressQuote">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="eFundExpressQuote" nillable="true" type="tns:eFundExpressQuote" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="UpdateFundingUrls">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BrokerLoginID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BrokerExitURL" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="BrokerURL" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ContractID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="UpdateFundingUrlsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="UpdateFundingUrlsResult" type="tns:eFundExpressURL" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="eFundExpressURL">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="tns:UrlReturnType" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnMessage" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="UrlReturnType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Fail" />
+          <s:enumeration value="Success" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GetAcceptedFundingDocument">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BrokerLoginID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="ContractID" type="s:int" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetAcceptedFundingDocumentResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetAcceptedFundingDocumentResult" type="tns:eFundExpressDocument" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="eFundExpressDocument">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ContractID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="tns:AcceptedReturnType" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContractPDF" type="s:base64Binary" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="AcceptedReturnType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Fail" />
+          <s:enumeration value="Success" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="GeteasyBondpayInstalments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BrokerLoginID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="1" maxOccurs="1" name="FinancePeriod" type="s:int" />
+            <s:element minOccurs="1" maxOccurs="1" name="BondAmount" type="s:decimal" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GeteasyBondpayInstalmentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GeteasyBondpayInstalmentsResult" type="tns:easyBondpayInstalments" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="easyBondpayInstalments">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="tns:InstallmentReturnType" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnMessage" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="FirstInstalment" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="RemainingInstalment" type="s:decimal" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="InstallmentReturnType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Fail" />
+          <s:enumeration value="Success" />
+        </s:restriction>
+      </s:simpleType>
+      <s:element name="CreateeasyBondpayDocuments">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="easyBondpayExpress" type="tns:easyBondpayObject" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="easyBondpayObject">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="1" name="ClientRequestID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BrokerLoginID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="IssueOption" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="IssueCopy" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="StreetAddress1" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StreetAddress2" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StreetSuburb" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StreetState" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="StreetPostcode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ApplicantName" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientCode" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientPhone" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientFax" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientMobile" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientEmail" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PropertyManager" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContactName" type="s:string" />
+          <s:element minOccurs="1" maxOccurs="1" name="BondAmount" type="s:decimal" />
+          <s:element minOccurs="1" maxOccurs="1" name="FinancePeriod" nillable="true" type="s:int" />
+          <s:element minOccurs="0" maxOccurs="1" name="BrokerURL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="BrokerExitURL" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PMAgencyID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="PMUserID" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="CreateeasyBondpayDocumentsResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="CreateeasyBondpayDocumentsResult" type="tns:easyBondpayQuote" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="easyBondpayQuote">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ContractID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="tns:ReturnType" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContractPDF" type="s:base64Binary" />
+          <s:element minOccurs="0" maxOccurs="1" name="eFundLink" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ClientRequestID" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="eFundLoginText" type="s:string" />
+        </s:sequence>
+      </s:complexType>
+      <s:element name="GetContractStatus">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="BrokerLoginID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="Password" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="ContractID" type="s:string" />
+            <s:element minOccurs="0" maxOccurs="1" name="LastModified" type="s:string" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:element name="GetContractStatusResponse">
+        <s:complexType>
+          <s:sequence>
+            <s:element minOccurs="0" maxOccurs="1" name="GetContractStatusResult" type="tns:eFundExpressStatus" />
+          </s:sequence>
+        </s:complexType>
+      </s:element>
+      <s:complexType name="eFundExpressStatus">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ReturnCode" type="tns:StatusReturnType" />
+          <s:element minOccurs="0" maxOccurs="1" name="ReturnMessage" type="s:string" />
+          <s:element minOccurs="0" maxOccurs="1" name="ContractsStatuses" type="tns:ArrayOfContractsStatuses" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="StatusReturnType">
+        <s:restriction base="s:string">
+          <s:enumeration value="Fail" />
+          <s:enumeration value="Success" />
+        </s:restriction>
+      </s:simpleType>
+      <s:complexType name="ArrayOfContractsStatuses">
+        <s:sequence>
+          <s:element minOccurs="0" maxOccurs="unbounded" name="ContractsStatuses" nillable="true" type="tns:ContractsStatuses" />
+        </s:sequence>
+      </s:complexType>
+      <s:complexType name="ContractsStatuses">
+        <s:sequence>
+          <s:element minOccurs="1" maxOccurs="1" name="ContractID" type="s:int" />
+          <s:element minOccurs="1" maxOccurs="1" name="Status" type="tns:ContractStatus" />
+        </s:sequence>
+      </s:complexType>
+      <s:simpleType name="ContractStatus">
+        <s:restriction base="s:string">
+          <s:enumeration value="None" />
+          <s:enumeration value="Quoted" />
+          <s:enumeration value="Pending" />
+          <s:enumeration value="Approved" />
+          <s:enumeration value="Denied" />
+        </s:restriction>
+      </s:simpleType>
+    </s:schema>
+  </wsdl:types>
+  <wsdl:message name="GetInterestRatesSoapIn">
+    <wsdl:part name="parameters" element="tns:GetInterestRates" />
+  </wsdl:message>
+  <wsdl:message name="GetInterestRatesSoapOut">
+    <wsdl:part name="parameters" element="tns:GetInterestRatesResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateFundingDocumentsSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateFundingDocuments" />
+  </wsdl:message>
+  <wsdl:message name="CreateFundingDocumentsSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateFundingDocumentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateMultipleFundingDocumentsSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateMultipleFundingDocuments" />
+  </wsdl:message>
+  <wsdl:message name="CreateMultipleFundingDocumentsSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateMultipleFundingDocumentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="UpdateFundingUrlsSoapIn">
+    <wsdl:part name="parameters" element="tns:UpdateFundingUrls" />
+  </wsdl:message>
+  <wsdl:message name="UpdateFundingUrlsSoapOut">
+    <wsdl:part name="parameters" element="tns:UpdateFundingUrlsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetAcceptedFundingDocumentSoapIn">
+    <wsdl:part name="parameters" element="tns:GetAcceptedFundingDocument" />
+  </wsdl:message>
+  <wsdl:message name="GetAcceptedFundingDocumentSoapOut">
+    <wsdl:part name="parameters" element="tns:GetAcceptedFundingDocumentResponse" />
+  </wsdl:message>
+  <wsdl:message name="GeteasyBondpayInstalmentsSoapIn">
+    <wsdl:part name="parameters" element="tns:GeteasyBondpayInstalments" />
+  </wsdl:message>
+  <wsdl:message name="GeteasyBondpayInstalmentsSoapOut">
+    <wsdl:part name="parameters" element="tns:GeteasyBondpayInstalmentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="CreateeasyBondpayDocumentsSoapIn">
+    <wsdl:part name="parameters" element="tns:CreateeasyBondpayDocuments" />
+  </wsdl:message>
+  <wsdl:message name="CreateeasyBondpayDocumentsSoapOut">
+    <wsdl:part name="parameters" element="tns:CreateeasyBondpayDocumentsResponse" />
+  </wsdl:message>
+  <wsdl:message name="GetContractStatusSoapIn">
+    <wsdl:part name="parameters" element="tns:GetContractStatus" />
+  </wsdl:message>
+  <wsdl:message name="GetContractStatusSoapOut">
+    <wsdl:part name="parameters" element="tns:GetContractStatusResponse" />
+  </wsdl:message>
+  <wsdl:portType name="ServiceSoap">
+    <wsdl:operation name="GetInterestRates">
+      <wsdl:input message="tns:GetInterestRatesSoapIn" />
+      <wsdl:output message="tns:GetInterestRatesSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateFundingDocuments">
+      <wsdl:input message="tns:CreateFundingDocumentsSoapIn" />
+      <wsdl:output message="tns:CreateFundingDocumentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateMultipleFundingDocuments">
+      <wsdl:input message="tns:CreateMultipleFundingDocumentsSoapIn" />
+      <wsdl:output message="tns:CreateMultipleFundingDocumentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="UpdateFundingUrls">
+      <wsdl:input message="tns:UpdateFundingUrlsSoapIn" />
+      <wsdl:output message="tns:UpdateFundingUrlsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetAcceptedFundingDocument">
+      <wsdl:input message="tns:GetAcceptedFundingDocumentSoapIn" />
+      <wsdl:output message="tns:GetAcceptedFundingDocumentSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GeteasyBondpayInstalments">
+      <wsdl:input message="tns:GeteasyBondpayInstalmentsSoapIn" />
+      <wsdl:output message="tns:GeteasyBondpayInstalmentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="CreateeasyBondpayDocuments">
+      <wsdl:input message="tns:CreateeasyBondpayDocumentsSoapIn" />
+      <wsdl:output message="tns:CreateeasyBondpayDocumentsSoapOut" />
+    </wsdl:operation>
+    <wsdl:operation name="GetContractStatus">
+      <wsdl:input message="tns:GetContractStatusSoapIn" />
+      <wsdl:output message="tns:GetContractStatusSoapOut" />
+    </wsdl:operation>
+  </wsdl:portType>
+  <wsdl:binding name="ServiceSoap" type="tns:ServiceSoap">
+    <soap:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetInterestRates">
+      <soap:operation soapAction="http://efund.com.au/express/GetInterestRates" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateFundingDocuments">
+      <soap:operation soapAction="http://efund.com.au/express/CreateFundingDocuments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateMultipleFundingDocuments">
+      <soap:operation soapAction="http://efund.com.au/express/CreateMultipleFundingDocuments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateFundingUrls">
+      <soap:operation soapAction="http://efund.com.au/express/UpdateFundingUrls" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAcceptedFundingDocument">
+      <soap:operation soapAction="http://efund.com.au/express/GetAcceptedFundingDocument" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GeteasyBondpayInstalments">
+      <soap:operation soapAction="http://efund.com.au/express/GeteasyBondpayInstalments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateeasyBondpayDocuments">
+      <soap:operation soapAction="http://efund.com.au/express/CreateeasyBondpayDocuments" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractStatus">
+      <soap:operation soapAction="http://efund.com.au/express/GetContractStatus" style="document" />
+      <wsdl:input>
+        <soap:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:binding name="ServiceSoap1" type="tns:ServiceSoap">
+    <soap12:binding transport="http://schemas.xmlsoap.org/soap/http" />
+    <wsdl:operation name="GetInterestRates">
+      <soap12:operation soapAction="http://efund.com.au/express/GetInterestRates" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateFundingDocuments">
+      <soap12:operation soapAction="http://efund.com.au/express/CreateFundingDocuments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateMultipleFundingDocuments">
+      <soap12:operation soapAction="http://efund.com.au/express/CreateMultipleFundingDocuments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="UpdateFundingUrls">
+      <soap12:operation soapAction="http://efund.com.au/express/UpdateFundingUrls" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetAcceptedFundingDocument">
+      <soap12:operation soapAction="http://efund.com.au/express/GetAcceptedFundingDocument" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GeteasyBondpayInstalments">
+      <soap12:operation soapAction="http://efund.com.au/express/GeteasyBondpayInstalments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="CreateeasyBondpayDocuments">
+      <soap12:operation soapAction="http://efund.com.au/express/CreateeasyBondpayDocuments" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+    <wsdl:operation name="GetContractStatus">
+      <soap12:operation soapAction="http://efund.com.au/express/GetContractStatus" style="document" />
+      <wsdl:input>
+        <soap12:body use="literal" />
+      </wsdl:input>
+      <wsdl:output>
+        <soap12:body use="literal" />
+      </wsdl:output>
+    </wsdl:operation>
+  </wsdl:binding>
+  <wsdl:service name="Service">
+    <wsdl:port name="ServiceSoap" binding="tns:ServiceSoap">
+      <soap:address location="https://odyssey.redplanetsoftware.com/principal/integration/principal/service.asmx" />
+    </wsdl:port>
+    <wsdl:port name="ServiceSoap1" binding="tns:ServiceSoap1">
+      <soap12:address location="https://odyssey.redplanetsoftware.com/principal/integration/principal/service.asmx" />
+    </wsdl:port>
+  </wsdl:service>
+</wsdl:definitions>

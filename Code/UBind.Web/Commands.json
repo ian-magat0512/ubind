@@ -1,0 +1,14 @@
+{
+  "commands": {
+    "WatchPortal": {
+      "fileName": "powershell.exe",
+      "workingDirectory": ".",
+      "arguments": "-ExecutionPolicy Bypass -NonInteractive -File uBindPortal\\WatchPortal.ps1"
+    },
+    "WatchQuoter": {
+      "fileName": "powershell.exe",
+      "workingDirectory": ".",
+      "arguments": "-ExecutionPolicy Bypass -NonInteractive -File webFormApp\\WatchQuoter.ps1"
+    }
+  }
+}

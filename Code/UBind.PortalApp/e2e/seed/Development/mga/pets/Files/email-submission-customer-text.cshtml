@@ -1,0 +1,27 @@
+@model UBind.Application.Export.ViewModels.ApplicationEventViewModel
+
+Hi @Model.Form["name"],
+
+Your online insurance application has been completed.
+
+Your @Model.Calculation["questions.paymentOptions.paymentOption"] premium is: @Model.Calculation["payment.instalments.instalmentAmount"]
+
+@if (Model.Form["paymentMethod"] != "Direct Debit") {
+@:You have indicated that you would like to pay for your insurance using direct debit from a bank account. Once we have completed the processing of your application your account will automatically be debited at the agreed times, and you will receive your policy documentation using the nominated method.
+} else {
+@:You have indicated that you would like to pay for your insurance using credit card. For security reasons our policy is to obtain your credit card details over the phone. A member of our team will therefore call you shortly on your nominated contact phone number.
+}
+
+@if (Model.Form["paymentOption"] == "Monthly") {
+@:Please note that the terms and conditions for the pay-by-the-month are attached to this email.
+}
+
+Warm regards,
+
+The MGA Team
+
+
+
+Enquiry Details:
+
+@Model.Form.PrettyPrintExcluding("accountName", "BSB", "accountNumber")

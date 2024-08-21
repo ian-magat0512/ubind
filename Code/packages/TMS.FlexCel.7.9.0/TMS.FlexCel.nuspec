@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<package xmlns="http://schemas.microsoft.com/packaging/2013/05/nuspec.xsd">
+  <metadata>
+    <id>TMS.FlexCel</id>
+    <version>7.9.0</version>
+    <authors>tmssoftware</authors>
+    <owners>Adrian Gallero</owners>
+    <requireLicenseAcceptance>true</requireLicenseAcceptance>
+    <license type="file">LICENSE.md</license>
+    <licenseUrl>https://aka.ms/deprecateLicenseUrl</licenseUrl>
+    <icon>images/flexcel_128.png</icon>
+    <projectUrl>https://tmssoftware.com/site/flexcelnet.asp</projectUrl>
+    <iconUrl>https://download.tmssoftware.com/flexcel/img/cube32.png</iconUrl>
+    <description>FlexCel Studio for .NET is a library to do reporting on Excel files based on templates, to read and write Excel files, and to export them to PDF or HTML.
+
+This package contains all the core cross platform functionality and is probably the only FlexCel package you need to reference. The Additional TMS.FlexCel.WinForms and TMS.FlexCel.WebForms add components specific to those platforms, but are normally not needed.
+
+Supports "Classic" .NET from .NET 2.0 to 4.8, iOS, macOS, Android, .NET Core and Windows Universal Apps.</description>
+    <summary>FlexCel Studio for .NET is a library to do reporting on Excel files based on templates, to read and write Excel files, and to export them to PDF or HTML.</summary>
+    <copyright>(c)2002 / 2021 TMS Software</copyright>
+    <tags>xls xlsx flexcel excel</tags>
+    <dependencies>
+      <group targetFramework="MonoAndroid1.0" />
+      <group targetFramework="Xamarin.iOS1.0" />
+      <group targetFramework=".NETCoreApp2.1">
+        <dependency id="SkiaSharp" version="2.80.2" exclude="Build,Analyzers" />
+        <dependency id="System.Drawing.Common" version="5.0.2" exclude="Build,Analyzers" />
+        <dependency id="System.Security.Cryptography.Pkcs" version="5.0.1" exclude="Build,Analyzers" />
+        <dependency id="System.Text.Encoding.CodePages" version="5.0.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETCoreApp3.1">
+        <dependency id="SkiaSharp" version="2.80.2" exclude="Build,Analyzers" />
+        <dependency id="System.Drawing.Common" version="5.0.2" exclude="Build,Analyzers" />
+        <dependency id="System.Security.Cryptography.Pkcs" version="5.0.1" exclude="Build,Analyzers" />
+        <dependency id="System.Text.Encoding.CodePages" version="5.0.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework="net5.0">
+        <dependency id="SkiaSharp" version="2.80.2" exclude="Build,Analyzers" />
+        <dependency id="System.Drawing.Common" version="5.0.2" exclude="Build,Analyzers" />
+        <dependency id="System.Security.Cryptography.Pkcs" version="5.0.1" exclude="Build,Analyzers" />
+        <dependency id="System.Text.Encoding.CodePages" version="5.0.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.0">
+        <dependency id="System.Linq.Queryable" version="4.3.0" exclude="Build,Analyzers" />
+      </group>
+      <group targetFramework=".NETStandard2.1" />
+      <group targetFramework="Xamarin.Mac2.0" />
+      <group targetFramework="UAP10.0" />
+      <group targetFramework=".NETFramework2.0" />
+      <group targetFramework=".NETFramework3.5" />
+      <group targetFramework=".NETFramework4.0" />
+      <group targetFramework=".NETFramework4.5" />
+      <group targetFramework=".NETFramework4.6" />
+      <group targetFramework=".NETFramework4.7" />
+      <group targetFramework=".NETFramework4.8" />
+    </dependencies>
+  </metadata>
+</package>

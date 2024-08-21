@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Test Page</title>
+    <link rel="stylesheet" href="/assets/test-embed-shared-styles.css">
+    <style>
+        header,
+        footer {
+            background: #ccc;
+            padding: 10px 30px;
+        }
+        div#ubindDemoForm, div#ubindDemoPortal {
+            max-width: 90%;
+            width: 90%;
+            margin: auto;
+            padding: 20px 0;
+            border: 2px dashed red;
+        }
+
+        pre#dataContainer {
+            background: #eee;
+            padding: 10px;
+            border: 1px solid #ccc;
+        }
+    </style>
+    <script src="/assets/ubind.js"></script>
+    <script>
+
+        const defaultTenant = 'carl';
+        const defaultProduct = 'freight-insure';
+
+        window.addEventListener("load", (event) => {
+            document.getElementById('inputTenantAlias').value = defaultTenant;
+            document.getElementById('inputProductAlias').value = defaultProduct;
+        });
+
+        function setDataContainerValue(dataString = 'Callback data will be printed here') {
+            document.getElementById('dataContainer').innerText = dataString;
+        }
+
+        function onTriggerCallback(triggerName) {
+            return (data) => {
+                alert(triggerName + ' fired successfully');
+                setDataContainerValue(JSON.stringify(data, null, 2));
+                console.log(data);
+                document.getElementById('dataCallbackTrigger').innerText = triggerName;
+            }
+        }
+
+        function startEmbed() {
+           const tenantAlias = document.getElementById('inputTenantAlias').value 
+           const product = document.getElementById('inputProductAlias').value 
+
+            let embedOptions = { 
+                seedFormData: {
+                    insuredName: "Customer Business Pty Ltd",
+                    contactName: "Jane Smith",
+                    contactPhone: "0412 345 678",
+                    contactEmail: "jane@business.com",
+                    customerStreetAddress: "12 Main Street",
+                    customerSuburb: "Richmond",
+                    customerState: "Victoria",
+                    customerCountry: "Australia",
+                    customerPostcode: "3000"
+                },
+                overwriteFormData: {
+                    consignmentNumber: "12345678X",
+                    pickupCountry: "Australia",
+                    pickupState: "Victoria",
+                    pickupPostcode: "3000",
+                    deliveryCountry: "Australia",
+                    deliveryState: "New South Wales",
+                    deliveryPostcode: "2102",
+                    customerId: "5fe76940-3281-49e3-ab2f-a76d1d173f6c",
+                    warrantyAmount: 1000
+                }, 
+                tenant: tenantAlias,
+                product: product,
+                environment: "development",
+                width: '460px',
+                fullWidthBelowPixels: 460,
+                minimumHeight: '640px',
+                paddingXs: '20px',
+                paddingSm: '20px',
+                paddingMd: '20px',
+                modalZIndex: 20000,
+                
+                // For UB-11636 Callbacks
+                succeededCallback: onTriggerCallback('succeededCallback'),
+                abortedCallback: onTriggerCallback('abortedCallback'),
+
+                // For UB-11657 Callbacks
+                policyIssuedCallback: onTriggerCallback('policyIssuedCallback'),
+                policyAdjustedCallback: onTriggerCallback('policyAdjustedCallback'),
+                policyRenewedCallback: onTriggerCallback('policyRenewedCallback'),
+                policyCancelledCallback: onTriggerCallback('policyCancelledCallback'),
+                workflowCompletedCallback: onTriggerCallback('workflowCompletedCallback'),
+                workflowAbortedCallback: onTriggerCallback('workflowAbortedCallback'),
+            };
+
+
+
+            _uBindInjector.loadWebForm(embedOptions);
+        }
+    </script>    
+</head>
+<body>
+    <header>
+        <h3>Test embed with seeded data, using JSON options and javascript</h3>
+    </header>
+    <div id="content">
+        <p>
+            Lorem ipsum dolor sit amet, consectetur adipiscing elit. Proin ac finibus erat. Sed mauris lorem, scelerisque ac posuere a, mattis vitae enim. Integer sed ultricies sapien. Aenean in urna bibendum, eleifend lectus quis, ultricies mauris. Sed vehicula velit a cursus pellentesque. Maecenas ac est id justo consequat sodales. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Praesent dictum turpis nec mauris vehicula congue. Duis non leo nulla. Nam metus risus, tincidunt id sem ac, semper pretium massa. Nam auctor est eget eros ultricies, efficitur rhoncus ipsum molestie. Aenean dui neque, faucibus sed ante non, auctor laoreet quam. Vestibulum quis metus et metus commodo tempor. Pellentesque dapibus et diam volutpat mattis.
+        </p>
+
+        <div id="embedControls">
+            <fieldset>
+                <label for="inputTenantAlias">Tenant Alias</label>
+                <input type="text" id="inputTenantAlias">
+            </fieldset>
+
+            <fieldset>
+                <label for="inputProductAlias">Product Alias</label>
+                <input type="text" id="inputProductAlias">
+            </fieldset>
+
+            <button onclick="startEmbed()">Start embed</button>
+        </div>
+
+        <p>
+            Vivamus lacinia ipsum in maximus iaculis. In sit amet nunc quis risus ornare volutpat. Mauris pretium quam hendrerit volutpat malesuada. Maecenas vel sodales mauris, vitae luctus sapien. Curabitur sem nibh, aliquet a lorem vel, tristique dignissim augue. Fusce faucibus, eros a varius convallis, leo ex luctus nisl, vitae posuere nulla libero quis nisl. Proin pharetra, odio vel facilisis vestibulum, tellus lectus finibus metus, et mollis nibh nulla ac purus. Integer feugiat imperdiet tellus, at rutrum erat. Nunc vestibulum est sit amet elit gravida consequat. Cras vehicula lorem eget erat volutpat sollicitudin quis a diam. Interdum et malesuada fames ac ante ipsum primis in faucibus.
+        </p>
+        <p>
+            Vestibulum massa tortor, rhoncus ut leo quis, elementum convallis magna. Morbi rhoncus condimentum lacus, eget dictum dolor bibendum vel. Suspendisse tincidunt diam elementum laoreet sollicitudin. Fusce purus nisi, dignissim fringilla fringilla ac, facilisis quis lectus. Nullam aliquam ligula at lobortis fringilla. Vivamus congue nunc ac ante facilisis, at dapibus arcu vulputate. Etiam congue orci id nisi eleifend pharetra.
+        </p>
+        <div><label id="dataCallbackTrigger"></label></div>
+        <pre id="dataContainer">Callback data will be printed here</pre>
+        <p>
+            Morbi gravida sit amet nisl in placerat. Nunc tristique massa ante, ac ultrices sapien elementum aliquam. Nam eu pellentesque dui, at congue purus. Ut quis tempus nisi. Suspendisse potenti. Sed vulputate elementum justo, a tempus risus. In a vehicula nisl. Nulla non dui pretium velit maximus placerat. Praesent dictum magna sit amet metus sodales fringilla. Integer faucibus accumsan libero id tristique. Curabitur vel diam enim. Etiam hendrerit, urna quis eleifend elementum, nibh diam dictum sem, ut egestas diam libero id dui. Donec urna dui, accumsan non neque at, lobortis malesuada arcu. Etiam lacinia mollis urna, ac accumsan mi egestas vel. Nam aliquam viverra eros, vitae commodo felis scelerisque ac.
+        </p>
+        <p>
+            Nunc cursus nibh justo, ac faucibus metus porta eu. Nunc arcu nulla, ultricies non diam elementum, iaculis efficitur massa. Vivamus bibendum fermentum mauris, vitae tristique enim tincidunt sed. Vivamus ornare metus quis volutpat hendrerit. Nam at velit a libero lobortis semper eu eget nunc. Aenean condimentum sapien et justo mollis, at faucibus mauris varius. Orci varius natoque penatibus et magnis dis parturient montes, nascetur ridiculus mus. Nulla non congue tortor, et vehicula sem. Suspendisse quis vulputate odio. Etiam a finibus arcu. Nullam ut pharetra purus. Donec ipsum metus, hendrerit id iaculis a, mollis varius tortor. In cursus ipsum ante, ac accumsan erat fringilla vel. Curabitur imperdiet eros eu turpis gravida, non viverra orci ullamcorper. Pellentesque semper eleifend sem, vel rutrum metus tristique quis. Integer tempus molestie ipsum vel luctus.
+        </p>
+        <p>
+            Nam est ipsum, elementum non vestibulum vel, rhoncus nec mauris. Cras vel venenatis nulla. Donec quam tortor, ornare sed lectus in, gravida accumsan erat. Nullam varius velit et lorem sollicitudin tristique eu in arcu. Praesent nec nunc tincidunt, luctus dui vitae, placerat enim. Ut sed condimentum purus, ac dignissim tellus. Proin placerat pharetra nunc vel sagittis. Nulla pulvinar turpis quam, id egestas odio blandit in.
+        </p>
+        <p>
+            Etiam dignissim ligula vel metus dignissim dignissim. Vestibulum ante ipsum primis in faucibus orci luctus et ultrices posuere cubilia curae; Fusce nec ornare felis. Nunc metus dui, suscipit non lectus in, semper condimentum velit. In vitae quam ut enim dapibus elementum eu at erat. Donec facilisis varius ipsum. Sed elementum mollis tellus, non congue risus rhoncus aliquam. Nullam vel nibh ullamcorper, porta nisi consequat, finibus tortor. Mauris cursus tincidunt eros ut semper. Class aptent taciti sociosqu ad litora torquent per conubia nostra, per inceptos himenaeos. Aliquam ac dui neque. Phasellus tincidunt enim diam, a placerat dolor mollis et. Sed vestibulum faucibus blandit. Pellentesque porta dolor ac turpis tincidunt vestibulum. Donec risus diam, ullamcorper a feugiat et, faucibus vel massa. Aenean sit amet ligula ac arcu elementum hendrerit.
+        </p>
+        <p>
+            Nullam vestibulum nulla quis est iaculis, eu cursus augue ornare. Nunc sit amet tincidunt nulla, et faucibus quam. Mauris vel elit ex. Aenean a risus ac felis rutrum vestibulum et sit amet risus. Vestibulum euismod velit vitae nisi dapibus, a tempor sem maximus. Vivamus pellentesque porttitor dui ut convallis. Praesent ac enim id lorem vehicula malesuada ut eu tellus.        
+        </p>
+    </div>
+    <footer>
+        <label>I am a footer</label>
+    </footer>    
+</body>
+</html>

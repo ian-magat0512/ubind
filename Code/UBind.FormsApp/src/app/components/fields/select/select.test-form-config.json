@@ -1,0 +1,63 @@
+{
+    "version": "2.0.0",
+    "form": {
+        "defaultCurrencyCode": "AUD",
+        "questionSets": [{
+                "name": "Rating Primary",
+                "key": "ratingPrimary",
+                "fields": [
+                    {
+                        "$type": "drop-down-select",
+                        "startsNewRow": true,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "name": "Test 1",
+                        "key": "test1",
+                        "questionSetKey": "ratingPrimary",
+                        "label": "Input",
+                        "dataType": "text",
+                        "question": "This is a test select",
+                        "optionSetKey": "testOptions",
+                        "optionSetName": "Test Options"
+                      }
+                ]
+            }
+        ],
+        "optionSets": [
+            {
+                "key": "testOptions",
+                "name": "Test Options",
+                "options": [
+                    {
+                        "value": "first",
+                        "label": "The First"
+                    },
+                    {
+                        "value": "second",
+                        "label": "The Second"
+                    },
+                    {
+                        "value": "third",
+                        "label": "The Third"
+                    }
+                ]
+            }
+        ],
+        "workflowConfiguration": {
+            "purchaseQuote": {
+                "startScreenExpression": "true",
+                "articles": [
+                    {
+                        "heading": "ratingHeading",
+                        "text": "ratingText",
+                        "elements": [
+                            {
+                                "type": "questions",
+                                "name": "ratingPrimary"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

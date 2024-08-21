@@ -1,0 +1,71 @@
+form {
+    margin-top: 7px;
+
+    ion-list {
+        margin-bottom: 0px !important;
+
+        ion-list-header {
+            margin-bottom: -5px;
+            padding-left: 0px;
+        }
+
+        ion-item.link {
+            ion-label {
+                margin-left: 10px;
+                margin-top: 0px;
+            }
+        }
+
+        ion-item {
+            ion-label {
+                margin-left: 10px;
+            }
+        }
+
+        ion-radio-group {
+            p {
+                margin-bottom: 10px;
+            }
+        }
+
+        div {
+            padding-top: 3px;
+        }
+
+        .radio-item {
+            margin-top: 10px;
+
+            ion-radio {
+            }
+
+            ion-label {
+                color: inherit;
+                margin: inherit;
+                font-size: inherit;
+                margin: 0px;
+                margin-left: 10px;
+            }
+        }
+    }
+
+    
+    .item-label.item-label-stacked.item-has-focus .item-input-label {
+        color: var(--form-field-focused-label-color);
+    }
+    
+    .item-label.item-label-stacked.item-has-focus .repeating-item-input-custom-label {
+        color: #075cce;
+    }
+
+    .item-invalid {
+        color: #ff2727 !important;
+    }
+    
+    .item-valid {
+        color: #075cce !important;
+    }    
+
+    ion-list.dkim-settings {
+        margin-bottom: 10px !important;
+    }
+}

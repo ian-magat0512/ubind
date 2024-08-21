@@ -1,0 +1,76 @@
+<ion-card class="column-chart">
+    <ion-item class="no-highlights" lines="none">
+        <ion-text color="primary">
+            <h1 class="title-color" 
+                [style.--default-title-color]="titleColor.default"
+                [style.--title-color]="titleColor.override">
+                <strong class="chart-title">{{title.toUpperCase()}}</strong>
+            </h1>
+        </ion-text>
+        <ion-item slot="end" class="compress inner-padding-end no-highlights select-period" lines="none">
+            <ion-label class="hide">Select Data Grouping</ion-label>
+            <ion-select ionSelectSmallerArrow slot="end" placeholder="Data Grouping"
+                (ionChange)="userDidChangeDataGrouping($event)" (focus)="setAriaLabel($event)"
+                attr.aria-label="{{title}} select data grouping"
+                [value]="selectedDataGrouping">
+                <ion-select-option *ngFor="let dataGrouping of dataGroupings" [value]="dataGrouping" (click)="clicked()">
+                    {{dataGrouping.label}}
+                </ion-select-option>
+            </ion-select>
+        </ion-item>
+        <ion-item slot="end" class="compress no-highlights select-period" lines="none">
+            <ion-label class="hide">Select Range</ion-label>
+            <ion-select ionSelectSmallerArrow slot="end" placeholder="All"
+                (ionChange)="userDidChangeRange($event)" (focus)="setAriaLabel($event)"
+                attr.aria-label="{{title}} select range"
+                [value]="selectedRange">
+                <ion-select-option *ngFor="let range of ranges" [value]="range">
+                    {{range}}
+                </ion-select-option>
+            </ion-select>
+        </ion-item>
+    </ion-item>
+    <ion-card-content>
+        <ion-row>
+            <ion-col>
+                <div expand="full" class="number-generated background-color-dark"
+                    [style.--default-background-color-dark]="backGroundColors[0].default"
+                    [style.--background-color-dark]="backGroundColors[0].override">
+                    <h2 class="text-color-dark"
+                        [style.--default-text-color-dark]="textColors[0].default"
+                        [style.--text-color-dark]="textColors[0].override">
+                        {{vAxisLeftValue}}
+                    </h2>
+                    <h3 class="text-color-dark"
+                        [style.--default-text-color-dark]="textColors[0].default"
+                        [style.--text-color-dark]="textColors[0].override">
+                        {{vAxesLeftTitle.toUpperCase()}}
+                    </h3>
+                </div>
+            </ion-col>
+            <ion-col>
+                <div expand="full" class="total background-color-light"
+                    [style.--default-background-color-light]="backGroundColors[1].default"
+                    [style.--background-color-light]="backGroundColors[1].override">
+                    <h2 class="text-color-light"
+                        [style.--default-text-color-light]="textColors[1].default"
+                        [style.--text-color-light]="textColors[1].override">
+                        <span class="currency" #currency *ngIf="unit.type === 'currency'">$</span>{{vAxisRightValue}}
+                    </h2>
+                    <h3 class="text-color-light"
+                        [style.--default-text-color-light]="textColors[1].default"
+                        [style.--text-color-light]="textColors[1].override">
+                        {{vAxesRightTitle.toUpperCase()}}
+                    </h3>
+                </div>
+            </ion-col>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <loader *ngIf="isLoading"></loader>
+                <div #target class="chart" [@chartAnimation]="getChartVisibilityState()"></div>
+            </ion-col>
+        </ion-row>
+    </ion-card-content>
+</ion-card>
+<div #chartColorReference class="chart-color-reference"></div>

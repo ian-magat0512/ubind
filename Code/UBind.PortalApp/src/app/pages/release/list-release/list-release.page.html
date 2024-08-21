@@ -1,0 +1,29 @@
+<app-entity-list [title]="title"
+                 [listItemNamePlural]="'releases'"
+                 [entityRouteParamName]="'releaseId'"
+                 [entityLoaderService]="releaseApiService"
+                 [viewModelConstructor]="viewModelConstructor"
+                 [itemTemplate]="releaseListItemTemplate"
+                 [itemSelectedHandler]="itemSelected.bind(this)"
+                 [entityTypeName]="'Release'"
+                 [entityPathSegment]="'release'"
+                 [sortOptions]="sortOptions"
+                 [filterByDates]="filterByDates"
+                 [getDefaultHttpParamsCallback]="getDefaultHttpParams.bind(this)"
+                 [additionalActionButtonList]="additionalActionButtonList"
+                 [ngStyle]="{'height': '100%'}">
+</app-entity-list>
+
+<ng-template #releaseListItemTemplate let-item>
+    <library-icon name="cube" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'" cssClass="align-icon"></library-icon>
+    <ion-label>
+        <div>
+            Release {{item.number}}
+            <ion-icon class="right-icon-text" *ngIf="item.status == releaseStatus.Initialising" name="cloud-upload" [ngStyle]="{'transform': 'scale(0.6)'}"></ion-icon>
+            <ion-icon class="right-icon-text" *ngIf="item.status == releaseStatus.Succeeded" name="cloud-done" [ngStyle]="{'transform': 'scale(0.6)'}"></ion-icon>
+            <ion-icon class="right-icon-text" *ngIf="item.status == releaseStatus.Failed" name="bug" [ngStyle]="{'transform': 'scale(0.6)'}"></ion-icon>
+        </div>
+        <p class="status">{{ item.description }}</p>
+    </ion-label>
+    <ion-label class="ion-text-wrap ion-text-end" slot="end">{{item.createdTime}}</ion-label>
+</ng-template>

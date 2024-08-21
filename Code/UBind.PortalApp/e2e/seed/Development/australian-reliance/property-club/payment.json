@@ -1,0 +1,33 @@
+{
+  "type": "deft",
+    "default": {
+        "AuthorizationUrl": "https://api.sandbox.deft.com.au/v2/auth/accessToken",
+        "ClientId": "CRk30pBqIqYpkFHG2CRBw12cl9eR7NqA",
+        "ClientSecret": "Gh4LRSUBogBoGG7W",
+        "PaymentUrl": "https://api.sandbox.deft.com.au/v3/payment",
+        "SurchargeUrl": "https://api.sandbox.deft.com.au/v2/surcharge",
+        "DrnUrl": "https://api.sandbox.deft.com.au/v2/drn",
+        "BillerCode": "404137",
+        "CrnGeneration": {
+            "IsUniqueAcrossTenant": false,
+            "Method": "Unique10DigitNumber"
+        }
+    },
+  "staging": {
+    "AuthorizationUrl": "https://api.sandbox.deft.com.au/v2/auth/accessToken",
+    "ClientId": "CRk30pBqIqYpkFHG2CRBw12cl9eR7NqA",
+    "ClientSecret": "Gh4LRSUBogBoGG7W",
+    "PaymentUrl": "https://api.sandbox.deft.com.au/v3/payment",
+    "SurchargeUrl": "https://api.sandbox.deft.com.au/v2/surcharge",
+    "BillerCode": "404137"
+  },
+    "production": {
+        "AuthorizationUrl": "https://api.deft.com.au/v2/auth/accessToken",
+        "ClientId": "9xVndADzsWa4rg9ZcWxyrecFPPqAAASi",
+        "ClientSecret": "GUiAuVhxe4165rZz",
+        "PaymentUrl": "https://api.deft.com.au/v3/payment",
+        "SurchargeUrl": "https://api.deft.com.au/v2/surcharge",
+        "DrnUrl": "https://api.deft.com.au/v2/drn",
+        "BillerCode": "404137"
+    }
+}

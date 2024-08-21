@@ -1,0 +1,33 @@
+<mat-expansion-panel>
+    <mat-expansion-panel-header>
+        <mat-panel-title>    
+            Workbook Tools
+        </mat-panel-title>
+        <mat-panel-description>
+           Copy question answers for pasting into the workbook
+        </mat-panel-description>
+    </mat-expansion-panel-header>
+    <form [formGroup]="form">
+        <div class="toolbar">
+            <div class="generate-buttons">
+                <button mat-button (click)="generateQuestionAnswers()">
+                    Generate Question Answers
+                </button>
+                <button mat-button (click)="generateRepeatingQuestionAnswers()">
+                    Generate Repeating Question Answers
+                </button>
+            </div>
+            <div class="other-buttons">
+                <button mat-icon-button color="accent" class="copy-button" (click)="copy()">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="22" height="22" viewBox="0 0 24 24"><path d="M16 1H4c-1.1 0-2 .9-2 2v14h2V3h12V1zm3 4H8c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h11c1.1 0 2-.9 2-2V7c0-1.1-.9-2-2-2zm0 16H8V7h11v14z"/></svg>								
+                </button>
+                <button mat-icon-button color="accent" class="clear-button" (click)="clear()">
+                    <mat-icon>delete</mat-icon>
+                </button>
+            </div>
+        </div>
+    </form>
+    <div *ngIf="output" class="output">
+        <pre>{{output}}</pre>
+    </div>
+</mat-expansion-panel>

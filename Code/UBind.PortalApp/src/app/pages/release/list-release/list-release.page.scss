@@ -1,0 +1,14 @@
+ion-content {
+    --overflow: hidden !important;
+    overflow: hidden !important;
+}
+ion-content ion-list {
+    overflow: auto !important;
+    height: calc(100vh - 60px) !important
+}
+
+ion-label ion-icon.right-icon-text {
+    position: absolute;
+    top: 11px;
+    color: #000;
+}

@@ -1,0 +1,174 @@
+$break-small: 768px;
+
+:host {
+  display: block;
+  width: 100%;
+
+  @media only screen and (min-width: $break-small) {
+    height: 366px;
+  }
+
+  ion-card {
+    @media only screen and (min-width: $break-small) {
+      height: 356px;
+    }
+  }
+
+  @media only screen and ( min-width: 1241px) and (max-width: 1280px)   {  
+    h3 {
+      font-size: 0.95em;
+    }
+  }
+
+  @media only screen and ( min-width: 1200px) and (max-width: 1240px)   {  
+    h3 {
+      font-size: 0.90em;
+    }
+  }
+
+  @media only screen and ( min-width: 1202px) and (max-width: 1240px)   {  
+    h3 {
+      font-size: 0.90em;
+    }
+  }
+
+  @media only screen and ( min-width: 1200px) and (max-width: 1201px)   {  
+    h3 {
+      font-size: 0.89em;
+    }
+  }
+
+  @media only screen and ( min-width: 838px) and (max-width: 862px)   {  
+    h3 {
+      font-size: 0.95em;
+    }
+  }
+
+  @media only screen and ( min-width: 810px) and (max-width: 837px)   {  
+    h3 {
+      font-size: 0.90em;
+    }
+  }
+
+  @media only screen and ( min-width: 784px) and (max-width: 809px)   {  
+    h3 {
+      font-size: 0.85em;
+    }
+  }
+
+  @media only screen and ( min-width: 768px) and (max-width: 783px)   {  
+    h3 {
+      font-size: 0.82em;
+    }
+  }
+
+  ion-text {
+    width: 100%;
+    h1 {
+      font-size: 18px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-word;
+    }    
+  }  
+
+  ion-col {
+    h2 {
+      font-size: 24px;
+    }
+    h3 {
+      font-size: 16px;
+    }
+    h2, h3 {
+      overflow: hidden;
+      text-overflow: ellipsis;
+      word-break: break-word;
+    }
+  }
+
+  ion-text h1, ion-text h2 {
+    max-width: 100%;
+  }
+  
+  @media only screen and (min-width: 1241px) and (max-width: 1280px) {  
+    h1 {
+      font-size: 1.5em;
+    }
+    h2 {
+      font-size: 1.8em;
+    }
+  }
+  
+  .strong-text {
+    font-weight: bold;
+  }  
+
+  ion-select {
+    padding-top: 20px;
+    margin-left: 0px;
+    font-size: 14px;
+    color: #222428;
+  }
+
+  .completed {
+    display: block;
+    width: 100%;
+    height: 100%;
+    padding: 10px;
+    color: white;
+  }
+
+  .incomplete {
+    display: block;
+    width: 100%;
+    height: 100%;
+    margin-top: 10px;
+    padding: 10px;
+    color: white;
+  }
+
+  .chart {
+    height: 278px;
+  }
+  
+  ion-item.select-period.ion-focused{
+    ion-select {
+      background-color: #f1f1f1;
+    }
+  }
+}
+
+.donut-chart {
+  --default-background-color-dark: #673ab7;
+  --default-background-color-light: #9575cd;
+  --background-color-dark: var(--default-background-color-dark);
+  --background-color-light: var(--default-background-color-light);
+
+  --default-text-color-dark: #ffffff;
+  --default-text-color-light: #ffffff;
+  --text-color-dark: var(--default-text-color-dark);
+  --text-color-light: var(--default-text-color-light);
+
+  --default-title-color: #673ab7;
+  --title-color: var(--default-title-color);
+
+  .background-color-dark {
+    background-color: var(--background-color-dark, --default-background-color-dark);
+  }
+
+  .background-color-light {
+    background-color: var(--background-color-light, --default-background-color-light);
+  }
+
+  .text-color-dark {
+    color: var(--text-color-dark, --default-text-color-dark);
+  }
+
+  .text-color-light {
+    color: var(--text-color-light, --default-text-color-light);
+  }
+
+  .title-color {
+    color: var(--title-color, --default-title-color);
+  }
+}

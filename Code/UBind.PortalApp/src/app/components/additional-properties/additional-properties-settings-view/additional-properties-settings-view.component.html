@@ -1,0 +1,42 @@
+  <ion-list lines="none" class="detail-tenant-settings-list settings-list">
+    <ion-list-header>
+      <ion-label>
+        <strong>Additional Properties</strong>
+      </ion-label>
+    </ion-list-header>
+    <loader class="compact" *ngIf="isLoading"></loader>
+    <ng-container *ngIf="!isLoading">
+      <ion-item *ngFor="let item of additionalPropertyContextSettingItems" (click)="handleClick(item)" button>
+        <div [class.round-icon-container]="item.isRoundIcon" *ngIf="item.isRoundIcon">
+            <mat-icon *ngIf="item.iconLibrary == iconLibrary.AngularMaterial" 
+                class="mat-icon-md" 
+                [class.round-icon]="item.isRoundIcon"
+                [class.round-mat-icon]="item.isRoundIcon"
+                aria-hidden="false"
+                attr.aria-label="{{item.icon}}"
+                svgIcon="{{item.icon}}">
+            </mat-icon>
+            <ion-icon *ngIf="item.iconLibrary == iconLibrary.IonicV5 || item.iconLibrary == iconLibrary.IonicV4" 
+                slot="start"
+                [class.round-icon]="item.isRoundIcon"
+                [name]="menuButton.iconLibrary == iconLibrary.IonicV5 ? item.icon : null"
+                [src]="menuButton.iconLibrary == iconLibrary.IonicV4 ? './assets/ionicons-v4/' + item.icon + '.svg' : null">
+            </ion-icon>
+        </div>
+        <library-icon *ngIf="!item.isRoundIcon" 
+            name="{{item.icon}}" 
+            [library]="item.iconLibrary" 
+            [cssClass]="'mat-icon-md'" 
+            [cssStyle]="{'margin-right': '0px'}"
+            [slot]="'start'" 
+            [size]="'large'">
+        </library-icon>
+        <ion-label>
+            <div>{{item.entityTypeDescription}}</div>
+            <p class="status">{{item.count ? item.count : 'No'}} additional
+                {{item.count === 1 ? 'property': 'properties'}}
+            </p>
+        </ion-label>
+      </ion-item>
+    </ng-container>
+  </ion-list>

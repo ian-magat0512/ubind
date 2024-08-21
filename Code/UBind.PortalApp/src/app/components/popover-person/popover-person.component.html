@@ -1,0 +1,55 @@
+<ion-list class="entity-list custom-popover" lines="none" style="margin: -1px 0 0">
+    <ng-container *ngIf="isDefaultOptionsEnabled">
+        <button (click)="close('edit')" *ngIf="shouldShowPopOverEdit">
+            <library-icon name="pencil" [library]="iconLibrary.AngularMaterial" [cssClass]="'start'"></library-icon>
+            <ion-label>Edit {{entityType | titlecase}}</ion-label>
+        </button>
+        <button (click)="close('activate')" *ngIf="shouldShowPopOverNewStatus">
+            <library-icon name="account-plus" [library]="iconLibrary.AngularMaterial" [cssClass]="'start mat-icon-sm'"></library-icon>
+            <ion-label>{{ newStatusTitle }}</ion-label>
+        </button>
+        <button (click)="close('resendActivate')" *ngIf="shouldShowPopOverResendStatus">
+            <library-icon name="send" [library]="iconLibrary.IonicV4" [cssClass]="'start'"></library-icon>
+            <ion-label>Resend Activation Email</ion-label>
+        </button>
+        <button (click)="close('disable')" *ngIf="shouldShowPopOverDisableStatus">
+            <library-icon name="account-lock" [library]="iconLibrary.AngularMaterial" [cssClass]="'start mat-icon-sm'"></library-icon>
+            <ion-label>Disable User Account</ion-label>
+        </button>
+        <button (click)="close('enable')" *ngIf="shouldShowPopOverEnableStatus">
+            <library-icon name="account-lock-open" [library]="iconLibrary.AngularMaterial" [cssClass]="'start mat-icon-sm'"></library-icon>
+            <ion-label>Enable User Account</ion-label>
+        </button>
+        <button (click)="close('setToPrimary')" *ngIf="shouldShowPopOverSetToPrimaryPerson">
+            <library-icon name="star" [library]="iconLibrary.AngularMaterial" [cssClass]="'start mat-icon-sm'"></library-icon>
+            <ion-label>Set as Primary</ion-label>
+        </button>
+        <button (click)="close('delete')" *ngIf="shouldShowPopOverDeletePerson">
+            <library-icon name="trash" [library]="iconLibrary.IonicV4" [cssClass]="'start'"></library-icon>
+            <ion-label>Delete Person</ion-label>
+        </button>
+        <button (click)="close('editAdditionalPropertyValues')" *ngIf="shouldShowPopOverEditAdditionalProperties && entityType">
+            <library-icon name="brush" [library]="iconLibrary.IonicV4" [cssClass]="'start'"></library-icon>
+            <ion-label>Edit {{entityType | titlecase}} properties</ion-label>
+        </button>
+    </ng-container>
+    <ng-container>
+        <button (click)="close('createQuote')" *ngIf="shouldShowPopOverCreateQuote && segment == 'Quotes'">
+            <library-icon name="plus" [library]="iconLibrary.AngularMaterial" [cssClass]="'start mat-icon-sm'"></library-icon>
+            <ion-label>Create Quote</ion-label>
+        </button>
+        <button (click)="close('createClaim')" *ngIf="shouldShowPopOverCreateClaim && segment == 'Claims'">
+            <library-icon name="plus" [library]="iconLibrary.AngularMaterial" [cssClass]="'start mat-icon-sm'"></library-icon>
+            <ion-label>Create Claim</ion-label>
+        </button>
+        <button (click)="close('createPerson')" *ngIf="shouldShowPopOverCreatePerson && segment == 'People'">
+            <library-icon name="plus" [library]="iconLibrary.AngularMaterial" [cssClass]="'start mat-icon-sm'"></library-icon>
+            <ion-label>Create Person</ion-label>
+        </button>
+        <button (click)="close('assignRole')" *ngIf="shouldShowPopOverAssignRole">
+            <library-icon name="plus" [library]="iconLibrary.AngularMaterial" [cssClass]="'start mat-icon-sm'"></library-icon>
+            <ion-label>Assging New Role</ion-label>
+        </button>
+    </ng-container>
+    <app-popover-actions [popOver]="this.popOverCtrl" [actions]="actions"></app-popover-actions>
+</ion-list>

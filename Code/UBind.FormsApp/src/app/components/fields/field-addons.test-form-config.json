@@ -1,0 +1,580 @@
+{
+    "version": "2.0.0",
+    "form": {
+        "defaultCurrencyCode": "AUD",
+        "questionSets": [{
+                "name": "Test Question Set 1",
+                "key": "testQuestionSet1",
+                "fields": [{
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "iconLeft": "fa fa-address-card",
+                        "iconRight": "fa fa-adjust",
+                        "startsNewRow": false,
+                        "startsNewRevealGroup": false,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "label": "Text With Icons",
+                        "heading3": "Text Fields",
+                        "name": "Text With Icons",
+                        "key": "textWithIcons",
+                        "questionSetKey": "testQuestionSet1",
+                        "dataType": "text",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "textLeft": "Left",
+                        "textRight": "Right",
+                        "startsNewRow": false,
+                        "startsNewRevealGroup": false,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "label": "Text With Text",
+                        "containerClass": "test-field-2-container",
+                        "name": "Text With Text",
+                        "key": "textWithText",
+                        "questionSetKey": "testQuestionSet1",
+                        "dataType": "text",
+                        "workflowRole": "none"
+                    }
+                ]
+            }, {
+                "name": "Test Question Set 2",
+                "key": "testQuestionSet2",
+                "fields": [{
+                        "$type": "drop-down-select",
+                        "iconLeft": "fa fa-address-card",
+                        "iconRight": "fa fa-adjust",
+                        "optionSetName": "Cars",
+                        "optionSetKey": "cars",
+                        "startsNewRow": false,
+                        "startsNewRevealGroup": false,
+                        "label": "Select With Icons",
+                        "heading3": "Select Fields",
+                        "name": "Select With Icons",
+                        "key": "selectWithIcons",
+                        "questionSetKey": "testQuestionSet2",
+                        "dataType": "text",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "drop-down-select",
+                        "textLeft": "L",
+                        "textRight": "R",
+                        "optionSetName": "Cars",
+                        "optionSetKey": "cars",
+                        "startsNewRow": false,
+                        "startsNewRevealGroup": false,
+                        "label": "Select With Text",
+                        "name": "Select With Text",
+                        "key": "selectWithText",
+                        "questionSetKey": "testQuestionSet2",
+                        "dataType": "text",
+                        "workflowRole": "none"
+                    }
+                ]
+            }, {
+                "name": "Test Question Set 3",
+                "key": "testQuestionSet3",
+                "fields": [{
+                        "$type": "search-select",
+                        "iconLeft": "fa fa-address-card",
+                        "iconRight": "fa fa-adjust",
+                        "optionSetName": "Cars",
+                        "optionSetKey": "cars",
+                        "searchTextExpression": "fieldInputValue",
+                        "startsNewRow": false,
+                        "startsNewRevealGroup": false,
+                        "label": "Search Select With Icons",
+                        "heading3": "Search Select Fields",
+                        "containerClass": "test-field-5-container",
+                        "name": "Search Select With Icons",
+                        "key": "searchSelectWithIcons",
+                        "questionSetKey": "testQuestionSet3",
+                        "dataType": "text",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "search-select",
+                        "textLeft": "L",
+                        "textRight": "R",
+                        "optionSetName": "Cars",
+                        "optionSetKey": "cars",
+                        "searchTextExpression": "fieldInputValue",
+                        "startsNewRow": false,
+                        "startsNewRevealGroup": false,
+                        "label": "Search Select With Text",
+                        "containerClass": "test-field-6-container",
+                        "name": "Search Select With Text",
+                        "key": "searchSelectWithText",
+                        "questionSetKey": "testQuestionSet3",
+                        "dataType": "text",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "search-select",
+                        "optionSetName": "Cars",
+                        "optionSetKey": "cars",
+                        "searchTextExpression": "fieldInputValue",
+                        "startsNewRow": false,
+                        "startsNewRevealGroup": false,
+                        "label": "Search Select Default",
+                        "name": "Search Select Default",
+                        "key": "searchSelectDefault",
+                        "questionSetKey": "testQuestionSet3",
+                        "dataType": "text",
+                        "workflowRole": "none"
+                    }
+                ]
+            }, {
+                "name": "Test Question Set 4",
+                "key": "testQuestionSet4",
+                "fields": [{
+                        "$type": "currency",
+                        "sensitive": false,
+                        "iconLeft": "fa fa-shopping-cart",
+                        "iconRight": "fa fa-credit-card-front",
+                        "label": "Currency With Icons",
+                        "heading3": "Currency Fields",
+                        "name": "Currency With Icons",
+                        "key": "currencyWithIcons",
+                        "questionSetKey": "testQuestionSet4",
+                        "dataType": "currency",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "currency",
+                        "sensitive": false,
+                        "startsNewRow": false,
+                        "startsNewRevealGroup": false,
+                        "label": "Currency Default",
+                        "name": "Currency Default",
+                        "key": "currencyDefault",
+                        "questionSetKey": "testQuestionSet4",
+                        "dataType": "currency",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "currency",
+                        "sensitive": false,
+                        "label": "Currency With Code",
+                        "name": "Currency With Code",
+                        "key": "currencyWithCode",
+                        "questionSetKey": "testQuestionSet4",
+                        "dataType": "currency",
+                        "workflowRole": "none",
+                        "currencyCode": "PHP"
+                    }, {
+                        "$type": "currency",
+                        "sensitive": false,
+                        "textLeft": "AAA",
+                        "label": "Currency With Left Text",
+                        "name": "Currency With Left Text",
+                        "key": "currencyWithLeftText",
+                        "questionSetKey": "testQuestionSet4",
+                        "dataType": "currency",
+                        "workflowRole": "none",
+                        "currencyCode": "PHP"
+                    }
+                ]
+            }, {
+                "name": "Test Question Set 5",
+                "key": "testQuestionSet5",
+                "fields": [{
+                        "$type": "password",
+                        "iconLeft": "fa fa-fingerprint",
+                        "iconRight": "fa fa-key-skeleton",
+                        "label": "Password With Icons",
+                        "heading3": "Password Fields",
+                        "name": "Password With Icons",
+                        "key": "passwordWithIcons",
+                        "questionSetKey": "testQuestionSet5",
+                        "dataType": "password",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "password",
+                        "label": "Password Default",
+                        "name": "Password Default",
+                        "key": "passwordDefault",
+                        "questionSetKey": "testQuestionSet5",
+                        "dataType": "password",
+                        "workflowRole": "none"
+                    }
+                ]
+            }, {
+                "name": "Test Question Set 6",
+                "key": "testQuestionSet6",
+                "fields": [{
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "iconLeft": "fa fa-pizza",
+                        "iconRight": "fa fa-link",
+                        "label": "Percent With Icons",
+                        "heading3": "Percent Fields",
+                        "name": "Percent With Icons",
+                        "key": "percentWithIcons",
+                        "questionSetKey": "testQuestionSet6",
+                        "dataType": "percent",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "label": "Percent Default",
+                        "name": "Percent Default",
+                        "key": "percentDefault",
+                        "questionSetKey": "testQuestionSet6",
+                        "dataType": "percent",
+                        "workflowRole": "none"
+                    }
+                ]
+            }, {
+                "name": "Test Question Set 7",
+                "key": "testQuestionSet7",
+                "fields": [{
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "iconLeft": "fa fa-calculator",
+                        "iconRight": "fa fa-bullseye",
+                        "startsNewRow": false,
+                        "startsNewRevealGroup": false,
+                        "label": "Name With Icons",
+                        "heading3": "Name Fields",
+                        "name": "Name With Icons",
+                        "key": "nameWithIcons",
+                        "questionSetKey": "testQuestionSet7",
+                        "dataType": "name",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "startsNewRow": false,
+                        "startsNewRevealGroup": false,
+                        "label": "Name Default",
+                        "name": "Name Default",
+                        "key": "nameDefault",
+                        "questionSetKey": "testQuestionSet7",
+                        "dataType": "name",
+                        "workflowRole": "none"
+                    }
+                ]
+            }, {
+                "name": "Test Question Set 8",
+                "key": "testQuestionSet8",
+                "fields": [{
+                        "$type": "date-picker",
+                        "sensitive": false,
+                        "iconLeft": "fa fa-calculator",
+                        "iconRight": "fa fa-bullseye",
+                        "label": "Date With Icons",
+                        "heading3": "Date Fields",
+                        "name": "Date With Icons",
+                        "key": "dateWithIcons",
+                        "questionSetKey": "testQuestionSet8",
+                        "dataType": "date",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "date-picker",
+                        "sensitive": false,
+                        "label": "Date Default",
+                        "name": "Date Default",
+                        "key": "dateDefault",
+                        "questionSetKey": "testQuestionSet8",
+                        "dataType": "date",
+                        "workflowRole": "none"
+                    }
+                ]
+            }, {
+                "name": "Test Question Set 9",
+                "key": "testQuestionSet9",
+                "fields": [{
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "iconLeft": "fa fa-cogs",
+                        "iconRight": "fa fa-dashboard",
+                        "label": "Time With Icons",
+                        "heading3": "Time Fields",
+                        "name": "Time With Icons",
+                        "key": "timeWithIcons",
+                        "questionSetKey": "testQuestionSet9",
+                        "dataType": "time",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "label": "Time Default",
+                        "name": "Time Default",
+                        "key": "timeDefault",
+                        "questionSetKey": "testQuestionSet9",
+                        "dataType": "time",
+                        "workflowRole": "none"
+                    }
+                ]
+            }, {
+                "name": "Test Question Set 10",
+                "key": "testQuestionSet10",
+                "fields": [{
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "iconLeft": "fa fa-cogs",
+                        "iconRight": "fa fa-dashboard",
+                        "label": "Email With Icons",
+                        "heading3": "Email Fields",
+                        "name": "Email With Icons",
+                        "key": "emailWithIcons",
+                        "questionSetKey": "testQuestionSet10",
+                        "dataType": "email",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "label": "Email Default",
+                        "name": "Email Default",
+                        "key": "emailDefault",
+                        "questionSetKey": "testQuestionSet10",
+                        "dataType": "email",
+                        "workflowRole": "none"
+                    }
+                ]
+            }, {
+                "name": "Test Question Set 11",
+                "key": "testQuestionSet11",
+                "fields": [{
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "iconLeft": "fa fa-cogs",
+                        "iconRight": "fa fa-dashboard",
+                        "label": "Phone With Icons",
+                        "heading3": "Phone Fields",
+                        "name": "Phone With Icons",
+                        "key": "phoneWithIcons",
+                        "questionSetKey": "testQuestionSet11",
+                        "dataType": "phone",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "label": "Phone Default",
+                        "name": "Phone Default",
+                        "key": "phoneDefault",
+                        "questionSetKey": "testQuestionSet11",
+                        "dataType": "phone",
+                        "workflowRole": "none"
+                    }
+                ]
+            }, {
+                "name": "Test Question Set 12",
+                "key": "testQuestionSet12",
+                "fields": [{
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "iconLeft": "fa fa-cogs",
+                        "iconRight": "fa fa-dashboard",
+                        "label": "Postcode With Icons",
+                        "heading3": "Postcode Fields",
+                        "name": "Postcode With Icons",
+                        "key": "postcodeWithIcons",
+                        "questionSetKey": "testQuestionSet12",
+                        "dataType": "postcode",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "label": "Postcode Default",
+                        "name": "Postcode Default",
+                        "key": "postcodeDefault",
+                        "questionSetKey": "testQuestionSet12",
+                        "dataType": "postcode",
+                        "workflowRole": "none"
+                    }
+                ]
+            }, {
+                "name": "Test Question Set 13",
+                "key": "testQuestionSet13",
+                "fields": [{
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "iconLeft": "fa fa-cogs",
+                        "iconRight": "fa fa-dashboard",
+                        "label": "URL With Icons",
+                        "heading3": "URL Fields",
+                        "name": "URL With Icons",
+                        "key": "URLWithIcons",
+                        "questionSetKey": "testQuestionSet13",
+                        "dataType": "url",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "label": "URL Default",
+                        "name": "URL Default",
+                        "key": "URLDefault",
+                        "questionSetKey": "testQuestionSet13",
+                        "dataType": "url",
+                        "workflowRole": "none"
+                    }
+                ]
+            }, {
+                "name": "Test Question Set 13",
+                "key": "testQuestionSet13",
+                "fields": [{
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "iconLeft": "fa fa-cogs",
+                        "iconRight": "fa fa-dashboard",
+                        "label": "ABN With Icons",
+                        "heading3": "ABN Fields",
+                        "name": "ABN With Icons",
+                        "key": "abnWithIcons",
+                        "questionSetKey": "testQuestionSet13",
+                        "dataType": "abn",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "label": "ABN Default",
+                        "name": "ABN Default",
+                        "key": "abnDefault",
+                        "questionSetKey": "testQuestionSet13",
+                        "dataType": "abn",
+                        "workflowRole": "none"
+                    }
+                ]
+            }, {
+                "name": "Test Question Set 14",
+                "key": "testQuestionSet14",
+                "fields": [{
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "iconLeft": "fa fa-cogs",
+                        "iconRight": "fa fa-dashboard",
+                        "label": "Number Plate With Icons",
+                        "heading3": "Number Plate Fields",
+                        "name": "Number Plate With Icons",
+                        "key": "numberPlateWithIcons",
+                        "questionSetKey": "testQuestionSet14",
+                        "dataType": "number plate",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "label": "Number Plate Default",
+                        "name": "Number Plate Default",
+                        "key": "numberPlateDefault",
+                        "questionSetKey": "testQuestionSet14",
+                        "dataType": "number plate",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "iconRight": "fa fa-dashboard",
+                        "label": "Number Plate With Right Icon",
+                        "name": "Number Plate With Right Icon",
+                        "key": "numberPlateWithRightIcon",
+                        "questionSetKey": "testQuestionSet14",
+                        "dataType": "number plate",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "single-line-text",
+                        "sensitive": false,
+                        "iconLeft": "",
+                        "label": "Number Plate With Icon Cleared",
+                        "name": "Number Plate With Icon Cleared",
+                        "key": "numberPlateWithIconCleared",
+                        "questionSetKey": "testQuestionSet14",
+                        "dataType": "number plate",
+                        "workflowRole": "none"
+                    }
+                ]
+            }, {
+                "name": "Test Question Set 15",
+                "key": "testQuestionSet15",
+                "fields": [{
+                        "$type": "toggle",
+                        "icon": "fa fa fa-user",
+                        "label": "Toggle Field With Icon",
+                        "name": "Toggle Field",
+                        "key": "toggleField",
+                        "questionSetKey": "testQuestionSet15",
+                        "dataType": "boolean",
+                        "workflowRole": "none"
+                    }
+                ]
+            }
+        ],
+        "optionSets": [{
+                "name": "Cars",
+                "key": "cars",
+                "options": [{
+                        "label": "Toyota",
+                        "value": "Toy1",
+                        "cssClass": "toy",
+                        "disabledConditionExpression": "disableAnOption == true"
+                    }, {
+                        "label": "Nissan",
+                        "value": "Nis2",
+                        "cssClass": "nis",
+                        "hideConditionExpression": "hideAnOption == true"
+                    }, {
+                        "label": "Ford",
+                        "value": "For3",
+                        "cssClass": "for"
+                    }, {
+                        "label": "Holden",
+                        "value": "Hol4",
+                        "cssClass": "hol"
+                    }
+                ]
+            }
+        ],
+        "workflowConfiguration": {
+            "step1": {
+                "startScreenExpression": "true",
+                "tabIndexExpression": "1",
+                "articles": [{
+                        "elements": [{
+                                "type": "questions",
+                                "name": "testQuestionSet1"
+                            }, {
+                                "type": "questions",
+                                "name": "testQuestionSet2"
+                            }, {
+                                "type": "questions",
+                                "name": "testQuestionSet3"
+                            }, {
+                                "type": "questions",
+                                "name": "testQuestionSet4"
+                            }, {
+                                "type": "questions",
+                                "name": "testQuestionSet5"
+                            }, {
+                                "type": "questions",
+                                "name": "testQuestionSet6"
+                            }, {
+                                "type": "questions",
+                                "name": "testQuestionSet7"
+                            }, {
+                                "type": "questions",
+                                "name": "testQuestionSet8"
+                            }, {
+                                "type": "questions",
+                                "name": "testQuestionSet9"
+                            }, {
+                                "type": "questions",
+                                "name": "testQuestionSet10"
+                            }, {
+                                "type": "questions",
+                                "name": "testQuestionSet11"
+                            }, {
+                                "type": "questions",
+                                "name": "testQuestionSet12"
+                            }, {
+                                "type": "questions",
+                                "name": "testQuestionSet13"
+                            }, {
+                                "type": "questions",
+                                "name": "testQuestionSet14"
+                            }, {
+                                "type": "questions",
+                                "name": "testQuestionSet15"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

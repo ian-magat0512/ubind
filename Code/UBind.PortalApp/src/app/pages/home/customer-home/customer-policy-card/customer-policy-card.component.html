@@ -1,0 +1,40 @@
+<ion-card class="ubind-card">
+    <ion-card-header *ngIf="!isMutual">
+        My Policies
+    </ion-card-header>
+    <ion-card-header *ngIf="isMutual">
+        My Protections
+    </ion-card-header>
+    <ion-card-content>
+        <div class="preloader-wrapper" *ngIf="isLoading">
+            <loader></loader>
+        </div>
+        <ion-list lines="none" *ngIf="policies.length > 0" class="entity-list">
+            <ion-item *ngFor="let policy of policies" (click)="userDidTapPolicy(policy)">
+                <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="shield" svgIcon="shield"></mat-icon>
+                <ion-label class="ion-text-wrap list-title">
+                    <div>{{policy.productName}}</div>
+                    <p class="status">{{policy.expiryDate}}</p>
+                </ion-label>
+                <ion-label class="ion-text-wrap ion-text-end list-title" slot="end">
+                    <div>{{policy.policyNumber}}</div>
+                    <p class="status">{{policy.status}}</p>
+                </ion-label>
+            </ion-item>
+        </ion-list>
+        <ion-row *ngIf="!isLoading && policies.length == 0" class="content-error">
+            <p class="ion-text-center" *ngIf="!isMutual">No active policies found</p>
+            <p class="ion-text-center" *ngIf="isMutual">No active protections found</p>
+        </ion-row>
+        <ion-row>
+            <ion-col>
+                <ion-button *ngIf="!isMutual" fill="clear" size="small" (click)="userDidTapInactivePolicies()">
+                    <library-icon name="filing" [library]="iconLibrary.IonicV4" cssClass="small" [cssStyle]="{'margin-right': '2px'}"></library-icon> INACTIVE POLICIES
+                </ion-button>
+                <ion-button *ngIf="isMutual" fill="clear" size="small" (click)="userDidTapInactivePolicies()">
+                    <library-icon name="filing" [library]="iconLibrary.IonicV4" cssClass="small" [cssStyle]="{'margin-right': '2px'}"></library-icon> INACTIVE PROTECTIONS
+                </ion-button>
+            </ion-col>
+        </ion-row>
+    </ion-card-content>
+</ion-card>

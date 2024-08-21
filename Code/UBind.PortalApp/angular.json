@@ -1,0 +1,275 @@
+{
+    "$schema": "./node_modules/@angular/cli/lib/config/schema.json",
+    "version": 1,
+    "newProjectRoot": "projects",
+    "projects": {
+        "app": {
+            "root": "",
+            "sourceRoot": "src",
+            "projectType": "application",
+            "prefix": "app",
+            "schematics": {},
+            "architect": {
+                "build": {
+                    "builder": "@angular-builders/custom-webpack:browser",
+                    "options": {
+                        "customWebpackConfig": {
+                            "path": "./extra-webpack.config.js",
+                            "mergeRules": {
+                                "externals": "replace"
+                            }
+                        },
+                        "outputPath": "dist",
+                        "index": "src/index.html",
+                        "main": "src/main.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "src/tsconfig.app.json",
+                        "assets": [
+                            {
+                                "glob": "**/*",
+                                "input": "src/assets",
+                                "output": "assets"
+                            },
+                            {
+                                "glob": "**/*.svg",
+                                "input": "node_modules/ionicons/dist/ionicons/svg",
+                                "output": "./svg"
+                            },
+                            { 
+                                "glob": "mdi.svg", 
+                                "input": "node_modules/@mdi/angular-material", 
+                                "output": "./assets/material-icon" 
+                            },
+                            "src/manifest.json"
+                        ],
+                        "styles": [
+                            "src/theme/variables.scss",
+                            "src/global.scss",
+                            "src/global-ie11.scss",
+                            "src/global-edge.scss"
+                        ],
+                        "scripts": [
+                            "node_modules/iframe-resizer/js/iframeResizer.contentWindow.min.js",
+                            "node_modules/iframe-resizer/js/iframeResizer.js"
+                        ],
+                        "stylePreprocessorOptions": {
+                            "includePaths": [
+                                "./node_modules/",
+                                "src/**/*.scss"
+                            ]
+                        },
+                        "allowedCommonJsDependencies": [
+                            "ngx-papaparse",
+                            "lodash",
+                            "moment-timezone",
+                            "queue-typescript",
+                            "file-saver",
+                            "url",
+                            "papaparse/papaparse.min.js"
+                        ]
+                    },
+                    "configurations": {
+                        "production": {
+                            "baseHref": "/portal/",
+                            "fileReplacements": [
+                                {
+                                    "replace": "src/environments/environment.ts",
+                                    "with": "src/environments/environment.prod.ts"
+                                }
+                            ],
+                            "optimization": true,
+                            "outputHashing": "all",
+                            "sourceMap": false,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": true,
+                            "vendorChunk": false,
+                            "buildOptimizer": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "6mb",
+                                    "maximumError": "7mb"
+                                }
+                            ]
+                        },
+                        "development": {
+                            "baseHref": "/portal/",
+                            "optimization": false,
+                            "outputHashing": "none",
+                            "sourceMap": true,
+                            "namedChunks": false,
+                            "aot": true,
+                            "extractLicenses": false,
+                            "vendorChunk": true,
+                            "buildOptimizer": false,
+                            "statsJson": false,
+                            "progress": true,
+                            "budgets": [
+                                {
+                                    "type": "initial",
+                                    "maximumWarning": "23mb",
+                                    "maximumError": "25mb"
+                                }
+                            ]
+                        }
+                    }
+                },
+                "serve": {
+                    "builder": "@angular-builders/custom-webpack:dev-server",
+                    "options": {
+                        "browserTarget": "app:build",
+                        "proxyConfig": "proxy.conf.js"
+                    },
+                    "configurations": {
+                        "production": {
+                            "baseHref": "/portal/",
+                            "browserTarget": "app:build:production"
+                        },
+                        "development": {
+                            "baseHref": "/portal/",
+                            "browserTarget": "app:build:development"
+                        },
+                        "ci": {
+                            "baseHref": "/portal/",
+                            "progress": false
+                        }
+                    },
+                    "defaultConfiguration": "development"
+                },
+                "extract-i18n": {
+                    "builder": "@angular-devkit/build-angular:extract-i18n",
+                    "options": {
+                        "browserTarget": "app:build"
+                    }
+                },
+                "test": {
+                    "builder": "@angular-devkit/build-angular:karma",
+                    "options": {
+                        "main": "src/test.ts",
+                        "polyfills": "src/polyfills.ts",
+                        "tsConfig": "src/tsconfig.spec.json",
+                        "karmaConfig": "./karma.conf.js",
+                        "styles": [],
+                        "scripts": [],
+                        "assets": [
+                            {
+                                "glob": "favicon.ico",
+                                "input": "src/",
+                                "output": "/"
+                            },
+                            {
+                                "glob": "**/*",
+                                "input": "src/assets",
+                                "output": "/assets"
+                            },
+                            "src/manifest.json"
+                        ]
+                    }
+                },
+                "lint": {
+                    "builder": "@angular-eslint/builder:lint",
+                    "options": {
+                        "lintFilePatterns": [
+                            "src/**/*.ts",
+                            "src/**/*.html"
+                        ]
+                    }
+                },
+                "ionic-cordova-build": {
+                    "builder": "@ionic/angular-toolkit:cordova-build",
+                    "options": {
+                        "browserTarget": "app:build"
+                    },
+                    "configurations": {
+                        "production": {
+                            "browserTarget": "app:build:production"
+                        }
+                    }
+                },
+                "ionic-cordova-serve": {
+                    "builder": "@ionic/angular-toolkit:cordova-serve",
+                    "options": {
+                        "cordovaBuildTarget": "app:ionic-cordova-build",
+                        "devServerTarget": "app:serve"
+                    },
+                    "configurations": {
+                        "production": {
+                            "cordovaBuildTarget": "app:ionic-cordova-build:production",
+                            "devServerTarget": "app:serve:production"
+                        }
+                    }
+                }
+            }
+        },
+        "app-e2e": {
+            "root": "e2e/",
+            "projectType": "application",
+            "architect": {
+                "e2e": {
+                    "builder": "@angular-devkit/build-angular:protractor",
+                    "options": {
+                        "protractorConfig": "e2e/protractor.conf.js",
+                        "devServerTarget": "app:serve"
+                    }
+                }
+            }
+        }
+    },
+    "cli": {
+      "analytics": false,
+        "defaultCollection": "@ionic/angular-toolkit"
+    },
+    "schematics": {
+        "@ionic/angular-toolkit:component": {
+            "style": "scss",
+            "inlineStyle": true,
+            "unitTestRunner": "none"
+        },
+        "@ionic/angular-toolkit:page": {
+            "style": "scss",
+            "unitTestRunner": "none"
+        },
+        "@ionic/angular-toolkit:service": {
+            "unitTestRunner": "none"
+        },
+        "@ionic/angular-toolkit:moudule": {
+            "unitTestRunner": "none"
+        },
+        "@ionic/angular-toolkit:class": {
+            "unitTestRunner": "none"
+        },
+        "@ionic/angular-toolkit:directive": {
+            "unitTestRunner": "none"
+        },
+        "@ionic/angular-toolkit:guard": {
+            "unitTestRunner": "none"
+        },
+        "@ionic/angular-toolkit:pipe": {
+            "unitTestRunner": "none"
+        },
+        "@schematics/angular:component": {
+            "style": "scss",
+            "inlineStyle": true,
+            "unitTestRunner": "none"
+        },
+        "@schematics/angular:class": {
+            "unitTestRunner": "none"
+        },
+        "@schematics/angular:directive": {
+            "unitTestRunner": "none"
+        },
+        "@schematics/angular:guard": {
+            "unitTestRunner": "none"
+        },
+        "@schematics/angular:module": {
+            "unitTestRunner": "none"
+        },
+        "@schematics/angular:pipe": {
+            "unitTestRunner": "none"
+        },
+        "@schematics/angular:service": {
+            "unitTestRunner": "none"
+        }
+    }
+}

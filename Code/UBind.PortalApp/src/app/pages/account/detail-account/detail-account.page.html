@@ -1,0 +1,118 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ion-buttons slot='start'>
+            <ion-menu-toggle *ngIf="!layoutManager.canShowFixedMenu()">
+                <ion-button>
+                    <ion-icon slot="icon-only" name="menu"></ion-icon>
+                </ion-button>
+            </ion-menu-toggle>
+        </ion-buttons>
+        <ion-title [style.margin-left]="layoutManager.isMenuExpanded() ? '15px': '0px'">{{ title }}</ion-title>
+        <ion-buttons *ngIf="segment === 'Detail' || segment === 'Picture'" slot='end'>
+            <ng-container *ubAllowAccess="permission.EditMyAccount">
+                <app-entity-action-button-list
+                    [actionButtonList]="actionButtonList"
+                    [getMoreButtonCallback]="presentPopover.bind(this)"
+                    [canShowMore]="segment === 'Detail' || segment === 'Picture'"
+                    [flipMoreIcon]="flipMoreIcon">
+                </app-entity-action-button-list>
+            </ng-container>
+        </ion-buttons>
+    </ion-toolbar>
+    <ng-container *ngIf='!layoutManager.splitPaneVisible then segmentList'></ng-container>
+</ion-header>
+
+<ion-content class="left-pane">
+    <ng-container *ngIf='layoutManager.splitPaneVisible then segmentList'></ng-container>
+
+    <loader *ngIf='isLoading'></loader>
+
+    <div *ngIf="!isLoading && !errorMessage">
+        <div [ngSwitch]='segment'>
+            <app-entity-details-list [detailsListItems]="accountDetailsListItems"
+                                    [@contentAnimation]
+                                    [hasItemLines]="false"
+                                    [hasGroupLines]="true"
+                                    *ngSwitchCase="'Detail'"
+                                    [truncateDescription]="true">
+            </app-entity-details-list>
+            <!--Avatar-->
+            <div *ngSwitchCase="'Picture'" class="tab-content" [@contentAnimation]>
+                <div class="avatar-container">
+                    <ng-container *ngIf="authenticationService.profilePictureId">
+                        <img class="detail-img" default="" alt="profile photo" [src]="authenticationService.profilePictureId | profilePicUrl"
+                            (error)="setDefaultImg($event)">
+                    </ng-container>
+                    <ng-container *ngIf="!authenticationService.profilePictureId">
+                        <library-icon name="contact" 
+                            [library]="iconLibrary.IonicV4" 
+                            [slot]="'start'" 
+                            [size]="'large'" 
+                            [cssClass]="'detail-img'">
+                        </library-icon>
+                    </ng-container>
+                </div>
+            </div>
+
+            <!--Roles segment-->
+            <div *ngSwitchCase="'Roles'" class="tab-content" [@contentAnimation]>
+                <app-user-role-view [roles]="roles"
+                                    [showActionButton]="canManageUsers"
+                                    [isLoading]="isLoading"
+                                    (clickedRoleActionButton)="didSelectRoleActionButton($event)"></app-user-role-view>
+            </div>
+
+            <ng-container *ngIf="!isCustomer">
+                <!--Permissions segment-->
+                <div *ngSwitchCase="'Permissions'" class="tab-content" [@contentAnimation]>
+                    <loader *ngIf='isLoadingPermissions'></loader>
+                    <ng-container *ngIf="!isLoadingPermissions && !permissionsErrorMsesage">
+                        <ion-list *ngIf="permissions.length > 0" class="detail-role-permission-list entity-list" lines="none">
+                            <ion-item *ngFor="let permission of permissions">
+                                <library-icon name="checkmark-circle" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+                                <ion-label class="ion-text-wrap">
+                                    {{(isMutual ? permission.description.replace('Policies', 'Protections') : permission.description) | titlecase}}
+                                </ion-label>
+                            </ion-item>
+                        </ion-list>
+                        <div *ngIf="permissions.length === 0" class="tab-content content-error">
+                            <p class="ion-text-center">No permissions found</p>
+                        </div>
+                    </ng-container>
+                    <div *ngIf="permissionsErrorMsesage" class="tab-content content-error" [@contentAnimation]>
+                        <p class="ion-text-center">{{ permissionsErrorMsesage }}</p>
+                    </div>
+                </div>
+                <!-- End Permissions segment-->
+            </ng-container>
+        </div>
+    </div>
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">
+            {{ errorMessage }}
+        </p>
+    </div>
+</ion-content>
+
+<ng-template #segmentList>
+    <ion-segment id="detail-account-segment"
+                 scrollable="true"
+                 [value]="segment"
+                 (ionChange)="segmentChanged($event)"
+                 scrollHorizontal
+                 scrollMousedrag
+                 [segmentSelectedScrollIntoView]="segment">
+        <ion-segment-button ionSegmentButtonEvent value="Detail">
+            <ion-label>Details</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="Picture">
+            <ion-label>Picture</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="Roles">
+            <ion-label>Roles</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="Permissions">
+            <ion-label>Permissions</ion-label>
+        </ion-segment-button>
+    </ion-segment>
+</ng-template>

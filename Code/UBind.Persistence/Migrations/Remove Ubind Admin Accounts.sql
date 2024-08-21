@@ -1,0 +1,1 @@
+delete from [UserReadModels] where Role = 'UBindAdmin' and TenantId != 'ubind'

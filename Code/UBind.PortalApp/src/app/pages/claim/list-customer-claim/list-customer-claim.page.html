@@ -1,0 +1,29 @@
+<app-segmented-entity-list [title]="title"
+                           [listItemNamePlural]="'claims'"
+                           [entityRouteParamName]="'claimId'"
+                           [entityLoaderService]="claimApiService"
+                           [viewModelConstructor]="viewModelConstructor"
+                           [segments]="segments"
+                           [defaultSegment]="defaultSegment"
+                           [filterStatuses]="filterStatuses"
+                           [sortOptions]="sortOptions"
+                           [filterByDates]="filterByDates"
+                           [itemTemplate]="claimListItemTemplate"
+                           (listQueryParamsGenerated)="onListQueryParamsGenerated($event)"
+                           [entityTypeName]="'Claim'"
+                           [additionalActionButtonList]="additionalActionButtonList"
+                           [entityPathSegment]="'my-claims'"
+                           [ngStyle]="{'height': '100%'}">
+</app-segmented-entity-list>
+
+<ng-template #claimListItemTemplate let-item>
+    <library-icon name="clipboard" [library]="iconLibrary.AngularMaterial" cssClass="mat-icon-md"></library-icon>
+    <ion-label class="ion-text-wrap list-title">
+        <div>{{item.productName}}</div>
+        <p class="status">{{item.createdDate}}</p>
+    </ion-label>
+    <ion-label class="ion-text-wrap ion-text-end list-title" slot="end">
+        <div class="list-title">{{item.referenceNumber}}</div>
+        <p class="status">{{item.status | titlecase}}</p>
+    </ion-label>
+</ng-template>

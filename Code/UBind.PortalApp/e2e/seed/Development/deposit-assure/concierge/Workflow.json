@@ -1,0 +1,88 @@
+{
+    "step1": {
+        "startScreen": true,
+        "tabIndex": 1,
+        "articles": [
+            {
+                "elements": [
+                    {
+                        "type": "questions",
+                        "name": "setupDetails"
+                    },
+                    {
+                        "type": "questions",
+                        "name": "applicantDetails"
+                    },
+                    {
+                        "type": "questions",
+                        "name": "purchaseDetails"
+                    },
+                    {
+                        "type": "questions",
+                        "name": "supportingDocuments"
+                    }
+                ]
+            }
+        ],
+        "actions": {
+            "next": {
+                "requiresValidQuestionSets": [ "setupDetails", "applicantDetails", "purchaseDetails", "supportingDocuments" ],
+                "operations": [ "quote", "customer", "submission" ],
+                "destinationStep": "successPage",
+                "primary": true
+            }
+        }
+    },
+    "successPage": {
+        "articles": [
+            {
+                 "elements": [
+                    {
+                        "type": "questions",
+                        "name": "successPage"
+                    }
+                ]
+            }
+        ]
+    },
+    "enquiryPage": {
+        "articles": [
+            {
+                "heading": "enquiryHeading",
+                "text": "enquiryText"
+            }
+        ],
+        "actions": {
+            "back": {
+                "destinationStep": "step1",
+                "primary": true,
+                "hidden": "widgetPosition == 'sidebar'"
+            }
+        }
+    },
+    "referralPage": {
+        "articles": [
+            {
+                "heading": "referralHeading",
+                "message": true,
+                "text": "referralText"
+            }
+        ]
+    },
+    "declinePage": {
+        "articles": [
+            {
+                "heading": "declineHeading",
+                "message": true,
+                "text": "declineText"
+            }
+        ],
+        "actions": {
+            "enquiry": {
+                "directives": [ "sendEnquiry" ],
+                "destinationStep": "enquiryPage",
+                "primary": true
+            }
+        }
+    }
+}

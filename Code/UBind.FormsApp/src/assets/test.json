@@ -1,0 +1,196 @@
+{
+  "applicationId": "d555514c-d329-4335-a4c4-fd88d8a5d78a",
+  "formDataId": "0454ebe2-9274-4c3e-a4cc-f6ac6f574d7a",
+  "calculationResultId": "e4359d84-15a0-447c-ba1e-96575a10f5c4",
+  "formModel": {
+    "insuredDevices": [
+      {
+        "itemDescription": "PS4",
+        "itemPurchaseDate": "09/08/2018",
+        "itemPurchasePrice": "400"
+      }
+    ],
+    "totalValueString": "$400",
+    "totalValue": 400,
+    "requiredPackage": "Bronze",
+    "policyStartDate": "17/08/2018",
+    "policyEndDate": "17/08/2019",
+    "contactName": "Testy McTest",
+    "contactPhone": "0412 123 456",
+    "contactAge": "23",
+    "paymentOption": "Monthly",
+    "test1": "",
+    "test2": "",
+    "test3": "",
+    "sample": "",
+    "contactEmail": "fsddf@sdfsfd.com",
+    "devicesDetails": [
+      {
+        "itemPurchasePlace": "EB Games",
+        "itemInvoice": ""
+      }
+    ],
+    "insuredDevicesString": "PS4 (Purchased on 09/08/2018 at EB Games for $400.00)",
+    "ratingState": "VIC",
+    "insuredFullName": "Testy McTest",
+    "insuredID": "",
+    "contactHeading": "",
+    "contactAddress": "sdfs",
+    "contactTown": "sdfs",
+    "contactState": "VIC",
+    "contactPostcode": "3000",
+    "postalHeading": "",
+    "postalAddress": "",
+    "postalTown": "",
+    "postalState": "",
+    "postalPostcode": "",
+    "disclosureHeading": "",
+    "history": "No",
+    "historyDetails": "",
+    "insolvency": "",
+    "insolvencyDetails": "",
+    "declaration": "Yes",
+    "paymentMethod": "",
+    "promotionCode": "",
+    "paymentMethodSelect": "Credit Card",
+    "creditCardHeading": "",
+    "creditCardExpiryDate": "",
+    "directDebitHeading": "",
+    "directDebitAccountName": "",
+    "directDebitBSB": "",
+    "directDebitAccountNumber": "",
+    "BPAYHeading": "",
+    "payPalHeading": "",
+    "bitcoinHeading": "",
+    "giftCardHeading": "",
+    "giftCardNumber": "",
+    "giftCardPin": ""
+  },
+  "calculationResult": {
+    "state": "premiumComplete",
+    "questions": {
+      "ratingPrimary": {
+        "totalValueString": "$400.00",
+        "totalValue": "$400.00",
+        "requiredPackage": "Bronze",
+        "policyStartDate": "17/08/2018",
+        "policyEndDate": "17/08/2019"
+      },
+      "ratingSecondary": {},
+      "contact": {
+        "contactName": "Testy McTest",
+        "contactEmail": "fsddf@sdfsfd.com",
+        "contactPhone": "0412 123 456",
+        "contactAge": 23
+      },
+      "personal": {
+        "insuredDevicesString": "PS4 (Purchased on 09/08/2018 at EB Games for $400.00)",
+        "insuredFullName": "Testy McTest",
+        "contactAddress": "sdfs",
+        "contactTown": "sdfs",
+        "contactState": "VIC",
+        "contactPostcode": "3000",
+        "ratingState": "VIC"
+      },
+      "disclosure": {
+        "history": "No",
+        "insolvency": "No",
+        "declaration": "Yes"
+      },
+      "discounts": {},
+      "paymentOptions": { "paymentOption": "Monthly" },
+      "paymentMethods": { "paymentMethodSelect": "Credit Card" },
+      "successPage": {}
+    },
+    "risk1": {
+      "settings": {
+        "riskName": "Consoles",
+        "fieldCodePrefix": "C"
+      },
+      "ratingFactors": {
+        "totalValue": 400,
+        "ratingState": "VIC",
+        "policyStartDate": "17/08/2018"
+      },
+      "checks": { "includeRisk": true },
+      "premium": {
+        "netBasePremium": 50,
+        "totalPremium": 50,
+        "basePremium": 41.3223140495868
+      },
+      "other": { "something": "Val" },
+      "statutoryRates": {
+        "riskType": "General",
+        "ESLApplicability": "Not Applicable",
+        "jurisdiction": "VIC",
+        "policyStartDate": "17/08/2018",
+        "ESLRate": 0,
+        "GSTRate": 0.1,
+        "SDRate": 0.1
+      },
+      "payment": {
+        "premium": 41.3223140495868,
+        "ESL": 0,
+        "GST": 4.13223140495868,
+        "SD": 4.54545454545455,
+        "total": 50
+      }
+    },
+    "risk2": {
+      "settings": {
+        "riskName": "Sample",
+        "keyPrefix": "S"
+      },
+      "ratingFactors": {
+        "ratingState": "VIC",
+        "policyStartDate": "17/08/2018"
+      },
+      "checks": { "includeRisk": false },
+      "premium": {
+        "basepremium": 0,
+        "totalPremium": 0
+      },
+      "other": { "Something": "Val" },
+      "statutoryRates": {
+        "riskType": "General",
+        "ESLApplicability": "Applicable",
+        "jurisdiction": "VIC",
+        "policyStartDate": "17/08/2018",
+        "ESLRate": 0,
+        "GSTRate": 0.1,
+        "SDRate": 0.1
+      },
+      "payment": {
+        "premium": 0,
+        "ESL": 0,
+        "GST": 0,
+        "SD": 0,
+        "total": 0
+      }
+    },
+    "triggers": {
+      "softReferral": { "claimsHistory": false },
+      "hardReferral": { "platinumPackage": false },
+      "decline": { "sumInsureTooLarge": false },
+      "error": { "noCoverSelected": false }
+    },
+    "payment": {
+      "total": {
+        "premium": "$41.32",
+        "ESL": "$0.00",
+        "GST": "$4.13",
+        "stampDuty": "$4.55",
+        "serviceFees": "$0.00",
+        "interest": "$0.00",
+        "merchantFees": "$0.00",
+        "transactionCosts": "$0.00",
+        "payable": "$50.00"
+      },
+      "instalments": {
+        "instalmentsPerYear": "12",
+        "instalmentAmount": "$4.17"
+      }
+    }
+  },
+  "policy": { "policyNumber": "P21863" }
+}

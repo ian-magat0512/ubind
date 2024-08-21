@@ -1,0 +1,147 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ion-title role="heading" aria-level="1" [class.has-portal-title]="hasPortalTitle">
+            <span class="logo"></span>
+            <span class="tenant-name">{{ tenantName }}</span>
+            <span class="organisation-name">{{ organisationName }}</span>
+            <span class="portal-title">{{ portalTitle }}</span>
+        </ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content [ngClass]="{'vertical-align-content': !layoutManager.isMobile()}">
+
+    <loader *ngIf="isLoading"></loader>
+
+    <!--Tablet/Desktop UI-->
+    <ion-card class="account-card" *ngIf="!layoutManager.isMobile() && !isLoading">
+        <ion-card-header>
+            <ion-card-title>
+                Sign In
+            </ion-card-title>
+        </ion-card-header>
+        <ion-card-content>
+            <div class="account-container" full>
+                <ng-container [ngTemplateOutlet]="loginMethodsTemplate"></ng-container>
+            </div>
+        </ion-card-content>
+    </ion-card>
+
+    <!--Phone UI-->
+    <div class="account-container" *ngIf="layoutManager.isMobile() && !isLoading" full>
+        <h2>Sign In</h2>
+        <ng-container [ngTemplateOutlet]="loginMethodsTemplate"></ng-container>
+    </div>
+
+</ion-content>
+
+<app-powered-by class="left"></app-powered-by>
+
+<ng-template #loginMethodsTemplate>
+    <ng-container *ngIf="loginMethods.length == 0">
+        <div class="no-login-methods">
+            <p>There are no sign-in methods configured for this portal.</p>
+        </div>
+    </ng-container>
+    <ng-container *ngFor="let loginMethod of loginMethods; let i = index">
+        <!-- Divider before local account login -->
+        <div class="divider" *ngIf="loginMethod.typeName == AuthenticationMethodType.LocalAccount && i > 0">
+            <hr /><span>OR</span><hr />
+        </div>
+
+        <!-- local account login -->
+        <div class="login-method local-account" *ngIf="loginMethod.typeName == AuthenticationMethodType.LocalAccount">
+            <ng-container [ngTemplateOutlet]="loginFormTemplate"
+                          [ngTemplateOutletContext]="{ $implicit: loginMethod }"></ng-container>
+        </div>
+
+        <!-- non-local account login -->
+        <div *ngIf="loginMethod.typeName != AuthenticationMethodType.LocalAccount"
+            class="login-method custom-auth {{ loginMethod.name | cssIdentifier }}">
+            <ng-container [ngTemplateOutlet]="loginButtonTemplate"
+                          [ngTemplateOutletContext]="{ $implicit: loginMethod }"></ng-container>
+        </div>
+
+        <!-- Divider after local account login -->
+        <div class="divider" *ngIf="loginMethod.typeName == AuthenticationMethodType.LocalAccount && i < loginMethods.length - 1">
+            <hr /><span>OR</span><hr />
+        </div>        
+    </ng-container>
+    <div *ngIf="allowSelfRegistration" class="self-registration">
+        <p>Don't have an account yet? <a (click)="userDidTapCreateAccount()" class="register-link">Register here</a></p>
+    </div>
+</ng-template>
+
+
+<ng-template #loginFormTemplate let-loginMethod>
+    <form id="form" [formGroup]="authForm">
+        <ion-list lines="none">
+            <div class="accountForm ion-margin-bottom" [class.account-creation]="allowCustomerSelfAccountCreation">
+                <ion-item class="input" [class.ng-touched]="authForm.get('email').touched && authForm.get('email').errors || errorDisplay"
+                          [class.has-backend-error]="errorDisplay">
+                    <ion-label position="floating" [class.ng-valid]="authForm.get('email').valid">
+                        Email
+                    </ion-label>
+                    <ion-input id="email" (keydown.enter)="userDidTapLocalAuthLogin(authForm.value)"
+                               formControlName="email" type="text" required #focusElement
+                               [class.ion-invalid]="errorDisplay" [class.ng-invalid]="errorDisplay"
+                               [class.has-backend-error]="errorDisplay"></ion-input>
+                </ion-item>
+                <div class="error"
+                     *ngIf="authForm.get('email').invalid && ( formHasError || authForm.get('email').touched) && authForm.get('email').hasError('required') && hasSubmitButtonBeenClicked">
+                    Email is required
+                </div>
+                <div class="error"
+                     *ngIf="authForm.get('email').invalid && ( formHasError || authForm.get('email').touched) && authForm.get('email').hasError('email') && hasSubmitButtonBeenClicked">
+                    Email must be a valid email address
+                </div>
+                <div class="error" *ngIf="emailBlockErrorDisplay">{{ emailBlockErrorDisplay }}</div>
+                <ion-item class="input" [class.ng-touched]="authForm.get('password').touched && authForm.get('password').errors || errorDisplay"
+                          [class.has-backend-error]="errorDisplay">
+                    <ion-label position="floating" [class.ng-valid]="authForm.get('password').valid">
+                        Password
+                    </ion-label>
+                    <ion-input id="password" (keydown.enter)="userDidTapLocalAuthLogin(authForm.value)"
+                               formControlName="password" type="password" [class.ion-invalid]="errorDisplay"
+                               [class.ng-invalid]="errorDisplay" [class.has-backend-error]="errorDisplay">
+                    </ion-input>
+                </ion-item>
+                <div class="error"
+                     *ngIf="authForm.get('password').invalid && (formHasError || authForm.get('password').touched) && authForm.get('password').hasError('required') && hasSubmitButtonBeenClicked">
+                    Password is required
+                </div>
+                <div class="error"
+                     *ngIf="authForm.get('password').invalid && (formHasError || authForm.get('password').touched) && authForm.get('password').hasError('minlength') && hasSubmitButtonBeenClicked">
+                    Password must be at least 8 characters
+                </div>
+                <div class="error" *ngIf="errorDisplay && authForm.valid">{{ errorDisplay }}</div>
+                <a (click)="userDidTapResetPassword()" class="forgot-password"
+                    (keydown.enter)="userDidTapResetPassword()" (keydown.space)="userDidTapResetPassword()"
+                    tabindex="0">Forgot password?</a>
+            </div>
+            <ng-container>
+                <button mat-raised-button class="mat-raised-button local-account" type="button" (click)="userDidTapLocalAuthLogin(authForm.value)">Sign In</button>
+            </ng-container>
+        </ion-list> 
+    </form>
+</ng-template>
+
+
+<ng-template #loginButtonTemplate let-loginMethod>
+    <div class="login-button-container" [class.has-icon]="loginMethod.signInButtonIconUrl">
+        <button mat-raised-button (click)="userDidTapLoginMethod(loginMethod)"
+            [style.background]="loginMethod.signInButtonBackgroundColor">
+            <div class="button-content">
+                <ng-container *ngIf="loginMethod.signInButtonIconUrl">
+                    <img [src]="loginMethod.signInButtonIconUrl" alt="{{ loginMethod.name }} icon" class="icon" />
+                </ng-container>
+                <ng-container *ngIf="loginMethod.signInButtonLabel">
+                    <span class="button-label specified">{{ loginMethod.signInButtonLabel }}</span>
+                </ng-container>
+                <ng-container *ngIf="!loginMethod.signInButtonLabel">
+                    <span class="button-label generated">Sign in with {{ loginMethod.name }}</span>
+                </ng-container>
+            </div>                    
+        </button>
+    </div>
+</ng-template>

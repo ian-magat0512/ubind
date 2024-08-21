@@ -1,0 +1,18 @@
+@model UBind.Application.Export.ViewModels.ApplicationEventViewModel
+
+<p style="font-family: Arial; font-size:13px;">Hi @Model.Form["contactName"],</p>
+
+<p style="font-family: Arial; font-size:13px;">Thank you for requesting a call-back regarding our Landlords Insurance product.</p>
+
+<p style="font-family: Arial; font-size:13px;">A member of our team will contact you shortly using the details provided.</p>
+
+<p style="font-family: Arial; font-size:13px;">Kind regards,<br /><br />Property Club Insurance Team<br /><a href="tel:1300692109">1300 692 109</a><br /><a href="mailto:propertyclub@pscinsurance.com.au">propertyclub@pscinsurance.com.au</a></p>
+
+<p style="font-family: Arial; font-size:13px;">&nbsp;</p>
+
+<h4 style="text-indent:15px; padding: 20px 0; background: #e6eaea; width: 60%; font-family: Arial; font-size:13px;">Enquiry Details</h4>
+
+@Raw(Model.Form.PrettyPrintHtmlExcluding("accountName", "BSB", "accountNumber"))
+
+<h4 style="text-indent:15px; padding: 20px 0; background: #e6eaea; width: 60%; font-family: Arial; font-size:13px;">&nbsp;</h4>
+

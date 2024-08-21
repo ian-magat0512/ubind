@@ -1,0 +1,35 @@
+<ng-container *ngIf="!emailsErrorMessage; else errorMessageTemplate">
+    <app-entity-detail-segment-list
+        [entityTypeNamePlural]="'messages'"
+        [itemTemplate]="messageListItemTemplate"
+        [viewModelConstructor]="messageTypeViewModel"
+        [itemSelectedHandler]="userDidSelectMessage.bind(this)"
+        [getSegmentListCallback]="getSegmentMessageList.bind(this)"
+        [ngStyle]="{'height': '100%'}">
+    </app-entity-detail-segment-list>
+</ng-container>
+
+<ng-template #errorMessageTemplate>
+    <div class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">{{ emailsErrorMessage }}</p>
+    </div>
+</ng-template>
+
+<ng-template #messageListItemTemplate let-item>
+    <library-icon [name]="item.type === 'email' ? 'mail' : 'text'" 
+        [library]="iconLibrary.IonicV4" 
+        [slot]="'start'" 
+        [size]="'large'">
+    </library-icon>
+    <ion-label class='label-pull-left ion-text-wrap' ellipsis>
+        <div class="ion-text-wrap" ellipsis>{{item.recipient}}</div>
+        <p class='pointer-cursor ion-text-wrap' ellipsis>{{ item.subject }}</p>
+    </ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end" *ngIf="item.hasAttachment">
+        <ion-icon color="dark" name="attach" slot="end" class="icon-pull-right" size="small"></ion-icon>
+        <p class='pointer-cursor'>{{ item.createdDateTime | date: "hh:mm aaa" }}</p>
+    </ion-label>
+    <ion-label slot="end" class="ion-text-wrap ion-text-end" *ngIf="!item.hasAttachment">
+        {{ item.createdDateTime | date: "hh:mm aaa" }}
+    </ion-label>
+</ng-template>

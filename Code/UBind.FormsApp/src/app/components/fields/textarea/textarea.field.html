@@ -1,0 +1,15 @@
+<field-debug *ngIf="applicationService.debug" [field]="this"></field-debug>
+<textarea class="form-control tabbable"
+          [id]="fieldPath | cssIdentifier"
+          [name]="key"
+          [formControl]="formControl"
+          [readonly]="readOnly"
+          placeholder="{{placeholderText}}"
+          (change)="onChange($event)"
+          (keyup)="onKeyUp($event)"
+          (focus)="onFocus($event)"
+          (blur)="onBlur($event)"
+          (keydown)="onKeyDown($event)"
+          [attr.inputmode]="keyboardInputMode"
+          [attr.aria-label]="ariaLabelByKey">
+</textarea>

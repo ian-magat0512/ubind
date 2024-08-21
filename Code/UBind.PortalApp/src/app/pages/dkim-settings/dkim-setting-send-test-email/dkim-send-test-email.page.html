@@ -1,0 +1,64 @@
+﻿<ion-header>
+    <ion-toolbar class="level-1">
+        <ion-buttons slot="start" class="cancelButton" *ngIf="!layoutManager.splitPaneVisible">
+            <ion-button slot="icon-only" (click)="close()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf='!layoutManager.splitPaneVisible'>{{title}}</ion-title>
+        <ion-buttons slot='end' *ngIf="!layoutManager.splitPaneVisible">
+            <ng-container>
+                <ion-button (click)="send()">
+                    SEND
+                </ion-button>
+            </ng-container>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ion-buttons slot="start">
+            <ion-button slot="icon-only" (click)="close()">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title *ngIf="layoutManager.splitPaneVisible">
+            {{title}}
+        </ion-title>
+        <ion-buttons slot="end" *ngIf="layoutManager.splitPaneVisible">
+            <ng-container>
+                <ion-button (click)="send()">
+                    SEND
+                </ion-button>
+            </ng-container>
+        </ion-buttons>
+    </ion-toolbar>
+    <form [formGroup]="form">
+        <loader *ngIf="isLoading"></loader>
+        <ion-list lines="none" *ngIf="!isLoading" inset class="dkim-settings">
+            <ion-list-header>
+                <ion-label>
+                    <strong>DKIM Test Emails</strong>
+                </ion-label>
+            </ion-list-header>
+            <div>
+                Using this function you can test the current DKIM configuration by sending an auto-generated test email to a specified recipient email address.
+            </div>
+            <div>
+                <br>
+                The test email will be signed using the settings you have entered for the current DKIM configuration, and will be sent from the email address "{{senderEmailAddress}}".
+            </div>
+            <ion-item class="input">
+                <ion-label class="item-input-label" position="stacked" [class.item-invalid]="form.get('recipientEmailAddress').touched && (form.get('recipientEmailAddress').hasError('required') || form.get('recipientEmailAddress').hasError('email'))">Recipient Email Address</ion-label>
+                <ion-input formControlName="recipientEmailAddress"></ion-input>
+            </ion-item>
+            <div class="error validation-label" *ngIf="form.get('recipientEmailAddress').hasError('required') && form.get('recipientEmailAddress').touched">
+                Recipient Email Address is required
+            </div>
+            <div class="error validation-label" *ngIf="form.get('recipientEmailAddress').hasError('email') && form.get('recipientEmailAddress').touched">
+                Recipient Email Address must be a valid email address
+            </div>
+        </ion-list>
+    </form>
+</ion-content>

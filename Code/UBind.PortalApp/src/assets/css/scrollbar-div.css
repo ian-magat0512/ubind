@@ -1,0 +1,20 @@
+ion-content {
+    --overflow: hidden !important;
+    overflow: hidden !important;
+}
+
+@media (min-width: 768px) {
+    ion-content div.tab-contentx:not(.content-error) {
+        overflow: auto !important;
+        height: calc(100vh - 160px) !important;
+        padding-bottom: 50px;
+    }
+  }
+  
+  @media (max-width: 767px) {
+    ion-content div.tab-contentx:not(.content-error) {
+        overflow: auto !important;
+        height: calc(100vh - 90px) !important;
+        padding-bottom: 50px;
+    }
+  }

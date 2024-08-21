@@ -1,0 +1,37 @@
+<ion-list class="entity-list custom-popover" lines="none" style="margin: -1px 0 0">
+    <ng-container *ngIf="isDefaultOptionsEnabled">
+        <button (click)="doAction('resume')" *ngIf="canResumeQuote">
+            <library-icon name="resume-quote" [library]="iconLibrary.AngularMaterial" [cssClass]="'start mat-icon-sm'"></library-icon>
+            <ion-label>Resume Quote</ion-label>
+        </button>
+        <button (click)="doAction(action)" *ngIf="action && !isCustomer">
+            <library-icon name="{{actionIcon}}" [library]="iconLibrary.AngularMaterial" [cssClass]="'start mat-icon-sm'"></library-icon>
+            <ion-label>{{action}} Quote</ion-label>
+        </button>
+        <button (click)="doAction('issuePolicy')" *ngIf="canIssuePolicy">
+            <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="shield" svgIcon="shield" class="start"></mat-icon>
+            <ion-label>Issue Policy</ion-label>
+        </button>
+        <div *ngIf="expiryEnabled && status != quoteState.Declined && status != quoteState.Complete && !isCustomer">
+            <button
+                *ubAllowAccess="[permission.ManageQuotes, permission.ManageAllQuotes, permission.ManageAllQuotesForAllOrganisations]"
+                (click)="doAction('setExpiryDate')">
+                <library-icon name="timer-edit" [library]="iconLibrary.AngularMaterial" [cssClass]="'start mat-icon-sm'"></library-icon>
+                <ion-label>Set Quote Expiry Date</ion-label>
+            </button>
+            <div *ngIf="status != quoteState.Expired">
+                <button
+                    *ubAllowAccess="[permission.ManageQuotes, permission.ManageAllQuotes, permission.ManageAllQuotesForAllOrganisations]"
+                    (click)="doAction('expire')">
+                    <library-icon name="timer-lock" [library]="iconLibrary.AngularMaterial" [cssClass]="'start mat-icon-sm'"></library-icon>
+                    <ion-label>Expire Quote</ion-label>
+                </button>
+            </div>
+        </div>
+    </ng-container>
+    <button *ngIf="canEditAdditionalPropertyValues" (click)="doAction('editAdditionalPropertyValues')">
+        <library-icon name="brush" [library]="iconLibrary.IonicV4" [cssClass]="'start'"></library-icon>
+        <ion-label>Edit Quote Properties</ion-label>
+    </button>
+    <app-popover-actions [popOver]="this.popOverCtrl" [actions]="actions"></app-popover-actions>
+</ion-list>

@@ -1,0 +1,28 @@
+<app-entity-list [title]="title"
+                 [listItemNamePlural]="'quote version messages'"
+                 [entityRouteParamName]="'id'"
+                 [entityLoaderService]="messageService"
+                 [viewModelConstructor]="viewModelConstructor"
+                 [itemTemplate]="quoteMessageListItemTemplate"
+                 [itemSelectedHandler]="itemSelected.bind(this)"
+                 [getDefaultHttpParamsCallback]="getDefaultHttpParams.bind(this)"
+                 [entityTypeName]="'Message'"
+                 [ngStyle]="{'height': '100%'}">
+</app-entity-list>
+
+<ng-template #quoteMessageListItemTemplate let-item>
+    <library-icon [name]="item.type === 'email' ? 'mail' : 'text'" 
+        [library]="iconLibrary.IonicV4" 
+        [slot]="'start'" 
+        [size]="'large'"
+        [cssClass]="'align-icon'">
+    </library-icon>
+    <ion-label class='long-label ion-text-wrap' ellipsis>
+        <div class="ion-text-wrap" ellipsis>{{ item.recipient }}</div>
+        <p class="ion-text-wrap" ellipsis>{{ item.subject }}</p>
+    </ion-label>
+    <ion-label class="ion-text-wrap ion-text-end" slot="end">
+        <ion-icon color="dark" *ngIf="item.hasAttachment" name="attach" slot="end" class="icon-pull-right" size="small"></ion-icon>
+        <p class="grayed-label">{{ item.createdDateTime | date: "hh:mm aaa" }}</p>
+    </ion-label>
+</ng-template>

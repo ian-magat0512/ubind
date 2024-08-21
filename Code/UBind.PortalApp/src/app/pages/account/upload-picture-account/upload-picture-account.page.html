@@ -1,0 +1,54 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf="!layoutManager.splitPaneVisible">
+            <ion-buttons slot="start">
+                <ion-button slot="icon-only" id="cancelBtn" (click)="userDidTapCancelButton(file.files)">
+                    <ion-icon name="close"></ion-icon>
+                </ion-button>
+            </ion-buttons>
+            <ion-title>Edit Profile Picture</ion-title>
+            <ion-buttons slot="end" *ngIf="file.files.length > 0">
+                <ion-button (click)="userDidTapSaveButton(file.files)">
+                    Save
+                </ion-button>
+            </ion-buttons>
+        </ng-container>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content class="left-pane">
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ion-buttons slot="start">
+            <ion-button slot="icon-only" id="cancelBtn" (click)="userDidTapCancelButton(file.files)">
+                <ion-icon name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+        <ion-title>Edit Profile Picture</ion-title>
+        <ion-buttons slot="end" *ngIf="file.files.length > 0">
+            <ion-button (click)="userDidTapSaveButton(file.files)">
+                Save
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+
+    <div class="avatar-container">
+        <ng-container *ngIf="profilePictureUrl">
+            <img class="detail-img" default="" alt="profile photo"
+                [src]="profilePictureUrl" (error)="setDefaultImg($event)">
+        </ng-container>
+        <ng-container *ngIf="!profilePictureUrl">
+            <library-icon name="contact" 
+                [library]="iconLibrary.IonicV4" 
+                [slot]="'start'" 
+                [size]="'large'" 
+                [cssClass]="'detail-img'">
+            </library-icon>
+        </ng-container>
+    </div>
+    <div class="upload">
+        <ion-button color="primary" (click)="file.click()">
+            Choose New Picture
+        </ion-button>
+    </div>
+    <input #file type="file" (change)="updatePicture(file.files)" />
+</ion-content>

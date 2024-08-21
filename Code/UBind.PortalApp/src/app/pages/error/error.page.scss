@@ -1,0 +1,27 @@
+@import "../../../theme/variables.scss";
+:host {
+    ion-button {
+        margin: 5px;
+        margin-top: 10px;
+    }
+    h4 {
+        background: var(--ion-color-light-gray);
+        padding: 5px 15px;
+        color: var(--ion-color-white);
+        margin: 0 20px;
+        font-size: 12pt;
+    }
+    .stack-header {
+        margin: 0 20px;
+        padding: 10px;
+        border: 1px solid var(--ion-color-light-gray);
+    }
+    .stack-message {
+        text-indent: 50px;
+        margin: 0 20px;
+        padding: 10px;
+        color: var(--ion-color-font-secondary);
+        border: 1px solid var(--ion-color-light-gray);
+        font-size: 10pt;
+    }
+}

@@ -1,0 +1,8 @@
+ion-content {
+    --overflow: hidden !important;
+    overflow: hidden !important;
+}
+ion-content form {
+    overflow: auto !important;
+    height: calc(100vh - 55px) !important
+}

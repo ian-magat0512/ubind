@@ -1,0 +1,46 @@
+div.round-icon-container {
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 18px;
+    width: 18px;   
+    margin-right: 9px;
+    background: var(--entity-list-large-icon-color);
+
+    .round-icon {
+        color: white !important;
+        width: 12px !important;
+        height: 12px !important;
+        margin-right: 0px !important;
+    }
+}
+
+.filter-chips ion-icon{
+    color: var(--entity-list-large-icon-color);
+}
+
+.filter-chips ion-button{
+    pointer-events: none;
+}
+
+ion-chip.no-ripple{
+    pointer-events: none;
+    cursor: auto;
+    height: 36px;
+    vertical-align: -webkit-baseline-middle;
+    background-color: #eeeeee;
+    border-radius: 64px;
+
+    ion-label{
+        height: 12px;
+        font-size: 12px;
+        letter-spacing: 0.72px;
+        color: rgb(66, 66, 66);
+    }
+
+    ion-icon{
+        font-size: 19px;
+        margin-right: 0.5em;
+    }
+}

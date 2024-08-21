@@ -1,0 +1,57 @@
+{
+    "version": "2.0.0",
+    "form": {
+        "formModel": {
+            "testField": "testValue"
+        },
+        "defaultCurrencyCode": "AUD",
+        "questionSets": [{
+                "name": "Rating Primary",
+                "key": "ratingPrimary",
+                "fields": [
+                    {
+                        "$type": "single-line-text",
+                        "startsNewRow": true,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "name": "Test 1",
+                        "key": "test1",
+                        "questionSetKey": "ratingPrimary",
+                        "label": "Input",
+                        "dataType": "text",
+                        "question": "Type an input value here:",
+                        "required": true
+                      }
+                ]
+            }
+        ],
+        "textElements": [{
+            "category": "Workflow",
+            "subcategory": "Step 1",
+            "name": "My Heading",
+            "text": "My step 1 first article heading"
+        }, {
+            "category": "Workflow",
+            "subcategory": "Step 1",
+            "name": "My Text",
+            "text":"My step 1 first article text"
+        }],
+        "workflowConfiguration": {
+            "step1": {
+                "startScreenExpression": "true",
+                "articles": [
+                    {
+                        "heading": "myHeading",
+                        "text": "myText",
+                        "elements": [
+                            {
+                                "type": "questions",
+                                "name": "step1QuestionSet"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    },
+    "triggers": []
+}

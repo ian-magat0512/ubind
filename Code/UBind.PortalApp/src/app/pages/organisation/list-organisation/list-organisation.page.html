@@ -1,0 +1,32 @@
+<app-segmented-entity-list [title]="title"
+                           [listItemNamePlural]="'organisations'"
+                           [entityRouteParamName]="'id'"
+                           [entityLoaderService]="organisationApiService"
+                           [viewModelConstructor]="viewModelConstructor"
+                           [segments]="segments"
+                           [defaultSegment]="defaultSegment"
+                           [filterStatuses]="filterStatuses"
+                           [sortOptions]="sortOptions"
+                           [filterByDates]="filterByDates"
+                           [itemTemplate]="organisationListItemTemplate"
+                           [entityPathSegment]="'organisation'"
+                           [entityTypeName]="'Organisation'"
+                           [getSelectedIdCallback]="getSelectedId.bind(this)"
+                           [getDefaultHttpParamsCallback]="getDefaultHttpParams.bind(this)"
+                           (listQueryParamsGenerated)="onListQueryParamsGenerated($event)"
+                           [additionalActionButtonList]="additionalActionButtonList"
+                           [entityPathSegment]="'organisation'"
+                           [ngStyle]="{'height': '100%'}">
+</app-segmented-entity-list>
+
+<ng-template #organisationListItemTemplate let-item>
+    <library-icon name="business" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'" [cssClass]="'align-icon'"></library-icon>
+    <ion-label class="ion-text-wrap">
+        <div class="list-title">
+            {{ item.name }}
+        </div>
+        <p class="status list-subtitle">
+            {{ item.isActive ? 'Active' : 'Disabled' }} {{ item.isDefault ? ' &#183; Default' : '' }}
+        </p>
+    </ion-label>
+</ng-template>

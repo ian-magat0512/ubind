@@ -1,0 +1,17 @@
+﻿<ion-list class="entity-list custom-popover" lines="none" style="margin: -1px 0 0">
+    <ion-item (click)="close('call')" *ngIf="shouldShowItemCall">Call</ion-item>
+    <ion-item (click)="close('sendText')" *ngIf="shouldShowItemSendText">Send text</ion-item>
+    <ion-item (click)="close('sendEmail')" *ngIf="shouldShowItemSendEmail">Send email</ion-item>
+    <ion-item (click)="close('openGoogleMap')" *ngIf="shouldShowItemOpenGoogleMap">Open in Google Maps</ion-item>
+    <ion-item (click)="close('openWebsite')" *ngIf="shouldShowItemOpenWebsite">Open website</ion-item>
+    <ion-item (click)="close('startVideoCall')" *ngIf="shouldShowItemStartVideoCall">Start video call</ion-item>
+    <ion-item (click)="close('openChat')" *ngIf="shouldShowItemOpenChat">Open chat window</ion-item>
+    <ion-item (click)="close('copyToClipBoard')" *ngIf="shouldShowItemCopyToClipboard">Copy to clipboard</ion-item>
+    <ion-item (click)="close('setToDefault')" *ngIf="shouldShowItemSetToDefault">Set to default</ion-item>
+    <ion-item (click)="close('editPhone')" *ngIf="shouldShowItemEditPhone">Edit phone number</ion-item>
+    <ion-item (click)="close('editEmail')" *ngIf="shouldShowItemEditEmail">Edit email address</ion-item>
+    <ion-item (click)="close('editAddress')" *ngIf="shouldShowItemEditAddress">Edit address</ion-item>
+    <ion-item (click)="close('editWebsite')" *ngIf="shouldShowItemEditWebsite">Edit website address</ion-item>
+    <ion-item (click)="close('editMessengerId')" *ngIf="shouldShowItemEditMessengerId">Edit instant messenger ID</ion-item>
+    <ion-item (click)="close('editSocialId')" *ngIf="shouldShowItemEditSocialId">Edit social media ID</ion-item>
+</ion-list>

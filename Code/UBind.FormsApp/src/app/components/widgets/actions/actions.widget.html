@@ -1,0 +1,26 @@
+<ng-container *ngIf="applicationService.debug">
+    <p class="debug">
+        <span class="debug-property">
+            <span class="key">Actions Widget</span>
+        </span>
+        <span class="debug-property" *ngIf="applicationService.debugLevel >= 2">
+            <span class="key">Location:</span><span class="value"> {{ location }}</span>
+        </span>
+        <span class="debug-property" *ngIf="applicationService.debugLevel >= 3">
+            <span class="key">Widget Position:</span><span class="value"> {{ widgetPosition }}</span>
+        </span>
+    </p>
+</ng-container>
+<nav role="navigation" [id]="cssPrefix + 'actions' | cssIdentifier" class="nav"
+    [attr.aria-label]="cssPrefix + 'actions'" *ngIf="actionButtons && actionButtons.length > 0">
+    <div [@actionsSlide]="transitionState">
+        <div [@actionsFade]="transitionState" class="btn-container">
+            <ng-container *ngFor="let actionButton of actionButtons; let i = index;">
+                <ubind-action-widget
+                    [attr.action-name]="actionButton.name"
+                    [attr.location]="location">
+                </ubind-action-widget>
+            </ng-container>
+        </div>
+    </div>
+</nav>

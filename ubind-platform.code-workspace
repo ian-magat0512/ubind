@@ -1,0 +1,16 @@
+{
+	"folders": [
+		{
+			"path": "Code\\UBind.PortalApp"
+		},
+		{
+			"path": "Code\\UBind.Injection"
+		},
+		{
+			"path": "Code\\UBind.FormsApp"
+		}
+	],
+	"settings": {
+        "tslint.alwaysShowRuleFailuresAsWarnings": false
+	}
+}

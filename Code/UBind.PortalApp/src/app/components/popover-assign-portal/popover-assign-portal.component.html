@@ -1,0 +1,16 @@
+﻿<ion-list class="entity-list custom-popover" lines="none">
+    <ng-container *ubAllowAccess="[permission.ManageUsers, permission.ManageUsersForOtherOrganisations, permission.ManageOrganisationAdminUsers, permission.ManageTenantAdminUsers]">
+        <button *ngIf="!hasPortal" (click)="assignPortal()">
+            <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="web-plus" svgIcon="web-plus" class="start"></mat-icon>
+            <ion-label>Assign Portal</ion-label>
+        </button>
+        <button *ngIf="hasPortal" (click)="assignPortal()">
+            <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="web-plus" svgIcon="web-plus" class="start"></mat-icon>
+            <ion-label>Assign New Portal</ion-label>
+        </button>
+        <button *ngIf="hasPortal" (click)="unassignPortal()">
+            <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="web-minus" svgIcon="web-minus" class="start"></mat-icon>
+            <ion-label>Un-assign Portal</ion-label>
+        </button>
+    </ng-container>
+</ion-list>

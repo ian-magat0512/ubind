@@ -1,0 +1,209 @@
+{
+  "step1": {
+    "startScreen": true,
+    "tabIndex": 1,
+    "articles": [
+      {
+        "heading": "ratingHeading",
+        "text": "ratingText",
+        "elements": [
+          {
+            "type": "questions",
+            "name": "ratingPrimary",
+            "affectsPremium": true,
+            "affectsTriggers": true
+          },
+          {
+            "type": "questions",
+            "name": "ratingSecondary",
+            "affectsPremium": true,
+            "affectsTriggers": true,
+            "hidden": "questionSetsAreValid(['ratingPrimary']) != true"
+          }
+        ]
+      },
+      {
+        "heading": "contactHeading",
+        "text": "contactText",
+        "elements": [
+          {
+            "type": "questions",
+            "name": "contact"
+          }
+        ],
+        "hidden": "questionSetsAreValid(['ratingPrimary', 'ratingSecondary']) != true"
+      }
+    ],
+    "sidebar": [
+      {
+        "type": "calculation"
+      }
+    ],
+    "actions": {
+      "next": {
+        "operations": [ "customer" ],
+        "requiresValidQuestionSets": [ "ratingPrimary", "ratingSecondary", "contact" ],
+        "destinationStep": "step2",
+        "primary": true,
+        "hidden": "quoteState == 'softReferral' || quoteState == 'hardReferral'"
+      }
+    }
+  },
+  "step2": {
+    "tabIndex": 2,
+    "articles": [
+      {
+        "elements": [
+          {
+
+            "type": "questions",
+            "name": "personal"
+          }
+        ]
+      }
+    ],
+    "sidebar": [
+      {
+        "type": "calculation"
+      }
+    ],
+    "actions": {
+      "back": {
+        "destinationStep": "step1",
+        "hidden": "widgetPosition == 'sidebar'"
+      },
+      "next": {
+        "requiresValidQuestionSets": [ "personal" ],
+        "destinationStep": {
+          "default": "step3",
+          "decline": "declinePage"
+        },
+        "primary": true,
+        "hidden": "quoteState == 'softReferral' || quoteState == 'hardReferral'"
+      }
+    }
+  },
+  "step3": {
+    "tabIndex": 3,
+    "articles": [
+      {
+        "heading": "disclosureHeading",
+        "text": "disclosureText",
+        "elements": [
+          {
+            "type": "questions",
+            "name": "disclosure"
+          }
+        ]
+      }
+    ],
+    "sidebar": [
+      {
+        "type": "calculation"
+      }
+    ],
+    "actions": {
+      "back": {
+        "destinationStep": "step2",
+        "hidden": "widgetPosition == 'sidebar'"
+      },
+      "next": {
+        "requiresValidQuestionSets": [ "disclosure" ],
+        "destinationStep": {
+          "default": "step4",
+          "decline": "declinePage"
+        },
+        "primary": true,
+        "hidden": "quoteState == 'softReferral' || quoteState == 'hardReferral'"
+      }
+    }
+  },
+  "step4": {
+    "tabIndex": 4,
+    "articles": [
+      {
+        "elements": [
+          {
+            "type": "questions",
+            "name": "paymentMethods"
+          }
+        ]
+      }
+    ],
+    "sidebar": [
+      {
+        "type": "calculation"
+      }
+    ],
+    "actions": {
+      "back": {
+        "destinationStep": "step3",
+        "hidden": "widgetPosition == 'sidebar'"
+      },
+      "next": {
+        "operations": [ "invoice", "policy" ],
+        "requiresValidQuestionSets": [ "paymentMethods" ],
+        "destinationStep": {
+          "default": "successPage",
+          "decline": "declinePage"
+        },
+        "primary": true,
+        "hidden": "quoteState == 'softReferral' || quoteState == 'hardReferral'"
+      }
+    }
+  },
+  "successPage": {
+    "articles": [
+      {
+        "heading": "successHeading",
+        "text": "successText",
+        "elements": [
+          {
+            "type": "questions",
+            "name": "successPage"
+          }
+        ]
+      }
+    ]
+  },
+  "enquiryPage": {
+    "articles": [
+      {
+        "heading": "enquiryHeading",
+        "text": "enquiryText"
+      }
+    ],
+    "actions": {
+      "back": {
+        "destinationStep": "step1",
+        "primary": true,
+        "hidden": "widgetPosition == 'sidebar'"
+      }
+    }
+  },
+  "referralPage": {
+    "articles": [
+      {
+        "heading": "referralHeading",
+        "message": true,
+        "text": "referralText"
+      }
+    ]
+  },
+  "declinePage": {
+    "articles": [
+      {
+        "heading": "declineHeading",
+        "message": true,
+        "text": "declineText"
+      }
+    ],
+    "actions": {
+      "enquiry": {
+        "operations": [ "enquiry" ],
+        "destinationStep": "enquiryPage",
+        "primary": true
+      }
+    }
+  }
+}

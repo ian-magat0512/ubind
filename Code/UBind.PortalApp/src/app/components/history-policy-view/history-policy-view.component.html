@@ -1,0 +1,52 @@
+<loader *ngIf='!historyData'></loader>
+<ion-list class="entity-list" *ngIf="historyData" lines="none">
+    <ion-item-group *ngFor="let policyCreatedDate of historyDataDates">
+        <ion-item-divider>
+            <ion-label>{{policyCreatedDate | date : 'dd MMMM yyyy'}}</ion-label>
+        </ion-item-divider>
+        <ion-item *ngFor="let policyTransaction of getPolicyTransactionListByDate(policyCreatedDate)" (click)="goToPage(policyTransaction)" [class.selected]="policyTransaction.transactionId == selectedId" button>
+            <mat-icon *ngIf="isCancelled(policyTransaction)" class="mat-icon-md" aria-hidden="false" aria-label="shield-ban" svgIcon="shield-ban"></mat-icon>
+            <mat-icon *ngIf="isNew(policyTransaction)" class="mat-icon-md" aria-hidden="false" aria-label="shield-add" svgIcon="shield-add"></mat-icon>
+            <mat-icon *ngIf="isAdjusted(policyTransaction)" class="mat-icon-md" aria-hidden="false" aria-label="shield-pen" svgIcon="shield-pen"></mat-icon>
+            <mat-icon *ngIf="isRenewed(policyTransaction)" class="mat-icon-md" aria-hidden="false" aria-label="shield-refresh" svgIcon="shield-refresh"></mat-icon>
+            <ion-label *ngIf="isCancelled(policyTransaction) && !isMutual">
+                <div>Policy Cancelled</div>
+                <p class="status">The policy was cancelled effective on {{policyTransaction.effectiveDate | date : 'dd MMM yyyy'}}</p>
+            </ion-label>
+            <ion-label *ngIf="isCancelled(policyTransaction) && isMutual">
+                <div>Protection Cancelled</div>
+                <p class="status">The protection was cancelled effective on {{policyTransaction.effectiveDate | date : 'dd MMM yyyy'}}</p>
+            </ion-label>
+            <ion-label class="ion-text-wrap" *ngIf="isRenewed(policyTransaction) && !isMutual">
+                <div>Policy Renewed</div>
+                <p class="status">The policy was renewed effective on {{policyTransaction.effectiveDate | date : 'dd MMM yyyy'}}</p>
+            </ion-label>
+            <ion-label class="ion-text-wrap" *ngIf="isRenewed(policyTransaction) && isMutual">
+                <div>Protection Renewed</div>
+                <p class="status">The protection was renewed effective on {{policyTransaction.effectiveDate | date : 'dd MMM yyyy'}}</p>
+            </ion-label>
+            <ion-label class="ion-text-wrap" *ngIf="isAdjusted(policyTransaction) && !isMutual">
+                <div>Policy Adjusted</div>
+                <p class="status">The policy was adjusted effective on {{policyTransaction.effectiveDate | date : 'dd MMM yyyy'}}</p>
+            </ion-label>
+            <ion-label class="ion-text-wrap" *ngIf="isAdjusted(policyTransaction) && isMutual">
+                <div>Protection Adjusted</div>
+                <p class="status">The protection was adjusted effective on {{policyTransaction.effectiveDate | date : 'dd MMM yyyy'}}</p>
+            </ion-label>
+            <ion-label class="ion-text-wrap" *ngIf="isNew(policyTransaction) && !isMutual">
+                <div>Policy Issued</div>
+                <p class="status">The policy was issued effective on {{policyTransaction.effectiveDate | date : 'dd MMM yyyy'}}</p>
+            </ion-label>
+            <ion-label class="ion-text-wrap" *ngIf="isNew(policyTransaction) && isMutual">
+                <div>Protection Issued</div>
+                <p class="status">The protection was issued effective on {{policyTransaction.effectiveDate | date : 'dd MMM yyyy'}}</p>
+            </ion-label>
+            <ion-label slot="end" class="grayed-label ion-text-right">
+                {{policyTransaction.createdTime}}
+            </ion-label>
+        </ion-item>
+    </ion-item-group>
+</ion-list>
+<div *ngIf="historyData?.length == 0">
+    <p class="status ion-text-center">No history records found</p>
+</div>

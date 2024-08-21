@@ -1,0 +1,18 @@
+@model UBind.Application.Export.ViewModels.ApplicationEventViewModel
+
+<p style="font-family: Arial; font-size:13px;">A call-back has been requested from the Pet Industry Insurance form.</p>
+
+<p style="font-family: Arial; font-size:13px;">&nbsp;</p>
+
+<h4 style="text-indent:15px; padding: 20px 0; background: #e6eaea; width: 60%; font-family: Arial; font-size:13px;">Enquiry Details</h4>
+
+<p><b>Contact Name - </b>@Model.Form["name"]</p>
+<p><b>Contact Email - </b>@Model.Form["email"]</p>
+
+@Raw(Model.Form.PrettyPrintHtml())
+
+<h4 style="text-indent:15px; padding: 20px 0; background: #e6eaea; width: 60%; font-family: Arial; font-size:13px;">&nbsp;</h4>
+
+<p style="font-family: Arial; font-size:13px;"><br/><strong>Best regards<br/>MGA Insurance Brokers</strong><br />&nbsp;</p>
+
+<p><img src="https://www.mga.com/wp-content/themes/mga/dist/images/banner-logo.png" /></p>

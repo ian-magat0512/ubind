@@ -1,0 +1,4 @@
+<ng-container *ngIf="label">
+    <label [for]="fieldInstance.fieldPath | cssIdentifier" class="form-control-label" [innerHTML]="label | safeHtml"></label>
+</ng-container>
+<ng-container #fieldComponent></ng-container>

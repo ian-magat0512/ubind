@@ -1,0 +1,57 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf="!layoutManager.splitPaneVisible then detailHeader"></ng-container>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ng-container *ngTemplateOutlet="detailHeader"></ng-container>
+    </ion-toolbar>
+
+    <loader *ngIf='isLoading'></loader>
+
+    <ng-container *ngIf="!isLoading">
+        <ion-list *ngIf="ssoConfigurations && ssoConfigurations?.length > 0" class="entity-list" lines="none">
+            <div *ngFor="let ssoConfiguration of ssoConfigurations">
+                <ion-item (click)="ssoConfigurationSelected(ssoConfiguration)" button>
+                    <mat-icon  
+                        class="mat-icon-md"
+                        aria-hidden="false"
+                        attr.aria-label="badge icon"
+                        slot="start">badge</mat-icon>                                            
+                    <ion-label class="label">
+                        <span>{{ssoConfiguration.name}}</span>
+                        <p class="status">{{ ssoConfiguration.typeName}}</p>
+                    </ion-label>
+                    <ion-toggle color="primary" (click)="toggle($event, ssoConfiguration)"
+                        [checked]="!ssoConfiguration.disabled"></ion-toggle>
+                </ion-item>
+            </div>
+        </ion-list>
+        <div *ngIf="ssoConfigurations?.length == 0" class="tab-content content-error">
+            <p text-center>No SSO configurations found</p>
+        </div>
+    </ng-container>
+
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p text-center>{{ errorMessage }}</p>
+    </div>
+</ion-content>
+
+
+<ng-template #detailHeader>
+    <ion-buttons slot="start">
+        <ion-button slot="icon-only" (click)="goBackOrClose()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title>
+        SSO Configurations
+    </ion-title>
+    <ion-buttons slot="end">
+        <app-entity-action-button-list
+            [actionButtonList]="actionButtonList">
+        </app-entity-action-button-list>
+    </ion-buttons>
+</ng-template>

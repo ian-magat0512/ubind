@@ -1,0 +1,24 @@
+
+:host {
+    ion-content {
+        --overflow: hidden !important;
+        overflow: hidden !important;
+    }
+    ion-content > div,
+    ion-content div.tab-content:not(.content-error) {
+        overflow: auto !important;
+        height: calc(100vh - 165px) !important;
+    } 
+    
+    .multi-line{
+        white-space: pre-line;
+    }
+    
+    .pointer {
+        cursor: pointer !important;
+    }
+
+    .question {
+        white-space: normal !important;
+    }
+}

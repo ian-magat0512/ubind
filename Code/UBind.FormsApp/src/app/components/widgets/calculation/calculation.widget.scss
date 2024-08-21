@@ -1,0 +1,317 @@
+﻿/* Calculation */
+#calculation {
+    .header:before {
+        width: 0;
+        height: 0;
+        border-top: 10px solid transparent;
+        border-bottom: 10px solid transparent;
+        border-right: 10px solid transparent;
+        position: relative;
+        margin: -10px 0 -10px -10px;
+        left: -19px;
+        top: 20px;
+        display: table;
+        content: " ";
+    }
+
+    .header {
+        text-align: center;
+    }
+
+    .header .table, .header .table p {
+        font-size: 14px;
+    }
+
+    .header .quote-reference {
+        margin-top: 0px !important;
+
+        .quote-reference-label {
+            margin-right: 5px;
+        }
+    }
+
+
+    .header p,
+    .footer p {
+        margin-bottom: 0;
+    }
+
+    .body, .header {
+        .table {
+            margin-bottom: -12px;
+
+            .cell {
+                > * {
+                    margin-top: 12px;
+                    margin-bottom: 12px;
+                }
+
+                > *:empty, > .empty {
+                    margin: 0;
+                }
+
+                :first-child { 
+                    margin-top: 0 !important; 
+                }
+
+                questions-widget {
+                    /* We make it display block so it gets the top and bottom margins */
+                    display: block;
+                }
+            }
+        }
+
+        .price-loader {
+            .price {
+
+                .cents {
+                    position: relative;
+                }
+            }        
+        }
+    }
+
+    formly-field label.form-control-label,
+    formly-field h2,
+    formly-field h3,
+    formly-field h4,
+    formly-field p {
+        display: none;
+    }
+
+    .table,
+    .cell > *:last-child {
+        margin-bottom: 0px;
+    }
+
+    .form-group {
+        margin-top: 0;
+    }
+
+    .body {
+        padding-top: 20px;
+        padding-right: 20px;
+        padding-bottom: 8px;
+        padding-left: 20px;
+
+        .summary ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+        }
+
+        nav {
+            .btn {
+                margin-top: 0;
+                margin-bottom: 12px;
+            }
+        }
+    }
+    
+    .header .actions-panel {
+        display: none;
+    }
+
+    .body .actions-panel {
+        display: block;
+    }
+
+    .summary {
+        margin-bottom: 0px;
+
+        &> h4 {
+            display: none
+        }
+    }
+
+    .field-content {
+        display: none;
+    }
+
+    .price-additional {
+        ul {
+            list-style-type: none;
+            padding: 0;
+            margin: 0;
+
+            li {
+                font-size: 13px;
+                .key {
+                    font-weight: bold;
+                }
+            }
+        }
+
+    }
+
+    .body .table p.message {
+        font-size: 12px;
+    }
+}
+
+:host.wider-than-mobile {
+    #calculation {
+        .body {
+            .price-loader {
+                min-height: 60px;
+            }
+        }
+    }    
+}
+
+:host.mobile-width {
+    #calculation {
+        display: flex;
+        flex-wrap: wrap;
+        /* we must have margin-bottom 0 so that the height calculation is not out on ios and firefox */
+        margin-bottom: 0;
+        display: -webkit-box;
+        display: -webkit-flex;
+        display: -ms-flexbox;
+        display: flex;
+        -webkit-flex-wrap: wrap;
+        -ms-flex-wrap: wrap;
+        flex-wrap: wrap;
+
+        > .header,
+        > .footer {
+            display: flex;
+            flex-direction: column;
+        }
+
+        > .header,
+        #calculation > .footer {
+            display: -webkit-box;
+            display: -webkit-flex;
+            display: -ms-flexbox;
+            display: flex;
+            -webkit-box-orient: vertical;
+            -webkit-box-direction: normal;
+            -webkit-flex-direction: column;
+            -ms-flex-direction: column;
+            flex-direction: column;
+        }
+
+        .header {
+            width: 50%;
+            display: none;
+        }
+
+        .table {
+            display: table;
+            max-height: 300px;
+        }
+
+        .cell #paymentOption label {
+            margin-bottom: 0px;
+        }
+
+        #calculation:not(.state-incomplete) .table {
+            margin-bottom: -15px;
+        }
+
+        .body {
+            padding-top: 12px;
+            padding-right: 14px;
+            padding-bottom: 12px;
+            padding-left: 14px;
+
+            .summary {
+                display: none;
+            }
+
+            .table {
+                .message {
+                    font-size: 10px;
+        
+                    &> .message-appendix {
+                        display: none;
+                    }
+                }
+            }
+        }
+
+        .body .price .loading-animation {
+            position: initial !important;
+        }
+
+        h3 {
+            float: left;
+            font-size: 13px;
+            margin-bottom: 6px;
+        }
+
+        .message,
+        questions-widget {
+            clear: left;
+        }
+        
+        .cell {
+            display: table-cell;
+            vertical-align: middle;
+        }
+
+        .body, .header {
+            .table {
+                margin-bottom: -6px;
+    
+                .cell {
+                    > * {
+                        margin-top: 6px;
+                        margin-bottom: 6px;
+                    }
+                }
+            }
+        }
+    
+        .arrow {
+            clear: both;
+        }
+
+        .arrow:after {
+            width: 0;
+            height: 0;
+            border-top: 10px solid transparent;
+            border-right: 10px solid transparent;
+            border-left: 10px solid transparent;
+            position: relative;
+            margin: -10px 0 -10px -10px;
+            left: 50%;
+            top: 30px;
+            display: table;
+            content: " ";
+        }
+
+        .body formly-field .form-group {
+            margin-bottom: 0;
+        }
+
+        .header .actions-panel {
+            display: block;
+        }
+
+        .body .actions-panel {
+            display: none;
+        }
+
+        .price-additional {
+            font-size: 10px;
+            clear: both;
+
+            ul {
+                display: flex;
+                flex-wrap: wrap;
+                justify-content: space-between;
+
+                li {
+                    font-size: 10px;
+                    margin-right: 5px;
+                }
+
+                li:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}

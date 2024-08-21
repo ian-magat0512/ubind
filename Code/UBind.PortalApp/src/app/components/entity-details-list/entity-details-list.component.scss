@@ -1,0 +1,89 @@
+.details-group-item-divider {
+    margin-top: 0 !important;
+    height: 1px !important;
+    min-height: 1px !important;
+}
+
+ion-list.details-list {
+    padding-bottom: 80px !important;
+}
+
+.details-list-column {
+    height: fit-content;
+    column-gap: 0;
+    padding-top: 10px;
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-bottom: 50px !important;
+}
+
+.details-list-650w {
+    @extend .details-list-column;
+    column-count: 2;
+}
+
+.details-list-950w {
+    @extend .details-list-column;
+    column-count: 3;
+}
+
+.details-list-1250w {
+    @extend .details-list-column;
+    column-count: 4;
+}
+
+
+.details-item-card {
+    height: max-content;
+    min-width: 300px;
+    -webkit-column-break-inside: avoid;
+    page-break-inside: avoid;
+    break-inside: avoid;
+    display: flow-root;
+    margin-left: 5px;
+    margin-top: 0px;
+
+    .margin-bottom-200px {
+        margin-bottom: 200px;
+    }
+}
+
+.details-item-card-header {
+    ion-card-title {
+        font-size: 20px !important;
+        z-index : 100;
+
+        label {
+            cursor: auto !important;
+        }
+    }
+}
+
+.details-item-card-content {
+    padding: 0px;
+ }
+
+.details-item-card-content-for-name {
+    padding: 0px;
+}
+.hidden {
+    display : none;
+}
+
+.small-bottom-margin {
+    margin-bottom: 400px;
+}
+
+.large-bottom-margin {
+    margin-bottom: 800px;
+}
+
+.list-view-only {
+    padding-top: 8px !important;
+    padding-bottom: 8px !important;
+}
+
+.address-group {
+    padding-bottom: 7px;
+}
+

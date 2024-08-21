@@ -1,0 +1,73 @@
+form {
+    margin-top: 7px;
+
+    ion-list {
+        margin-bottom: 0px !important;
+
+        ion-list-header {
+            margin-bottom: -5px;
+            padding-left: 0px;
+        }
+
+        ion-item.link {
+            ion-label {
+                margin-left: 10px;
+                margin-top: 0px;
+            }
+        }
+
+        ion-item {
+            ion-label {
+                margin-left: 10px;
+            }
+        }
+
+        mat-radio-group {
+            mat-radio-button {
+                margin-left: 10px;
+            }
+        }
+
+        div {
+            padding-top: 3px;
+        }
+
+        .radio-item {
+            ion-label {
+                color: inherit;
+                margin: inherit;
+                font-size: inherit;
+                margin: 0px;
+                margin-left: 10px;
+                cursor: pointer !important;
+            }
+        }
+
+        .sub-top {
+            margin-top: -10px;
+        }
+    
+        .sub-bottom {
+            margin-top: 10px;
+            margin-bottom: -10px;
+        }
+    }
+}
+
+ion-toolbar.level-2 {
+    ion-buttons {
+        ion-button {
+            border-radius: 5px;
+            color: #272727;
+
+            &:hover {
+                background-color: #ececec;
+                cursor: pointer;
+            }
+
+            ion-icon {
+                color: #272727;
+            }
+        }
+    }
+}

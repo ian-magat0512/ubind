@@ -1,0 +1,58 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf="!layoutManager.splitPaneVisible then detailHeader"></ng-container>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ng-container *ngTemplateOutlet="detailHeader"></ng-container>
+    </ion-toolbar>
+
+    <loader *ngIf='isLoading'></loader>
+
+    <ng-container *ngIf="!isLoading">
+        <ion-list *ngIf="signInMethods && signInMethods?.length > 0" class="entity-list" lines="none">
+            <div *ngFor="let signInMethod of signInMethods">
+                <ion-item button>
+                    <!-- <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="drag icon">drag_indicator</mat-icon> -->
+                    <mat-icon *ngIf="signInMethod.typeName == AuthenticationMethodType.LocalAccount"
+                              class="mat-icon-md" aria-hidden="false" aria-label="form-textbox-password icon" 
+                              svgIcon="form-textbox-password"></mat-icon>
+                    <mat-icon *ngIf="signInMethod.typeName != AuthenticationMethodType.LocalAccount"
+                              class="mat-icon-md sso-icon" aria-hidden="false" aria-label="card-account-details icon" 
+                              svgIcon="card-account-details"></mat-icon>                    <ion-label class="label">
+                        <span>{{signInMethod.name}}</span>
+                        <p class="status">{{ signInMethod.typeName}}</p>
+                    </ion-label>
+                    <ion-toggle color="primary" (ionChange)="toggle($event, signInMethod)"
+                        [checked]="signInMethod.isEnabled"></ion-toggle>
+                </ion-item>
+            </div>
+        </ion-list>
+        <div *ngIf="ssoConfigurations?.length == 0" class="tab-content content-error">
+            <p text-center>No portal sign-in methods found</p>
+        </div>
+    </ng-container>
+
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p text-center>{{ errorMessage }}</p>
+    </div>
+</ion-content>
+
+
+<ng-template #detailHeader>
+    <ion-buttons slot="start">
+        <ion-button slot="icon-only" (click)="goBackOrClose()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title>
+        Portal Sign-In Methods
+    </ion-title>
+    <ion-buttons slot="end">
+        <app-entity-action-button-list
+            [actionButtonList]="actionButtonList">
+        </app-entity-action-button-list>
+    </ion-buttons>
+</ng-template>

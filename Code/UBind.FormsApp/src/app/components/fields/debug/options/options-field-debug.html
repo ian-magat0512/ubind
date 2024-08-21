@@ -1,0 +1,40 @@
+<field-debug [field]="field">
+    <ng-container *ngIf="field.doesGetOptionsFromApi">
+        <span class="debug-property">
+            <span class="key">Options Request URL:</span><span class="value"> {{ field.optionsRequestSettings.httpVerb }} {{ field.optionsRequestSettings.url }}</span>
+        </span>       
+        <span *ngIf="field.optionsRequestSettings.payload" class="debug-property">
+            <span class="key">Options Request Payload:</span><span class="value"> <pre>{{ field.optionsRequestSettings.payload | json }}</pre></span>
+        </span>
+        <span *ngIf="field.optionsRequestConditionBeingUsed" class="debug-property">
+            <span class="key">Options Request Condition:</span><span class="value"> {{ field.optionsRequestConditionValue }} </span>
+        </span>       
+    </ng-container> 
+    <ng-container *ngIf="field.doesGetSelectedOptionFromApi">
+        <span class="debug-property">
+            <span class="key">Selected Option Request URL:</span><span class="value"> {{ field.selectedOptionRequestSettings.httpVerb }} {{ field.selectedOptionRequestSettings.url }}</span>
+        </span>       
+        <span *ngIf="field.selectedOptionRequestSettings.payload" class="debug-property">
+            <span class="key">Selected Option Request Payload:</span><span class="value"> <pre>{{ field.selectedOptionRequestSettings.payload  | json }}</pre></span>
+        </span>       
+    </ng-container>
+    <ng-container *ngIf="field.selectOptions">
+        <span class="debug-property">
+            <span class="key">Options Count:</span><span class="value"> {{ field.selectOptions.length }}</span>
+        </span>
+    </ng-container>        
+    <span class="debug-property">
+        <span class="key">Options Shown Count:</span><span class="value"> {{ field.numberOfSelectOptionsShown }}</span>
+    </span>
+    <span class="debug-property" *ngIf="field.optionsFieldConfiguration.searchTextExpression">
+        <span class="key">Search Text Expression:</span><span class="value"> 
+            {{ field.optionsFieldConfiguration.searchTextExpression }}
+        </span>            
+    </span>    
+    <span class="debug-property" *ngIf="field.optionsFieldConfiguration.hideAllOptionsConditionExpression">
+        <span class="key">Hide Options Condition Expression:</span><span class="value"> 
+            {{ field.optionsFieldConfiguration.hideAllOptionsConditionExpression }}
+        </span>            
+    </span>    
+    <ng-content></ng-content>
+</field-debug>

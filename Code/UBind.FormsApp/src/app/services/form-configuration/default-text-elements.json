@@ -1,0 +1,791 @@
+{
+    "textElements": {
+        "sidebar": {
+            "incompleteHeader": {
+                "text": "Answer a few simple questions to get an instant quote online."
+            },
+            "incompleteLabel": {
+                "text": "Need Assistance?"
+            },
+            "incompleteMessage": {
+                "text": "Call 13 13 13 (Weekdays 8:30am-5:30pm)"
+            },
+            "premiumEstimateHeader": {
+                "text": "We have calculated an estimated premium based on the information provided so far."
+            },
+            "premiumEstimateLabel": {
+                "text": "Your Estimate"
+            },
+            "premiumEstimateMessage": {
+                "text": "To calculate your final premium please complete the remaining questions."
+            },
+            "premiumCompleteHeader": {
+                "text": "We have calculated a premium based on the information you have provided."
+            },
+            "premiumCompleteLabel": {
+                "text": "Your Premium"
+            },
+            "premiumCompleteMessage": {
+                "text": "To finalise your quote please complete the remaining questions and follow the prompts."
+            },
+            "bindingQuoteHeader": {
+                "text": "We have finalised your quote using the information provided."
+            },
+            "bindingQuoteLabel": {
+                "text": "Your Quote"
+            },
+            "bindingQuoteMessage": {
+                "text": "To proceed with your quote please enter your payment details and follow the prompts."
+            },
+            "paymentDetailsCompleteHeader": {
+                "text": "We have finalised your quote using the information provided."
+            },
+            "paymentDetailsCompleteLabel": {
+                "text": "Your Quote"
+            },
+            "paymentDetailsCompleteMessage": {
+                "text": "To complete your purchase please read and agree to our terms and conditions."
+            },
+            "legalTermsAcceptedHeader": {
+                "text": "We have finalised your quote using the information provided."
+            },
+            "legalTermsAcceptedLabel": {
+                "text": "Your Quote"
+            },
+            "legalTermsAcceptedMessage": {
+                "text": "To complete your purchase please follow the prompts."
+            },
+            "reviewTriggeredHeader": {
+                "text": "Your quote needs to be reviewed by one of our representatives."
+            },
+            "reviewTriggeredLabel": {
+                "text": "Quote Needs Review"
+            },
+            "reviewTriggeredMessageDefault": {
+                "text": "Based on your selections your quote needs to be reviewed before you can complete your purchase."
+            },
+            "reviewTriggeredMessageAppendix": {
+                "text": "If you would like to discuss your quote with one of our representatives please request a call-back."
+            },
+            "endorsementTriggeredHeader": {
+                "text": "Your quote needs to be reviewed and endorsed by an underwriter."
+            },
+            "endorsementTriggeredLabel": {
+                "text": "Quote Referral"
+            },
+            "endorsementTriggeredMessageDefault": {
+                "text": "Based on your selections your quote needs to be endorsed by an underwriter before you can complete your purchase."
+            },
+            "endorsementTriggeredMessageAppendix": {
+                "text": "If you would like to discuss your quote with one of our representatives please request a call-back."
+            },
+            "declineTriggeredHeader": {
+                "text": "We cannot generate your quote."
+            },
+            "declineTriggeredLabel": {
+                "text": "Quote Declined"
+            },
+            "declineTriggeredMessageDefault": {
+                "text": "Unfortunately you are ineligible to purchase this insurance product based on your selections."
+            },
+            "declineTriggeredMessageAppendix": {
+                "text": "However, if you enter your contact details one of our qualified insurance experts will assist you in exploring alternative insurance products that may suit your situation."
+            },
+            "errorTriggeredHeader": {
+                "text": "We cannot generate your quote online."
+            },
+            "errorTriggeredLabel": {
+                "text": "Calculation Error"
+            },
+            "errorTriggeredMessageDefault": {
+                "text": "Unfortunately our online channel cannot provide you with a quote based of your selections."
+            },
+            "errorTriggeredMessageAppendix": {
+                "text": "However, if you enter your contact details one of our qualified insurance experts will assist you in completing your purchase offline."
+            },
+            "reviewHeader": {
+                "text": "Please review the details of this application."
+            },
+            "reviewLabel": {
+                "text": "Calculated Premium"
+            },
+            "reviewMessage": {
+                "text": "Please review the details of this application. When ready, please approve, decline, or return the quote to the customer to request more information."
+            },
+            "endorsementHeader": {
+                "text": "Quote refered for endorsement."
+            },
+            "endorsementLabel": {
+                "text": "Calculated Premium"
+            },
+            "endorsementMessage": {
+                "text": "Please review the application details, then adjust loading factors and conditions. When ready, please approve, decline, or return the quote to the customer to request more information."
+            },
+            "autoApprovedHeader": {
+                "text": "We have calculated a premium based on the information you have provided."
+            },
+            "autoApprovedLabel": {
+                "text": "Your Premium"
+            },
+            "autoApprovedMessage": {
+                "text": "To finalise your quote please complete the remaining questions and follow the prompts."
+            },
+            "approvedHeader": {
+                "text": "Your quote has been approved and is ready for you to review and purchase."
+            },
+            "approvedLabel": {
+                "text": "Quote Approved"
+            },
+            "approvedMessage": {
+                "text": "We have approved your quote based on the information provided."
+            },
+            "summaryLabel": {
+                "text": "Quote Summary"
+            }
+        },
+        "sidebarPurchase": {
+            "incompleteHeader": {
+                "text": "Answer a few simple questions to get an instant quote online."
+            },
+            "incompleteLabel": {
+                "text": "Need Assistance?"
+            },
+            "incompleteMessage": {
+                "text": "Call 13 13 13 (Weekdays 8:30am-5:30pm)"
+            },
+            "premiumEstimateHeader": {
+                "text": "We have calculated an estimated premium based on the information provided so far."
+            },
+            "premiumEstimateLabel": {
+                "text": "Your Estimate"
+            },
+            "premiumEstimateMessage": {
+                "text": "To calculate your final premium please complete the remaining questions."
+            },
+            "premiumCompleteHeader": {
+                "text": "We have calculated a premium based on the information you have provided."
+            },
+            "premiumCompleteLabel": {
+                "text": "Your Premium"
+            },
+            "premiumCompleteMessage": {
+                "text": "To finalise your quote please complete the remaining questions and follow the prompts."
+            },
+            "bindingQuoteHeader": {
+                "text": "We have finalised your quote using the information provided."
+            },
+            "bindingQuoteLabel": {
+                "text": "Your Quote"
+            },
+            "bindingQuoteMessage": {
+                "text": "To finalise your quote please complete the remaining questions and follow the prompts."
+            },
+            "paymentDetailsCompleteHeader": {
+                "text": "We have finalised your quote using the information provided."
+            },
+            "paymentDetailsCompleteLabel": {
+                "text": "Your Quote"
+            },
+            "paymentDetailsCompleteMessage": {
+                "text": "To finalise your quote please complete the remaining questions and follow the prompts."
+            },
+            "legalTermsAcceptedHeader": {
+                "text": "We have finalised your quote using the information provided."
+            },
+            "legalTermsAcceptedLabel": {
+                "text": "Your Quote"
+            },
+            "legalTermsAcceptedMessage": {
+                "text": "To complete your purchase please follow the prompts."
+            },
+            "refundHeader": {
+                "text": "Based on the information provided you are entitled to a refund."
+            },
+            "refundLabel": {
+                "text": "Your Refund"
+            },
+            "refundMessage": {
+                "text": "To proceed please complete the remaining questions and follow the prompts."
+            },
+            "noPaymentHeader": {
+                "text": "Based on the information provided there is no cost to complete your quote."
+            },
+            "noPaymentLabel": {
+                "text": "Your Quote"
+            },
+            "noPaymentMessage": {
+                "text": "To proceed please complete the remaining questions and follow the prompts."
+            },
+            "reviewTriggeredHeader": {
+                "text": "Your quote needs to be reviewed by one of our representatives."
+            },
+            "reviewTriggeredLabel": {
+                "text": "Quote Needs Review"
+            },
+            "reviewTriggeredMessageDefault": {
+                "text": "Based on your selections your quote needs to be reviewed before you can complete your purchase."
+            },
+            "reviewTriggeredMessageAppendix": {
+                "text": "If you would like to discuss your quote with one of our representatives please request a call-back."
+            },
+            "endorsementTriggeredHeader": {
+                "text": "Your quote needs to be reviewed and endorsed by an underwriter."
+            },
+            "endorsementTriggeredLabel": {
+                "text": "Quote Referral"
+            },
+            "endorsementTriggeredMessageDefault": {
+                "text": "Based on your selections your quote needs to be endorsed by an underwriter before you can complete your purchase."
+            },
+            "endorsementTriggeredMessageAppendix": {
+                "text": "If you would like to discuss your quote with one of our representatives please request a call-back."
+            },
+            "declineTriggeredHeader": {
+                "text": "We cannot generate your quote."
+            },
+            "declineTriggeredLabel": {
+                "text": "Quote Declined"
+            },
+            "declineTriggeredMessageDefault": {
+                "text": "Unfortunately you are ineligible to purchase this insurance product based on your selections."
+            },
+            "declineTriggeredMessageAppendix": {
+                "text": "However, if you enter your contact details one of our qualified insurance experts will assist you in exploring alternative insurance products that may suit your situation."
+            },
+            "errorTriggeredHeader": {
+                "text": "We cannot generate your quote online."
+            },
+            "errorTriggeredLabel": {
+                "text": "Calculation Error"
+            },
+            "errorTriggeredMessageDefault": {
+                "text": "Unfortunately our online channel cannot provide you with a quote based of your selections."
+            },
+            "errorTriggeredMessageAppendix": {
+                "text": "However, if you enter your contact details one of our qualified insurance experts will assist you in completing your purchase offline."
+            },
+            "reviewHeader": {
+                "text": "Please review the details of this application."
+            },
+            "reviewLabel": {
+                "text": "Calculated Premium"
+            },
+            "reviewMessage": {
+                "text": "Please review the details of this application. When ready, please approve, decline, or return the quote to the customer to request more information."
+            },
+            "endorsementHeader": {
+                "text": "Quote refered for endorsement."
+            },
+            "endorsementLabel": {
+                "text": "Calculated Premium"
+            },
+            "endorsementMessage": {
+                "text": "Please review the application details, then adjust loading factors and conditions. When ready, please approve, decline, or return the quote to the customer to request more information."
+            },
+            "autoApprovedHeader": {
+                "text": "We have calculated a premium based on the information you have provided."
+            },
+            "autoApprovedLabel": {
+                "text": "Your Premium"
+            },
+            "autoApprovedMessage": {
+                "text": "To finalise your quote please complete the remaining questions and follow the prompts."
+            },
+            "approvedHeader": {
+                "text": "Your quote has been approved and is ready for you to review and purchase."
+            },
+            "approvedLabel": {
+                "text": "Quote Approved"
+            },
+            "approvedMessage": {
+                "text": "We have approved your quote based on the information provided."
+            },
+            "summaryLabel": {
+                "text": "Quote Summary"
+            }
+        },
+        "sidebarRenewal": {
+            "incompleteHeader": {
+                "text": "Answer a few simple questions to get an instant quote online."
+            },
+            "incompleteLabel": {
+                "text": "Need Assistance?"
+            },
+            "incompleteMessage": {
+                "text": "Call 13 13 13 (Weekdays 8:30am-5:30pm)"
+            },
+            "premiumEstimateHeader": {
+                "text": "We have calculated a premium based on the information from your policy."
+            },
+            "premiumEstimateLabel": {
+                "text": "Your Estimate"
+            },
+            "premiumEstimateMessage": {
+                "text": "To renew your policy please review or complete the remaining questions and follow the prompts."
+            },
+            "premiumCompleteHeader": {
+                "text": "We have calculated a premium based on the information you have provided."
+            },
+            "premiumCompleteLabel": {
+                "text": "Your Premium"
+            },
+            "premiumCompleteMessage": {
+                "text": "To finalise your quote please complete the remaining questions and follow the prompts."
+            },
+            "bindingQuoteHeader": {
+                "text": "We have finalised your quote using the information provided."
+            },
+            "bindingQuoteLabel": {
+                "text": "Your Quote"
+            },
+            "bindingQuoteMessage": {
+                "text": "To finalise your quote please complete the remaining questions and follow the prompts."
+            },
+            "paymentDetailsCompleteHeader": {
+                "text": "We have finalised your quote using the information provided."
+            },
+            "paymentDetailsCompleteLabel": {
+                "text": "Your Quote"
+            },
+            "paymentDetailsCompleteMessage": {
+                "text": "To finalise your quote please complete the remaining questions and follow the prompts."
+            },
+            "legalTermsAcceptedHeader": {
+                "text": "We have finalised your quote using the information provided."
+            },
+            "legalTermsAcceptedLabel": {
+                "text": "Your Quote"
+            },
+            "legalTermsAcceptedMessage": {
+                "text": "To complete your purchase please follow the prompts."
+            },
+            "refundHeader": {
+                "text": "Based on the information provided you are entitled to a refund."
+            },
+            "refundLabel": {
+                "text": "Your Refund"
+            },
+            "refundMessage": {
+                "text": "To proceed please complete the remaining questions and follow the prompts."
+            },
+            "noPaymentHeader": {
+                "text": "Based on the information provided there is no cost to complete your quote."
+            },
+            "noPaymentLabel": {
+                "text": "Your Quote"
+            },
+            "noPaymentMessage": {
+                "text": "To proceed please complete the remaining questions and follow the prompts."
+            },
+            "reviewTriggeredHeader": {
+                "text": "Your quote needs to be reviewed by one of our representatives."
+            },
+            "reviewTriggeredLabel": {
+                "text": "Quote Needs Review"
+            },
+            "reviewTriggeredMessageDefault": {
+                "text": "Based on your selections your quote needs to be reviewed before you can complete your purchase."
+            },
+            "reviewTriggeredMessageAppendix": {
+                "text": "If you would like to discuss your quote with one of our representatives please request a call-back."
+            },
+            "endorsementTriggeredHeader": {
+                "text": "Your quote needs to be reviewed and endorsed by an underwriter."
+            },
+            "endorsementTriggeredLabel": {
+                "text": "Quote Referral"
+            },
+            "endorsementTriggeredMessageDefault": {
+                "text": "Based on your selections your quote needs to be endorsed by an underwriter before you can complete your purchase."
+            },
+            "endorsementTriggeredMessageAppendix": {
+                "text": "If you would like to discuss your quote with one of our representatives please request a call-back."
+            },
+            "declineTriggeredHeader": {
+                "text": "We cannot generate your quote."
+            },
+            "declineTriggeredLabel": {
+                "text": "Quote Declined"
+            },
+            "declineTriggeredMessageDefault": {
+                "text": "Unfortunately you are ineligible to purchase this insurance product based on your selections."
+            },
+            "declineTriggeredMessageAppendix": {
+                "text": "However, if you enter your contact details one of our qualified insurance experts will assist you in exploring alternative insurance products that may suit your situation."
+            },
+            "errorTriggeredHeader": {
+                "text": "We cannot generate your quote online."
+            },
+            "errorTriggeredLabel": {
+                "text": "Calculation Error"
+            },
+            "errorTriggeredMessageDefault": {
+                "text": "Unfortunately our online channel cannot provide you with a quote based of your selections."
+            },
+            "errorTriggeredMessageAppendix": {
+                "text": "However, if you enter your contact details one of our qualified insurance experts will assist you in completing your purchase offline."
+            },
+            "reviewHeader": {
+                "text": "Please review the details of this application."
+            },
+            "reviewLabel": {
+                "text": "Calculated Premium"
+            },
+            "reviewMessage": {
+                "text": "Please review the details of this application. When ready, please approve, decline, or return the quote to the customer to request more information."
+            },
+            "endorsementHeader": {
+                "text": "Quote refered for endorsement."
+            },
+            "endorsementLabel": {
+                "text": "Calculated Premium"
+            },
+            "endorsementMessage": {
+                "text": "Please review the application details, then adjust loading factors and conditions. When ready, please approve, decline, or return the quote to the customer to request more information."
+            },
+            "autoApprovedHeader": {
+                "text": "We have calculated a premium based on the information you have provided."
+            },
+            "autoApprovedLabel": {
+                "text": "Your Premium"
+            },
+            "autoApprovedMessage": {
+                "text": "To finalise your quote please complete the remaining questions and follow the prompts."
+            },
+            "approvedHeader": {
+                "text": "Your quote has been approved and is ready for you to review and purchase."
+            },
+            "approvedLabel": {
+                "text": "Quote Approved"
+            },
+            "approvedMessage": {
+                "text": "We have approved your quote based on the information provided."
+            },
+            "summaryLabel": {
+                "text": "Quote Summary"
+            }
+        },
+        "sidebarAdjustment": {
+            "incompleteHeader": {
+                "text": "We have calculated a cost to adjust your policy based on the information provided."
+            },
+            "incompleteLabel": {
+                "text": "Cost to Adjust"
+            },
+            "incompleteMessage": {
+                "text": "To adjust your policy please review or complete the remaining questions and follow the prompts."
+            },
+            "premiumEstimateHeader": {
+                "text": "We have calculated a cost to adjust your policy based on the information provided."
+            },
+            "premiumEstimateLabel": {
+                "text": "Cost to Adjust"
+            },
+            "premiumEstimateMessage": {
+                "text": "To adjust your policy please review or complete the remaining questions and follow the prompts."
+            },
+            "premiumCompleteHeader": {
+                "text": "We have calculated a cost to adjust your policy based on the information provided."
+            },
+            "premiumCompleteLabel": {
+                "text": "Cost to Adjust"
+            },
+            "premiumCompleteMessage": {
+                "text": "To Adjust your policy please review or complete the remaining questions and follow the prompts."
+            },
+            "bindingQuoteHeader": {
+                "text": "We have calculated a cost to adjust your policy based on the information provided."
+            },
+            "bindingQuoteLabel": {
+                "text": "Cost to Adjust"
+            },
+            "bindingQuoteMessage": {
+                "text": "To adjust your policy please review or complete the remaining questions and follow the prompts."
+            },
+            "paymentDetailsCompleteHeader": {
+                "text": "We have calculated a cost to adjust your policy based on the information provided."
+            },
+            "paymentDetailsCompleteLabel": {
+                "text": "Cost to Adjust"
+            },
+            "paymentDetailsCompleteMessage": {
+                "text": "To adjust your policy please review or complete the remaining questions and follow the prompts."
+            },
+            "legalTermsAcceptedHeader": {
+                "text": "We have calculated a cost to adjust your policy based on the information provided."
+            },
+            "legalTermsAcceptedLabel": {
+                "text": "Cost to Adjust"
+            },
+            "legalTermsAcceptedMessage": {
+                "text": "To adjust your policy please review or complete the remaining questions and follow the prompts."
+            },
+            "refundHeader": {
+                "text": "Based on the information provided you are entitled to a refund."
+            },
+            "refundLabel": {
+                "text": "Your Refund"
+            },
+            "refundMessage": {
+                "text": "To adjust your policy please review or complete the remaining questions and follow the prompts."
+            },
+            "noPaymentHeader": {
+                "text": "Based on the information provided there is no cost to adjust your policy."
+            },
+            "noPaymentLabel": {
+                "text": "Cost to Adjust"
+            },
+            "noPaymentMessage": {
+                "text": "To adjust your policy please review or complete the remaining questions and follow the prompts."
+            },
+            "reviewTriggeredHeader": {
+                "text": "Your quote needs to be reviewed by one of our representatives."
+            },
+            "reviewTriggeredLabel": {
+                "text": "Quote Needs Review"
+            },
+            "reviewTriggeredMessageDefault": {
+                "text": "Based on your selections your quote needs to be reviewed before you can complete your purchase."
+            },
+            "reviewTriggeredMessageAppendix": {
+                "text": "If you would like to discuss your quote with one of our representatives please request a call-back."
+            },
+            "endorsementTriggeredHeader": {
+                "text": "Your quote needs to be reviewed and endorsed by an underwriter."
+            },
+            "endorsementTriggeredLabel": {
+                "text": "Quote Referral"
+            },
+            "endorsementTriggeredMessageDefault": {
+                "text": "Based on your selections your quote needs to be endorsed by an underwriter before you can complete your purchase."
+            },
+            "endorsementTriggeredMessageAppendix": {
+                "text": "If you would like to discuss your quote with one of our representatives please request a call-back."
+            },
+            "declineTriggeredHeader": {
+                "text": "We cannot generate your quote."
+            },
+            "declineTriggeredLabel": {
+                "text": "Quote Declined"
+            },
+            "declineTriggeredMessageDefault": {
+                "text": "Unfortunately you are ineligible to purchase this insurance product based on your selections."
+            },
+            "declineTriggeredMessageAppendix": {
+                "text": "However, if you enter your contact details one of our qualified insurance experts will assist you in exploring alternative insurance products that may suit your situation."
+            },
+            "errorTriggeredHeader": {
+                "text": "We cannot generate your quote online."
+            },
+            "errorTriggeredLabel": {
+                "text": "Calculation Error"
+            },
+            "errorTriggeredMessageDefault": {
+                "text": "Unfortunately our online channel cannot provide you with a quote based of your selections."
+            },
+            "errorTriggeredMessageAppendix": {
+                "text": "However, if you enter your contact details one of our qualified insurance experts will assist you in completing your purchase offline."
+            },
+            "reviewHeader": {
+                "text": "Please review the details of this application."
+            },
+            "reviewLabel": {
+                "text": "Calculated Premium"
+            },
+            "reviewMessage": {
+                "text": "Please review the details of this application. When ready, please approve, decline, or return the quote to the customer to request more information."
+            },
+            "endorsementHeader": {
+                "text": "Quote refered for endorsement."
+            },
+            "endorsementLabel": {
+                "text": "Calculated Premium"
+            },
+            "endorsementMessage": {
+                "text": "Please review the application details, then adjust loading factors and conditions. When ready, please approve, decline, or return the quote to the customer to request more information."
+            },
+            "autoApprovedHeader": {
+                "text": "We have calculated a cost to adjust your policy based on the information provided."
+            },
+            "autoApprovedLabel": {
+                "text": "Cost to Adjust"
+            },
+            "autoApprovedMessage": {
+                "text": "To Adjust your policy please review or complete the remaining questions and follow the prompts."
+            },
+            "approvedHeader": {
+                "text": "Your quote has been approved and is ready for you to review and purchase."
+            },
+            "approvedLabel": {
+                "text": "Quote Approved"
+            },
+            "approvedMessage": {
+                "text": "We have approved your quote based on the information provided."
+            },
+            "summaryLabel": {
+                "text": "Quote Summary"
+            }
+        },
+        "sidebarCancellation": {
+            "incompleteHeader": {
+                "text": "We have calculated a cost to cancel your policy based on the information provided."
+            },
+            "incompleteLabel": {
+                "text": "Cancellation Cost"
+            },
+            "incompleteMessage": {
+                "text": "To cancel your policy please complete the remaining questions and follow the prompts."
+            },
+            "premiumEstimateHeader": {
+                "text": "We have calculated a cost to cancel your policy based on the information provided."
+            },
+            "premiumEstimateLabel": {
+                "text": "Cancellation Cost"
+            },
+            "premiumEstimateMessage": {
+                "text": "To cancel your policy please complete the remaining questions and follow the prompts."
+            },
+            "premiumCompleteHeader": {
+                "text": "We have calculated a cost to cancel your policy based on the information provided."
+            },
+            "premiumCompleteLabel": {
+                "text": "Cancellation Cost"
+            },
+            "premiumCompleteMessage": {
+                "text": "To cancel your policy please complete the remaining questions and follow the prompts."
+            },
+            "bindingQuoteHeader": {
+                "text": "We have calculated a cost to cancel your policy based on the information provided."
+            },
+            "bindingQuoteLabel": {
+                "text": "Cancellation Cost"
+            },
+            "bindingQuoteMessage": {
+                "text": "To cancel your policy please complete the remaining questions and follow the prompts."
+            },
+            "paymentDetailsCompleteHeader": {
+                "text": "We have calculated a cost to cancel your policy based on the information provided."
+            },
+            "paymentDetailsCompleteLabel": {
+                "text": "Cancellation Cost"
+            },
+            "paymentDetailsCompleteMessage": {
+                "text": "To cancel your policy please complete the remaining questions and follow the prompts."
+            },
+            "legalTermsAcceptedHeader": {
+                "text": "We have calculated a cost to cancel your policy based on the information provided."
+            },
+            "legalTermsAcceptedLabel": {
+                "text": "Cancellation Cost"
+            },
+            "legalTermsAcceptedMessage": {
+                "text": "To cancel your policy please complete the remaining questions and follow the prompts."
+            },
+            "refundHeader": {
+                "text": "We have calculated your refund based on the information provided."
+            },
+            "refundLabel": {
+                "text": "Your Refund"
+            },
+            "refundMessage": {
+                "text": "To cancel your policy please complete the remaining questions and follow the prompts."
+            },
+            "noPaymentHeader": {
+                "text": "Based on the information provided there is no refund due for cancelling your policy."
+            },
+            "noPaymentLabel": {
+                "text": "Your Refund"
+            },
+            "noPaymentMessage": {
+                "text": "To adjust your policy please review or complete the remaining questions and follow the prompts."
+            },
+            "reviewTriggeredHeader": {
+                "text": "Your cancellation needs to be reviewed by one of our representatives."
+            },
+            "reviewTriggeredLabel": {
+                "text": "Cancellation Needs Review"
+            },
+            "reviewTriggeredMessageDefault": {
+                "text": "Based on your selections your cancellation request needs to be reviewed before you can complete your cancellation."
+            },
+            "reviewTriggeredMessageAppendix": {
+                "text": "If you would like to discuss your cancellation with one of our representatives please request a call-back."
+            },
+            "endorsementTriggeredHeader": {
+                "text": "Your cancellation needs to be reviewed by one of our representatives."
+            },
+            "endorsementTriggeredLabel": {
+                "text": "Cancellation Needs Review"
+            },
+            "endorsementTriggeredMessageDefault": {
+                "text": "Based on your selections your cancellation request needs to be reviewed before you can complete your cancellation."
+            },
+            "endorsementTriggeredMessageAppendix": {
+                "text": "If you would like to discuss your cancellation with one of our representatives please request a call-back."
+            },
+            "declineTriggeredHeader": {
+                "text": "We are unable to cancel your policy."
+            },
+            "declineTriggeredLabel": {
+                "text": "Cancellation Declined"
+            },
+            "declineTriggeredMessageDefault": {
+                "text": "Unfortunately you are ineligible to cancel this policy based on your selections."
+            },
+            "declineTriggeredMessageAppendix": {
+                "text": "If you would like to discuss your policy with one of our representatives please request a call-back."
+            },
+            "errorTriggeredHeader": {
+                "text": "We cannot cancel your policy online."
+            },
+            "errorTriggeredLabel": {
+                "text": "Calculation Error"
+            },
+            "errorTriggeredMessageDefault": {
+                "text": "Unfortunately our online channel is unable to process your calculation based of your selections."
+            },
+            "errorTriggeredMessageAppendix": {
+                "text": "If you would like to discuss your policy with one of our representatives please request a call-back."
+            },
+            "reviewHeader": {
+                "text": "Please review the details of this cancellation."
+            },
+            "reviewLabel": {
+                "text": "Cancellation Cost"
+            },
+            "reviewMessage": {
+                "text": "Please review the details of this cancellation. When ready, please approve, decline, or return the cancellation request to the customer to request more information."
+            },
+            "endorsementHeader": {
+                "text": "Cancellation refered for endorsement."
+            },
+            "endorsementLabel": {
+                "text": "Cancellation Cost"
+            },
+            "endorsementMessage": {
+                "text": "Please review the details of this cancellation. When ready, please approve, decline, or return the cancellation request to the customer to request more information."
+            },
+            "autoApprovedHeader": {
+                "text": "We have calculated a cost to cancel your policy based on the information provided."
+            },
+            "autoApprovedLabel": {
+                "text": "Cancellation Cost"
+            },
+            "autoApprovedMessage": {
+                "text": "To cancel your policy please complete the remaining questions and follow the prompts."
+            },
+            "approvedHeader": {
+                "text": "Your cancellation has been approved and is ready for you to review and complete."
+            },
+            "approvedLabel": {
+                "text": "Cancellation Approved"
+            },
+            "approvedMessage": {
+                "text": "We have approved your cancellation based on the information provided."
+            },
+            "summaryLabel": {
+                "text": "Cancellation Summary"
+            }
+        }
+    }
+}

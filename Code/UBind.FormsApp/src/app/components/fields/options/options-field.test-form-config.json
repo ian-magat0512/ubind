@@ -1,0 +1,147 @@
+{
+    "version": "2.0.0",
+    "form": {
+        "defaultCurrencyCode": "AUD",
+        "questionSets": [
+            {
+                "name": "Test Question Set 1",
+                "key": "testQuestionSet1",
+                "fields": [
+                    {
+                        "$type": "buttons",
+                        "optionSetName": "Cars",
+                        "optionSetKey": "cars",
+                        "startsNewRow": false,
+                        "startsNewRevealGroup": false,
+                        "label": "Cars",
+                        "heading3": "Cars",
+                        "name": "Cars",
+                        "key": "cars",
+                        "questionSetKey": "testQuestionSet1",
+                        "dataType": "text",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "drop-down-select",
+                        "optionSetName": "Cars",
+                        "optionSetKey": "cars",
+                        "startsNewRow": false,
+                        "startsNewRevealGroup": false,
+                        "label": "Select With Text",
+                        "name": "Select With Text",
+                        "key": "selectWithText",
+                        "questionSetKey": "testQuestionSet1",
+                        "dataType": "text",
+                        "workflowRole": "none"
+                    }
+                ]
+            }, {
+                "name": "Test Question Set 2",
+                "key": "testQuestionSet2",
+                "fields": [{
+                        "$type": "search-select",
+                        "optionSetName": "Cars",
+                        "optionSetKey": "cars",
+                        "searchTextExpression": "fieldInputValue",
+                        "startsNewRow": false,
+                        "startsNewRevealGroup": false,
+                        "label": "Search Select With Icons",
+                        "heading3": "Search Select Fields",
+                        "containerClass": "test-field-5-container",
+                        "name": "Search Select With Icons",
+                        "key": "searchSelectWithIcons",
+                        "questionSetKey": "testQuestionSet2",
+                        "dataType": "text",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "search-select",
+                        "optionSetName": "Cars",
+                        "optionSetKey": "cars",
+                        "searchTextExpression": "fieldInputValue",
+                        "startsNewRow": false,
+                        "startsNewRevealGroup": false,
+                        "label": "Search Select With Text",
+                        "containerClass": "test-field-6-container",
+                        "name": "Search Select With Text",
+                        "key": "searchSelectWithText",
+                        "questionSetKey": "testQuestionSet2",
+                        "dataType": "text",
+                        "workflowRole": "none"
+                    }, {
+                        "$type": "search-select",
+                        "optionSetName": "Cars",
+                        "optionSetKey": "cars",
+                        "searchTextExpression": "fieldInputValue",
+                        "startsNewRow": false,
+                        "startsNewRevealGroup": false,
+                        "label": "Search Select Default",
+                        "name": "Search Select Default",
+                        "key": "searchSelectDefault",
+                        "questionSetKey": "testQuestionSet2",
+                        "dataType": "text",
+                        "workflowRole": "none"
+                    }
+                ]
+            }
+        ],
+        "optionSets": [
+            {
+                "name": "Cars",
+                "key": "cars",
+                "options": [{
+                        "label": "Toyota",
+                        "value": "Toy1",
+                        "cssClass": "toy"
+                    }, {
+                        "label": "Nissan",
+                        "value": "Nis2",
+                        "cssClass": "nis"
+                    }, {
+                        "label": "Ford",
+                        "value": "For3",
+                        "cssClass": "for"
+                    }, {
+                        "label": "Holden",
+                        "value": "Hol4",
+                        "cssClass": "hol"
+                    }
+                ]
+            },
+            {
+                "name": "Fast Cars",
+                "key": "fastCars",
+                "options": [{
+                        "label": "Ferrari",
+                        "value": "ferarri",
+                        "cssClass": "ferarri"
+                    }, {
+                        "label": "Lamborgini",
+                        "value": "lambo",
+                        "cssClass": "lambo"
+                    }, {
+                        "label": "Aston Martin",
+                        "value": "astonMartin",
+                        "cssClass": "astonMartin"
+                    }
+                ]
+            }
+        ],
+        "workflowConfiguration": {
+            "step1": {
+                "startScreenExpression": "true",
+                "tabIndexExpression": "1",
+                "articles": [
+                    {
+                        "elements": [{
+                                "type": "questions",
+                                "name": "testQuestionSet1"
+                            }, {
+                                "type": "questions",
+                                "name": "testQuestionSet2"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

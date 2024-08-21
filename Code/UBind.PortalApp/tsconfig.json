@@ -1,0 +1,40 @@
+{
+  "angularCompilerOptions": {
+    "disableTypeScriptVersionCheck": true
+  },
+  "compileOnSave": false,
+  "compilerOptions": {
+    "allowSyntheticDefaultImports": true,
+    "declaration": false,
+    "emitDecoratorMetadata": true,
+    "experimentalDecorators": true,
+    "lib": [
+      "es2018",
+      "dom"
+    ],
+    "module": "es2020",
+    "moduleResolution": "node",
+    "sourceMap": true,
+    "target": "es2016",
+    "baseUrl": "./src",
+    "paths": {
+      "@app/*": [
+        "app/*"
+      ],
+      "@assets/*": [
+        "assets/*"
+      ],
+      "@env/*": [
+        "environments/*"
+      ],
+      "@pages/*": [
+        "app/pages/*"
+      ]
+    },
+    "outDir": "./dist/out-tsc",
+    "typeRoots": [
+      "node_modules/@types"
+    ],
+    "resolveJsonModule": true
+  }
+}

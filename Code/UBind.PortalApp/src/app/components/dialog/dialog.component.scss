@@ -1,0 +1,52 @@
+:host {
+    mat-form-field {
+        width: 100%;
+    }
+
+    .mat-dialog-title{
+        margin-bottom: 0px;
+    }
+
+    .mat-dialog-subtitle {
+        font-size: 16px;
+        font-weight: 400;
+        margin-top: 5px;
+        margin-bottom: 15px;
+    }
+
+    .mat-dialog-content {
+        border-top: 1px solid #d9d9d9;
+        border-bottom: 1px solid #d9d9d9;
+    }
+
+    .mat-dialog-actions {
+        justify-content: flex-end;
+    }
+
+    button {
+        text-transform: uppercase;
+    }
+
+    .mat-radio-group {
+        display: flex;
+        flex-direction: column;
+    }
+
+    .mat-radio-button {
+        padding-top: 13px;
+        padding-bottom: 13px;
+    }
+
+    ::ng-deep .mat-form-field-wrapper{
+        padding-bottom: 0px;
+    }
+
+    ::ng-deep .mat-form-field-infix{
+        border-top-width: 0px;
+    }
+
+    ::ng-deep .mat-radio-button label{
+        padding-right: 24px;
+        white-space: normal;
+    }
+}

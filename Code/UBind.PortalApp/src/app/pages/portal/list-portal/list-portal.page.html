@@ -1,0 +1,26 @@
+<app-segmented-entity-list [title]="title"
+                           [listItemNamePlural]="'portals'"
+                           [entityRouteParamName]="'portalId'"
+                           [entityLoaderService]="portalApiService"
+                           [viewModelConstructor]="viewModelConstructor"
+                           [segments]="segments"
+                           [defaultSegment]="defaultSegment"
+                           [filterStatuses]="filterStatuses"
+                           [getUserFilterSelectionCallback]="getUserFilterSelection.bind(this)"
+                           [sortOptions]="sortOptions"
+                           [filterByDates]="filterByDates"
+                           [itemTemplate]="portalListItemTemplate"
+                           [entityPathSegment]="'portal'"
+                           [entityTypeName]="'Portal'"
+                           [getDefaultHttpParamsCallback]="getDefaultHttpParams.bind(this)"
+                           (listQueryParamsGenerated)="onListQueryParamsGenerated($event)"
+                           [additionalActionButtonList]="additionalActionButtonList"
+                           [ngStyle]="{'height': '100%'}">
+</app-segmented-entity-list>
+<ng-template #portalListItemTemplate let-item>
+    <library-icon name="browsers" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'" [cssClass]="'align-icon'"></library-icon>
+    <ion-label>
+        <div>{{item.name}}</div>
+        <p class="status">{{item.userType}}{{ item.isDefault ? ' &#183; Default' : '' }}</p>
+    </ion-label>
+</ng-template>

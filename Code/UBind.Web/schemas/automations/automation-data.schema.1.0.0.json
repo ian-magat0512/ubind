@@ -1,0 +1,3080 @@
+{
+  "$id": "https://app.ubind.io/schemas/automations-data.schema.1.0.0.json",
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Automation Data",
+  "description": "Defines the permitted structure for the automation data generated and used by an automation, its triggers and actions. Note that this schema will never actually be used to validate automationData, since automation data is virtual, managed by the uBind system and contains data objects which are in memory or references to items which may be lazily loaded. Automation data itself is never serialised as whole into json. This schema is therefore to be used only as a reference and guide to the expected structure of automation data, so that paths into it can be built and specified by actions and triggers within automations.",
+  "type": "object",
+  "properties": {
+    "schemaVersion": {
+      "type": "string",
+      "description": "The version of the schema which this json structure must validate against.",
+      "enum": [ "1.0.0" ]
+    },
+    "trigger": {
+      "$ref": "#trigger",
+      "description": "An object containing the data supplied through the trigger of the automation, as well as the alias of that trigger."
+    },
+    "context": {
+      "$ref": "#context",
+      "description": "An object storing the contextual data that is relevant to the current automation. Where actions rely on one of these objects and a reference to one is not provided explicitly, the most approprate object will be chosen from the context automatically."
+    },
+    "automation": {
+      "$ref": "#automation",
+      "description": "An object storing the properties of the automation."
+    },
+    "system": {
+      "$ref": "#system",
+      "description": "An object storing system properties."
+    },
+    "actions": {
+      "type": "object",
+      "description": "An object containing a property named after the aliases of each completed action. Each property records the data output of the corresponding action.",
+      "additionalProperties": {
+        "$ref": "#action"
+      }
+    },
+    "variables": {
+      "type": "object",
+      "description": "An object containing properties settable by an action, with values of any type. This is a space which can be used for storing data of any structure for any purpose. Data here will be persisted whilst the automation is running and can be reused and referenced by the different actions within the automation.",
+      "additionalProperties": true
+    },
+    "error": {
+      "$ref": "#error",
+      "description": "If there is an unhandled error, the details of that error will be accessible here as well as under the action which raised it."
+    }
+  },
+  "required": [ "schemaVersion", "trigger", "context" ],
+  "additionalProperties": false,
+
+  "definitions": {
+
+    // Trigger
+
+    "trigger": {
+      "$id": "#trigger",
+      "type": "object",
+      "description": "An object containing the data associated with the trigger which caused this automation to run.",
+      "anyOf": [
+        { "$ref": "#httpTrigger" },
+        { "$ref": "#localEmailTrigger" },
+        { "$ref": "#remoteEmailTrigger" },
+        { "$ref": "#eventTrigger" },
+        { "$ref": "#portalPageTrigger" },
+        { "$ref": "#extensionPointTrigger" },
+        { "$ref": "#returnValueTrigger" }
+      ]
+    },
+
+    "httpTrigger": {
+      "$id": "#httpTrigger",
+      "description": "The data associated with a HTTP trigger.",
+      "properties": {
+        "triggerAlias": {
+          "type": "string",
+          "description": "The alias of the trigger that started this automation."
+        },
+        "httpRequest": {
+          "$ref": "#httpRequest",
+          "description": "The HTTP request received by the HTTP trigger."
+        },
+        "httpResponse": {
+          "$ref": "#httpResponse",
+          "description": "The HTTP response returned by the HTTP trigger."
+        }
+      },
+      "required": [ "httpRequest" ],
+      "additionalProperties": false
+    },
+
+    "localEmailTrigger": {
+      "$id": "#localEmailTrigger",
+      "description": "The data associated with a local email trigger.",
+      "properties": {
+        "triggerAlias": {
+          "type": "string",
+          "description": "The alias of the trigger that started this automation."
+        },
+        "email": {
+          "$ref": "#email",
+          "description": "The email received by the local email trigger."
+        }
+      },
+      "required": [ "email" ],
+      "additionalProperties": false
+    },
+
+    "remoteEmailTrigger": {
+      "$id": "#remoteEmailTrigger",
+      "description": "The data associated with a remote email trigger.",
+      "properties": {
+        "triggerAlias": {
+          "type": "string",
+          "description": "The alias of the trigger that started this automation."
+        },
+        "emailAccount": {
+          "$ref": "#emailAccount",
+          "description": "The settings used to access the incoming mail server."
+        },
+        "email": {
+          "$ref": "#email",
+          "description": "The email received by the local email trigger."
+        }
+      },
+      "required": [ "emailAccount", "email" ],
+      "additionalProperties": false
+    },
+
+    "eventTrigger": {
+      "$id": "#eventTrigger",
+      "description": "The data associated with an event trigger.",
+      "properties": {
+        "triggerAlias": {
+          "type": "string",
+          "description": "The alias of the trigger that started this automation."
+        },
+        "eventType": {
+          "$ref": "#eventType",
+          "description": "The event type of the event."
+        },
+        "customEventAlias": {
+          "type": "string",
+          "description": "The alias of the event that invoked the trigger."
+        },
+        "eventData": {
+          "type": "object",
+          "description": "The data object that was passed along with the event.",
+          "additionalProperties": true
+        }
+      },
+      "required": [ "eventType", "customEventAlias" ],
+      "additionalProperties": false
+    },
+
+    "portalPageTrigger": {
+      "$id": "#portalPageTrigger",
+      "description": "The data associated with an event trigger.",
+      "properties": {
+        "triggerAlias": {
+          "type": "string",
+          "description": "The alias of the trigger that started this automation."
+        },
+        "entityType": {
+          "$ref": "#entityType",
+          "description": "The entity type of the portal page from which the trigger was invoked."
+        },
+        "pageType": {
+          "type": "string",
+          "description": "The page type of the portal page from which the trigger was invoked.",
+          "enum": [
+            "list",
+            "display"
+          ]
+        },
+        "tab": {
+          "type": "string",
+          "description": "The tab alias of the tab from which the trigger was invoked, if appliable."
+        },
+        "downloadFile": {
+          "$ref": "#file",
+          "description": "If a file download was used as part of the portal page trigger, the resulting file is defined here."
+        },
+        "successSnackbarText": {
+          "type": "string",
+          "description": "If a success snackbar text was generated by the portal page trigger, the resulting text value is defined here."
+        }
+      },
+      "required": [ "triggerAlias", "entityType", "pageType" ],
+      "additionalProperties": false
+    },
+
+    "extensionPointTrigger": {
+      "$id": "#extensionPointTrigger",
+      "description": "The data associated with an extension point trigger.",
+
+      "oneOf": [
+
+        // Assign Policy Number
+        {
+          "properties": {
+            "triggerAlias": {
+              "type": "string",
+              "description": "The alias of the trigger that started this automation."
+            },
+            "extensionPoint": {
+              "type": "string",
+              "description": "The extension point of this extension point trigger.",
+              "enum": [ "assignPolicyNumber" ]
+            }
+          },
+          "required": [ "triggerAlias", "extensionPoint" ],
+          "additionalProperties": false
+        },
+
+        // Prepare Quote Calculation Input Data
+        {
+          "properties": {
+            "triggerAlias": {
+              "type": "string",
+              "description": "The alias of the trigger that started this automation."
+            },
+            "extensionPoint": {
+              "type": "string",
+              "description": "The extension point of this extension point trigger.",
+              "enum": [ "beforeQuoteCalculation" ]
+            },
+            "sourceInputData": {
+              "type": "object",
+              "description": "The original input data that will be prepared by this automation.",
+              "additionalProperties": true
+            },
+            "returnInputData": {
+              "type": "object",
+              "description": "The return input data that will used by the subsequent code where the extension point is located.",
+              "additionalProperties": true
+            }
+          },
+          "required": [ "triggerAlias", "extensionPoint", "sourceInputData" ],
+          "additionalProperties": false
+        },
+
+        // Before Quote Calculation
+        {
+          "properties": {
+            "triggerAlias": {
+              "type": "string",
+              "description": "The alias of the trigger that started this automation."
+            },
+            "extensionPoint": {
+              "type": "string",
+              "description": "The extension point of this extension point trigger.",
+              "enum": [ "beforeQuoteCalculation" ]
+            },
+            "sourceInputData": {
+              "type": "object",
+              "description": "The original input data.",
+              "additionalProperties": true
+            },
+            "returnInputData": {
+              "type": "object",
+              "description": "The return input data that will used by the subsequent code where the extension point is located.",
+              "additionalProperties": true
+            }
+          },
+          "required": [ "triggerAlias", "extensionPoint", "sourceInputData" ],
+          "additionalProperties": false
+        },
+
+        // After Quote Calculation
+        {
+          "properties": {
+            "triggerAlias": {
+              "type": "string",
+              "description": "The alias of the trigger that started this automation."
+            },
+            "extensionPoint": {
+              "type": "string",
+              "description": "The extension point of this extension point trigger.",
+              "enum": [ "afterQuoteCalculation" ]
+            },
+            "sourceInputData": {
+              "type": "object",
+              "description": "The input data that was used to perform the calculation, as (optionally) modified by the beforeQuoteCalculation extension point.",
+              "additionalProperties": true
+            },
+            "sourceCalculationResult": {
+              "type": "object",
+              "description": "The original calculation result.",
+              "additionalProperties": true
+            },
+            "returnCalculationResult": {
+              "type": "object",
+              "description": "The return calculation result that will used by the subsequent code where the extension point is located.",
+              "additionalProperties": true
+            }
+          },
+          "required": [ "triggerAlias", "extensionPoint", "sourceCalculationResult" ],
+          "additionalProperties": false
+        }
+      ]
+    },
+
+    "returnValueTrigger": {
+      "$id": "#returnValueTrigger",
+      "description": "The data associated with an event trigger.",
+      "properties": {
+        "triggerAlias": {
+          "type": "string",
+          "description": "The alias of the trigger that started this automation."
+        },
+        "arguments": {
+          "type": "object",
+          "description": "An object that was optionally passed to this trigger by the returnValueTrigger."
+        }
+      },
+      "required": [ "triggerAlias" ],
+      "additionalProperties": false
+    },
+
+    // Context
+
+    "context": {
+      "$id": "#context",
+      "type": "object",
+      "description": "An object storing the contextual data that is relevant to the current automation. Where actions reference one of these objects but do not explicity specify it, the most approprate object will be chosen from the context automatically.",
+      "properties": {
+        "quote": {
+          "description": "A quote that has been set as the automation context, or that is associated with a policy transaction, invoice, credit note, credit card payment or premium funding proposal that has been set as the automation context.",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "quoteVersion": {
+          "description": "A quote version that has been set as the automation context or that is associated with a quote, or policy transaction that has been set as the automation context. ",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "policy": {
+          "description": "A policy that has been set as the automation context, or that is associated with a policy transaction, quote, invoice, credit note, credit card payment or premium funding proposal that has been set as the automation context.",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "policyTransaction": {
+          "description": "A policy transaction that has been set as the automation context, or that is associated with a quote, invoice, credit note, credit card payment or premium funding proposal that has been set as the automation context.",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "claim": {
+          "description": "A claim that has been set as the automation context.",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "claimVersion": {
+          "description": "A claim that has been set as the automation context, or that is associated with a claim.",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "invoice": {
+          "description": "The invoice that has been set as the automation context, or that is associated with a quote, policy transaction, credit card payment or premium funding proposal that has been set as the automation context.",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "creditNote": {
+          "description": "The credit note that has been set as the automation context, or that is associated with a quote or policy transaction that has been set as the automation context.",
+          "type": "object",
+          "additionalProperties": true
+        },
+        /* Payments will be implemented later
+                "payment": {
+                    "description": "The that has been set as the automation context, or that is associated with a quote, policy transaction or invoice that has been set as the automation context.",
+                    "type": "object",
+                    "additionalProperties": true
+                },
+                */
+        "customer": {
+          "description": "The customer that has been set as the automation context, or that is associated with a quote, policy or claim that has been set as the automation context.",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "user": {
+          "description": "The user who initiated the event and is responsible for the action that triggered the automation.",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "owner": {
+          "description": "The owner of a customer, quote, policy or claim that has been set as the automation context.",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "product": {
+          "description": "The product associated with the quote, policy or claim that has been set as the automation context.",
+          "type": "object",
+          "additionalProperties": true
+        },
+        "tenant": {
+          "description": "The tenant object associated with this tenancy.",
+          "type": "object",
+          "additionalProperties": true
+        }
+      },
+      "additionalProperties": true
+    },
+
+
+    // System
+
+    "system": {
+      "$id": "#system",
+      "type": "object",
+      "description": "System properties.",
+      "properties": {
+        "baseUrl": {
+          "type": "string",
+          "description": "The root URL of the application, used to generate deep link URLs within the application.",
+          "examples": [ "https://app.ubind.com.au" ]
+        },
+        "environment": {
+          "type": "string",
+          "description": "The current environment.",
+          "examples": [ "development", "staging", "production" ]
+        },
+        "currentTicksSinceEpoch": {
+          "type": "integer",
+          "description": "The current timestamp at time of execution, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "currentDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "The current datetime at time of execution, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        }
+      },
+      "required": [
+        "environment",
+        "currentTicksSinceEpoch",
+        "currentDateTime"
+      ],
+      "additionalProperties": false
+    },
+
+    // Automation
+
+    "automation": {
+      "$id": "#automation",
+      "type": "object",
+      "description": "Automation properties.",
+      "properties": {
+        "startedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "The timestamp at time when this automation was first started, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "startedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "The timestamp at time when this automation was first started, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        }
+      },
+      "required": [
+        "startedTicksSinceEpoch",
+        "startedDateTime"
+      ],
+      "additionalProperties": false
+    },
+
+    // Actions
+
+    "action": {
+      "$id": "#action",
+      "type": "object",
+      "description": "An object containing the data output from an action in the automation.",
+      "anyOf": [
+        { "$ref": "#httpRequestAction" },
+        { "$ref": "#sendEmailAction" },
+        { "$ref": "#raiseEventAction" },
+        { "$ref": "#raiseErrorAction" },
+        { "$ref": "#setVariableAction" },
+        { "$ref": "#groupAction" },
+        { "$ref": "#iterateAction" },
+        { "$ref": "#runAutomationAction" },
+        { "$ref": "#attachFilesToEntityAction" },
+        { "$ref": "#attachFilesToEntitiesAction" }
+      ]
+    },
+
+    "httpRequestAction": {
+      "$id": "#httpRequestAction",
+      "description": "The data associated with a HTTP request action.",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "The current state of this action",
+          "enum": [
+            "notStarted",
+            "started",
+            "beforeRunErrorChecking",
+            "running",
+            "afterRunErrorChecking",
+            "completed",
+            "unknown"
+          ]
+        },
+        "started": {
+          "type": "boolean",
+          "description": "True if this action has started."
+        },
+        "ran": {
+          "type": "boolean",
+          "description": "True if this action ran, i.e. the run condition was true and there were no errors before the action had a chance to run."
+        },
+        "finished": {
+          "type": "boolean",
+          "description": "True if this action has finished, i.e. it has completed running and after error checking has completed."
+        },
+        "succeeded": {
+          "type": "boolean",
+          "description": "True if this action has finished without errors. If this is false, an error object is required."
+        },
+        "error": {
+          "$ref": "#error",
+          "description": "The error object that was generated by error condition for this action. Only including when finished is true and suceeded is false."
+        },
+        "onErrorActions": {
+          "type": "object",
+          "description": "An object containing a property named after the aliases of each action within this group of error handling actions. Each property records the data output of the corresponding action.",
+          "additionalProperties": {
+            "$ref": "#action"
+          }
+        },
+        "startedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "startedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "ranTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "ranDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "finishedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "finishedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+
+        "httpRequest": {
+          "$ref": "#httpRequest",
+          "description": "The HTTP request made by the HTTP request action."
+        },
+        "httpResponse": {
+          "$ref": "#httpResponse",
+          "description": "The HTTP response received from the HTTP request."
+        }
+      },
+      "required": [ "state", "started" ],
+      "additionalProperties": false
+    },
+
+    "sendEmailAction": {
+      "$id": "#sendEmailAction",
+      "description": "The data associated with a HTTP request action.",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "The current state of this action",
+          "enum": [
+            "notStarted",
+            "started",
+            "beforeRunErrorChecking",
+            "running",
+            "afterRunErrorChecking",
+            "completed",
+            "unknown"
+          ]
+        },
+        "started": {
+          "type": "boolean",
+          "description": "True if this action has started."
+        },
+        "ran": {
+          "type": "boolean",
+          "description": "True if this action ran, i.e. the run condition was true and there were no errors before the action had a chance to run."
+        },
+        "finished": {
+          "type": "boolean",
+          "description": "True if this action has finished, i.e. it has completed running and after error checking has completed."
+        },
+        "succeeded": {
+          "type": "boolean",
+          "description": "True if this action has finished without errors. If this is false, an error object is required."
+        },
+        "error": {
+          "type": "object",
+          "description": "The error object that was generated by error condition for this action. Only including when finished is true and suceeded is false.",
+          "$ref": "#error"
+        },
+        "onErrorActions": {
+          "type": "object",
+          "description": "An object containing a property named after the aliases of each action within this group of error handling actions. Each property records the data output of the corresponding action.",
+          "additionalProperties": {
+            "$ref": "#action"
+          }
+        },
+        "startedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "startedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "ranTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "ranDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "finishedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "finishedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+
+        "outboundEmailServerAlias": {
+          "type": "string",
+          "description": "The alias of the outbound email server used to send the email."
+        },
+        "email": {
+          "$ref": "#email",
+          "description": "The email sent by the send email action." // or email entity?? Or both
+        }
+      },
+      "required": [ "state", "started" ],
+      "additionalProperties": false
+    },
+
+    "raiseEventAction": {
+      "$id": "#raiseEventAction",
+      "description": "The data associated with a raise event action.",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "The current state of this action",
+          "enum": [
+            "notStarted",
+            "started",
+            "beforeRunErrorChecking",
+            "running",
+            "afterRunErrorChecking",
+            "completed",
+            "unknown"
+          ]
+        },
+        "started": {
+          "type": "boolean",
+          "description": "True if this action has started."
+        },
+        "ran": {
+          "type": "boolean",
+          "description": "True if this action ran, i.e. the run condition was true and there were no errors before the action had a chance to run."
+        },
+        "finished": {
+          "type": "boolean",
+          "description": "True if this action has finished, i.e. it has completed running and after error checking has completed."
+        },
+        "succeeded": {
+          "type": "boolean",
+          "description": "True if this action has finished without errors. If this is false, an error object is required."
+        },
+        "error": {
+          "type": "object",
+          "description": "The error object that was generated by error condition for this action. Only including when finished is true and suceeded is false.",
+          "$ref": "#error"
+        },
+        "onErrorActions": {
+          "type": "object",
+          "description": "An object containing a property named after the aliases of each action within this group of error handling actions. Each property records the data output of the corresponding action.",
+          "additionalProperties": {
+            "$ref": "#action"
+          }
+        },
+        "startedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "startedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "ranTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "ranDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "finishedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "finishedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+
+        "eventType": {
+          "$ref": "#eventType",
+          "description": "The event type of the event."
+        },
+        "customEventAlias": {
+          "type": "string",
+          "description": "The event alias of the event."
+        },
+        "eventData": {
+          "type": "object",
+          "description": "The data object that was passed along with the event.",
+          "additionalProperties": true
+        }
+      },
+      "required": [ "state", "started" ],
+      "additionalProperties": false
+    },
+
+    "raiseErrorAction": {
+      "$id": "#raiseErrorAction",
+      "description": "The data associated with a raise error action.",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "The current state of this action",
+          "enum": [
+            "notStarted",
+            "started",
+            "beforeRunErrorChecking",
+            "running",
+            "afterRunErrorChecking",
+            "completed",
+            "unknown"
+          ]
+        },
+        "started": {
+          "type": "boolean",
+          "description": "True if this action has started."
+        },
+        "ran": {
+          "type": "boolean",
+          "description": "True if this action ran, i.e. the run condition was true and there were no errors before the action had a chance to run."
+        },
+        "finished": {
+          "type": "boolean",
+          "description": "True if this action has finished, i.e. it has completed running and after error checking has completed."
+        },
+        "succeeded": {
+          "type": "boolean",
+          "description": "True if this action has finished without errors. If this is false, an error object is required."
+        },
+        "error": {
+          "type": "object",
+          "description": "The error object that was generated by error condition for this action. Only including when finished is true and suceeded is false.",
+          "$ref": "#error"
+        },
+        "onErrorActions": {
+          "type": "object",
+          "description": "An object containing a property named after the aliases of each action within this group of error handling actions. Each property records the data output of the corresponding action.",
+          "additionalProperties": {
+            "$ref": "#action"
+          }
+        },
+        "startedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "startedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "ranTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "ranDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "finishedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "finishedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+
+        "raisedError": {
+          "$ref": "#error",
+          "description": "The error that was raised by this action if it ran."
+        }
+      },
+      "required": [ "state", "started" ],
+      "additionalProperties": false
+    },
+
+    "performQuoteCalculationAction": {
+      "$id": "#performQuoteCalculationAction",
+      "description": "The data associated with a perform quote calculation action.",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "The current state of this action",
+          "enum": [
+            "notStarted",
+            "started",
+            "beforeRunErrorChecking",
+            "running",
+            "afterRunErrorChecking",
+            "completed",
+            "unknown"
+          ]
+        },
+        "started": {
+          "type": "boolean",
+          "description": "True if this action has started."
+        },
+        "ran": {
+          "type": "boolean",
+          "description": "True if this action ran, i.e. the run condition was true and there were no errors before the action had a chance to run."
+        },
+        "finished": {
+          "type": "boolean",
+          "description": "True if this action has finished, i.e. it has completed running and after error checking has completed."
+        },
+        "succeeded": {
+          "type": "boolean",
+          "description": "True if this action has finished without errors. If this is false, an error object is required."
+        },
+        "error": {
+          "type": "object",
+          "description": "The error object that was generated by error condition for this action. Only including when finished is true and suceeded is false.",
+          "$ref": "#error"
+        },
+        "onErrorActions": {
+          "type": "object",
+          "description": "An object containing a property named after the aliases of each action within this group of error handling actions. Each property records the data output of the corresponding action.",
+          "additionalProperties": {
+            "$ref": "#action"
+          }
+        },
+        "startedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "startedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "ranTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "ranDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "finishedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "finishedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+
+        "quote": {
+          "type": "object",
+          "description": "A reference to the quote that the quote calculation was performed in relation to."
+        },
+        "policy": {
+          "type": "object",
+          "description": "A reference to the policy that the quote calculation was performed in relation to."
+        },
+        "product": {
+          "type": "object",
+          "description": "A reference to the product that the quote calculation was performed in relation to."
+        },
+        "environment": {
+          "type": "string",
+          "description": "The environment that the quote calculation was performed in relation to.",
+          "examples": [ "development", "staging", "production" ]
+        },
+        "policyTransactionType": {
+          "type": "string",
+          "description": "The policy transaction type used to perform the quote calculation.",
+          "examples": [ "newBusiness", "adjustment", "renewal", "cancellation" ]
+        },
+
+        /* The following date properties will be added at a later date: */
+        /*
+                "policyInceptionTicksSinceEpoch": {
+                    "type": "integer",
+                    "description": "The policy inception date-time of the quote calculation, represented as a ticks since epoch integer value.",
+                    "examples": [ 1582532584813, 1610683682000 ]
+                },
+                "policyInceptionDateTime": {
+                    "type": "string",
+                    "format": "datetime",
+                    "description": "The policy inception date-time of the quote calculation, represented as an ISO-8601 formated datetime string.",
+                    "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+                },
+                "policyExpiryTicksSinceEpoch": {
+                    "type": "integer",
+                    "description": "The policy expiry date-time of the quote calculation, represented as a ticks since epoch integer value.",
+                    "examples": [ 1582532584813, 1610683682000 ]
+                },
+                "policyExpiryDateTime": {
+                    "type": "string",
+                    "format": "datetime",
+                    "description": "The policy expiry date-time of the quote calculation, represented as an ISO-8601 formated datetime string.",
+                    "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+                },
+                "policyAdjustmentTicksSinceEpoch": {
+                    "type": "integer",
+                    "description": "The policy adjustment date-time of the quote calculation, represented as a ticks since epoch integer value.",
+                    "examples": [ 1582532584813, 1610683682000 ]
+                },
+                "policyAdjustmentDateTime": {
+                    "type": "string",
+                    "format": "datetime",
+                    "description": "The policy adjustment date-time of the quote calculation, represented as an ISO-8601 formated datetime string.",
+                    "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+                },
+                "policyRenewalTicksSinceEpoch": {
+                    "type": "integer",
+                    "description": "The policy renewal date-time of the quote calculation, represented as a ticks since epoch integer value.",
+                    "examples": [ 1582532584813, 1610683682000 ]
+                },
+                "policyRenewalDateTime": {
+                    "type": "string",
+                    "format": "datetime",
+                    "description": "The policy renewal date-time of the quote calculation, represented as an ISO-8601 formated datetime string.",
+                    "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+                },
+                "policyCancellationTicksSinceEpoch": {
+                    "type": "integer",
+                    "description": "The policy cancellation date-time of the quote calculation, represented as a ticks since epoch integer value.",
+                    "examples": [ 1582532584813, 1610683682000 ]
+                },
+                "policyCancellationDateTime": {
+                    "type": "string",
+                    "format": "datetime",
+                    "description": "The policy cancellation date-time of the quote calculation, represented as an ISO-8601 formated datetime string.",
+                    "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+                },
+                */
+
+        "inputData": {
+          "type": "object",
+          "description": "The input data passed to the calculation."
+        },
+        "calculationResult": {
+          "type": "object",
+          "description": "The calculation results from the calculation."
+        },
+        "persistValue": {
+          "type": "boolean",
+          "description": "Whether the calculation result is to be persisted or not."
+        }
+      },
+      "required": [ "state", "started" ],
+      "additionalProperties": false
+    },
+
+      "createQuoteAction": {
+            "$id": "#createQuoteAction",
+            "description": "The data associated with a create quote action.",
+            "properties": {
+                "state": {
+                    "type": "string",
+                    "description": "The current state of this action",
+                    "enum": [
+                        "notStarted",
+                        "started",
+                        "beforeRunErrorChecking",
+                        "running",
+                        "afterRunErrorChecking",
+                        "completed",
+                        "unknown"
+                    ]
+                },
+                "started": {
+                    "type": "boolean",
+                    "description": "True if this action has started."
+                },
+                "ran": {
+                    "type": "boolean",
+                    "description": "True if this action ran, i.e. the run condition was true and there were no errors before the action had a chance to run."
+                },
+                "finished": {
+                    "type": "boolean",
+                    "description": "True if this action has finished, i.e. it has completed running and after error checking has completed."
+                },
+                "succeeded": {
+                    "type": "boolean",
+                    "description": "True if this action has finished without errors. If this is false, an error object is required."
+                },
+                "error": {
+                    "type": "object",
+                    "description": "The error object that was generated by error condition for this action. Only including when finished is true and succeeded is false.",
+                    "$ref": "#error"
+                },
+                "onErrorActions": {
+                    "type": "object",
+                    "description": "An object containing a property named after the aliases of each action within this group of error handling actions. Each property records the data output of the corresponding action.",
+                    "additionalProperties": {
+                        "$ref": "#action"
+                    }
+                },
+                "startedTicksSinceEpoch": {
+                    "type": "integer",
+                    "description": "If this action has started, this is the timestamp of the time when the action did start, represented as a ticks since epoch integer value.",
+                    "examples": [ 1582532584813, 1610683682000 ]
+                },
+                "startedDateTime": {
+                    "type": "string",
+                    "format": "datetime",
+                    "description": "If this action has started, this is the timestamp of the time when the action did start, represented as an ISO-8601 formatted datetime string.",
+                    "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+                },
+                "ranTicksSinceEpoch": {
+                    "type": "integer",
+                    "description": "If this action has run, this is the timestamp of the time when the action did run, represented as a ticks since epoch integer value.",
+                    "examples": [ 1582532584813, 1610683682000 ]
+                },
+                "ranDateTime": {
+                    "type": "string",
+                    "format": "datetime",
+                    "description": "If this action has run, this is the timestamp of the time when the action did run, represented as an ISO-8601 formatted datetime string.",
+                    "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+                },
+                "finishedTicksSinceEpoch": {
+                    "type": "integer",
+                    "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as a ticks since epoch integer value.",
+                    "examples": [ 1582532584813, 1610683682000 ]
+                },
+                "finishedDateTime": {
+                    "type": "string",
+                    "format": "datetime",
+                    "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as an ISO-8601 formatted datetime string.",
+                    "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+                },
+                "policyTransactionType": {
+                    "type": "string",
+                    "description": "The policy transaction type used to perform the quote creation.",
+                    "examples": [ "newBusiness", "adjustment", "renewal", "cancellation" ]
+                },
+                "policyId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "The GUID for the policy that was quoted. Set when the action runs."
+                },
+                "customerId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "The GUID for the customer that was quoted. Set when the action runs."
+                },
+                "quoteId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "The GUID for the quote that was created. Set when the action runs."
+                },
+                "organisationId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "The GUID for the organisation that was  quoted. Set when the action runs."
+                },
+                "productId": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "The GUID for the product that was quoted. Set when the action runs."
+                },
+                "environment": {
+                    "type": "string",
+                    "format": "uuid",
+                    "description": "The environment that was quoted. Set when the action runs."
+                },
+                "initialQuoteState": {
+                    "type": "string",
+                    "description": "The initial state of the quote. Set when the action runs."
+                },
+                "formData": {
+                    "type": "object",
+                    "description": "The form data associated with the quote. Set when the action runs."
+                }
+            },
+            "required": [ "state", "started" ],
+            "additionalProperties": false
+        },
+
+      "returnQuoteAction": {
+            "$id": "#returnQuoteAction",
+            "description": "The data associated with an return quote action.",
+            "properties": {
+                "state": {
+                    "type": "string",
+                    "description": "The current state of this action",
+                    "enum": [
+                        "notStarted",
+                        "started",
+                        "beforeRunErrorChecking",
+                        "running",
+                        "afterRunErrorChecking",
+                        "completed",
+                        "unknown"
+                    ]
+                },
+                "started": {
+                    "type": "boolean",
+                    "description": "True if this action has started."
+                },
+                "ran": {
+                    "type": "boolean",
+                    "description": "True if this action ran, i.e. the run condition was true and there were no errors before the action had a chance to run."
+                },
+                "finished": {
+                    "type": "boolean",
+                    "description": "True if this action has finished, i.e. it has completed running and after error checking has completed."
+                },
+                "succeeded": {
+                    "type": "boolean",
+                    "description": "True if this action has finished without errors. If this is false, an error object is required."
+                },
+                "error": {
+                    "type": "object",
+                    "description": "The error object that was generated by error condition for this action. Only including when finished is true and succeeded is false.",
+                    "$ref": "#error"
+                },
+                "onErrorActions": {
+                    "type": "object",
+                    "description": "An object containing a property named after the aliases of each action within this group of error handling actions. Each property records the data output of the corresponding action.",
+                    "additionalProperties": {
+                        "$ref": "#action"
+                    }
+                },
+                "startedTicksSinceEpoch": {
+                    "type": "integer",
+                    "description": "If this action has started, this is the timestamp of the time when the action did start, represented as a ticks since epoch integer value.",
+                    "examples": [ 1582532584813, 1610683682000 ]
+                },
+                "startedDateTime": {
+                    "type": "string",
+                    "format": "datetime",
+                    "description": "If this action has started, this is the timestamp of the time when the action did start, represented as an ISO-8601 formatted datetime string.",
+                    "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+                },
+                "ranTicksSinceEpoch": {
+                    "type": "integer",
+                    "description": "If this action has run, this is the timestamp of the time when the action did run, represented as a ticks since epoch integer value.",
+                    "examples": [ 1582532584813, 1610683682000 ]
+                },
+                "ranDateTime": {
+                    "type": "string",
+                    "format": "datetime",
+                    "description": "If this action has run, this is the timestamp of the time when the action did run, represented as an ISO-8601 formatted datetime string.",
+                    "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+                },
+                "finishedTicksSinceEpoch": {
+                    "type": "integer",
+                    "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as a ticks since epoch integer value.",
+                    "examples": [ 1582532584813, 1610683682000 ]
+                },
+                "finishedDateTime": {
+                    "type": "string",
+                    "format": "datetime",
+                    "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as an ISO-8601 formatted datetime string.",
+                    "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+                },
+
+        "quoteId": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The GUID for the quote that was (or attempted to be) returned. Set when the action runs."
+        }
+
+      },
+        "required": [ "state", "started" ],
+        "additionalProperties": false
+      },
+
+    "declineQuoteAction": {
+      "$id": "#declineQuoteAction",
+      "description": "The data associated with an decline quote action.",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "The current state of this action",
+          "enum": [
+            "notStarted",
+            "started",
+            "beforeRunErrorChecking",
+            "running",
+            "afterRunErrorChecking",
+            "completed",
+            "unknown"
+          ]
+        },
+        "started": {
+          "type": "boolean",
+          "description": "True if this action has started."
+        },
+        "ran": {
+          "type": "boolean",
+          "description": "True if this action ran, i.e. the run condition was true and there were no errors before the action had a chance to run."
+        },
+        "finished": {
+          "type": "boolean",
+          "description": "True if this action has finished, i.e. it has completed running and after error checking has completed."
+        },
+        "succeeded": {
+          "type": "boolean",
+          "description": "True if this action has finished without errors. If this is false, an error object is required."
+        },
+        "error": {
+          "type": "object",
+          "description": "The error object that was generated by error condition for this action. Only including when finished is true and succeeded is false.",
+          "$ref": "#error"
+        },
+        "onErrorActions": {
+          "type": "object",
+          "description": "An object containing a property named after the aliases of each action within this group of error handling actions. Each property records the data output of the corresponding action.",
+          "additionalProperties": {
+            "$ref": "#action"
+          }
+        },
+        "startedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "startedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as an ISO-8601 formatted datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "ranTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "ranDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as an ISO-8601 formatted datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "finishedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "finishedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as an ISO-8601 formatted datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+
+        "quoteId": {
+          "type": "string",
+          "format": "uuid",
+          "description": "The GUID for the quote that was (or attempted to be) declined. Set when the action runs."
+        }
+
+      },
+      "required": [ "state", "started" ],
+      "additionalProperties": false
+    },
+
+    "issuePolicyAction": {
+      "$id": "#issuePolicyAction",
+      "description": "The data associated with an issue policy action.",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "The current state of this action",
+          "enum": [
+            "notStarted",
+            "started",
+            "beforeRunErrorChecking",
+            "running",
+            "afterRunErrorChecking",
+            "completed",
+            "unknown"
+          ]
+        },
+        "started": {
+          "type": "boolean",
+          "description": "True if this action has started."
+        },
+        "ran": {
+          "type": "boolean",
+          "description": "True if this action ran, i.e. the run condition was true and there were no errors before the action had a chance to run."
+        },
+        "finished": {
+          "type": "boolean",
+          "description": "True if this action has finished, i.e. it has completed running and after error checking has completed."
+        },
+        "succeeded": {
+          "type": "boolean",
+          "description": "True if this action has finished without errors. If this is false, an error object is required."
+        },
+        "error": {
+          "type": "object",
+          "description": "The error object that was generated by error condition for this action. Only including when finished is true and succeeded is false.",
+          "$ref": "#error"
+        },
+        "onErrorActions": {
+          "type": "object",
+          "description": "An object containing a property named after the aliases of each action within this group of error handling actions. Each property records the data output of the corresponding action.",
+          "additionalProperties": {
+            "$ref": "#action"
+          }
+        },
+        "startedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "startedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as an ISO-8601 formatted datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "ranTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "ranDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as an ISO-8601 formatted datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "finishedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "finishedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as an ISO-8601 formatted datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+
+            "quoteId": {
+              "type": "string",
+              "format": "uuid",
+              "description": "The GUID for the quote that the policy was issued in relation to, if specified using the 'quote' parameter. Set when the action runs."
+            },
+            "customerId": {
+              "type": "string",
+              "format": "uuid",
+              "description": "The GUID for the customer that the policy was issued for, if specified using the 'customer' parameter. Set when the action is run."
+            },
+            "organisationId": {
+              "type": "string",
+              "format": "uuid",
+              "description": "The GUID for the organisation that the policy was issued for, if specified using the 'organisation' parameter. Set when the action is run."
+            },
+            "productId": {
+              "type": "string",
+              "format": "uuid",
+              "description": "The GUID for the product that the policy was issued for, if specified using the 'product' parameter. Set when the action is run."
+            },
+            "environment": {
+              "type": "string",
+              "description": "The environment that the policy was issued for, if specified using the 'environment' parameter. Set when the action is run."
+            },
+            "inputData": {
+              "type": "object",
+              "description": "The input data for the new policy, if specified using the 'inputData' parameter. Set when the action is run."
+            },
+            "additionalProperties": {
+              "type": "object",
+              "description": "The additional property values provided for the new policy, if specified using the 'additionalProperties' parameter. Set when the action is run."
+            },
+            "testData": {
+              "type": "boolean",
+              "description": "The value provided for the 'testData' parameter, if used. Set when the action is run."
+            },
+            "policyId": {
+              "type": "string",
+              "format": "uuid",
+              "description": "The GUID for the policy that was issued if the action was successful. Set when the action has completed."
+            },
+            "policyNumber": {
+              "type": "string",
+              "description": "The policy number for the new policy, if specified using the 'policyNumber' parameter. Set when the action is run."
+            }
+          },
+            "required": [ "state", "started" ],
+            "additionalProperties": false
+        },
+
+    "setVariableAction": {
+      "$id": "#setVariableAction",
+      "description": "The data associated with a set variable action.",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "The current state of this action",
+          "enum": [
+            "notStarted",
+            "started",
+            "beforeRunErrorChecking",
+            "running",
+            "afterRunErrorChecking",
+            "completed",
+            "unknown"
+          ]
+        },
+        "started": {
+          "type": "boolean",
+          "description": "True if this action has started."
+        },
+        "ran": {
+          "type": "boolean",
+          "description": "True if this action ran, i.e. the run condition was true and there were no errors before the action had a chance to run."
+        },
+        "finished": {
+          "type": "boolean",
+          "description": "True if this action has finished, i.e. it has completed running and after error checking has completed."
+        },
+        "succeeded": {
+          "type": "boolean",
+          "description": "True if this action has finished without errors. If this is false, an error object is required."
+        },
+        "error": {
+          "type": "object",
+          "description": "The error object that was generated by error condition for this action. Only including when finished is true and suceeded is false.",
+          "$ref": "#error"
+        },
+        "onErrorActions": {
+          "type": "object",
+          "description": "An object containing a property named after the aliases of each action within this group of error handling actions. Each property records the data output of the corresponding action.",
+          "additionalProperties": {
+            "$ref": "#action"
+          }
+        },
+        "startedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "startedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "ranTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "ranDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "finishedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "finishedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+
+                "variableName": {
+                    "type": "string",
+                    "description": "The name of the variable that had its value set."
+                },
+                "value": {
+                    "description": "The value that was set on the variable."
+                }
+            },
+            "required": [ "state", "started" ],
+            "additionalProperties": false
+        },
+
+    "groupAction": {
+      "$id": "#groupAction",
+      "description": "The data associated with a HTTP request action.",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "The current state of this action",
+          "enum": [
+            "notStarted",
+            "started",
+            "beforeRunErrorChecking",
+            "running",
+            "afterRunErrorChecking",
+            "completed",
+            "unknown"
+          ]
+        },
+        "started": {
+          "type": "boolean",
+          "description": "True if this action has started."
+        },
+        "ran": {
+          "type": "boolean",
+          "description": "True if this action ran, i.e. the run condition was true and there were no errors before the action had a chance to run."
+        },
+        "finished": {
+          "type": "boolean",
+          "description": "True if this action has finished, i.e. it has completed running and after error checking has completed."
+        },
+        "succeeded": {
+          "type": "boolean",
+          "description": "True if this action has finished without errors. If this is false, an error object is required."
+        },
+        "error": {
+          "type": "object",
+          "description": "The error object that was generated by error condition for this action. Only including when finished is true and suceeded is false.",
+          "$ref": "#error"
+        },
+        "onErrorActions": {
+          "type": "object",
+          "description": "An object containing a property named after the aliases of each action within this group of error handling actions. Each property records the data output of the corresponding action.",
+          "additionalProperties": {
+            "$ref": "#action"
+          }
+        },
+        "startedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "startedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "ranTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "ranDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "finishedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "finishedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+
+        "actions": {
+          "type": "object",
+          "description": "An object containing a property named after the aliases of each action within this group. Each property records the data output of the corresponding action.",
+          "additionalProperties": {
+            "$ref": "#action"
+          }
+        }
+      },
+      "required": [ "state", "started" ],
+      "additionalProperties": false
+    },
+
+    "iterateAction": {
+      "$id": "#iterateAction",
+      "description": "The data associated with an iterate action.",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "The current state of this action",
+          "enum": [
+            "notStarted",
+            "started",
+            "beforeRunErrorChecking",
+            "running",
+            "afterRunErrorChecking",
+            "completed",
+            "unknown"
+          ]
+        },
+        "started": {
+          "type": "boolean",
+          "description": "True if this action has started."
+        },
+        "ran": {
+          "type": "boolean",
+          "description": "True if this action ran, i.e. the run condition was true and there were no errors before the action had a chance to run."
+        },
+        "finished": {
+          "type": "boolean",
+          "description": "True if this action has finished, i.e. it has completed running and after error checking has completed."
+        },
+        "succeeded": {
+          "type": "boolean",
+          "description": "True if this action has finished without errors. If this is false, an error object is required."
+        },
+        "error": {
+          "type": "object",
+          "description": "The error object that was generated by error condition for this action. Only including when finished is true and suceeded is false.",
+          "$ref": "#error"
+        },
+        "onErrorActions": {
+          "type": "object",
+          "description": "An object containing a property named after the aliases of each action within this group of error handling actions. Each property records the data output of the corresponding action.",
+          "additionalProperties": {
+            "$ref": "#action"
+          }
+        },
+        "startedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "startedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "ranTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "ranDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "finishedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "finishedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+
+        "startIndex": {
+          "type": "integer",
+          "description": "If the startIndex argument was used, it's resolved value is stored here."
+        },
+        "endIndex": {
+          "type": "integer",
+          "description": "If the endIndex argument was used, it's resolved value is stored here."
+        },
+        "reverse": {
+          "type": "boolean",
+          "description": "Included with the value 'true' if the iterate action iterated in reverse order."
+        },
+        "iterationsCompleted": {
+          "type": "integer",
+          "description": "A count of the number of iterations that have been completed."
+        },
+        "previousIteration": {
+          "type": "object",
+          "description": "A property created when an iteration action is run, effectively referring to the properties of the previous iteration.",
+          "properties": {
+            "item": {
+              "type": [ "object", "array", "string", "integer", "number", "boolean" ],
+              "description": "The current value in the list that is being iterated over. Can be of any type."
+            },
+            "index": {
+              "type": "integer",
+              "description": "The curent index of the iteration."
+            },
+            "count": {
+              "type": "integer",
+              "description": "The curent number of iterations that have been performed at the time at which this iteration started."
+            },
+            "actions": {
+              "type": "object",
+              "description": "An object containing a property named after the aliases of each action within this iteration.",
+              "additionalProperties": {
+                "$ref": "#action"
+              }
+            }
+          },
+          "required": [ "item", "index", "count" ],
+          "additionalItems": false
+        },
+        "currentIteration": {
+          "type": "object",
+          "description": "A property created when an iteration action is run.",
+          "properties": {
+            "item": {
+              "type": [ "object", "array", "string", "integer", "number", "boolean" ],
+              "description": "The current value in the list that is being iterated over. Can be of any type."
+            },
+            "index": {
+              "type": "integer",
+              "description": "The curent index of the iteration."
+            },
+            "count": {
+              "type": "integer",
+              "description": "The curent number of iterations that have been performed at the time at which this iteration started."
+            },
+            "actions": {
+              "type": "object",
+              "description": "An object containing a property named after the aliases of each action within this iteration.",
+              "additionalProperties": {
+                "$ref": "#action"
+              }
+            }
+          },
+          "required": [ "item", "index", "count" ],
+          "additionalItems": false
+        },
+        "lastIteration": {
+          "type": "object",
+          "description": "A property created when an iteration action has completed, if at least one iteration was run.",
+          "properties": {
+            "item": {
+              "type": [ "object", "array", "string", "integer", "number", "boolean" ],
+              "description": "The last value in the list that was iterated over. Can be of any type."
+            },
+            "index": {
+              "type": "integer",
+              "description": "The last index of the iteration."
+            },
+            "count": {
+              "type": "integer",
+              "description": "The total number of iterations that were actually performed."
+            },
+            "actions": {
+              "type": "object",
+              "description": "An object containing a property named after the aliases of each action within the last iteration to be performed.",
+              "additionalProperties": {
+                "$ref": "#action"
+              }
+            }
+          },
+          "required": [ "item", "index", "count" ],
+          "additionalItems": false
+        }
+      },
+      "required": [ "state", "started" ],
+      "additionalProperties": false
+    },
+
+    "runAutomationAction": {
+      "$id": "#runAutomationAction",
+      "description": "The data associated with a HTTP request action.",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "The current state of this action",
+          "enum": [
+            "notStarted",
+            "started",
+            "beforeRunErrorChecking",
+            "running",
+            "afterRunErrorChecking",
+            "completed",
+            "unknown"
+          ]
+        },
+        "started": {
+          "type": "boolean",
+          "description": "True if this action has started."
+        },
+        "ran": {
+          "type": "boolean",
+          "description": "True if this action ran, i.e. the run condition was true and there were no errors before the action had a chance to run."
+        },
+        "finished": {
+          "type": "boolean",
+          "description": "True if this action has finished, i.e. it has completed running and after error checking has completed."
+        },
+        "succeeded": {
+          "type": "boolean",
+          "description": "True if this action has finished without errors. If this is false, an error object is required."
+        },
+        "error": {
+          "type": "object",
+          "description": "The error object that was generated by error condition for this action. Only including when finished is true and suceeded is false.",
+          "$ref": "#error"
+        },
+        "onErrorActions": {
+          "type": "object",
+          "description": "An object containing a property named after the aliases of each action within this group of error handling actions. Each property records the data output of the corresponding action.",
+          "additionalProperties": {
+            "$ref": "#action"
+          }
+        },
+        "startedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "startedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "ranTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "ranDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "finishedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "finishedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+
+        "automationAlias": {
+          "type": "string",
+          "description": "The alias of the automation that was run."
+        },
+        "trigger": {
+          "type": "object",
+          "description": "An object containing the data supplied through the trigger data of the run automation action.",
+          "properties": {
+            "triggerAlias": {
+              "type": "string",
+              "description": "The alias of the trigger that invoked the automation. Since it was called by a run automation action, the trigger alias value will be \"runAutomation\""
+            }
+          },
+          "required": [ "triggerAlias" ],
+          "additionalProperties": true
+        },
+        "actions": {
+          "type": "object",
+          "description": "An object containing a property named after the aliases of each action within the automation. Each property records the data output of the corresponding action.",
+          "additionalProperties": {
+            "$ref": "#action"
+          }
+        },
+        "variables": {
+          "type": "object",
+          "description": "An object containing properties that were set by actions within the automation, with values of any type.",
+          "additionalProperties": true
+        }
+      },
+      "required": [ "state", "started" ],
+      "additionalProperties": false
+    },
+
+    "uploadFileAction": {
+      "$id": "#uploadFileAction",
+      "description": "The data associated with an upload file action.",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "The current state of this action",
+          "enum": [
+            "notStarted",
+            "started",
+            "beforeRunErrorChecking",
+            "running",
+            "afterRunErrorChecking",
+            "completed",
+            "unknown"
+          ]
+        },
+        "started": {
+          "type": "boolean",
+          "description": "True if this action has started."
+        },
+        "ran": {
+          "type": "boolean",
+          "description": "True if this action ran, i.e. the run condition was true and there were no errors before the action had a chance to run."
+        },
+        "finished": {
+          "type": "boolean",
+          "description": "True if this action has finished, i.e. it has completed running and after error checking has completed."
+        },
+        "succeeded": {
+          "type": "boolean",
+          "description": "True if this action has finished without errors. If this is false, an error object is required."
+        },
+        "error": {
+          "type": "object",
+          "description": "The error object that was generated by error condition for this action. Only including when finished is true and succeeded is false.",
+          "$ref": "#error"
+        },
+        "onErrorActions": {
+          "type": "object",
+          "description": "An object containing a property named after the aliases of each action within this group of error handling actions. Each property records the data output of the corresponding action.",
+          "additionalProperties": {
+            "$ref": "#action"
+          }
+        },
+        "startedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "startedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as an ISO-8601 formatted datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "ranTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "ranDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as an ISO-8601 formatted datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "finishedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "finishedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as an ISO-8601 formatted datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+
+        "protocol": {
+          "type": "string",
+          "description": "The name of the file transfer protocol that was used for uploading the file."
+        },
+        "hostname": {
+          "type": "string",
+          "description": "The name of the remote host that the file was uploaded to. An IP address may have been used in place of a hostname."
+        },
+        "port": {
+          "type": "integer",
+          "description": "The port number that was used when connecting to the remote host."
+        },
+        "fileName": {
+          "type": "string",
+          "description": "The file name of the file that was uploaded."
+        },
+        "fileSizeBytes": {
+          "type": "integer",
+          "description": "The file size in bytes of the file that was uploaded."
+        },
+        "fileSize": {
+          "type": "string",
+          "description": "A string representation of the file size of the file that was uploaded."
+        },
+        "remotePath": {
+          "type": "string",
+          "description": "The remote path where the file was uploaded to."
+        },
+        "createMissingFolders": {
+          "type": "boolean",
+          "description": "Contains the value set for the corresponding input parameter, if applicable."
+        },
+        "overwriteExistingFile": {
+          "type": "boolean",
+          "description": "Contains the value set for the corresponding input parameter, if applicable."
+        }
+      },
+      "required": [ "state", "started" ],
+      "additionalProperties": false
+    },
+
+    "attachFilesToEntityAction": {
+      "$id": "#attachFilesToEntityAction",
+      "description": "The data associated with an attachFilesToEntityAction.",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "The current state of this action",
+          "enum": [
+            "notStarted",
+            "started",
+            "beforeRunErrorChecking",
+            "running",
+            "afterRunErrorChecking",
+            "completed",
+            "unknown"
+          ]
+        },
+        "started": {
+          "type": "boolean",
+          "description": "True if this action has started."
+        },
+        "ran": {
+          "type": "boolean",
+          "description": "True if this action ran, i.e. the run condition was true and there were no errors before the action had a chance to run."
+        },
+        "finished": {
+          "type": "boolean",
+          "description": "True if this action has finished, i.e. it has completed running and after error checking has completed."
+        },
+        "succeeded": {
+          "type": "boolean",
+          "description": "True if this action has finished without errors. If this is false, an error object is required."
+        },
+        "error": {
+          "type": "object",
+          "description": "The error object that was generated by error condition for this action. Only including when finished is true and suceeded is false.",
+          "$ref": "#error"
+        },
+        "onErrorActions": {
+          "type": "object",
+          "description": "An object containing a property named after the aliases of each action within this group of error handling actions. Each property records the data output of the corresponding action.",
+          "additionalProperties": {
+            "$ref": "#action"
+          }
+        },
+        "startedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "startedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "ranTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "ranDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "finishedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "finishedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+
+        "entity": {
+          "type": "object",
+          "description": "A reference to the entity that files were attached to."
+        },
+        "attachments": {
+          "type": "array",
+          "description": "A list of the files that were attached to the entity.",
+          "items": {
+            "type": "object",
+            "description": "A file reference."
+          },
+          "additionalItems": false
+        }
+      },
+      "required": [ "state", "started" ],
+      "additionalProperties": false
+    },
+
+
+    "attachFilesToEntitiesAction": {
+      "$id": "#attachFilesToEntitiesAction",
+      "description": "The data associated with an attachFilesToEntitiesAction.",
+      "properties": {
+        "state": {
+          "type": "string",
+          "description": "The current state of this action",
+          "enum": [
+            "notStarted",
+            "started",
+            "beforeRunErrorChecking",
+            "running",
+            "afterRunErrorChecking",
+            "completed",
+            "unknown"
+          ]
+        },
+        "started": {
+          "type": "boolean",
+          "description": "True if this action has started."
+        },
+        "ran": {
+          "type": "boolean",
+          "description": "True if this action ran, i.e. the run condition was true and there were no errors before the action had a chance to run."
+        },
+        "finished": {
+          "type": "boolean",
+          "description": "True if this action has finished, i.e. it has completed running and after error checking has completed."
+        },
+        "succeeded": {
+          "type": "boolean",
+          "description": "True if this action has finished without errors. If this is false, an error object is required."
+        },
+        "error": {
+          "type": "object",
+          "description": "The error object that was generated by error condition for this action. Only including when finished is true and suceeded is false.",
+          "$ref": "#error"
+        },
+        "onErrorActions": {
+          "type": "object",
+          "description": "An object containing a property named after the aliases of each action within this group of error handling actions. Each property records the data output of the corresponding action.",
+          "additionalProperties": {
+            "$ref": "#action"
+          }
+        },
+        "startedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "startedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has started, this is the timestamp of the time when the action did start, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "ranTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "ranDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has run, this is the timestamp of the time when the action did run, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+        "finishedTicksSinceEpoch": {
+          "type": "integer",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as a ticks since epoch integer value.",
+          "examples": [ 1582532584813, 1610683682000 ]
+        },
+        "finishedDateTime": {
+          "type": "string",
+          "format": "datetime",
+          "description": "If this action has finished, this is the timestamp of the time when the action did finish, represented as an ISO-8601 formated datetime string.",
+          "examples": [ "2021-01-15T04:08:02.000+00:00" ]
+        },
+
+        "entities": {
+          "type": "array",
+          "description": "A list of references to entity that files were attached to.",
+          "items": {
+            "type": "object",
+            "description": "An entity reference."
+          },
+          "additionalItems": false
+        },
+        "attachments": {
+          "type": "array",
+          "description": "A list of the files that were attached to the entity.",
+          "items": {
+            "type": "object",
+            "description": "A file reference."
+          },
+          "additionalItems": false
+        }
+      },
+      "required": [ "state", "started" ],
+      "additionalProperties": false
+    },
+
+    // This could be referenced from serialised-entity.schema.1.0.0.json, but referens with "$ref": "serialised-entity.schema.1.0.0.json#error" syntax appears not to work 
+
+    "error": {
+      "$id": "#error",
+      "description": "Represents an error which has occurred within the application.",
+      "type": "object",
+      "properties": {
+        "code": {
+          "type": "string",
+          "description": "The error code, e.g. 'record.not.found' - we are using a string rather than an int as the error code can then convey some meaning in and of itself, yet it still must be unique."
+        },
+        "title": {
+          "type": "string",
+          "description": "A title for the message. This is used when the message is presented to the user in a dialog."
+        },
+        "message": {
+          "type": "string",
+          "description": "The error message."
+        },
+        "httpStatusCode": {
+          "type": "integer",
+          "description": "A HTTP Status code, e.g. 409."
+        },
+        "additionalDetails": {
+          "type": "array",
+          "description": "If there are additional details, they can be included here as properties with string values.",
+          "additionalItems": {
+            "type": "string"
+          }
+        },
+        "data": {
+          "type": "object",
+          "description": "Any additional data which you may want to pass with this error which may assist in error handling.",
+          "additionalProperties": true
+        }
+      },
+      "required": [ "code", "title", "message", "httpStatusCode" ],
+      "additionalProperties": false
+    },
+
+    "email": {
+      "$id": "#email",
+      "type": "object",
+      "description": "An email object.",
+      "properties": {
+        "sentDate": {
+          "type": "string",
+          "format": "date",
+          "description": "The date at which the email was sent."
+        },
+        "sentTime": {
+          "type": "string",
+          "format": "time",
+          "description": "The time at which the email was sent."
+        },
+        "recipientClassification": {
+          "type": "string",
+          "description": "the ubind classification of the recipient that the email is intended for, e.g. customer or agent.",
+          "enum": [ "customer", "client", "master" ],
+          "default": "customer"
+        },
+        "from": {
+          "type": "string",
+          "description": "An email address."
+        },
+        "replyTo": {
+          "type": "string",
+          "description": "A list of email addresses that will be used as the reply-to header for the email."
+        },
+        "to": {
+          "type": "string",
+          "description": "An email address or list of email addresses."
+        },
+        "cc": {
+          "type": "string",
+          "description": "An email address or list of email addresses."
+        },
+        "bcc": {
+          "type": "string",
+          "description": "An email address or list of email addresses."
+        },
+        "subject": {
+          "type": "string",
+          "description": "The subject of the email."
+        },
+        "textBody": {
+          "type": "string",
+          "description": "The text-only version of the email body."
+        },
+        "htmlBody": {
+          "type": "string",
+          "description": "The html version of the email body."
+        },
+        "attachments": {
+          "type": "array",
+          "description": "A list of file attachments for the email.",
+          "items": {
+            "$ref": "#file"
+          },
+          "additionalItems": false
+        },
+        "comments": {
+          "type": "string",
+          "description": "Comes from the 'comments' header of the email as per RFC5322."
+        },
+        "keywords": {
+          "type": "array",
+          "description": "Comes from the 'keywords' header of the email as per RFC5322.",
+          "items": {
+            "type": "string",
+            "description": "a keyword associated with the email content."
+          },
+          "additionalItems": false
+        },
+        "headers": {
+          "$ref": "#headers",
+          "description": "The headers from the email."
+        }
+      },
+      "required": [ "sentDate", "sentTime", "recipientClassification", "to", "from" ],
+      "anyOf": [
+        { "required": [ "textBody" ] },
+        { "required": [ "htmlBody" ] }
+      ],
+      "additionalProperties": false
+    },
+
+    "file": {
+      "$id": "#file",
+      "type": "object",
+      "description": "A file object.",
+      "properties": {
+        "fileName": {
+          "type": "string",
+          "description": "The filename of the file."
+        },
+        "fileSizeBytes": {
+          "type": "integer",
+          "description": "The file size in bytes."
+        },
+        "fileSizeString": {
+          "type": "string",
+          "description": "A string representation of the file size property. E.g. 283KB or 1.3MB"
+        },
+        "content": {
+          "type": "string",
+          "description": "The content of the file. If the file is binary then the content is Base64 encoded."
+        }
+      },
+      "required": [ "fileName", "fileSizeBytes", "fileSizeString", "content" ],
+      "additionalProperties": false
+    },
+
+        "httpRequest": {
+            "$id": "#httpRequest",
+            "type": "object",
+            "description": "A HTTP request.",
+            "properties": {
+                "httpVerb": {
+                    "type": "string",
+                    "description": "The HTTP verb of the HTTP request."
+                },
+                "url": {
+                    "type": "string",
+                    "description": "The URL of the HTTP request."
+                },
+                "scheme": {
+                    "type": "string",
+                    "description": "The scheme of the URL, e.g. 'https'."
+                },
+                "host": {
+                    "type": "string",
+                    "description": "The host of the URL, e.g 'mydomain.com'."
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "The port from the URL, e.g. '8443'"
+                },
+                "path": {
+                    "type": "string",
+                    "description": "The path from the URL, e.g. '/my-resource/details', or in the case of a httpRequest triggered by a httpTrigger, '/api/v1/tenant/my-tenant/product/my-product/environment/development/automation/my-trigger/red/blue'."
+                },
+                "pathSegments": {
+                    "type": "array",
+                    "description": "The path segments of the HTTP request. If used, must contain at least one segment.",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "queryString": {
+                    "type": "string",
+                    "descirption": "The query string from the URL, e.g. '?myParam=12345&sortOrder=asc'"
+                },
+                "queryParameters": {
+                    "type": "object",
+                    "description": "The query parameters of the HTTP request. Contains a property for each get parameter that was used. If no query string parameters were used this property is omitted.",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "pathParameters": {
+                    "type": "array",
+                    "description": "The path parameters of the HTTP request. Contains a property for each path parameter that was used. If no path parameters were used this property is omitted.",
+                    "additionalProperties": {
+                        "type": "string"
+                    }
+                },
+                "actionPath": {
+                    "type": "string",
+                    "description": "The action part of the path. This part of the path includes everything after the 'automation' segment"
+                },
+                "actionPathSegments": {
+                    "type": "array",
+                    "description": "The path segments from the action part of the path. This part of the path includes everything after the 'automation' segment",
+                    "items": {
+                        "type": "string"
+                    }
+                },
+                "remoteAddress": {
+                    "type": "string",
+                    "format": "ipv4",
+                    "description": "The remote address value of the HTTP request."
+                },
+                "referrer": {
+                    "type": "string",
+                    "description": "The referrer value of the HTTP request."
+                },
+                "headers": {
+                    "$ref": "#headers",
+                    "description": "The headers from the HTTP request."
+                },
+                "contentType": {
+                    "type": "string",
+                    "description": "The content-type of the HTTP request."
+                },
+                "characterSet": {
+                    "type": "string",
+                    "description": "The IANA character set, e.g. 'UTF-8'. Only applicable if it's a text MIME type."
+                },
+                "content": {
+                    "type": "string",
+                    "description": "The content found in the body of the HTTP request. It should match the content-type."
+                }
+            },
+            "required": [
+                "httpVerb",
+                "url"
+            ],
+            "additionalProperties": false
+        },
+
+       "httpResponse": {
+            "$id": "#httpResponse",
+            "description": "The response to a HTTP request.",
+            "type": "object",
+            "properties": {
+                "httpStatusCode": {
+                    "type": "integer",
+                    "description": "The HTTP status code to be set for the HTTP response."
+                },
+                "headers": {
+                    "$ref": "#headers",
+                    "description": "The headers from the HTTP response."
+                },
+                "contentType": {
+                    "type": "string",
+                    "description": "The content-type of the HTTP response."
+                },
+                "characterSet": {
+                    "type": "string",
+                    "description": "The IANA character set, e.g. \"UTF-8\". Only applicable if it's a text MIME type."
+                },
+                "content": {
+                    "type": "string",
+                    "description": "The content to use for the body of the HTTP response. It should match the content-type."
+                }
+            },
+            "required": [
+                "contentType",
+                "content"
+            ],
+            "additionalProperties": false
+        },
+
+		"emailAccount": {
+			"$id": "#emailAccount",
+			"description": "The details and credentials used to receive emails from a remote server.",
+			"type": "object",
+			"properties": {
+				"protocol": {
+					"type": "string",
+					"description": "The protocol that was used for connecting to the incoming mail server.",
+					"enum": [ "POP3", "IMAP" ],
+					"default": "POP3"
+				},
+				"encryptionMethod": {
+					"type": "string",
+					"description": "The encryption method used.",
+					"enum": [ "none", "SSL", "TLS" ],
+					"default": "TLS"
+				},
+				"hostname": {
+					"type": "string",
+					"description": "The host that was connected to."
+				},
+				"port": {
+					"type": "integer",
+					"description": "The port that was connected to."
+				},
+				"username": {
+					"type": "string",
+					"description": "The username that was used for authentication."
+				},
+				"password": {
+					"type": "string",
+					"description": "The password that was used for authentication"
+				}
+			},
+			"required": [ "hostname", "username", "password" ],
+			"additionalProperties": false
+		},
+
+		"serialisedDate": {
+			"id": "#serialisedDate",
+			"description": "A serialised representation of a date.",
+			"type": "object",
+			"properties": {
+				"day": {
+					"type": "integer",
+					"description": "The day of the month as a numeric value.",
+					"examples": [ 1, 15 ]
+				},
+				"dayPadded": {
+					"type": "string",
+					"description": "The day of the month as a string value, padded to 2 digits.",
+					"examples": [ "01", "15" ]
+				},
+				"dayString": {
+					"type": "string",
+					"description": "The day of the month as a string value, with st/nd/rd/th appended.",
+					"examples": [ "1st", "15th" ]
+				},
+				"month": {
+					"type": "integer",
+					"description": "The month as a numeric value.",
+					"examples": [ 9, 11 ]
+				},
+				"monthPadded": {
+					"type": "string",
+					"description": "The month as a string value, padded to 2 digits.",
+					"examples": [ "09", "11" ]
+				},
+				"monthName": {
+					"type": "string",
+					"description": "The name of the month as a string value.",
+					"examples": [ "September", "November" ]
+				},
+				"monthNameShort": {
+					"type": "string",
+					"description": "The name of the month as an abbreviated string value.",
+					"examples": [ "Sep", "Nov" ]
+				},
+				"year": {
+					"type": "integer",
+					"description": "The full year as a numeric value.",
+					"examples": [ 1978, 2016, 2020 ]
+				},
+				"yearShort": {
+					"type": "integer",
+					"description": "The last two digits of the full year as a numeric value.",
+					"examples": [ 78, 16, 20 ]
+				},
+				"clockStringUpper": {
+					"type": "string",
+					"description": "The clock string (am/pm) as an upper case string value.",
+					"examples": [ "AM", "PM" ]
+				},
+				"clockStringLower": {
+					"type": "string",
+					"description": "The clock string (am/pm) as an upper case string value.",
+					"examples": [ "am", "pm" ]
+				},
+				"weekNumber": {
+					"type": "integer",
+					"description": "The week number as a numeric value.",
+					"examples": [ 2, 35 ]
+				},
+				"weekday": {
+					"type": "string",
+					"description": "The weekday as a string value.",
+					"examples": [ "Monday", "Sunday" ]
+				},
+				"weekdayShort": {
+					"type": "string",
+					"description": "The weekday as an abbreviated string value.",
+					"examples": [ "Mon", "Sun" ]
+				},
+				"quarter": {
+					"type": "integer",
+					"description": "The week number as a numeric value.",
+					"examples": [ 2, 35 ]
+				},
+				"quarterString": {
+					"type": "string",
+					"description": "The quarter as a string value.",
+					"examples": [ "Q3 2016", "Q4 2020" ]
+				},
+				"quarterStringShort": {
+					"type": "string",
+					"description": "The quarter as an abbreviated string value.",
+					"examples": [ "Q3/16", "Q4/20" ]
+				},
+				"dateStringLong": {
+					"type": "string",
+					"description": "The date as a string value in long ('DD Mmm YYYY') format.",
+					"examples": [ "01 Sep 2016", "16 Nov 2020" ]
+				},
+				"dateStringShort": {
+					"type": "string",
+					"description": "The date as a string value in short ('DD/MM/YYYY') format.",
+					"examples": [ "01/09/2016", "16/11/2020" ]
+				},
+				"dateStringISO": {
+					"type": "string",
+					"description": "The date as a string value in ISO8601 ('YYYY-MM-DD') format.",
+					"examples": [ "2016-09-01", "2020-11-16" ]
+				},
+				"timeZoneName": {
+					"type": "string",
+					"description": "The name of the time zone in string format.",
+					"examples": [ "Australian Eastern Standard Time", "Australian Eastern Daylight Saving Time" ]
+				},
+				"timeZoneAlias": {
+					"type": "string",
+					"description": "The alias of the time zone in string format.",
+					"examples": [ "AEST", "AEDT" ]
+				},
+				"timeZoneOffset": {
+					"type": "string",
+					"description": "The UTC time offset of the time zone in string format.",
+					"examples": [ "UTC+10:00", "UTC-5:30" ]
+				}
+			},
+			"required": [
+				"day",
+				"dayPadded",
+				"dayString",
+				"month",
+				"monthPadded",
+				"monthName",
+				"monthNameShort",
+				"year",
+				"yearShort",
+				"clockStringUpper",
+				"clockStringLower",
+				"weekNumber",
+				"weekday",
+				"weekdayShort",
+				"quarter",
+				"quarterString",
+				"quarterStringShort",
+				"dateStringLong",
+				"dateStringShort",
+				"dateStringISO",
+				"timeZoneName",
+				"timeZoneAlias",
+				"timeZoneOffset"
+			],
+			"additionalProperties": false
+		},
+
+
+		"serialisedTime": {
+			"id": "#serialisedTime",
+			"description": "A serialised representation of a time.",
+			"type": "object",
+			"properties": {
+				"millis": {
+					"type": "integer",
+					"description": "The millisecons of the time as a numeric value.",
+					"examples": [ 23, 456 ]
+				},
+				"millisPadded": {
+					"type": "string",
+					"description": "The millisecons of the time as a string value, padded to 3 digits.",
+					"examples": [ "023", "456" ]
+				},
+				"seconds": {
+					"type": "integer",
+					"description": "The seconds of the time as a numeric value.",
+					"examples": [ 4, 56 ]
+				},
+				"secondsPadded": {
+					"type": "string",
+					"description": "The seconds of the time as a string value, padded to 2 digits.",
+					"examples": [ "04", "56" ]
+				},
+				"minutes": {
+					"type": "integer",
+					"description": "The minutes of the time as a numeric value.",
+					"examples": [ 3, 34 ]
+				},
+				"minutesPadded": {
+					"type": "string",
+					"description": "The minutes of the time as a string value, padded to 2 digits.",
+					"examples": [ "03", "34" ]
+				},
+				"hours": {
+					"type": "integer",
+					"description": "The hours of the time in 24-hour format as a numeric value.",
+					"examples": [ 4, 21 ]
+				},
+				"hoursPadded": {
+					"type": "string",
+					"description": "The hours of the time in 24-hour format as a string value, padded to 2 digits.",
+					"examples": [ "04", "21" ]
+				},
+				"hours12": {
+					"type": "integer",
+					"description": "The hours of the time in 12-hour format (am/pm) as a numeric value.",
+					"examples": [ 4, 9 ]
+				},
+				"hours12Padded": {
+					"type": "string",
+					"description": "The hours of the time in 12-hour format (am/pm) as a string value, padded to 2 digits.",
+					"examples": [ "04", "09" ]
+				},
+				"clockStringUpper": {
+					"type": "string",
+					"description": "The clock string (am/pm) as an upper case string value.",
+					"examples": [ "AM", "PM" ]
+				},
+				"clockStringLower": {
+					"type": "string",
+					"description": "The clock string (am/pm) as an upper case string value.",
+					"examples": [ "am", "pm" ]
+				},
+				"timeStringFull": {
+					"type": "string",
+					"description": "The time as a string value in full ('HH:mm:ss:sss') format.",
+					"examples": [ "04:03:04:023", "21:34:56:456" ]
+				},
+				"timeStringLong": {
+					"type": "string",
+					"description": "The time as a string value in long ('HH:mm:ss') format.",
+					"examples": [ "04:03:04", "21:34:56" ]
+				},
+				"timeStringShort": {
+					"type": "string",
+					"description": "The time as a string value in short 24-hour ('HH:mm') format.",
+					"examples": [ "04:03", "21:34" ]
+				},
+				"timeStringShort12": {
+					"type": "string",
+					"description": "The time as a string value in short 12-hour ('h:mm tt') format.",
+					"examples": [ "4:03 AM", "9:34 PM" ]
+				},
+				"timeZoneName": {
+					"type": "string",
+					"description": "The name of the time zone in string format.",
+					"examples": [ "Australian Eastern Standard Time", "Australian Eastern Daylight Saving Time" ]
+				},
+				"timeZoneAlias": {
+					"type": "string",
+					"description": "The alias of the time zone in string format.",
+					"examples": [ "AEST", "AEDT" ]
+				},
+				"timeZoneOffset": {
+					"type": "string",
+					"description": "The UTC time offset of the time zone in string format.",
+					"examples": [ "UTC+10:00", "UTC-5:30" ]
+				}
+			},
+			"required": [
+				"millis",
+				"millisPadded",
+				"seconds",
+				"secondsPadded",
+				"minutes",
+				"minutesPadded",
+				"hours",
+				"hoursPadded",
+				"hours12",
+				"hours12Padded",
+				"clockStringUpper",
+				"clockStringLower",
+				"timeStringFull",
+				"timeStringLong",
+				"timeStringShort",
+				"timeStringShort12",
+				"timeZoneName",
+				"timeZoneAlias",
+				"timeZoneOffset"
+			],
+			"additionalProperties": false
+		},
+
+      "eventType": {
+        "$id": "#eventType",
+        "type": "string",
+        "description": "The event type of an event.",
+        "enum": [
+          "quoteCreated",
+          "newBusinessQuoteCreated",
+          "adjustmentQuoteCreated",
+          "renewalQuoteCreated",
+          "cancellationQuoteCreated",
+          "quoteActualised",
+          "quoteFormDataUpdated",
+          "quoteCustomerAssociated",
+          "quoteCalculationResultCreated",
+          "customerDetailsUpdated",
+          "quoteSubmitted",
+          "quoteEnquiryMade",
+          "quoteSaved",
+          "quoteReferenceAssigned",
+          "quoteVersionCreated",
+          "quoteImported",
+          "quoteDiscarded",
+          "quoteWorkflowStepChanged",
+          "quoteStateChanged",
+          "quoteBound",
+          "quoteRolledBack",
+          "quoteCustomerAssociationInvitationCreated",
+          "quoteExpiryTimestampSet",
+          "formDataPatched",
+          "quoteFileAttached",
+          "quoteOrganisationAssociationUpdated",
+          "policyIssued",
+          "policyAdjusted",
+          "policyRenewed",
+          "policyCancelled",
+          "policyImported",
+          "policyFormDataUpdated",
+          "policyStateChanged",
+          "claimCreated",
+          "claimActualised",
+          "claimAmountUpdated",
+          "claimStatusUpdated",
+          "claimStateChanged",
+          "claimNumberUpdated",
+          "claimFormDataUpdated",
+          "claimCalculationResultCreated",
+          "claimVersionCreated",
+          "claimVersionFileAttached",
+          "claimImported",
+          "claimUpdateImported",
+          "claimDescriptionUpdated",
+          "claimIncidentDateUpdated",
+          "claimWorkflowStepChanged",
+          "claimEnquiryMade",
+          "claimPolicyAssociationCreated",
+          "claimOrganisationAssociationUpdated",
+          "documentAttachedToQuote",
+          "documentAttachedToQuoteVersion",
+          "documentAttachedToPolicy",
+          "paymentMade",
+          "paymentFailed",
+          "fundingProposalCreated",
+          "fundingProposalCreationFailed",
+          "fundingProposalAccepted",
+          "fundingProposalAcceptanceFailed",
+          "invoiceIssued",
+          "creditNoteIssued",
+          "portalCreated",
+          "portalUpdated",
+          "portalDisabled",
+          "portalEnabled",
+          "portalDeleted",
+          "userAccountActivationInvitationCreated",
+          "userAccountActivated",
+          "userCreated",
+          "userDisabled",
+          "userEdited",
+          "userEmailAddressBlocked",
+          "userEnabled",
+          "userLoggedOut",
+          "userLoginAttemptFailed",
+          "userLoginAttemptSucceeded",
+          "userModified",
+          "userOrganisationAssociationUpdated",
+          "userPasswordResetRequestMade",
+          "userPasswordUpdated",
+          "userRoleAdded",
+          "userRoleAssigned",
+          "userRoleRetracted",
+          "userSessionInvalidated",
+          "customerAgentAssigned",
+          "customerAgentUnassigned",
+          "customerCreated",
+          "customerEdited",
+          "customerExpiredQuoteOpened",
+          "customerDeleted",
+          "customerModified",
+          "customerUndeleted",
+          "organisationCreated",
+          "organisationUpdated",
+          "organisationDisabled",
+          "organisationEnabled",
+          "organisationDeleted",
+          "organisationModified",
+          "tenantModified",
+          "tenantDisabled",
+          "custom"
+        ]
+      },
+
+		"entityType": {
+			"$id": "#entityType",
+			"type": "string",
+			"description": "A type of entity in the uBind system.",
+			"enum": [
+				"quote",
+				"quoteVersion",
+				"policy",
+				"policyTransaction",
+				"claim",
+				"claimVersion",
+				"invoice",
+				"creditNote",
+				"payment",
+				"refund",
+				"customer",
+				"person",
+				"commercialEntity",
+				"tenant",
+				"product",
+				"release",
+				"portal",
+				"organisation",
+				"user",
+				"email",
+				"document",
+				"event",
+				"role",
+				"report"
+			]
+		},
+		"content": {
+			"$id": "#content",
+			"description": "Content for an email, HTTP request or HTTP response. May be a single content or an array of content (multi-part).",
+			"oneOf": [
+				{
+					"type": "string",
+					"description": "The text content."
+				},
+				{
+					"$ref": "#binary",
+					"description": "Binary data content defined by a binary data provider."
+				},
+				{
+					"type": "array",
+					"description": "A list of mime-type and content pairs, to be used when this content is multi-part.",
+					"items": {
+						"type": "object",
+						"description": "A mime-type/content pair, representing a part in multi-part content.",
+						"properties": {
+							"headers": {
+								"$ref": "#headers",
+								"description": "The headers for this part in the multi-part content."
+							},
+							"contentType": {
+								"type": "string",
+								"description": "The mime-type for this part in the multi-part content"
+							},
+							"characterSet": {
+								"type": "string",
+								"description": "The character set, e.g. UTF-8"
+							},
+							"content": {
+								"description": "The content for this part in the multi-part content",
+								"$ref": "#content"
+							}
+						},
+						"required": [ "contentType", "content" ],
+						"additionalProperties": false
+					}
+				}
+			]
+		},
+		"binary": {
+			"$id": "#binary",
+			"type": "object",
+			"description": "Binary data generated from a specific binary data provider type.",
+			"properties": {
+				"base64Value": {
+					"type": "string",
+					"description": "The binary data encoded as a base 64 string"
+				},
+				"binaryDataId": {
+					"type": "string",
+					"description": "The ID of the binary data stored internally"
+				}
+			},
+			"oneOf": [
+				{ "required": [ "base64Value" ] },
+				{ "required": [ "binaryDataId" ] }
+			],
+			"additionalProperties": false
+		},
+		"headers": {
+			"$id": "#headers",
+			"type": "object",
+			"description": "The collection of headers from an email, HTTP request or HTTP response. Each header can be either a single string value, or an array of string values.",
+			"additionalProperties": {
+				"oneOf": [
+					{
+						"type": "string"
+					},
+					{
+						"type": "array",
+						"items": {
+							"type": "string"
+						}
+					}
+				]
+			}
+		}
+    }
+}

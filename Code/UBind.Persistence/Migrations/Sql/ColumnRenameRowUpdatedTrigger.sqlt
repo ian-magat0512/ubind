@@ -1,0 +1,23 @@
+﻿-- {1} copy rows {2} and {3} to each other when a row is updated
+CREATE OR ALTER TRIGGER {0}
+   ON dbo.{1}
+   AFTER UPDATE
+AS
+BEGIN
+    SET NOCOUNT ON;
+ 
+    IF UPDATE({2}) AND TRIGGER_NESTLEVEL() = 1
+    BEGIN
+        UPDATE dbo.{1}
+        SET {3} = i.{2}
+        FROM INSERTED i
+        WHERE dbo.{1}.{4} = i.{4}
+    END
+    IF UPDATE({3}) AND TRIGGER_NESTLEVEL() = 1
+    BEGIN
+        UPDATE dbo.{1}
+        SET {2} = i.{3}
+        FROM INSERTED i
+        WHERE dbo.{1}.{4} = i.{4}
+    END
+END

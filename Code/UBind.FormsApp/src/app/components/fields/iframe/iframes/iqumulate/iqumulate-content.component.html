@@ -1,0 +1,9 @@
+<div>
+    <ng-template #iQumulateMPFContainer></ng-template>
+</div>
+
+<input type="hidden"
+       class="form-control"
+       [name]="facade.key"
+       [formControl]="facade.formControl"
+       (change)="facade.onChange($event)" />

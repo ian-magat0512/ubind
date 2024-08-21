@@ -1,0 +1,37 @@
+<app-segmented-entity-list [title]="title"
+                           [listItemNamePlural]="'claims'"
+                           [entityRouteParamName]="'claimId'"
+                           [entityLoaderService]="claimApiService"
+                           [viewModelConstructor]="viewModelConstructor"
+                           [segments]="segments"
+                           [defaultSegment]="defaultSegment"
+                           [filterStatuses]="filterStatuses"
+                           [sortOptions]="sortOptions"
+                           [filterByDates]="filterByDates"
+                           [itemTemplate]="claimListItemTemplate"
+                           [entityTypeName]="'Claim'"
+                           [entityPathSegment]="'claim'"
+                           (listQueryParamsGenerated)="onListQueryParamsGenerated($event)"
+                           [additionalActionButtonList]="additionalActionButtonList"
+                           [ngStyle]="{'height': '100%'}">
+</app-segmented-entity-list>
+
+<ng-template #claimListItemTemplate let-item>
+        <library-icon name="clipboard" [library]="iconLibrary.AngularMaterial" cssClass="mat-icon-md"></library-icon>
+        <ion-label class="ion-text-wrap">
+            <div>
+                {{item.fullName}}
+                <library-icon *ngIf="item.isTestData" 
+                    name="logo-game-controller-a" 
+                    [library]="iconLibrary.IonicV4" 
+                    class="testdata-list-icon right-icon-text"
+                    [cssClass]="'medium'">
+                </library-icon>
+            </div>
+            <p class="status"> {{item.productName}} </p>
+        </ion-label>
+        <ion-label class="ion-text-wrap ion-text-end" slot="end">
+            <div class="list-title">{{item.claimReference}}</div>
+            <p class="status">{{item.status | titlecase}}</p>
+        </ion-label>
+</ng-template>

@@ -1,0 +1,36 @@
+﻿// <copyright file="EwayEncryptionResponse.cs" company="uBind">
+// Copyright (c) uBind. All rights reserved.
+// </copyright>
+
+// If you edit this file, you must remove this line and then do proper null checking
+#pragma warning disable CS8600, CS8625, CS8629, CS8618, CS8605, CS8604, CS8601, CS8602, CS8603, CS8622, CS8619, CS8767, CS8620, CS8765
+
+namespace UBind.Application.Payment.Eway
+{
+    using System.Collections.Generic;
+    using Newtonsoft.Json;
+
+    /// <summary>
+    /// Encryption respoinse from EWay Payment gateway.
+    /// </summary>
+    public class EwayEncryptionResponse
+    {
+        /// <summary>
+        /// Gets the encryption method used.
+        /// </summary>
+        [JsonProperty]
+        public string Method { get; private set; }
+
+        /// <summary>
+        /// Gets the list of the returned encrypted items.
+        /// </summary>
+        [JsonProperty]
+        public IEnumerable<EncryptionItemValues> Items { get; private set; }
+
+        /// <summary>
+        /// Gets the error codes returned, if any, that occured with the encryption.
+        /// </summary>
+        [JsonProperty]
+        public string Errors { get; private set; }
+    }
+}

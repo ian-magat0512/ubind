@@ -1,0 +1,1588 @@
+ {
+    "schemaVersion": "1.0.0",
+    "automations": [
+        {
+            "name": "Test Automation",
+            "alias": "testAutomation",
+            "description": "A test automation",
+
+            "triggers": [
+                {
+                    "httpTrigger": {
+                        "name": "HTTP Trigger Test",
+                        "alias": "httpTriggerTest",
+                        "description": "A test of the HTTP trigger",
+
+                        "endpoint": {
+                            "path": "searchAddress",
+                            "httpVerb": "POST",
+                            "requestValidationErrorConditions": [
+                                {
+                                    "condition": {
+                                        "textStartsWithCondition": {
+                                            "text": {
+                                                "liquidText": {
+                                                    "liquidTemplate": "{{ request.contentType }}",
+                                                    "dataObject": {
+                                                        "contextEntitiesObject": [ "/quote", "/invoice", "/policy"]
+                                                    }
+                                                }
+                                            },
+                                            "startsWith": "application/json"
+                                        }
+                                    },
+                                    "error": {
+                                        "code": "contentType.incorrect",
+                                        "title": "Incorrect content-type used in request",
+                                        "message": "The content-type of the request must be 'application/json'.",
+                                        "httpStatusCode": 415,
+                                        "additionalDetails": [
+                                            {
+                                                "liquidText": {
+                                                    "liquidTemplate": "The content-type used for the request was '{{ request.contentType }}",
+                                                    "dataObject": {
+                                                        "contextEntitiesObject": [ "/quote", "/invoice", "/policy"]
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "data": {
+                                            "objectPathLookupObject": "/trigger/request" // DISCUSS: "/actions/myGroupAction/myIterateAction/myAction/propetyName"
+                                        }
+                                    }
+                                },
+                                {
+                                    "condition": {
+                                        "textMatchesRegexPatternCondition": {
+                                            "text": {
+                                                "objectPathLookupText": {
+                                                    "path": "/trigger/request/referrer"
+                                                }
+                                            },
+                                            "regexPattern": "^(app\\.ubind\\.com\\.au|staging-app\\.ubind\\.io|feature-ub-[0-9]+\\.platform\\.ubind\\.io|localhost)\/.*$"
+                                        }
+                                    },
+                                    "error": {
+                                        "code": "referrer.not.permitted",
+                                        "title": "Referrer not permitted",
+                                        "message": "This API endpoint is only accessible when the referrer is a valid uBind domain.",
+                                        "httpStatusCode": 403,
+                                        "additionalDetails": [
+                                            {
+                                                "liquidText": {
+                                                    "liquidTemplate": "The referrer used for the request was '{{ Request.Referrer }}'.",
+                                                    "dataObject": {
+                                                        "objectPathLookupObject": {
+                                                            "path": "/trigger"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ],
+                                        "data": {
+                                            "objectPathLookupObject": "/trigger/request"
+                                        }
+                                    }
+                                },
+                                {
+                                    "condition": {
+                                        "jsonPassesSchemaAssertionCondition": {
+                                            "jsonData": {
+                                                "objectPathLookupText": "/trigger/request/content"
+                                            },
+                                            "jsonSchema": {
+                                                "fileText": {
+                                                    "productFile": {
+                                                        "repository": "quote",
+                                                        "visibility": "private",
+                                                        "filePath": "schemas/http-trigger-test-schema.1.0.0.json"
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    },
+                                    "error": {
+                                        "code": "request.content.schema.assertion.failed",
+                                        "title": "Request content schema assertion failed",
+                                        "message": "The content used in the request payload did not pass schema assertion using the required schema.",
+                                        "httpStatusCode": 400,
+                                        "additionalDetails": [
+                                            "The schema used to perform the assertion is the product file 'schemas/http-trigger-test-schema.1.0.0.json'."
+                                        ],
+                                        "data": [
+                                            {
+                                                "propertyName": "request",
+                                                "value": {
+                                                    "objectPathLookupObject": "/trigger/request"
+                                                }
+                                            },
+                                            {
+                                                "propertyName": "jsonSchemaBody",
+                                                "value": {
+                                                    "fileText": {
+                                                        "productFile": {
+                                                            "repository": "quote",
+                                                            "visibility": "private",
+                                                            "filePath": "schemas/http-trigger-test-schema.1.0.0.json"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        ]
+                                    }
+                                }
+                            ]
+                        },
+                        "httpResponse": {
+                            "httpStatusCode": {
+                                "expressionInteger": "something == 'else' ? 200 : 400"
+                            },
+                            "headers": [
+                                {
+                                    "USERNAME": "myUserName"
+                                },
+                                {
+                                    "PASSWORD": {
+                                        "liquidText": {
+                                            "liquidTemplate": "{{ Some.Property }}",
+                                            "dataObject": {
+                                                "objectPathLookupObject": "/some/path"
+                                            }
+                                        }
+                                    }
+                                },
+                                {
+                                    "name": {
+                                        "liquidText": {
+                                            "liquidTemplate": "{{ Some.Property }}",
+                                            "dataObject": {
+                                                "objectPathLookupObject": "/some/path"
+                                            }
+                                        }
+                                    },
+                                    "value": {
+                                        "liquidText": {
+                                            "liquidTemplate": "{{ Model.Property }}",
+                                            "dataObject": {
+                                                "objectPathLookupObject": "/some/path"
+                                            }
+                                        }
+                                    }
+                                },
+                                {
+                                    "name": "arrayValueText",
+                                    "value": [
+                                        "Text 1",
+                                        "Text 2",
+                                        {
+                                            "liquidText": {
+                                                "liquidTemplate": "{{ Some.Property }}",
+                                                "dataObject": {
+                                                    "objectPathLookupObject": "/some/path"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            ],
+                            "contentType": "multipart",
+                            "content": {
+                                "jsonText": {
+                                    "entityObject": {
+                                        "dynamicEntity": {
+                                            "entityType": {
+                                                "objectPathLookupText": "/trigger/httpRequest/getParameters/entityType"
+                                            },
+                                            "entityId": {
+                                                "objectPathLookupText": "/trigger/httpRequest/getParameters/entityId"
+                                            }
+                                        }
+                                    }
+                                }
+                            }
+                            /*
+                            "content": [
+                                {
+                                    "contentType": "text/csv",
+                                    "content": "Name,Number\nCarl,1\nPete,2"
+                                },
+                                {
+                                    "contentType": "application/pdf",
+                                    "content": {
+                                        "fileBinary": {
+                                            "productFile": {
+                                                "repository": "quote",
+                                                "visibility: "public",
+                                                "filePath": "documents/product-disclosure-statement.pdf"
+                                            }
+                                        }
+                                    }
+                                },
+                                {
+                                    "contentType": "multipart",
+                                    "content": [
+                                        {
+                                            "contentType": "application/json",
+                                            "content": {
+                                                "jsonText": {
+                                                    "entityObject": {
+                                                        "quote": {
+                                                            "quoteReference": {
+                                                                "liquidText": {
+                                                                    "liquidTemplate": "{{ request.getParameters.quoteReference }}",
+                                                                    "dataObject": {
+                                                                        "objectPathLookupObject": "trigger"
+                                                                    }
+                                                                }
+                                                            },
+                                                            "environment": "staging"
+                                                        }
+                                                    }
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "contentType": "text/html",
+                                            "content": "<html>something</html>"
+                                        }
+                                    ]
+                                }
+                            ]
+                            */
+                        },
+
+                        "context": {
+                            "relatedEntitiesObject": {
+                                "entity": {
+                                    "quote": {
+                                        "quoteReference": {
+                                            "objectPathLookupText": "/trigger/request/getParameters/quoteReference"
+                                        },
+                                        "environment": "staging"
+                                    }
+                                },
+                                "relatedEntityTypes": [ "tenant", "product", "customer" ]
+                            }
+                        }
+
+                    }
+                },
+                {
+                    "eventTrigger": {
+                        "name": "Event Trigger Test",
+                        "alias": "eventTriggerTest",
+                        "description": "A test of the event trigger",
+                        "eventType": "customerOpenedExpiredQuote"
+                    }
+                },
+                {
+                    "eventTrigger": {
+                        "name": "Event Trigger Test 2",
+                        "alias": "eventTriggerTest2",
+                        "description": "A second test of the event trigger",
+                        "eventType": "custom",
+                        "customEventAlias": "myCustomEvent"
+                    }
+                },
+                {
+                    "emailTrigger": {
+                        "name": "Email Trigger Test",
+                        "alias": "emailTriggerTest",
+                        "description": "A test of the email trigger",
+
+                        "emailAccount": {
+                            "protocol": "POP3",
+                            "encryptionMethod": "SSL",
+                            "hostname": "mail.abcinsurance.com.au",
+                            "port": 995,
+                            "username": "contact@abcinsurance.com.au",
+                            "password": "9#J8&s@fDO",
+                            "pollingIntervalSeconds": 60
+                        }
+                    }
+                },
+                {
+                    "periodicTrigger": {
+                        "name": "Periodic Trigger Test 1",
+                        "alias": "periodicTriggerTest1",
+                        "description": "A test of the periodic trigger with UTC time zone offset",
+                        "timeZoneOffset": "+11:00",
+                        "month": {
+                            "list": [
+                                "March",
+                                "June",
+                                "September"
+                            ]
+                        },
+                        "day": {
+                            "dayOfTheMonth": {
+                                "list": [ 1 ]
+                            },
+                            "dayOfTheWeek": {
+                                "list": [ "Monday", "Wednesday" ]
+                            }
+                        },
+                        "hour": {
+                            "list": [ 10, 12, 15, 18 ]
+                        },
+                        "minute": {
+                            "list": [ 0, 3, 6, 9 ]
+                        }
+                        /*
+                        "second": {
+                            "list": [ 0, 15, 30, 45 ],
+                            "range": {
+                                "from": 0,
+                                "to": 5
+                            },
+                            "every": 10
+                        },
+                        */
+                        /*
+                        "startDateTime": "2020-07-01T09:00:00",
+                        "endDateTime": "2021-06-30T17:00:00"
+                        */
+                    }
+                },
+                {
+                    "periodicTrigger": {
+                        "name": "Periodic Trigger Test 2",
+                        "alias": "periodicTriggerTest2",
+                        "description": "A test of the periodic trigger with time zone name/ID",
+                        //"systemTimeZoneId": "AUS Eastern Standard Time",
+                        "timeZoneId": "Australia/Melbourne",
+                        "month": {
+                            "every": 3
+                        },
+                        "day": {
+                            "dayOfTheWeekOccurrenceWithinMonth": {
+                                "dayOfTheWeek": "Monday",
+                                "occurrence": 3
+                            }
+                        },
+                        "hour": {
+                            "every": 12
+                        },
+                        "minute": {
+                            "every": 5
+                        }
+                        /*
+                        "second": {
+                            "list": [ 0, 15, 30, 45 ],
+                            "range": {
+                                "from": 0,
+                                "to": 5
+                            },
+                            "every": 10
+                        },
+                        */
+                        /*
+                        "startDateTime": "2020-07-01T09:00:00",
+                        "endDateTime": "2021-06-30T17:00:00"
+                        */
+                    }
+                },
+                {
+                    "periodicTrigger": {
+                        "name": "Periodic Trigger Test 3",
+                        "alias": "periodicTriggerTest3",
+                        "description": "A test of the periodic trigger with UTC time",
+                        "month": {
+                            "range": {
+                                "from": "August",
+                                "to": "September"
+                            }
+                        },
+                        "day": {
+                            "dayOfTheMonth": {
+                                "range": {
+                                    "from": 1,
+                                    "to": 15
+                                }
+                            },
+                            "dayOfTheWeek": {
+                                "range": {
+                                    "from": "Saturday",
+                                    "to": "Sunday"
+                                }
+                            }
+                        },
+                        "hour": {
+                            "range": {
+                                "from": 9,
+                                "to": 18
+                            }
+                        },
+                        "minute": {
+                            "range": {
+                                "from": 1,
+                                "to": 5
+                            }
+                        }
+                        /*
+                        "second": {
+                            "list": [ 0, 15, 30, 45 ],
+                            "range": {
+                                "from": 0,
+                                "to": 5
+                            },
+                            "every": 10
+                        },
+                        */
+                        /*
+                        "startDateTime": "2020-07-01T09:00:00",
+                        "endDateTime": "2021-06-30T17:00:00"
+                        */
+                    }
+                },
+                {
+                    "portalPageTrigger": {
+                        "name": "Portal Page Trigger Test",
+                        "alias": "portalPageTriggerTest",
+                        "description": "A test of the portal page trigger",
+
+                        "pages": [
+                            {
+                                "name": "listQuotes",
+                                "tabs": [
+                                    "incomplete",
+                                    "review"
+                                ]
+                            },
+                            "displayPolicy",
+                            "editClaim"
+                        ],
+                        "actionItemIcon": "play",
+                        "popoverMenuItemLabel": "Send welcome email",
+                        "spinnerAlertText": "Sending welcome email, please wait...",
+
+                        "downloadFile": {
+                            "textFile": {
+                                "outputFilename": "test.txt",
+                                "sourceData": "Some text contents"
+                            }
+                        },
+                        "successSnackbarText": {
+                            "liquidText": {
+                                "liquidTemplate": "Welcome email sent to {{ Customer.DisplayName }}",
+                                "dataObject": {
+                                    "objectPathLookupObject": "/context/customer"
+                                }
+                            }
+                        }
+                    }
+                },
+                {
+                    "generatePolicyNumberExtensionTrigger": {
+                        "name": "Generate Policy Number Extension Trigger Test",
+                        "alias": "generatePolicyNumberExtensionTriggerTest",
+                        "description": "A test of the generate policy number extension trigger",
+
+                        "productAliases": [
+                            "professionalIndemnity",
+                            "motor"
+                        ],
+                        "environments": [
+                            "staging",
+                            "production"
+                        ],
+                        "policyNumber": {
+                            "liquidText": {
+                                "liquidTemplate": "POL-{{ RatingState }}-{{ SequenceNumber | prepend: '00000' | slice: -5, 5 }}",
+                                "dataObject": [
+                                    {
+                                        "propertyName": "ratingState",
+                                        "value": {
+                                            "objectPathLookupText": {
+                                                "path": "/quote/questions/ratingState",
+                                                "dataObject": {
+                                                    "contextEntitiesObject": [ "/quote" ]
+                                                }
+                                            }
+                                        }
+                                    },
+                                    {
+                                        "propertyName": "sequenceNumber",
+                                        "value": {
+                                            "objectPathLookupText": "/actions/incrementAdditionalPropertyValueActionTest/resultingValue"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                }
+            ],
+
+            "actions": [
+                {
+                    "httpRequestAction": {
+                        "name": "HTTP Request Action Test",
+                        "alias": "httpRequestActionTest",
+                        "description": "A test of the HTTP request action",
+
+                        "asynchronous": true,
+                        "runCondition": {
+                            "orCondition": [
+                                {
+                                    "expressionCondition": "something == 'else'"
+                                },
+                                {
+                                    "textIsEqualToCondition":{
+                                        "text": "sample1",
+                                        "isEqualTo": "sample2"
+                                    }
+                                }
+                            ]
+                        },
+                        "beforeRunErrorConditions": [
+                            {
+                                "condition": {
+                                    "expressionCondition": "something == 'else'"
+                                },
+                                "error": {
+                                    "code": "some.error",
+                                    "title": "An error has occurred",
+                                    "message": "You need to fix the error",
+                                    "httpStatusCode": 400
+                                }
+                            }
+                        ],
+                        "afterRunErrorConditions": [
+                            {
+                                "condition": {
+                                    "expressionCondition": "response.httpStatusCode >= 400 && response.httpStatusCode < 500",
+                                },
+                                "error": {
+                                    "code": "104432",
+                                    "title": "Incorrect content-type used in request",
+                                    "message": "The content-type of the request must be application/json",
+                                    "httpStatusCode": 415,
+                                    "additionalDetails": [
+                                        {
+                                            "liquidText": {
+                                                "liquidTemplate": "The content-type used for the request was {{ Request.ContentType }}",
+                                                "dataObject": {
+                                                    "objectPathLookupObject": "/trigger"
+                                                }
+                                            }
+                                        }
+                                    ],
+                                    "data": {
+                                        "objectPathLookupObject": "/trigger/request"
+                                    }
+                                }
+                            }
+                        ],
+                        "onErrorActions": [
+                        ],
+
+                        "httpRequest": {
+                            "httpVerb": "POST",
+                            "url": "https://www.something.com/path/endpoint",
+                            "headers": [
+                                {
+                                    "username": "user.name"
+                                },
+                                {
+                                    "password": {
+                                        "objectPathLookupText": "/some/path"
+                                    }
+                                },
+                                {
+                                    "name": {
+                                        "objectPathLookupText": "/some/path"
+                                    },
+                                    "value": {
+                                        "objectPathLookupText": "/some/path"
+                                    }
+                                }
+                            ],
+                            /*
+                            "contentType": "text/csv",
+                            "content": "Name,Number\nCarl,1\nPete,2",
+                            */
+                            "contentType": "multipart",
+                            "content": [
+                                {
+                                    "contentType": "text/csv",
+                                    "content": "Name,Number\nCarl,1\nPete,2"
+                                },
+                                {
+                                    "contentType": "application/pdf",
+                                    "content": {
+                                        "fileBinary": {
+                                            "productFile": {
+                                                "repository": "quote",
+                                                "visibility": "public",
+                                                "filePath": "documents/product-disclosure-statement.pdf"
+                                            }
+                                        }
+                                    }
+                                },
+                                {
+                                    "contentType": "multipart",
+                                    "content": [
+                                        {
+                                            "contentType": "text/csv",
+                                            "content": "Name,Number\nCarl,1\nPete,2"
+                                        },
+                                        {
+                                            "contentType": "text/html",
+                                            "content": "<html>something</html>"
+                                        }
+                                    ]
+                                }
+                            ]
+                        }
+                    }
+                },
+
+                {
+                    "setAdditionalPropertyValueAction": {
+                        "name": "Set Additional Property Value Action Test",
+                        "alias": "setAdditionalPropertyValueActionTest",
+                        "description": "A test of the action to set the value of an additional property on an entity",
+
+                        "entity": {
+                            "contextEntity": "product"
+                        },
+                        "propertyAlias": {
+                            "liquidText": {
+                                "liquidTemplate": "{{ ProductEnvironment + 'PolicyNumberIndex' }}",
+                                "dataObject": [
+                                    {
+                                        "propertyName": "productEnvironment",
+                                        "value": {
+                                            "objectPathLookupText": "/context/application/environment"
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        "value": {
+                            "liquidText": {
+                                "liquidTemplate": "{{ PolicyNumberIndex | plus: 1 }}",
+                                "dataObject": [
+                                    {
+                                        "propertyName": "policyNumberIndex",
+                                        "value": {
+                                            "additionalPropertyValueText": {
+                                                "entity": {
+                                                    "contextEntity": "product"
+                                                },
+                                                "propertyAlias": {
+                                                    "liquidText": {
+                                                        "liquidTemplate": "{{ ProductEnvironment + 'PolicyNumberIndex' }}",
+                                                        "dataObject": [
+                                                            {
+                                                                "propertyName": "productEnvironment",
+                                                                "value": {
+                                                                    "objectPathLookupText": "/context/application/environment"
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+
+                {
+                    "incrementAdditionalPropertyValueAction": {
+                        "name": "Increment Additional Property Value Action Test",
+                        "alias": "incrementAdditionalPropertyValueActionTest",
+                        "description": "A test of the action to increment the value of an additional property on an entity",
+
+                        "entity": {
+                            "contextEntity": "product"
+                        },
+                        "propertyAlias": {
+                            "liquidText": {
+                                "liquidTemplate": "{{ ProductEnvironment + 'PolicyNumberIndex' }}",
+                                "dataObject": [
+                                    {
+                                        "propertyName": "productEnvironment",
+                                        "value": {
+                                            "objectPathLookupText": "/context/application/environment"
+                                        }
+                                    }
+                                ]
+                            }
+                        }
+                    }
+                },
+
+                {
+                    "setPolicyNumberAction": {
+                        "name": "Set Policy Number Action Test",
+                        "alias": "setPolicyNumberActionTest",
+                        "description": "A test of the action to set the policy number of a policy",
+
+                        "policy": {
+                            "objectPathLookupText": "/context/policy/id"
+                        },
+                        "policyNumber": {
+                            "liquidText": {
+                                "liquidTemplate": "{{ FormData.ratingState }}-{{ PolicyNumberIndex }}",
+                                "dataObject": [
+                                    {
+                                        "propertyName": "formData",
+                                        "value": {
+                                            "objectPathLookupObject": "/context/policyTransaction/formData"
+                                        }
+                                    },
+                                    {
+                                        "propertyName": "policyNumberIndex",
+                                        "value": {
+                                            "objectPathLookupText": "/actions/incrementAdditionalPropertyValueActionTest/originalValue"
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+                        "returnPreviousPolicyNumberToPool": true
+                    }
+                },
+                
+                {
+                    "attachFilesToEntityAction": {
+                        "name": "Attach Files To Entity Action Test",
+                        "alias": "attachFilesToEntityActionTest",
+                        "description": "A test of the attach files to entity action",
+
+                        "entity": {
+                            "contextEntity": "policyTransaction"
+                        },
+
+                        "attachments": [
+                            {
+                                "outputFilename": "Product Disclosure Statement.pdf",
+                                "sourceFile": {
+                                    "productFile": {
+                                        "repository": "quote",
+                                        "visibility": "public",
+                                        "filePath": "documents/product-disclosure-statement-v1.0.pdf"
+                                    }
+                                }
+                            },
+                            {
+                                "outputFilename": "Policy Schedule.pdf",
+                                "sourceFile": {
+                                    "pdfFile": {
+                                        "msWordFile": {
+                                            "sourceFile": {
+                                                "productFile": {
+                                                    "repository": "quote",
+                                                    "visibility": "private",
+                                                    "filePath": "templates/policy-schedule-v1.0.docx"
+                                                }
+                                            },
+                                            /*
+                                            "dataObject": [
+                                                {
+                                                    "propertyName": "calculation",
+                                                    "value": {
+                                                        "objectPathLookupObject": "/context/policyTransaction/calculation"
+                                                    }
+                                                },
+                                                {
+                                                    "propertyName": "formData",
+                                                    "value": {
+                                                        "objectPathLookupObject": "/context/policyTransaction/formData"
+                                                    }
+                                                }
+                                            ]*/
+                                            /*
+                                            "dataObject": {
+                                                "objectPathLookupTextListObject": {
+                                                    "paths": {
+                                                        "customerName": "/policy/customer/displayName",
+                                                        "customerAddress": "/policy/formData/details/customerAddress",
+                                                        "totalPremium": "/policy/calculation/premium/payable/totalPayable"
+                                                    },
+                                                    "dataObject": {
+                                                        "contextEntitiesObject": "/policy/customer"
+                                                    }
+                                                }
+                                            },
+                                            */
+                                            
+                                            "dataObject": [
+                                                {
+                                                    "propertyName": "customerName",
+                                                    "value": {
+                                                        "objectPathLookupText": {
+                                                            "path": "/policy/customer/displayName",
+                                                            "dataObject": {
+                                                                "contextEntitiesObject": "/policy/customer"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "propertyName": "customerAddress",
+                                                    "value": {
+                                                        "objectPathLookupText": {
+                                                            "path": "/policy/formData/details/customerAddress",
+                                                            "dataObject": {
+                                                                "contextEntitiesObject": "/policy/customer"
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "propertyName": "totalPremium",
+                                                    "value": {
+                                                        "objectPathLookupText": {
+                                                            "path": "/policy/calculation/premium/payable/totalPayable",
+                                                            "dataObject": {
+                                                                "contextEntitiesObject": "/policy/customer"
+                                                            }
+                                                        }
+                                                    }
+                                                }  
+                                            ]
+                                            
+                                        }
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "sendEmailAction": {
+                        "name": "Send Email Attachment Test",
+                        "alias": "sendEmailAttachmentTest",
+                        "description": "A test for attaching documents from a policy transaction",
+
+                        "email": {
+                            "recipientClassification": "customer",
+                            "from": "no-reply@ubind.io",
+                            "to": [
+                                "no-reply@ubind.io"
+                            ],
+                            "subject": "Testing attachments",
+                            "textBody": "Testing attachments",
+                            "htmlBody": "<html><body>Testing attachments</body><html>",
+                            "attachments": [
+                                {
+                                    "sourceFile": {
+                                        "entityFile": {
+                                            "entity": {
+                                                "contextEntity": "policyTransaction"
+                                            },
+                                            "filename": "Product Disclosure Statement.pdf"
+                                        }
+                                    }
+                                },
+                                {
+                                    "sourceFile": {
+                                        "entityFile": {
+                                            "entity": {
+                                                "contextEntity": "policyTransaction"
+                                            },
+                                            "filename": "Policy Schedule.pdf"
+                                        }
+                                    }
+                                }
+                            ]
+                        },
+
+                        "relationships": [
+                            {
+                                "relationshipTypeAlias": "messageSender",
+                                "targetEntity": {
+                                    "contextEntity": "organisation"
+                                }
+                            },
+                            {
+                                "relationshipTypeAlias": "emailRecipient",
+                                "targetEntity": {
+                                    "contextEntity": "customer"
+                                }
+                            },
+                            {
+                                "relationshipTypeAlias": "quoteEmail",
+                                "sourceEntity": {
+                                    "contextEntity": "quote"
+                                }
+                            },
+                            {
+                                "relationshipTypeAlias": "policyEmail",
+                                "sourceEntity": {
+                                    "contextEntity": "policy"
+                                }
+                            },
+                            {
+                                "relationshipTypeAlias": "policyTransactionEmail",
+                                "sourceEntity": {
+                                    "contextEntity": "policyTransaction"
+                                }
+                            },
+                            {
+                                "relationshipTypeAlias": "customerEmail",
+                                "sourceEntity": {
+                                    "contextEntity": "customer"
+                                }
+                            }
+                        ],
+
+                        "tags": [
+                            "Tag 1",
+                            "Something"
+                        ]
+                    }
+                },
+                {
+                    "sendEmailAction": {
+                        "name": "Send Email Action Test",
+                        "alias": "sendEmailActionTest",
+                        "description": "A test of the email action",
+
+                        "runCondition": {
+
+                            "expressionCondition": {
+                                "expression": "eventCount > 10000 && eventCount % 100 == 0",
+                                "dataObject": [
+                                    {
+                                        "propertyName": "eventCount",
+                                        "value": {
+
+                                            "countListItemsInteger": {
+
+                                                "filterListItemsList": {
+                                                    "list": {
+                                                        "entityQueryList": {
+                                                            "entityType": "event"
+                                                        }
+                                                    },
+                                                    "condition": {
+                                                        "andCondition": [
+                                                            {
+                                                                "textIsEqualToCondition": {
+                                                                    "text": {
+                                                                        "objectPathLookupText": "#/event/customEventAlias"
+                                                                    },
+                                                                    "isEqualTo": "myTestEvent"
+                                                                }
+                                                            },
+                                                            {
+                                                                "listCondition": {
+                                                                    "list": {
+                                                                        "objectPathLookupList": "#/event/tags"
+                                                                    },
+                                                                    "condition": {
+                                                                        "textIsEqualToCondition": {
+                                                                            "text": {
+                                                                                "objectPathLookupText": "#/item"
+                                                                            },
+                                                                            "isEqualTo": {
+                                                                                "objectPathLookupText": "/trigger/request/remoteAddress"
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    "matchType": "any"
+                                                                }
+                                                            },
+                                                            {
+                                                                "dateTimeIsInPeriodCondition": {
+                                                                    "dateTime": {
+                                                                        "objectPathLookupDateTime": "#/event/createdDateTime"
+                                                                    },
+                                                                    "isInPeriod": {
+                                                                        "calendarPeriod": {
+                                                                            "value": "current",
+                                                                            "periodType": "month"
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+                                        }
+                                    }
+                                ]
+                            }
+                        },
+
+                        "outboundEmailServerAlias": "testSmtpServer",
+                        "email": {
+                            "recipientClassification": "customer",
+                            "from": "ABC Insurance <no-reply@abcinsurance.com>",
+                            "replyTo": [
+                                "replyhere@abcinsurance.com>"
+                            ],
+                            "to": [
+                                {
+                                    "objectPathLookupText": "/context/customer/primaryEmail"
+                                }
+                            ],
+                            "cc": [
+                                "copyme@abcinsurance.com",
+                                {
+                                    "liquidText": {
+                                        "liquidTemplate": "{{ PrimaryEmail }}",
+                                        "dataObject": {
+                                            "objectPathLookupObject": "/context/customer"
+                                        }
+                                    }
+                                }
+                            ],
+                            "bcc": [
+                                "foo@bar.com"
+                            ],
+                            "subject": {
+                                "liquidText": {
+                                    "liquidTemplate": "Policy documents for {{ Customer.Person.DisplayName }}",
+                                    "dataObject": {
+                                        "contextEntitiesObject": [ "/customer" ]
+                                    }
+                                }
+                            },
+                            "textBody": {
+                                "liquidText": {
+                                    "liquidTemplate": {
+                                        "fileText": {
+                                            "productFile": {
+                                                "repository": "quote",
+                                                "visibility": "private",
+                                                "filePath": "email-templates/customer-text-v1.0.liquid" 
+                                            }
+                                        }
+                                    },
+                                    "dataObject": {
+                                        "contextEntitiesObject": [ "/quote", "/invoice", "/policy", "/customer"]
+                                    }
+                                }
+                            },
+                            "htmlBody": {
+                                "liquidText": {
+                                    "liquidTemplate": {
+                                        "fileText": {
+                                            "productFile": {
+                                                "repository": "quote",
+                                                "visibility": "public",
+                                                "filePath": "email-templates/customer-html-v1.0.liquid" 
+                                            }
+                                        }
+                                    },
+                                    "dataObject": {
+                                        "contextEntitiesObject": [ "/quote", "/invoice", "/policy", "/customer"]
+                                    }
+                                    /*
+                                    "dataObject": {
+                                        "mergeObjectsObject": [
+                                            {
+                                                "contextEntitiesObject": [ "/quote", "/invoice", "/policy"]
+                                            },
+                                            [
+                                                {
+                                                    "propertyName": "openQuoteLink2",
+                                                    "value": {
+                                                        "urlActionText": {
+                                                            "redirectUrlAction": {
+                                                                "url": {
+                                                                    "displayQuoteInPortalUrlText": {
+                                                                        "quote": "102a8c41-f979-4f71-9975-48c97ffd4d7c" // quote referece optional, context object used otherwise
+                                                                    }
+                                                                    
+
+                                                        
+                                                                    "https://www.hard-coded.url/"
+
+                                                                    "liquidText": {
+                                                                        "liquidTemplate": "https://{{ application.portalUrl }}/quote/{{ quote.id }}",
+                                                                        "dataObject": {
+                                                                            "contextEntitiesObject": [ "/quote", "/application" ]
+                                                                        }
+                                                                    }
+
+                                                                    "displayQuoteInPortalUrlText": {
+                                                                        "quote": "102a8c41-f979-4f71-9975-48c97ffd4d7c" // quote referece optional, context object used otherwise
+                                                                    },
+                                                                    
+                                                                    "editQuoteOnLandingPageUrlText": {
+                                                                        "landingPageUrl": "https://www.abcinsurance.com/get-a-quote.html"
+                                                                    },
+                                                                    
+                                                                    "renewPolicyInPortalUrlText": {
+                                                                    }
+                                                                    
+                                                                },
+                                                                "redirectType": "301" // enum.. "302" ?
+                                                            },
+                                                            
+                                                            "runAutomationUrlAction": {
+                                                                "triggerPath": "myTriggerPath",
+                                                                "environment": "staging"
+                                                            }
+                                                            
+                                                        }
+                                                    }
+                                                },
+
+                                            ]
+                                        ]
+                                    }*/
+                                }
+                            },
+                            "attachments": [
+                                {
+                                    "outputFilename": "Product Disclosure Statement.pdf",
+                                    "sourceFile": {
+                                        "productFile": {
+                                            "repository": "quote",
+                                            "visibility": "public",
+                                            "filePath": "product-disclosure-statement.pdf"
+                                        }
+                                    },
+                                    "includeCondition": {
+                                        "expressionCondition": "something == 'else'"
+                                    }
+                                },
+                                {
+                                    "outputFilename": "Policy Schedule.pdf",
+                                    "sourceFile": {
+                                        "entityFile": {
+                                            "entity": {
+                                                "contextEntity": "policy"
+                                            },
+                                            "filename": "policy-schedule.pdf",
+                                        }
+                                    }
+                                },
+                                {
+                                    "sourceFile": {
+                                        "objectPathLookupFile": "/context/quote/formData/logoUpload"
+                                    }
+                                },
+                                {
+                                    "outputFilename": {
+                                        "liquidText": {
+                                            "liquidTemplate": "Policy Schedule - {{ product.alias }} - {{ date.today }}.pdf",
+                                            "dataObject": {
+                                                "contextEntitiesObject": [ "/product" ]
+                                            }
+                                        }
+                                    },
+                                    "sourceFile": {
+                                        "pdfFile": {
+                                            "msWordFile": {
+                                                "sourceFile": {
+                                                    "productFile": {
+                                                        "repository": "quote",
+                                                        "visibility": "private",
+                                                        "filePath": "templates/policy-schedule-v1.0.docx"
+                                                    }
+                                                },
+                                                "dataObject": [
+                                                    {
+                                                        "propertyName": "calculation",
+                                                        "value": {
+                                                            "objectPathLookupObject": "/context/policyTransaction/calculation"
+                                                        }
+                                                    },
+                                                    {
+                                                        "propertyName": "formData",
+                                                        "value": {
+                                                            "objectPathLookupObject": "/context/policyTransaction/formData"
+                                                        }
+                                                    }
+                                                ]
+                                            }
+                                        }
+                                    }
+                                },
+                                {
+                                    "sourceFile": {
+                                        "zipFile": {
+                                            "outputFilename": "exported-data-{{ Date.Today }}.zip",
+                                            "sourceFiles": [
+                                                {
+                                                    "textFile": {
+                                                        "outputFilename": {
+                                                            "liquidText": {
+                                                                "liquidTemplate": "exported-data-{{ Date.Today }}.csv",
+                                                                "dataObject": {
+                                                                    "contextEntitiesObject": [ "/customer" ]
+                                                                }
+                                                            }
+                                                        },
+                                                        "sourceData": {
+                                                            "liquidText": {
+                                                                "liquidTemplate": {
+                                                                    "fileText": {
+                                                                        "productFile": {
+                                                                            "productAlias": "motor",
+                                                                            "environment": "development",
+                                                                            "repository": "quote",
+                                                                            "visibility": "private",
+                                                                            "filePath": "export/generate-export.liquid"
+                                                                        }
+                                                                    }
+                                                                },
+                                                                "dataObject": {
+                                                                    "contextEntitiesObject": [ "/product" ] // TODO: Replace with a query example
+                                                                }
+                                                            }
+                                                        }
+                                                    }
+                                                },
+                                                {
+                                                    "productFile": {
+                                                        "productAlias": "motor",
+                                                        "environment": "development",
+                                                        "repository": "quote",
+                                                        "visibility": "public",
+                                                        "filePath": "export/disclaimer.pdf",
+                                                        "outputFilename": "Motor Policy Disclaimer.pdf"
+                                                    }
+                                                }
+                                            ]
+                                        }
+                                    }
+                                }
+                            ],
+                            "comments": "Some text here",
+                            "keywords": [
+                                "keyword1",
+                                "keyword2",
+                                {
+                                    "objectPathLookupText": "/context/policyTransaction/formData/propertyName"
+                                },
+                                {
+                                    "liquidText": {
+                                        "liquidTemplate": "keyword{{ some.property.number }}",
+                                        "dataObject": {
+                                            "contextEntitiesObject": [ "/product" ] // TODO: Replace with a query example
+                                        }
+                                    }
+                                }
+                            ],
+                            "headers": [
+                                {
+                                    "something": "value"
+                                },
+                                {
+                                    "else": {
+                                        "objectPathLookupText": "/context/policyTransaction/formData/propertyName"
+                                    }
+                                },
+                                {
+                                    "name": {
+                                        "objectPathLookupText": "/context/policyTransaction/formData/propertyName"
+                                    },
+                                    "value": {
+                                        "objectPathLookupText": "/context/policyTransaction/formData/propertyName"
+                                    }
+                                }
+                            ]
+                        }
+                    }
+                },
+                {
+                    "raiseEventAction": {
+                        "name": "Event Action Test",
+                        "alias": "eventActionTest",
+                        "description": "A test of the event action",
+
+                        "customEventAlias": "myTestEvent",
+                        "eventData": {
+                            "objectPathLookupObject": {
+                                "path": "/something/here"
+                            }
+                        },
+                        "eventTags": [
+                            "someRemoteApiRequest",
+                            {
+                                "objectPathLookupText": "/trigger/request/remoteAddress" // or trigger.token if that's used
+                            }
+                        ],
+                        "eventPersistanceDuration": {
+                            "periodTypeValueDuration": {
+                                "value": 1,
+                                "periodType": "month"
+                            }
+                        },
+
+                        "afterRunErrorConditions": [
+                            {
+                                "condition": {
+                                    "integerIsGreaterThanCondition": {
+                                        "integer": {
+
+                                            "countListItemsInteger": {
+
+                                                "filterListItemsList": {
+                                                    "list": {
+                                                        "entityQueryList": {
+                                                            "entityType": "event"
+                                                        }
+                                                    },
+                                                    "itemAlias": "event",
+                                                    "condition": {
+                                                        "andCondition": [
+                                                            {
+                                                                "listCondition": {
+                                                                    "list": [ "VIC", "NSW" ],
+                                                                    "itemAlias": "myItem",
+                                                                    "condition": {
+                                                                        "textIsEqualToCondition": {
+                                                                            "text": {
+                                                                                "objectPathLookupText": "#/myItem"
+                                                                            },
+                                                                            "isEqualTo": {
+                                                                                "objectPathLookupText": "#/event/formData/ratingState"
+                                                                            }
+                                                                        }        
+                                                                    },
+                                                                    "matchType": "any"
+                                                                }
+                                                            },
+                                                            {
+                                                                "listCondition": {
+                                                                    "list": {
+                                                                        "objectPathLookupList": "#/event/tags"
+                                                                    },
+                                                                    "condition": {
+                                                                        "textIsEqualToCondition": {
+                                                                            "text": {
+                                                                                "objectPathLookupText": "#/item"
+                                                                            },
+                                                                            "isEqualTo": {
+                                                                                "objectPathLookupText": "/trigger/request/remoteAddress"
+                                                                            }
+                                                                        }
+                                                                    },
+                                                                    "matchType": "any"
+                                                                }
+                                                            },
+                                                            {
+                                                                "dateTimeIsInPeriodCondition": {
+                                                                    "dateTime": {
+                                                                        "objectPathLookupDateTime": "#/event/createdDateTime"
+                                                                    },
+                                                                    "isInPeriod": {
+                                                                        "lastPeriod": {
+                                                                            "periodTypeValueDuration": {
+                                                                                "value": 60,
+                                                                                "periodType": "second"
+                                                                            }
+                                                                        }
+                                                                    }
+                                                                }
+                                                            }
+                                                        ]
+                                                    }
+                                                }
+                                            }
+
+                                        },
+                                        "isGreaterThan": 10
+                                    }
+                                },
+                                "error": {
+                                    "code": "too.many.requests",
+                                    "title": "Too many requests from the same IP address",
+                                    "message": "...",
+                                    "httpStatusCode": 429,
+                                    "additionalDetails": [
+                                    ],
+                                    "data": {
+                                        "objectPathLookupObject": "/trigger/request"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "raiseErrorAction": {
+                        "name": "Raise Error Action Test",
+                        "alias": "raiseErrorActionTest",
+                        "description": "A test of the raise error action",
+
+                        "error": {
+                            "code": "some.custom.error",
+                            "title": "A sample error title",
+                            "message": "We encountered an error trying to execute your code. Please review the code and try to run it again.",
+                            "httpStatusCode": 500,
+                            "additionalDetails": [
+                                "Some additional information",
+                                "Is attached here"
+                            ],
+                            "data": [
+                                {
+                                    "propertyName": "someProperty",
+                                    "value": "Some value"
+                                },
+                                {
+                                    "propertyName": "anotherProperty",
+                                    "value": "Another value"
+                                }
+                            ]
+                        }
+                    }
+                },
+                {   
+                    "transformDataAction": {
+                        "name": "Event Action Test",
+                        "alias": "eventActionTest",
+                        "description": "A test of the event action",
+
+                        "resultObject": {
+                            "jsonObject": {
+                                "objectPathLookupText": "/actions/httpRequestActionTest/response/body"
+                            }
+                        }
+                    }
+                },
+                {
+                    "groupAction": {
+                        "name": "Group Action Test",
+                        "alias": "groupActionTest",
+                        "description": "A test of the group action",
+
+                        "actions": [
+                            {
+                                "groupAction": {
+                                    "name": "Nested Group Action Test",
+                                    "alias": "nestedGroupActionTest",
+
+                                    "parallel": true,
+                                    "actions": [
+                                        {
+                                            "httpRequestAction": {
+                                                "name": "HTTP Request Action Test 1",
+                                                "alias": "httpRequestActionTest1",
+
+                                                "httpRequest": {
+                                                    "url": "http://www.test.com/test.html"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "httpRequestAction": {
+                                                "name": "HTTP Request Action Test 2",
+                                                "alias": "httpRequestActionTest2",
+
+                                                "httpRequest": {
+                                                    "url": "http://www.test.com/test.html"
+                                                }
+                                            }
+                                        },
+                                        {
+                                            "httpRequestAction": {
+                                                "name": "HTTP Request Action Test 3",
+                                                "alias": "httpRequestActionTest3",
+
+                                                "httpRequest": {
+                                                    "url": "http://www.test.com/test.html"
+                                                }
+                                            }
+                                        }
+                                    ]
+                                }
+                            },
+                            {
+                                "httpRequestAction": {
+                                    "name": "HTTP Request Action Test 4",
+                                    "alias": "httpRequestActionTest4",
+
+                                    "httpRequest": {
+                                        "url": "http://www.test.com/test.html"
+                                    }
+                                }
+                            },
+                        ]
+                    }
+                },
+                {
+                    "iterateAction": {
+                        "name": "Iterate Action Test",
+                        "alias": "iterateActionTest",
+                        "description": "A test of the iterate action",
+
+                        "list": {
+                            "objectPathLookupList": {
+                                "path": "/company/employees",
+                                "dataObject": {
+                                    "jsonObject": {
+                                        "objectPathLookupText": "/trigger/request/body"
+                                    }
+                                }
+                            }
+                        },
+                        "startIndex": 1,
+                        "endIndex": 5,
+                        "doWhileCondition": {
+                            "expressionCondition": "something == 'else'"
+                        },
+
+                        "actions": [
+                            {
+                                "httpRequestAction": {
+                                    "name": "HTTP Request Action Test 5",
+                                    "alias": "httpRequestActionTest5",
+
+                                    "runCondition": {
+                                        "expressionCondition": "currentAction.currentItem.someProperty == 'val'"
+                                    },
+
+                                    "httpRequest": {
+                                        "url": {
+                                            "liquidText": {
+                                                "liquidTemplate": "http://www.test.com/test.html?something={{ Item.PropertyName }}",
+                                                "dataObject": {
+                                                    "objectPathLookupObject": "/actions/iterateActionTest/iteration"
+                                                }
+                                            }
+                                        }
+                                    }
+                                }
+                            },
+                            {
+                                "httpRequestAction": {
+                                    "name": "HTTP Request Action Test 6",
+                                    "alias": "httpRequestActionTest6",
+
+                                    "runCondition": {
+                                        "expressionCondition": "iteration.index < 1"
+                                    },
+
+                                    "httpRequest": {
+                                        "url": "http://www.test.com/test.html?something={{ CurrentAction.CurrentIndex }}"
+                                    }
+                                }
+                            }
+                        ]
+                    }
+                },
+                {
+                    "runAutomationAction": {
+                        "name": "Run Automation Action Test 1",
+                        "alias": "runAutomationActionTest1",
+                        "description": "A test of the run automation action",
+
+                        "automationAlias": "myAutomationAlias",
+                        "triggerDataObject": [
+                            {
+                                "propertyName": "foo",
+                                "value": "bar"
+                            }
+                        ]
+                    }
+                }
+            ]
+        }
+    ]
+}

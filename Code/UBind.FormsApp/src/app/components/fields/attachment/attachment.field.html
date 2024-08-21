@@ -1,0 +1,87 @@
+<field-debug *ngIf="applicationService.debug" [field]="this">
+    <span class="debug-property">
+        <span class="key">Upload Status:</span><span class="value"> {{ uploadStatus }}</span>
+    </span>
+    <span *ngIf="fileName" class="debug-property">
+        <span class="key">Filename:</span><span class="value"> {{ fileName }}</span>
+    </span>
+    <span *ngIf="mimeType" class="debug-property">
+        <span class="key">Mime Type:</span><span class="value"> {{ mimeType }}</span>
+    </span>
+    <span *ngIf="fileSizeBytes" class="debug-property">
+        <span class="key">File Size:</span><span class="value"> {{ fileSizeBytes | filesize }}</span>
+    </span>
+    <span *ngIf="imageWidth" class="debug-property">
+        <span class="key">Image Width:</span><span class="value"> {{ imageWidth }}</span>
+    </span>
+    <span *ngIf="imageHeight" class="debug-property">
+        <span class="key">Image Height:</span><span class="value"> {{ imageHeight }}</span>
+    </span>
+    <span *ngIf="debugValueProperties" class="debug-property">
+        <span class="key">Value Properties:</span><span class="value"> <pre>{{ debugValueProperties | json }}</pre> </span>&nbsp;&nbsp;
+    </span>
+</field-debug>
+
+<input type="hidden" class="form-control" [name]="key" [formControl]="formControl" />
+
+<div class="form-control file-upload" [id]="fieldPath | cssIdentifier">
+
+    <div class="btn-container">
+        <ng-container *ngIf="uploadStatus == 'complete' || uploadStatus == 'error'" >
+            <button (click)="deleteValue($event)" (focus)="onFocus($event)"
+                (blur)="onBlur($event)" class="btn btn-primary tabbable"
+                [id]="fieldPath + '-clear' | cssIdentifier">Clear</button>
+            <button (click)="replaceValue($event)" (focus)="onFocus($event)"
+                (blur)="onBlur($event)" class="btn btn-primary tabbable"
+                [id]="fieldPath + '-replace' | cssIdentifier">Replace</button>
+        </ng-container>
+        <ng-container *ngIf="uploadStatus == 'queued' || uploadStatus == 'sending'" >
+            <button  (click)="cancelUpload($event)"
+            (focus)="onFocus($event)" (blur)="onBlur($event)" class="btn btn-primary tabbable"
+            [id]="fieldPath + '-cancel' | cssIdentifier">Cancel Upload</button>
+        </ng-container>
+
+        <ng-container *ngIf="uploadStatus == 'none'" >
+            <button (click)="replaceValue($event)" (focus)="onFocus($event)"
+            (blur)="onBlur($event)" class="btn btn-primary tabbable"
+            [id]="fieldPath + '-select' | cssIdentifier">Select</button>
+        </ng-container>
+    </div>
+
+    <div *ngIf="uploadStatus == 'queued' || uploadStatus == 'sending' || uploadStatus == 'complete' || uploadStatus == 'error'" class="file-upload-info">
+        <ng-container *ngIf="uploadStatus == 'queued'" >
+            <span class="file-field-icon glyphicon glyphicon-hourglass"></span>
+            <span class="file-name" [class.disabled]="field.formControl.disabled">Upload queued</span>
+        </ng-container>
+
+        <ng-container *ngIf="uploadStatus == 'sending'" >
+            <span class="file-field-icon spinner">
+                <svg viewBox="0 0 66 66" xmlns="http://www.w3.org/2000/svg">
+                    <circle class="circle" fill="none" stroke="currentColor" stroke-width="12" stroke-linecap="round" cx="33" cy="33" r="30"></circle>
+                </svg>
+            </span>
+            <span class="file-name" [class.disabled]="field.formControl.disabled">
+                Uploading file ({{uploadPercentComplete}}%)
+            </span>
+        </ng-container>  
+
+        <ng-container *ngIf="uploadStatus == 'complete'">
+            <span class="file-field-icon glyphicon glyphicon-ok"></span>
+            <span class="file-name" [class.disabled]="field.formControl.disabled">
+                {{ fileName }}</span>
+            <span class="file-size" *ngIf="fileSizeBytes" [class.disabled]="field.formControl.disabled">
+                ({{ fileSizeBytes | filesize }})</span>
+        </ng-container>
+
+        <ng-container *ngIf="uploadStatus == 'error'" >
+            <span class="file-field-icon glyphicon glyphicon-remove"></span>
+            <span class="file-name" [class.disabled]="field.formControl.disabled">
+                Upload failed. Please try again.
+            </span>
+        </ng-container>
+    </div>
+</div>
+
+<input style="display:none" type="file" class="file-selector" placeholder="{{placeholderText}}"
+    (change)="onChange($event)" (keyup)="onKeyUp($event)" (focus)="onFocus($event)"
+    (blur)="onBlur($event)" (keydown)="onKeyDown($event)" tabindex="0"/>

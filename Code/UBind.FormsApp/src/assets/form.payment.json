@@ -1,0 +1,104 @@
+[
+	{
+		"className": "row is-flex",
+		"fieldGroup": [
+			{
+				"className": "col-xs-12 col-md-6",
+				"key": "cardHolderName",
+				"type": "input-field",
+				"templateOptions": {
+					"label": "Card holder name",
+					"hideCondition": "paymentMethod != 'Visa' && paymentMethod != 'Mastercard'"
+				},
+				"validators": {
+					"validation": Validators.compose([ValidationService.required(true)
+					])
+				}
+			},
+			{
+				"className": "col-xs-12 col-md-6",
+				"key": "creditCardNumber",
+				"type": "input-field",
+				"templateOptions": {
+					"label": "Credit card number",
+					"placeholder": " ---- ---- ---- ---- ",
+					"formatTextInput": "creditCardNumber",
+					"hideCondition": "paymentMethod != 'Visa' && paymentMethod != 'Mastercard'"
+				},
+				"validators": {
+					"validation": Validators.compose([ValidationService.required(true), ValidationService.isCreditCardNumber()
+					])
+				}
+			},
+			{
+				"className": "col-xs-6 col-sm-3",
+				"key": "expiryDate",
+				"type": "input-field",
+				"templateOptions": {
+					"label": "Expiry date",
+					"placeholder": " -- / -- ",
+					"hideCondition": "paymentMethod != 'Visa' && paymentMethod != 'Mastercard'"
+				},
+				"validators": {
+					"validation": Validators.compose([ValidationService.required(true), ValidationService.isExpiryDate()
+					])
+				}
+			},
+			{
+				"className": "col-xs-6 col-sm-3",
+				"key": "CCV",
+				"type": "input-field",
+				"templateOptions": {
+					"label": "CCV number",
+					"placeholder": " --- ",
+					"hideCondition": "paymentMethod != 'Visa' && paymentMethod != 'Mastercard'"
+				},
+				"validators": {
+					"validation": Validators.compose([ValidationService.required(true), ValidationService.isCCV()
+					])
+				}
+			},
+			{
+				"className": "col-xs-12 col-md-6",
+				"key": "accountName",
+				"type": "input-field",
+				"templateOptions": {
+					"label": "Account name",
+					"hideCondition": "paymentMethod != 'Direct Debit'"
+				},
+				"validators": {
+					"validation": Validators.compose([ValidationService.required(true)
+					])
+				}
+			},
+			{
+				"className": "col-xs-6 col-sm-3",
+				"key": "BSB",
+				"type": "input-field",
+				"templateOptions": {
+					"label": "BSB",
+					"formatTextInput": "bsb",
+					"hideCondition": "paymentMethod != 'Direct Debit'"
+				},
+				"validators": {
+					"validation": Validators.compose([ValidationService.required(true), ValidationService.isBSB()
+					])
+				}
+			},
+			{
+				"className": "col-xs-6 col-sm-3",
+				"key": "accountNumber",
+				"type": "input-field",
+				"templateOptions": {
+					"label": "Account number",
+					"formatTextInput": "creditCardNumber",
+					"hideCondition": "paymentMethod != 'Direct Debit'"
+				},
+				"validators": {
+					"validation": Validators.compose([ValidationService.required(true)
+					])
+				}
+			}
+		]
+	}
+]

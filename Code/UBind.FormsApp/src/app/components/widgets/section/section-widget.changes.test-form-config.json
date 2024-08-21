@@ -1,0 +1,52 @@
+{
+    "version": "2.0.0",
+    "form": {
+        "defaultCurrencyCode": "AUD",
+        "questionSets": [{
+                "name": "Step 1 Question Set",
+                "key": "step1QuestionSet",
+                "fields": [
+                    {
+                        "$type": "single-line-text",
+                        "startsNewRow": true,
+                        "bootstrapColumnsExtraSmall": 12,
+                        "name": "Step 1 Field",
+                        "key": "step1Field",
+                        "questionSetKey": "step1QuestionSet",
+                        "label": "Input",
+                        "dataType": "text",
+                        "question": "Type an input value here:"
+                      }
+                ]
+            }
+        ],
+        "textElements": [{
+            "category": "Workflow",
+            "subcategory": "Step 1",
+            "name": "My Heading",
+            "text": "My step 1 first article heading"
+        }, {
+            "category": "Workflow",
+            "subcategory": "Step 1",
+            "name": "My Text",
+            "text": "My step 1 first article text"
+        }],
+        "workflowConfiguration": {
+            "step1": {
+                "startScreenExpression": "true",
+                "articles": [
+                    {
+                        "heading": "myHeading",
+                        "text": "myText",
+                        "elements": [
+                            {
+                                "type": "questions",
+                                "name": "step1QuestionSet"
+                            }
+                        ]
+                    }
+                ]
+            }
+        }
+    }
+}

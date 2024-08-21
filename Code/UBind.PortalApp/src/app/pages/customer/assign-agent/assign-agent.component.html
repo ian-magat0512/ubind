@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar class="level-1">
+    <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="start">
+      <ion-button slot="icon-only" (click)="closeButtonClicked()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="!layoutManager.splitPaneVisible">Assign {{hasAgent ? 'New': ''}} Agent</ion-title>
+    <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="end">
+      <ion-button (click)="assignButtonClicked()">
+        Assign
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+
+<ion-content class="left-pane" [@contentAnimation]>
+  <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+    <ion-buttons slot="start">
+      <ion-button slot="icon-only" (click)="closeButtonClicked()">
+        <ion-icon name="close"></ion-icon>
+      </ion-button>
+    </ion-buttons>
+    <ion-title>Assign {{hasAgent ? 'New': ''}} Agent</ion-title>
+    <ion-buttons slot="end">
+      <ion-button (click)="assignButtonClicked()">
+        Assign
+      </ion-button>
+    </ion-buttons>
+  </ion-toolbar>
+
+  <ion-list lines="none" class="entity-list">
+    <mat-radio-group [value]="null" (change)="change($event)">
+      <ng-container *ngFor="let user of usersWithManageCustomerRole">
+        <ion-item>
+          <mat-radio-button slot="start" [value]="user.id"></mat-radio-button>
+          <ng-container *ngIf="user.profilePictureId; else noUserProfilePicture">
+            <ion-avatar slot="start" class="list-user-avatar">
+                <img alt="profile image"
+                     [src]="user.profilePictureId | profilePicUrl"
+                     (error)="setDefaultImg($event)">
+            </ion-avatar>
+          </ng-container>
+          <ng-template #noUserProfilePicture>
+            <library-icon name="person" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+          </ng-template>
+          <ion-label>{{user.fullName}}</ion-label>
+        </ion-item>
+      </ng-container>
+    </mat-radio-group>
+  </ion-list>
+  <div *ngIf="usersWithManageCustomerRole?.length == 0 && !errorMessage && !isLoading" class="tab-content content-error">
+    <p class="ion-text-center">No users found</p>
+  </div>
+  <div *ngIf="errorMessage && !isLoading" class="tab-content content-error" [@contentAnimation]>
+    <p class="ion-text-center">{{ errorMessage }}</p>
+  </div>
+  <ng-container *ngIf="isLoading">
+    <loader></loader>
+  </ng-container>
+</ion-content>

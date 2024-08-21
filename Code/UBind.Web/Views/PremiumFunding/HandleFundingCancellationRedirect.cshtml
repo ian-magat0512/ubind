@@ -1,0 +1,28 @@
+﻿@using UBind.Web.ViewModels
+@model PremiumFundingRedirectViewModel
+@{
+    Layout = null;
+}
+
+<!DOCTYPE html>
+
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title>Premium Funding Application Cancelled</title>
+</head>
+<body>
+    <h1>Premium Funding Application Cancelled</h1>
+    <h2>Data:</h2>
+    <dl>
+        <dt><dfn>Quote ID</dfn></dt>
+        <dd>@Model.QuoteId</dd>
+        <dt><dfn>Proposal ID</dfn></dt>
+        <dd>@Model.ProposalId</dd>
+    </dl>
+    <h2>To do:</h2>
+    <ol>
+        <li>Add script to notify parent window.</li>
+    </ol>
+</body>
+</html>

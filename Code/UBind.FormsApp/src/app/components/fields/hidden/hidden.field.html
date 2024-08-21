@@ -1,0 +1,8 @@
+<field-debug *ngIf="applicationService.debug" [field]="this"></field-debug>
+
+<input
+    type="hidden"
+    class="form-control"
+    [name]="key"
+    [formControl]="formControl"
+    (change)="onChange($event)" />

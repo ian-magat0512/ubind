@@ -1,0 +1,22 @@
+@model UBind.Application.Export.ViewModels.ApplicationEventViewModel
+
+<p style="font-family: Arial; font-size:13px;">A landlords insurance policy has been purchased.</p>
+
+<p style="font-family: Arial; font-size:13px;">Attached you will find the following documentation for your attention:</p>
+
+<ul style="font-family: Arial; font-size:13px;">
+    <li>Tax Invoice & Policy Schedule</li>
+    <li>PSC Landlords Insurance Package Policy Wording & Product Disclosure Statement (PDS)</li>
+    <li>Certificate of Currency</li>
+    <li>Financial Services Guide (FSG)</li>
+</ul>
+
+<h4 style="text-indent:15px; padding: 20px 0; background: #e6eaea; width: 60%; font-family: Arial; font-size:13px;">Application Details</h4>
+
+@Raw(Model.Form.PrettyPrintHtml())
+
+
+<p style="font-family: Arial; font-size:13px;">Kind regards,<br /><br />Property Club Insurance Team<br /><a href="tel:1300692109">1300 692 109</a><br /><a href="mailto:propertyclub@pscinsurance.com.au">propertyclub@pscinsurance.com.au</a></p>
+
+<p style="font-family: Arial; font-size:13px;">&nbsp;</p>
+

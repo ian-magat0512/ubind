@@ -1,0 +1,23 @@
+<ion-list class="entity-list custom-popover" lines="none" style="margin: -1px 0 0">
+    <button (click)="onEdit()">
+        <ion-icon name='md-create' class="start"></ion-icon>
+        <ion-label>Edit SSO Config</ion-label>
+    </button>
+    <button *ngIf="isDisabled" (click)="onEnable()">
+        <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="toggle-switch" svgIcon="toggle-switch" class="start"></mat-icon>
+        <ion-label>Enable SSO Config</ion-label>
+    </button>
+    <button *ngIf="!isDisabled" (click)="onDisable()">
+        <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="toggle-switch-off" svgIcon="toggle-switch-off" class="start"></mat-icon>
+        <ion-label>Disable SSO Config</ion-label>
+    </button>
+    <button (click)="onDelete()">
+        <ion-icon name='trash' class="start"></ion-icon>
+        <ion-label>Delete SSO Config</ion-label>
+    </button>
+    <button (click)="onShowSamlMetadata()">
+        <ion-icon name='code' class="start"></ion-icon>
+        <ion-label>Show SAML Metadata</ion-label>
+    </button>
+    <app-popover-actions [popOver]="this.popOverCtrl" [actions]="actions"></app-popover-actions>
+</ion-list>

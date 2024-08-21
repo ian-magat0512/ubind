@@ -1,0 +1,218 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf='!layoutManager.splitPaneVisible then detailHeader'></ng-container>
+    </ion-toolbar>
+    <ng-container *ngIf='!layoutManager.splitPaneVisible then segmentList'></ng-container>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ng-container *ngTemplateOutlet="detailHeader"></ng-container>
+    </ion-toolbar>
+    <ng-container *ngIf='layoutManager.splitPaneVisible then segmentList'></ng-container>
+    <loader *ngIf="isLoading"></loader>
+
+    <div *ngIf="!isLoading && !errorMessage">
+        <div [ngSwitch]="segment">
+            <!--Detail tab-->
+            <app-entity-details-list *ngSwitchCase="'Details'" [detailsListItems]="customerDetailsListItems"
+                [hasItemLines]="false" [hasGroupLines]="true" [truncateDescription]="true">
+            </app-entity-details-list>
+
+            <!--People tab-->
+            <div *ngSwitchCase="'People'" class="tab-content" [@contentAnimation]>
+                <loader *ngIf="isLoading"></loader>
+                <ng-container *ngIf="!isLoading">
+                    <ion-list *ngIf="people?.length > 0" class="entity-list" lines="none">
+                        <ion-item *ngFor="let person of people" (click)="personSelected(person.id)" button>
+                            <div class="round-icon-container person">
+                                <library-icon [name]="person.icon" [library]="person.iconLibrary" [slot]="'start'" [cssClass]="'round-icon'" class="round-icon"></library-icon>
+                            </div>
+                            <ion-label>
+                                <span>{{person.displayValue}}</span>
+                                <p class="status list-subtitle">{{person.description}}</p>
+                            </ion-label>
+                        </ion-item>
+                    </ion-list>
+                </ng-container>
+            </div>
+
+            <!--Transaction History tab-->
+            <div *ngSwitchCase="'Transactions'" class="tab-content" [@contentAnimation]>
+                <loader *ngIf="isLoadingTransactions"></loader>
+                <ng-container *ngIf="!isLoadingTransactions && !transactionsHidden">
+                    <ion-list *ngIf="model.transactions && model.transactions?.length > 0" class="entity-list"
+                        lines="none">
+                        <div *ngFor="let transaction of model.transactions">
+                            <ion-item>
+                                <library-icon [name]="transaction.iconName" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+                                <ion-label class="label">
+                                    <div class="list-title">{{transaction.title}}</div>
+                                    <p class="status">
+                                        {{ transaction.referenceNumber }}
+                                    </p>
+                                </ion-label>
+                                <ion-label class="ion-text-end" slot="end">
+                                    <div class="list-title">{{ transaction.transactionDate }}</div>
+                                    <p class="status">{{ transaction.displayedAmount }}</p>
+                                </ion-label>
+                            </ion-item>
+                        </div>
+                    </ion-list>
+                    <div *ngIf="model.transactions?.length == 0" class="tab-content content-error" [@contentAnimation]>
+                        <p class="ion-text-center">
+                            No transactions found
+                        </p>
+                    </div>
+                </ng-container>
+            </div>
+
+            <!-- Messages -->
+            <div *ngSwitchCase="'Messages'" class="tab-content-no-padding" [@contentAnimation]>
+                <app-email-view [entityId]="customerId" [entityType]="entityTypes.Customer"></app-email-view>
+            </div>
+
+            <!--Quotes-->
+            <div *ngSwitchCase="'Quotes'" class="tab-content" [@contentAnimation]>
+                <loader *ngIf="isLoading"></loader>
+                <ng-container *ngIf="!isLoading">
+                    <ion-list *ngIf="model.quotes && model.quotes?.length > 0" class="entity-list" lines="none">
+                        <div *ngFor="let quote of model.quotes">
+                            <ion-item (click)="quoteSelected(quote)" button>
+                                <mat-icon class="mat-icon-md" aria-hidden="false" attr.aria-label="{{quote.iconName}}" svgIcon="{{quote.iconName}}">
+                                </mat-icon>
+                                <ion-label class="label">
+                                    <div class="list-title">{{quote.productName}}</div>
+                                    <p class="status">
+                                        {{ quote.productName }}
+                                    </p>
+                                </ion-label>
+                                <ion-label class="ion-text-end" slot="end">
+                                    <div class="list-title">{{ quote.quoteNumber }}</div>
+                                    <p class="status">{{ quote.status }}</p>
+                                </ion-label>
+                            </ion-item>
+                        </div>
+                    </ion-list>
+                    <div *ngIf="model.quotes?.length == 0" class="tab-content content-error">
+                        <p class="ion-text-center">No quotes found</p>
+                    </div>
+                </ng-container>
+            </div>
+
+            <!--Policy-->
+            <div *ngSwitchCase="'Policies'" class="tab-content" [@contentAnimation]>
+                <loader *ngIf="isLoading"></loader>
+                <ng-container *ngIf="!isLoading">
+                    <ion-list *ngIf="model.policies && model.policies?.length > 0" class="entity-list" lines="none">
+                        <div *ngFor="let policy of model.policies">
+                            <ion-item (click)="policySelected(policy)" button>
+                                <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="shield" svgIcon="shield"></mat-icon>
+                                <ion-label class="label">
+                                    <div class="list-title">{{policy.productName}}</div>
+                                    <p class="status">{{ policy.policyIssuedDate }}</p>
+                                </ion-label>
+                                <ion-label class="ion-text-end" slot="end">
+                                    <div class="list-title">{{ policy.policyNumber }}</div>
+                                    <p class="status">{{ policy.status }}</p>
+                                </ion-label>
+                            </ion-item>
+                        </div>
+                    </ion-list>
+                    <div *ngIf="model.policies?.length == 0" class="tab-content content-error">
+                        <p class="ion-text-center" *ngIf="!isMutual">No policies found</p>
+                        <p class="ion-text-center" *ngIf="isMutual">No protections found</p>
+                    </div>
+                </ng-container>
+            </div>
+
+            <!--Claims-->
+            <div *ngSwitchCase="'Claims'" class="tab-content" [@contentAnimation]>
+                <loader *ngIf="isLoading"></loader>
+                <ng-container *ngIf="!isLoading">
+                    <ion-list *ngIf="model.claims && model.claims?.length > 0" class="entity-list" lines="none">
+                        <div *ngFor="let claim of model.claims">
+                            <ion-item (click)="claimSelected(claim)" button>
+                                <mat-icon class="mat-icon-md" aria-hidden="false" aria-label="clipboard" svgIcon="clipboard"></mat-icon>
+                                <ion-label class="label">
+                                    <div class="list-title">{{claim.productName}}</div>
+                                    <p class="status">{{ claim.createdDate }}</p>
+                                </ion-label>
+                                <ion-label class="ion-text-end" slot="end">
+                                    <div class="list-title">{{ claim.claimReference }}</div>
+                                    <p class="status">{{ claim.status }}</p>
+                                </ion-label>
+                            </ion-item>
+                        </div>
+                    </ion-list>
+                    <div *ngIf="model.claims?.length == 0" class="tab-content content-error">
+                        <p class="ion-text-center">No claims found</p>
+                    </div>
+                </ng-container>
+            </div>
+        </div>
+    </div>
+
+    <!--error-->
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">{{ errorMessage }}</p>
+    </div>
+</ion-content>
+
+<ng-template #detailHeader>
+    <ion-buttons *ngIf="!layoutManager.splitPaneVisible" slot="start">
+        <ion-button slot="icon-only" (click)="goBack()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="model" [@contentAnimation]>
+        {{model.fullName}}
+    </ion-title>
+    <ion-buttons slot="end">
+        <app-entity-action-button-list
+            [actionButtonList]="actionButtonList"
+            [getMoreButtonCallback]="showMenu.bind(this)"
+            [canShowMore]="canShowMoreButton || (actions?.length > 0 && hasActionsIncludedInMenu)"
+            [flipMoreIcon]="flipMoreIcon">
+        </app-entity-action-button-list>
+    </ion-buttons>
+</ng-template>
+
+<ng-template #segmentList>
+    <ion-segment id="detail-customer-segment" scrollable="true" [value]="segment" (ionChange)="segmentChanged($event)"
+        scrollHorizontal scrollMousedrag [segmentSelectedScrollIntoView]="segment">
+        <ion-segment-button ionSegmentButtonEvent value="Details">
+            <ion-label>Details</ion-label>
+        </ion-segment-button>
+        <ng-container *ubAllowAccess="permission.ManageCustomers, permissionModel: permissionDataModel">
+            <ion-segment-button ionSegmentButtonEvent value="People">
+                <ion-label>People</ion-label>
+            </ion-segment-button>
+        </ng-container>
+        <ng-container *ubAllowAccess="permission.ViewQuotes, permissionModel: permissionDataModel">
+            <ion-segment-button ionSegmentButtonEvent value="Quotes" *ngIf="hasQuoteFeature">
+                <ion-label>Quotes</ion-label>
+            </ion-segment-button>
+        </ng-container>
+        <ng-container *ubAllowAccess="permission.ViewPolicies, permissionModel: permissionDataModel">
+            <ion-segment-button ionSegmentButtonEvent value="Policies" *ngIf="hasPolicyFeature">
+                <ion-label>Policies</ion-label>
+            </ion-segment-button>
+        </ng-container>
+        <ng-container *ubAllowAccess="permission.ViewClaims, permissionModel: permissionDataModel">
+            <ion-segment-button ionSegmentButtonEvent value="Claims" *ngIf="hasClaimFeature">
+                <ion-label>Claims</ion-label>
+            </ion-segment-button>
+        </ng-container>
+        <ng-container *ubAllowAccess="permission.ViewMessages, permissionModel: permissionDataModel">
+            <ion-segment-button ionSegmentButtonEvent value="Messages" *ngIf="hasEmailFeature">
+                <ion-label>Messages</ion-label>
+            </ion-segment-button>
+        </ng-container>
+        <ng-container *ubAllowAccess="permission.ViewCustomers, permissionModel: permissionDataModel">
+            <ion-segment-button ionSegmentButtonEvent value="Transactions" *ngIf="!transactionsHidden">
+                <ion-label>Transactions</ion-label>
+            </ion-segment-button>
+        </ng-container>
+    </ion-segment>
+</ng-template>

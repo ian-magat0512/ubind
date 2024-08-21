@@ -1,0 +1,205 @@
+{
+
+  "gettingStarted": {
+    "startScreen": true,
+    "tabIndex": 1,
+    "articles": {
+      "gettingStarted": {
+        "questionSets": {
+          "gettingStarted": true
+        }
+      }
+    },
+    "actions": {
+      "start": {
+        "directives": [ "savePassword", "shareWithSelf" ],
+        "requiresValidQuestionSets": [ "gettingStarted" ],
+        "destinationStep": "applicantDetails",
+        "primary": true
+      },
+      "load": {
+        "destinationStep": "load",
+        "primary": false
+      }
+    }
+  },
+  "applicantDetails": {
+    "tabIndex": 2,
+    "articles": {
+      "applicantDetails": {
+        "questionSets": {
+          "applicantDetails": true
+        }
+      },
+      "individual1": {
+        "questionSets": {
+          "individual1": true
+        },
+        "hidden": "applicantType != 'Individual'"
+      },
+      "individual2": {
+        "questionSets": {
+          "individual2": true
+        },
+        "hidden": "jointApplication != 'Yes'"
+      },
+      "minor": {
+        "questionSets": {
+          "minor": true
+        },
+        "hidden": "applyingForMinor != 'Yes'"
+      },
+      "partnership": {
+        "questionSets": {
+          "partnership": true
+        },
+        "hidden": "applicantType != 'Partnership'"
+      },
+      "SMSF": {
+        "questionSets": {
+          "SMSF": true
+        },
+        "hidden": "applicantType != 'SMSF'"
+      },
+      "australianRegulatedTrust": {
+        "questionSets": {
+          "australianRegulatedTrust": true
+        },
+        "hidden": "applicantType != 'Australian Regulated Trust'"
+      },
+      "unregulatedTrust": {
+        "questionSets": {
+          "unregulatedTrust": true
+        },
+        "hidden": "applicantType != 'Unregulated Trust'"
+      },
+      "association": {
+        "questionSets": {
+          "association": true
+        },
+        "hidden": "applicantType != 'Association'"
+      },
+      "australianCompany": {
+        "questionSets": {
+          "australianCompany": true
+        },
+        "hidden": "applicantType != 'Australian Company' || australianRegulatedTrustCorporateTrusteeType == 'Australian Company' || unregulatedTrustCorporateTrusteeType == 'Australian Company'"
+      },
+      "foreignCompany": {
+        "questionSets": {
+          "foreignCompany": true
+        },
+        "hidden": "applicantType != 'Foreign Company' || australianRegulatedTrustCorporateTrusteeType == 'Foreign Company' || unregulatedTrustCorporateTrusteeType == 'Foreign Company'"
+      }
+    },
+    "actions": {
+      "save": {
+        "directives": [ "shareWithSelf" ],
+        "destinationStep": "savedPage"
+      },
+      "next": {
+        "requiresValidQuestionSets": [ "applicantDetails", "individual1", "individual2", "minor", "partnership", "SMSF", "australianRegulatedTrust", "unregulatedTrust", "association", "australianCompany", "foreignCompany" ],
+        "destinationStep": "applicationDetails",
+        "primary": true
+      }
+    }
+  },
+  "applicationDetails": {
+    "tabIndex": 3,
+    "articles": {
+      "applicationDetails": {
+        "questionSets": {
+          "applicationDetails": true
+        }
+      },
+      "distributionElection": {
+        "questionSets": {
+          "distributionElection": true
+        }
+      },
+      "adviserAccess": {
+        "questionSets": {
+          "adviserAccess": true
+        }
+      },
+      "TFNDetails": {
+        "questionSets": {
+          "TFNDetails": true
+        }
+      }
+    },
+    "actions": {
+      "save": {
+        "directives": [ "shareWithSelf" ],
+        "destinationStep": "saved"
+      },
+      "back": {
+        "destinationStep": "applicantDetails"
+      },
+      "next": {
+        "directives": [ "submit" ],
+        "requiresValidQuestionSets": [ "applicationDetails", "distributionElection", "adviserAccess", "TFNDetails" ],
+        "destinationStep": "successPage",
+        "primary": true
+      }
+    }
+  },
+  "successPage": {
+    "articles": {
+      "successMessage": {
+        "heading": "successHeading",
+        "text": "successText",
+        "questionSets": {}
+      }
+    },
+    "actions": []
+  },
+  "savedPage": {
+    "articles": {
+      "savedMessage": {
+        "heading": "savedHeading",
+        "text": "savedText",
+        "questionSets": {}
+      }
+    },
+    "actions": {
+      "back": {
+        "destinationStep": "applicantDetails",
+        "primary": true
+      }
+    }
+  },
+  "loadPage": {
+    "articles": {
+      "loadMessgae": {
+        "heading": "loadHeading",
+        "text": "loadText",
+        "questionSets": {}
+      }
+    },
+    "actions": {
+      "back": {
+        "destinationStep": "gettingStarted",
+        "primary": true
+      }
+    }
+  },
+  "loginPage": {
+    "articles": {
+      "loadSavedApplication": {
+        "heading": "loginHeading",
+        "text": "loginText",
+        "questionSets": {
+          "loadSavedApplication": true
+        }
+      }
+    },
+    "actions": {
+      "load": {
+        "directives": [ "loadSavedApplication" ],
+        "destinationStep": "applicantDetails",
+        "primary": true
+      }
+    }
+  }
+}

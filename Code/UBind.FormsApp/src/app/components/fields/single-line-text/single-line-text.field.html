@@ -1,0 +1,50 @@
+<field-debug *ngIf="applicationService.debug" [field]="this">
+    <span class="debug-property" *ngIf="this.applicationService.debugLevel >= 2">
+        <span class="key">Sensitive: </span><span class="value">{{ sensitive }}</span>
+    </span>
+    <span *ngIf="sensitive" class="debug-property">
+        <span class="key">Masked: </span><span class="value">{{ masked }}</span>
+    </span>
+    <span class="debug-property" *ngIf="inputMask && this.applicationService.debugLevel >= 2">
+        <span class="key">Pattern: </span><span class="value">{{ inputMask.mask }}</span>
+    </span>
+</field-debug>
+<div class="toggle-field-wrapper">
+        <input 
+        [type]="masked ? 'password' : 'text'"
+        class="form-control tabbable"
+        [id]="fieldPath | cssIdentifier"
+        [name]="fieldPath | cssIdentifier"
+        [formControl]="formControl"
+        [readonly]="readOnly"
+        [formatTextInput]="textInputFormat"
+        (cleanedValueEvent)="setValue($event)"
+        [attr.placeholder]="inputMask?.placeholderText ?? placeholderText"
+        (change)="onChange($event)"
+        (keyup)="onKeyUp($event)"
+        (keydown)="onKeyDown($event)"
+        (focus)="onFocus($event)"
+        (blur)="onBlur($event)"
+        [attr.inputmode]="keyboardInputMode"
+        [attr.aria-label]="ariaLabelByKey"
+        [mask]="inputMask?.mask"
+        [separatorLimit]="inputMask?.preDecimalDigitCountLimit"
+        [allowNegativeNumbers]="inputMask?.allowNegativeNumberValue"
+        [prefix]="inputMask?.hidePrefixWhenInputValueIsEmpty && (formControl.value === '' || formControl.value === null || formControl.value === inputMask?.prefix) ? '': inputMask?.prefix"
+        [suffix]="inputMask?.hideSuffixWhenInputValueIsEmpty && (formControl.value === '' || formControl.value === null || formControl.value === inputMask?.suffix) ? '': inputMask?.suffix"
+        [leadZeroDateTime]="inputMask?.padDateAndTimeValuesWithLeadingZeros"
+        [dropSpecialCharacters]="inputMask?.removeNonInputCharactersFromValue"
+        [placeHolderCharacter]="inputMask?.placeholderPatternInputCharacter"
+        [showMaskTyped]="inputMask?.typeOverPlaceholderPattern"
+        [specialCharacters]="inputMask?.specialCharacters"
+        [thousandSeparator]="inputMask?.thousandSeparator"
+        tabindex="0"/>
+    <ng-container *ngIf="sensitive">
+        <a href="#"
+        [id]="fieldPath + '-ToggleIcon' | cssIdentifier"
+        (click)="toggleMask($event)">        
+            <i *ngIf="masked" class="fa fa-eye"></i>
+            <i *ngIf="!masked" class="fa fa-eye-slash"></i>
+        </a>
+    </ng-container>
+</div>

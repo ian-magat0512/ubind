@@ -1,0 +1,37 @@
+<field-debug *ngIf="applicationService.debug" [field]="this"></field-debug>
+<div class="checkbox">
+
+    <label
+        [ngStyle]="styles"
+        class=" custom-control custom-checkbox"
+        [for]="fieldPath | cssIdentifier"
+        [class.disabled]="disabled"
+        [class.readonly]="readOnly">
+
+        <input #checkboxElement 
+            type="checkbox"
+            class="form-control"
+            [id]="fieldPath | cssIdentifier"
+            [name]="key"
+            [formControl]="formControl"
+            (change)="onChange($event)"
+            (keyup)="onKeyUp($event)"
+            (focus)="onFocus($event)"
+            (blur)="onBlur($event)"
+            (keydown)="onKeyDown($event)"/>
+
+        <span #labelElement [innerHTML]="labelSafeHtml" (click)="setFocusOnTabbableElement()"></span>
+
+        <div role="checkbox" #tabbableElement
+            class="check tabbable" 
+            (keyup.enter)="handleKeyUp($event)"
+            (keyup.Space)="handleKeyUp($event)"
+            tabindex="0"
+            [attr.aria-label]="labelElement.innerHTML"
+            [attr.aria-checked]="checkboxElement.checked">
+            <div class="inside fa fa-check"></div>
+        </div>
+
+    </label>
+
+</div>

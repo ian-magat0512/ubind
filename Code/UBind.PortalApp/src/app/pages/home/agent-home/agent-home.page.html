@@ -1,0 +1,61 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ion-buttons id="menu-btn" slot="start">
+            <ion-menu-toggle *ngIf="!layoutManager.canShowFixedMenu()">
+                <ion-button>
+                    <ion-icon slot="icon-only" name="menu"></ion-icon>
+                </ion-button>
+            </ion-menu-toggle>
+        </ion-buttons>
+        <ion-title role="heading" aria-level="1" *ngIf="!layoutManager.isMenuExpanded()" [style.margin-left]="layoutManager.isMenuDisabled() ? '16px' : '0px'" [class.has-portal-title]="hasPortalTitle">
+            <span class="logo"></span>
+            <span class="tenant-name">{{ tenantName }}</span>
+            <span class="organisation-name">{{ organisationName }}</span>
+            <span class="portal-title">{{ portalTitle }}</span>
+        </ion-title>
+        <ion-buttons slot="end" [style.margin-right]="( eventService.canShowProfilePictureIcon$ | async) ? '57px': '0px'">
+            <ion-button icon-only (click)="toggleProductFilter()">
+                <library-icon name="options" [library]="iconLibrary.IonicV4" [cssClass]="'medium'"></library-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+
+    <ion-grid>
+        <ion-row>
+            <app-welcome></app-welcome>
+        </ion-row>
+        <ion-row>
+            <ng-container *ngIf="!showWidget && menuItems">
+                <div class="home-content">
+                    <ng-container *ngFor="let menuItem of menuItems">
+                        <button (click)="goto(menuItem.navigate)">
+                            <div class="button-inner">
+                                <ion-icon name="{{menuItem.icon}}"></ion-icon>
+                                <br>
+                                <span>{{menuItem.title}}</span>
+                            </div>
+                        </button>
+                    </ng-container>
+                </div>
+            </ng-container>
+            <ng-container *ngIf="showWidget">
+                <ion-row>
+                    <ion-col>
+                        <ion-chip *ngFor="let filter of filterChips" (click)="filterChipClick(filter)">
+                            <ion-icon name="cube" color="light"></ion-icon>
+                            <ion-label color="light">{{filter.name}}</ion-label>
+                            <ion-icon name="close" color="light"></ion-icon>
+                        </ion-chip>
+                    </ion-col>
+                </ion-row>  
+                <app-chart-widget #chartWidget align-items="stretch" [quoteManagementEnabled]="quoteManagementEnabled"
+                [policyManagementEnabled]="policyManagementEnabled" [claimManagementEnabled]="claimManagementEnabled"
+                [productFilter]="tenantProductsFilter">
+                </app-chart-widget>
+            </ng-container>
+        </ion-row>
+    </ion-grid>    
+</ion-content>

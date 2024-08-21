@@ -1,0 +1,85 @@
+<ion-row align-items="stretch" *ngIf="!isDashboardUpgradeComplete">
+    <ion-col size-md="12" size-sm="12" class="dashboard-info-box">
+        <div class="kb-more-info-box mat-elevation-z2">
+            <ion-icon class="box-left-icon" name="help-circle-outline" size="large"></ion-icon>
+            <h5>Dashboard upgrade in progress</h5>
+            <p>Data might be missing or incomplete whilst we perform upgrades to your dashboard. Please check back again later.</p>
+        </div>
+    </ion-col>
+</ion-row> 
+<ion-row align-items="stretch">
+    <ng-container *ngIf="quoteManagementEnabled">
+        <ng-container *ubAllowAccess="[permission.ViewQuotes, permission.ViewAllQuotes, permission.ViewAllQuotesFromAllOrganisations]">
+            <ion-col size-md="12" size-sm="12" *ngFor="let quotesManagementChart of quotesManagementCharts"
+                [attr.size-xl]="getXLColumnWidth()"
+                [attr.size-lg]="getLGColumnWidth()">
+                <app-column-chart *ngIf="quotesManagementChart.type === 'column'" [data]="quotesManagementChart.data"
+                                  [title]="quotesManagementChart.title" [vAxesLeftTitle]="quotesManagementChart.vAxesLeftTitle"
+                                  [vAxesRightTitle]="quotesManagementChart.vAxesRightTitle" [backGroundColors]="quotesManagementChart.backGroundColors"
+                                  [textColors]="quotesManagementChart.textColors" [titleColor]="quotesManagementChart.titleColor"
+                                  [unit]="quotesManagementChart.unit" (selectedPeriodChangeEvent)="updateColumnChartData($event, 'quote', quotesManagementChart.title)">
+                </app-column-chart>
+                <app-line-chart *ngIf="quotesManagementChart.type === 'line'" [data]="quotesManagementChart.data"
+                                [title]="quotesManagementChart.title" [vAxesLeftTitle]="quotesManagementChart.vAxesLeftTitle"
+                                [vAxesRightTitle]="quotesManagementChart.vAxesRightTitle" [backGroundColors]="quotesManagementChart.backGroundColors"
+                                [textColors]="quotesManagementChart.textColors" [titleColor]="quotesManagementChart.titleColor"
+                                [unit]="quotesManagementChart.unit" (selectedPeriodChangeEvent)="updateLineChartData($event, 'quote', quotesManagementChart.title)">
+                </app-line-chart>
+                <app-donut-chart *ngIf="quotesManagementChart.type === 'donut'" [data]="quotesManagementChart.data"
+                                 [title]="quotesManagementChart.title" [completedTitle]="quotesManagementChart.completedTitle"
+                                 [incompleteTitle]="quotesManagementChart.incompleteTitle" [backGroundColors]="quotesManagementChart.backGroundColors"
+                                 [textColors]="quotesManagementChart.textColors" [titleColor]="quotesManagementChart.titleColor"
+                                 (selectedPeriodChangeEvent)="updateDonutChartData($event, 'quote', quotesManagementChart.title)">
+                </app-donut-chart>
+            </ion-col>
+        </ng-container>
+    </ng-container>
+
+    <ng-container *ngIf="policyManagementEnabled">
+        <ng-container *ubAllowAccess="[permission.ViewPolicies, permission.ViewAllPolicies, permission.ViewAllPoliciesFromAllOrganisations]">
+            <ion-col size-md="12" size-sm="12" *ngFor="let policiesManagementChart of policiesManagementCharts"
+                [attr.size-xl]="getXLColumnWidth()"
+                [attr.size-lg]="getLGColumnWidth()">
+                <app-column-chart *ngIf="policiesManagementChart.type === 'column'" [data]="policiesManagementChart.data"
+                                  [title]="policiesManagementChart.title" [vAxesLeftTitle]="policiesManagementChart.vAxesLeftTitle"
+                                  [vAxesRightTitle]="policiesManagementChart.vAxesRightTitle" [backGroundColors]="policiesManagementChart.backGroundColors"
+                                  [textColors]="policiesManagementChart.textColors" [titleColor]="policiesManagementChart.titleColor"
+                                  [unit]="policiesManagementChart.unit" (selectedPeriodChangeEvent)="updateColumnChartData($event, 'policy', policiesManagementChart.title)">
+                </app-column-chart>
+                <app-line-chart *ngIf="policiesManagementChart.type === 'line'" [data]="policiesManagementChart.data"
+                                [title]="policiesManagementChart.title" [vAxesLeftTitle]="policiesManagementChart.vAxesLeftTitle"
+                                [vAxesRightTitle]="policiesManagementChart.vAxesRightTitle" [backGroundColors]="policiesManagementChart.backGroundColors"
+                                [textColors]="policiesManagementChart.textColors" [titleColor]="policiesManagementChart.titleColor"
+                                [unit]="policiesManagementChart.unit" (selectedPeriodChangeEvent)="updateLineChartData($event, 'policy', policiesManagementChart.title)">
+                </app-line-chart>
+            </ion-col>
+        </ng-container>
+    </ng-container>
+    <ng-container *ngIf="claimManagementEnabled">
+        <ng-container *ubAllowAccess="[permission.ViewClaims, permission.ViewAllClaims, permission.ViewAllClaimsFromAllOrganisations]">
+            <ion-col size-md="12" size-sm="12" *ngFor="let claimsManagementChart of claimsManagementCharts"
+                [attr.size-xl]="getXLColumnWidth()"
+                [attr.size-lg]="getLGColumnWidth()">
+                <app-column-chart *ngIf="claimsManagementChart.type === 'column'" [data]="claimsManagementChart.data"
+                                  [title]="claimsManagementChart.title" [vAxesLeftTitle]="claimsManagementChart.vAxesLeftTitle"
+                                  [vAxesRightTitle]="claimsManagementChart.vAxesRightTitle" [backGroundColors]="claimsManagementChart.backGroundColors"
+                                  [textColors]="claimsManagementChart.textColors" [titleColor]="claimsManagementChart.titleColor"
+                                  [unit]="claimsManagementChart.unit"
+                                  (selectedPeriodChangeEvent)="updateColumnChartData($event, 'claim', claimsManagementChart.title)">
+                </app-column-chart>
+                <app-line-chart *ngIf="claimsManagementChart.type === 'line'" [data]="claimsManagementChart.data"
+                                [title]="claimsManagementChart.title" [vAxesLeftTitle]="claimsManagementChart.vAxesLeftTitle"
+                                [vAxesRightTitle]="claimsManagementChart.vAxesRightTitle" [backGroundColors]="claimsManagementChart.backGroundColors"
+                                [textColors]="claimsManagementChart.textColors" [titleColor]="claimsManagementChart.titleColor"
+                                [unit]="claimsManagementChart.unit" (selectedPeriodChangeEvent)="updateLineChartData($event, 'claim', claimsManagementChart.title)">
+                </app-line-chart>
+                <app-donut-chart *ngIf="claimsManagementChart.type === 'donut'" [data]="claimsManagementChart.data"
+                                 [title]="claimsManagementChart.title" [completedTitle]="claimsManagementChart.completedTitle"
+                                 [incompleteTitle]="claimsManagementChart.incompleteTitle" [backGroundColors]="claimsManagementChart.backGroundColors"
+                                 [textColors]="claimsManagementChart.textColors" [titleColor]="claimsManagementChart.titleColor"
+                                 (selectedPeriodChangeEvent)="updateDonutChartData($event, 'claim', claimsManagementChart.title)">
+                </app-donut-chart>
+            </ion-col>
+        </ng-container>
+    </ng-container>
+</ion-row>

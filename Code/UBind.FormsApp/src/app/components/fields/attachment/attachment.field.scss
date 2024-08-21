@@ -1,0 +1,49 @@
+.file-upload {
+    display: flex;
+    flex-direction: row;
+    flex-wrap: wrap;
+    align-items: center;
+
+    .disabled {
+        opacity: 0.5;
+    }
+
+    .btn-container {
+        display: flex;
+        flex-direction: row;
+        flex-wrap: wrap;
+        align-items: center;
+        row-gap: 12px;
+        column-gap: 12px;
+        margin-right: 12px;
+
+        button {
+            margin-top: 0;
+            margin-right: 0;
+            margin-left: 0;
+            margin-bottom: 0;  
+        }
+    }
+
+    .file-upload-info {
+        position: relative;
+
+        .file-field-icon {
+            position: absolute;
+        }
+
+        .file-name {
+            overflow-wrap: anywhere;
+            padding-left: 22px;
+        }
+    }
+
+    > div {
+        margin-top: 6px;
+        margin-bottom: 6px;
+    }    
+
+    .file-field-icon {
+        margin-right: 10px;
+    }
+}

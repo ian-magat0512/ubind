@@ -1,0 +1,19 @@
+@model UBind.Application.Export.ViewModels.ApplicationEventViewModel
+
+Hi @Model.Form["contactName"],
+
+Thank you for requesting a call-back regarding our Landlords Insurance product.
+
+A member of our team will contact you shortly using the details provided.
+
+Kind regards,
+
+Property Club Insurance Team
+1300 692 109
+propertyclub@pscinsurance.com.au
+
+
+
+Enquiry Details:
+
+@Model.Form.PrettyPrintExcluding("accountName", "BSB", "accountNumber")

@@ -1,0 +1,29 @@
+library-icon,
+mat-icon,
+ion-icon  {
+    margin-left: 2px;
+    margin-right: 14px !important;
+}
+
+div.round-icon-container {
+    border-radius: 16px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 28px;
+    width: 28px;
+    margin-left: 4px;
+    margin-right: 16px;
+
+    .round-icon {
+        color: white !important;
+        width: 20px !important;
+        height: 20px !important;
+    }
+
+    .round-mat-icon {
+        font-size: 20px !important;
+        margin-right: 0px !important;
+        margin-left: 0px !important;
+    }
+}

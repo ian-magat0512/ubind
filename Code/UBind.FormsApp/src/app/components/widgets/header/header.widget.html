@@ -1,0 +1,11 @@
+<header>    
+    <ng-container *ngFor="let element of contentElements">
+        <content-widget
+            *ngIf="element.render"
+            [name]="element.name"
+            [textElement]="element.textElement"
+            [content]="element.content"
+            [class]="element.cssClass">
+        </content-widget>
+    </ng-container>
+</header>

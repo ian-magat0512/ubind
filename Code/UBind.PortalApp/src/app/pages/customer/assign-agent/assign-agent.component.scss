@@ -1,0 +1,55 @@
+:host{
+    .image-filter {
+        filter: invert(52%) sepia(0%) saturate(0%) hue-rotate(153deg) brightness(88%) contrast(90%);
+    }
+    
+    loader {
+        display: block;
+        margin-top: -60px;
+    }
+
+    ion-radio{
+        margin-top: 14px;
+        margin-bottom: 14px;
+        margin-right: 16px;
+    }
+
+    ion-item:first-child {
+        margin-top: 8px;
+    }
+
+    ion-buttons {
+        ion-button {
+            border-radius: 5px;
+            --min-height: 36px;
+            min-height: 36px;
+            margin: 0 !important;
+    
+            &:hover {
+                background-color: var(--toolbar-button-hover-color);
+                cursor: pointer;
+            }
+
+            ion-icon {
+                font-size: 24px;
+                width: 24px;
+                height: 24px;
+            }
+        }
+    }
+
+    ion-title {
+        padding: 0 10px 0 10px;
+    }
+
+    @media (max-width: 991px) {
+        ion-buttons {
+            ion-button {
+                &:hover {
+                    background-color: transparent;
+                    cursor: pointer;
+                }
+            }
+        }
+    }
+}

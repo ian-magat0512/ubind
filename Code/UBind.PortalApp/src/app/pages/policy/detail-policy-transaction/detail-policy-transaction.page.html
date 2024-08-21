@@ -1,0 +1,107 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf='!layoutManager.splitPaneVisible then detailHeader'></ng-container>
+    </ion-toolbar>
+
+    <ng-container *ngIf='!layoutManager.splitPaneVisible && !isLoading then segmentList'></ng-container>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ng-container *ngTemplateOutlet="detailHeader"></ng-container>
+    </ion-toolbar>
+
+    <ng-container *ngIf='layoutManager.splitPaneVisible then segmentList'></ng-container>
+
+    <loader *ngIf="isLoading"></loader>
+
+    <div *ngIf="!isLoading && !errorMessage">
+        <div [ngSwitch]="segment">
+            <!-- Details -->
+            <div *ngSwitchCase="'Details'">
+                <app-entity-details-list [@contentAnimation]
+                                         [detailsListItems]="detailsListItems"
+                                         [hasItemLines]="false"
+                                         [hasGroupLines]="true">
+                </app-entity-details-list>
+            </div>
+
+            <!-- Questions -->
+            <div *ngSwitchCase="'Questions'" class="tab-content" [@contentAnimation]>
+                <app-questions-view [displayType]="displayType"
+                                    [questionItems]="questionItems"
+                                    [repeatingQuestionItems]="repeatingQuestionItems"></app-questions-view>
+            </div>
+            <!-- Price -->
+            <div *ngSwitchCase="'Price'" class="tab-content" [@contentAnimation]>
+                <app-breakdown-policy-view *ngIf="this.policyDetail && !this.isRefund" [refundOrPriceData]="refundOrPriceData">
+                </app-breakdown-policy-view>
+            </div>
+            <!-- Refund -->
+            <div *ngSwitchCase="'Refund'" class="tab-content" [@contentAnimation]>
+                <app-breakdown-policy-view *ngIf="this.policyDetail && this.isRefund" [refundOrPriceData]="refundOrPriceData">
+                </app-breakdown-policy-view>
+            </div>
+            <!-- Documents -->
+            <div *ngSwitchCase="'Documents'" class="tab-content" [@contentAnimation]>
+                <app-document-policy-view [policyId]="policyId" [quoteOrPolicyTransactionId]="transactionId">
+                </app-document-policy-view>
+            </div>
+            <!-- Emails -->
+            <div *ngSwitchCase="'Messages'" class="tab-content-no-padding" [@contentAnimation]>
+                <app-email-view [entityId]="transactionId" [entityType] = "entityTypes.PolicyTransaction"></app-email-view>
+            </div>
+        </div>
+    </div>
+
+    <!--error-->
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">{{ errorMessage }}</p>
+    </div>
+</ion-content>
+
+<ng-template #segmentList>
+    <ion-segment id="detail-policy-transaction-segment" scrollable="true"
+                [value]="segment" (ionChange)="segmentChanged($event)"
+                 scrollHorizontal scrollMousedrag [segmentSelectedScrollIntoView]="segment">
+        <ion-segment-button ionSegmentButtonEvent value="Details">
+            <ion-label>Details</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="Questions" *ngIf="isDisplayable('Questions')">
+            <ion-label>Questions</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="Price" *ngIf="policyDetail && isDisplayable('Price') && !isRefund">
+            <ion-label>Price</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="Refund" *ngIf="policyDetail && isDisplayable('Refund') && isRefund">
+            <ion-label>Refund</ion-label>
+        </ion-segment-button>
+        <ion-segment-button ionSegmentButtonEvent value="Documents">
+            <ion-label>Documents</ion-label>
+        </ion-segment-button>
+        <ng-container *ubAllowAccess="permission.ViewMessages, permissionModel: permissionModel">
+            <ion-segment-button ionSegmentButtonEvent value="Messages">
+                <ion-label>Messages</ion-label>
+            </ion-segment-button>
+        </ng-container>
+    </ion-segment>
+</ng-template>
+
+<ng-template #detailHeader>
+    <ion-buttons slot='start'>
+        <ion-button slot="icon-only" (click)="goBackToDetail()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title *ngIf="policyId">
+        {{pageTitle}}
+    </ion-title>
+    <ion-buttons slot="end">
+        <app-entity-action-button-list
+            [actionButtonList]="actionButtonList"
+            [getMoreButtonCallback]="presentPopover.bind(this)"
+            [canShowMore]="canEditAdditionalPropertyValues || (actions?.length > 0 && hasActionsIncludedInMenu)"
+            [flipMoreIcon]="flipMoreIcon">
+        </app-entity-action-button-list>
+    </ion-buttons>
+</ng-template>

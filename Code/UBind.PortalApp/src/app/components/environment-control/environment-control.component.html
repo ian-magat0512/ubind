@@ -1,0 +1,14 @@
+<div class="environment-control" *ngIf="isDevelopmentOrStaging"
+    [@contentAnimation]>
+    <div class="environment-control-text ion-black" color="dark"
+        [class.inner-padding-offset]="!this.canChangeEnvironment">
+        <ion-icon *ngIf='environment == "Development"' name="construct"></ion-icon>
+        <ion-icon *ngIf='environment == "Staging"' name="flask"></ion-icon>
+        <ion-label>{{environment}}</ion-label>
+    </div>
+    <div class="environment-control-button" *ngIf="canChangeEnvironment">
+        <button class="ion-black ellipsis clickable"
+            aria-label="environment selection"
+            (click)="clickEnvironmentSelection($event,'footer')">&#8942;</button>
+    </div>
+</div>

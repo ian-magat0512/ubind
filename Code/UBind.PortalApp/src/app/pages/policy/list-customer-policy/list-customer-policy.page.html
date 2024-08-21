@@ -1,0 +1,40 @@
+<app-segmented-entity-list [title]="title"
+                           [listItemNamePlural]="itemNamePlural"
+                           [entityRouteParamName]="'policyId'"
+                           [entityLoaderService]="policyApiService"
+                           [viewModelConstructor]="viewModelConstructor"
+                           [segments]="segments"
+                           [defaultSegment]="defaultSegment"
+                           [filterStatuses]="filterStatuses"
+                           [sortOptions]="sortOptions"
+                           [filterByDates]="filterByDates"
+                           [itemTemplate]="customerPolicyListItemTemplate"
+                           [getSelectedIdCallback]="getSelectedId.bind(this)"
+                           [getUserFilterSelectionCallback]="getUserFilterChips.bind(this)"
+                           (listQueryParamsGenerated)="onListQueryParamsGenerated($event)"
+                           [entityTypeName]="'Policy'"
+                           [entityPathSegment]="'my-policies'"
+                           [ngStyle]="{'height': '100%'}">
+</app-segmented-entity-list>
+
+<ng-template #customerPolicyListItemTemplate let-item>
+    <library-icon name="shield" [library]="iconLibrary.AngularMaterial" cssClass="mat-icon-md"></library-icon>
+    <ion-label class="ion-text-wrap list-title">
+        <div class="row-label">
+            {{item.productName}}
+            <library-icon *ngIf="item.isTestData" 
+                name="logo-game-controller-a" 
+                [library]="iconLibrary.IonicV4" 
+                class="testdata-list-icon right-icon-text"
+                [cssClass]="'medium'">
+            </library-icon>
+        </div>
+        <p class="status" *ngIf="item.status == 'Cancelled'">Cancelled on {{ item.cancellationEffectiveDate }}</p>
+        <p class="status" *ngIf="item.status != 'Cancelled'">{{ item.expiryText }} {{ item.expiryDate  }} </p>
+    </ion-label>
+    <ion-label class="ion-text-end" slot="end">
+        <div class="list-title row-label">{{item.policyNumber}}</div>
+        <p class="status" *ngIf="item.status!='Cancelled'">{{ item.expiryTime}}</p>
+        <p class="status" *ngIf="item.status=='Cancelled'">{{ item.cancellationEffectiveTime }}</p>
+    </ion-label>
+</ng-template>

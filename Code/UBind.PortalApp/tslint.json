@@ -1,0 +1,313 @@
+{
+    "rulesDirectory": [
+        "node_modules/codelyzer"
+    ],
+    "linterOptions": {
+        "exclude": [
+            "e2e/**/*.ts",
+            "../webFormApp/e2e/**/*.ts"
+        ]
+    },
+    "rules": {
+        "align": {
+            "severity": "error"
+        },
+        "arrow-parens": {
+            "severity": "error"
+        },
+        "arrow-return-shorthand": {
+            "severity": "error"
+        },
+        "class-name": {
+            "severity": "error"
+        },
+        "callable-types": false,
+        "comment-format": {
+            "severity": "error",
+            "options": [
+                "check-space"
+            ]
+        },
+        "completed-docs": {
+            "severity": "error",
+            "options": [
+                "classes",
+                "interfaces"
+            ]
+        },
+        "curly": {
+            "severity": "error",
+            "options": [
+                "ignore-same-line"
+            ]
+        },
+        "eofline": {
+            "severity": "error"
+        },
+        "import-blacklist": {
+            "severity": "error",
+            "options": [
+                "rxjs/Rx"
+            ]
+        },
+        "import-spacing": {
+            "severity": "error"
+        },
+        "indent": {
+            "severity": "error",
+            "options": [
+                "spaces"
+            ]
+        },
+        "interface-name": false,
+        "interface-over-type-literal": {
+            "severity": "error"
+        },
+        "label-position": {
+            "severity": "error"
+        },
+        "max-line-length": {
+            "severity": "error",
+            "options": {
+                "limit": 120,
+                "check-strings": true
+            }
+        },
+        "member-access": {
+            "severity": "error"
+        },
+        "member-ordering": {
+            "severity": "error",
+            "options": [
+                {
+                    "order": [
+                        "static-field",
+                        "instance-field",
+                        "static-method",
+                        "instance-method"
+                    ]
+                }
+            ]
+        },
+        "no-arg": {
+            "severity": "error"
+        },
+        "no-bitwise": {
+            "severity": "error"
+        },
+        "no-consecutive-blank-lines": {
+            "severity": "error"
+        },
+        "no-console": {
+            "severity": "error",
+            "options": [
+                "debug",
+                "info",
+                "time",
+                "timeEnd",
+                "trace"
+            ]
+        },
+        "no-construct": {
+            "severity": "error"
+        },
+        "no-debugger": {
+            "severity": "error"
+        },
+        "no-duplicate-super": {
+            "severity": "error"
+        },
+        "no-empty": false,
+        "no-empty-interface": false,
+        "no-eval": {
+            "severity": "error"
+        },
+        "no-inferrable-types": false,
+        "no-misused-new": {
+            "severity": "error"
+        },
+        "no-non-null-assertion": false,
+        "no-string-literal": false,
+        "no-string-throw": {
+            "severity": "error"
+        },
+        "no-switch-case-fall-through": {
+            "severity": "error"
+        },
+        "no-trailing-whitespace": {
+            "severity": "error",
+            "options": [
+                "ignore-comments",
+                "ignore-template-strings",
+                "ignore-jsdoc"
+            ]
+        },
+        "no-unnecessary-initializer": {
+            "severity": "error"
+        },
+        "no-unused-expression": {
+            "severity": "error"
+        },
+        "no-use-before-declare": {
+            "severity": "error"
+        },
+        "object-literal-key-quotes": false,
+        "object-literal-sort-keys": false,
+        "one-line": {
+            "severity": "error",
+            "options": [
+                "check-open-brace",
+                "check-catch",
+                "check-else",
+                "check-whitespace"
+            ]
+        },
+        "ordered-imports": false,
+        "quotemark": false,
+        "radix": {
+            "severity": "error"
+        },
+        "semicolon": {
+            "severity": "error",
+            "options": [
+                "always"
+            ]
+        },
+        "space-before-function-paren": {
+            "severity": "error",
+            "options": {
+                "anonymous": "never",
+                "named": "never",
+                "asyncArrow": "always",
+                "method": "never",
+                "constructor": "never"
+            }
+        },
+        "trailing-comma": {
+            "severity": "error"
+        },
+        "triple-equals": false,
+        "typedef-whitespace": {
+            "severity": "error",
+            "options": [
+                {
+                    "call-signature": "nospace",
+                    "index-signature": "nospace",
+                    "parameter": "nospace",
+                    "property-declaration": "nospace",
+                    "variable-declaration": "nospace"
+                }
+            ]
+        },
+        "unified-signatures": {
+            "severity": "error"
+        },
+        "variable-name": false,
+        "whitespace": {
+            "severity": "error",
+            "options": [
+                "check-branch",
+                "check-decl",
+                "check-operator",
+                "check-separator",
+                "check-type"
+            ]
+        },
+        "directive-selector": {
+            "severity": "error",
+            "options": [
+                "attribute",
+                "camelCase"
+            ]
+        },
+        "component-selector": {
+            "severity": "error",
+            "options": [
+                "element",
+                "kebab-case"
+            ]
+        },
+        "no-output-on-prefix": {
+            "severity": "error"
+        },
+        "use-input-property-decorator": {
+            "severity": "error"
+        },
+        "use-isnan": {
+            "severity": "error"
+        },
+        "use-output-property-decorator": {
+            "severity": "error"
+        },
+        "use-host-property-decorator": {
+            "severity": "error"
+        },
+        "no-input-rename": false,
+        "no-output-rename": {
+            "severity": "error"
+        },
+        "use-life-cycle-interface": {
+            "severity": "error"
+        },
+        "use-pipe-transform-interface": {
+            "severity": "error"
+        },
+        "component-class-suffix": false,
+        "directive-class-suffix": {
+            "severity": "error"
+        },
+        "array-type": {
+            "severity": "error",
+            "options": [
+                "generic"
+            ]
+        },
+        "object-literal-shorthand": false,
+        "ban-types": {
+            "severity": "error"
+        },
+        "no-angle-bracket-type-assertion": false,
+        "only-arrow-functions": {
+            "severity": "error",
+            "options": [
+                "allow-declarations"
+            ]
+        },
+        "jsdoc-format": {
+            "severity": "error"
+        },
+        "prefer-for-of": {
+            "severity": "error"
+        },
+        "one-variable-per-declaration": {
+            "severity": "error"
+        },
+        "no-conditional-assignment": {
+            "severity": "error"
+        },
+        "max-classes-per-file": {
+            "severity": "error"
+        },
+        "adjacent-overload-signatures": {
+            "severity": "error"
+        },
+        "no-var-requires": {
+            "severity": "error"
+        },
+        "typedef": {
+            "severity": "error",
+            "options": [
+                "call-signature",
+                "arrow-call-signature",
+                "parameter",
+                "arrow-parameter",
+                "property-declaration",
+                "variable-declaration",
+                "variable-declaration-ignore-function",
+                "member-variable-declaration",
+                "object-destructuring",
+                "array-destructuring"
+            ]
+        }
+    }
+}

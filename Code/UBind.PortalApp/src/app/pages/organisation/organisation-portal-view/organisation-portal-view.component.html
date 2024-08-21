@@ -1,0 +1,32 @@
+﻿<ng-container *ngIf="isLoading">
+    <loader></loader>
+</ng-container>
+
+<ng-container *ngIf="!isLoading && !errorMessage">
+    <ion-list class="entity-list" lines="none" *ngIf="portalViewModels?.length > 0">
+        <ion-item *ngFor="let portal of portalViewModels" (click)="userDidSelectItem(portal)" button>
+
+            <!--- load the template for rendering the user -->
+            <ng-container [ngTemplateOutlet]="portalListItemTemplate"
+                            [ngTemplateOutletContext]="{ $implicit: portal }"></ng-container>
+
+        </ion-item>
+    </ion-list>
+    <div *ngIf="portalViewModels?.length == 0" class="tab-content content-error">
+        <p class="ion-text-center">No portals found</p>
+    </div>
+</ng-container>
+<div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+    <p text-center>{{ errorMessage }}</p>
+</div>
+
+<ng-template #portalListItemTemplate let-item>
+    <library-icon name="browsers" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+    <ion-label>
+        <span>{{item.name}}</span>
+        <p class="status">{{item.userType}}{{ item.isDefault ? ' &#183; Default' : '' }}</p>
+    </ion-label>
+    <ion-label class="ion-text-wrap ion-text-end" slot="end">
+        <p class="status">{{item.disabled? 'Disabled' : 'Active'}}</p>
+    </ion-label>
+</ng-template>

@@ -1,0 +1,76 @@
+{
+    "version": "2.0.0",
+    "form": {
+        "defaultCurrencyCode": "AUD",
+        "questionSets": [{
+                "name": "Test Question Set 1",
+                "key": "testQuestionSet1",
+                "fields": [{
+                        "$type": "slider",
+                        "optionSetName": "Coverage",
+                        "optionSetKey": "coverage",
+                        "bootstrapColumnsExtraSmall": 12,
+                        "label": "Slider 1",
+                        "name": "Slider 1",
+                        "key": "slider1",
+                        "questionSetKey": "testQuestionSet1",
+                        "dataType": "text",
+                        "workflowRole": "none",
+                        "formatLegendItemExpression": "optionLabel + ' cover'"
+                    }, {
+                        "$type": "slider",
+                        "axisEndValueExpression": "200",
+                        "axisStartValueExpression": "0",
+                        "bootstrapColumnsExtraSmall": 12,
+                        "dataType": "number",
+                        "displayable": true,
+                        "key": "slider2",
+                        "label": "Slider 2",
+                        "name": "Slider 2",
+                        "questionSetKey": "testQuestionSet1",
+                        "stepIntervalExpression": "5",
+                        "validationRules": "minValue(50); maxValue(100)",
+                        "workflowRole": "none",
+                        "required": true                        
+                    }
+                ]
+            }
+        ],
+        "repeatingQuestionSets": [],
+        "optionSets": [{
+                "name": "Coverage",
+                "key": "coverage",
+                "options": [{
+                        "label": "None",
+                        "value": 0
+                    }, {
+                        "label": "$5m",
+                        "value": 5000000
+                    }, {
+                        "label": "$10m",
+                        "value": 10000000
+                    }, {
+                        "label": "$20m",
+                        "value": 20000000
+                    }
+                ]
+            }
+        ],
+        "workflowConfiguration": {
+            "step1": {
+                "startScreenExpression": "true",
+                "tabIndexExpression": "1",
+                "articles": [{
+                        "elements": [{
+                                "type": "questions",
+                                "name": "testQuestionSet1"
+                            }
+                        ]
+                    }
+                ]
+            }
+       }
+    },
+    "triggers": [],
+    "calculatesUsingStandardWorkbook": true
+}

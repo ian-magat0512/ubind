@@ -1,0 +1,32 @@
+<ion-header>
+    <ion-toolbar *ngIf="response == null" color="danger" class="level-1">
+        <ion-title role="heading" aria-level="1">Error: Page Not Found</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content *ngIf="response == null">
+    <div margin>
+        <p>
+            Please check the URL and try again.
+        </p>
+    </div>
+</ion-content>
+
+<ion-content *ngIf="response != null && log != null">
+    <ion-toolbar color="font-secondary" class="level-2">
+        <ion-title>
+            Error
+        </ion-title>
+        <ion-buttons slot="end">
+            <ion-button color="font-secondary" type="button" (click)="userDidTapClose()">
+                <ion-icon color="medium" name="close"></ion-icon>
+            </ion-button>
+        </ion-buttons>
+    </ion-toolbar>
+    <div class="stack-header">
+        Runtime Error <br /> {{ response.error.Exception.Message }}
+    </div>
+    <h4> Stack </h4>
+    <div class="stack-message">{{ log }}</div>
+
+</ion-content>

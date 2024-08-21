@@ -1,0 +1,26 @@
+ion-content {
+    --overflow: hidden !important;
+    overflow: hidden !important;
+}
+
+ion-content > div,
+ion-content div.tab-content:not(.content-error) {
+    overflow: auto !important;
+    height: calc(100vh - 165px) !important;
+}
+
+div.round-icon-container {
+    border-radius: 20px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    height: 40px;
+    width: 40px;
+    margin-right: 16px;
+
+    .round-icon {
+        color: white !important;
+        width: 24px !important;
+        height: 24px !important;
+    }
+}

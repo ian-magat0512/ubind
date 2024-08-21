@@ -1,0 +1,51 @@
+<ion-header>
+    <ion-toolbar color="primary" class="level-1">
+        <ng-container *ngIf="!layoutManager.splitPaneVisible" [ngTemplateOutlet]="toolbarButtons"></ng-container>
+    </ion-toolbar>
+</ion-header>
+
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ng-container [ngTemplateOutlet]="toolbarButtons"></ng-container>
+    </ion-toolbar>
+    <loader *ngIf="isLoading"></loader>
+    <ng-container *ngIf="!isLoading && !errorMessage">
+        <div appScrollDetails>
+            <ion-list class="entity-list" lines="none">
+                <ng-container *ngFor="let dataTable of dataTables">
+                    <ion-item (click)="itemSelected(dataTable)" tabindex="0" button>
+                        <library-icon name="grid" [library]="iconLibrary.IonicV4" [slot]="'start'" [size]="'large'"></library-icon>
+                        <ion-label class="ion-text-wrap">
+                            <span class="headline">{{dataTable.name}}</span>
+                            <p class="status sub-headline">{{dataTable.recordCount == 0 ? 'No' : dataTable.recordCount}}
+                                record{{dataTable.recordCount == 1 ? '' : 's'}}</p>
+                        </ion-label>
+                    </ion-item>
+                </ng-container>
+            </ion-list>
+            <div *ngIf="dataTables?.length == 0 && !errorMessage" class="tab-content content-error" [@contentAnimation]>
+                <p class="ion-text-center">
+                    No data tables found
+                </p>
+            </div>
+        </div>
+
+    </ng-container>
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">{{ errorMessage }}</p>
+    </div>
+</ion-content>
+
+<ng-template #toolbarButtons>
+    <ion-buttons slot="start">
+        <ion-button slot="icon-only" (click)="userDidTapBackButton()">
+            <ion-icon name="arrow-back"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title>Data Tables</ion-title>
+    <ion-buttons slot="end">
+            <app-entity-action-button-list
+                [actionButtonList]="actionButtonList">
+            </app-entity-action-button-list>
+    </ion-buttons>
+</ng-template>

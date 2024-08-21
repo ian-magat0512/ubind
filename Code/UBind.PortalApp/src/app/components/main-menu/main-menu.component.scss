@@ -1,0 +1,62 @@
+:host {
+
+    margin-top: 8px;
+    height: calc(100% - 12px) !important;
+
+    div {
+        ion-item {
+            margin: 0;
+            height: 48px;
+            --min-height: 48px;
+            --padding-start: 0;
+            cursor: pointer !important;
+
+            library-icon,
+            library-icon {
+                font-size: 24px;
+                height: 24px;
+                width: 24px;
+                min-width: 24px;
+                margin-right: 16px;
+                color: var(--main-menu-icon-color);
+                width: 24px;
+                margin-left: 16px;
+            }
+
+            ion-label {
+                font-size: 15px;
+                font-weight: 500;
+            }
+        }
+    }
+}
+
+.accordion-menu {
+    height: 0px;
+    transition: 400ms ease-in-out;
+    overflow: hidden;
+
+    ion-item:last-child {
+        border: none !important;
+        --inner-border-width: 0 !important;
+    }
+}
+
+.accordion-menu.expanded {
+    height: unset;
+}
+
+ion-list.side-menu-ion-list {
+    overflow: auto !important;
+    margin-top: 8px;
+    height: calc(100vh - 73px) !important;
+}
+
+ion-list.side-menu-ion-list-slide {
+    overflow: auto !important;
+    margin-top: 8px;
+    height: calc(100vh - 158px) !important;
+
+    /* We need extra padding for iphone since it has a bar at the bottom of the browser */
+    padding-bottom: 130px;
+}

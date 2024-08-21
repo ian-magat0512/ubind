@@ -1,0 +1,82 @@
+<ion-header>
+    <ion-toolbar class="level-1">
+        <ng-container *ngIf='!layoutManager.splitPaneVisible then detailHeader'></ng-container>
+    </ion-toolbar>
+</ion-header>
+<ion-content>
+    <ion-toolbar *ngIf="layoutManager.splitPaneVisible" class="level-2">
+        <ng-container *ngTemplateOutlet='detailHeader'></ng-container>
+    </ion-toolbar>
+
+    <loader *ngIf="isLoading"></loader>
+
+    <div *ngIf="errorMessage" class="tab-content content-error" [@contentAnimation]>
+        <p class="ion-text-center">{{ errorMessage }}</p>
+    </div>
+
+    <form *ngIf="!isLoading && !errorMessage" [formGroup]="issuePolicyForm">
+        <ion-list lines="none">
+            <ion-list-header>
+                <strong>Policy Number Assignment</strong>
+            </ion-list-header>
+            <ion-item>
+                An available policy number can be assigned to the new policy automatically, or you can manually enter a
+                unique policy number.
+            </ion-item>
+
+            <ion-item>
+                <mat-radio-group formControlName="assignmentType" class="radio-group">
+                    <div class="gray-label">Select Method</div>
+                    <mat-radio-button class="radio-button" value="{{PolicyNumberAssignmentMethod.Automatic}}" [checked]="arePolicyNumbersAvailable" [disabled]="!arePolicyNumbersAvailable">
+                        Assign automatically
+                    </mat-radio-button>
+                    <mat-radio-button class="radio-button" value="{{PolicyNumberAssignmentMethod.Custom}}" [checked]="!arePolicyNumbersAvailable">
+                        Enter a custom policy number
+                    </mat-radio-button>
+                </mat-radio-group>
+                <div class="error" *ngIf="issuePolicyForm.get('assignmentType').invalid && issuePolicyForm.dirty">
+                    You must select an assignment method
+                </div>
+            </ion-item>
+
+            <ion-item *ngIf="issuePolicyForm.get('assignmentType').value == PolicyNumberAssignmentMethod.Custom">
+                <ion-label position="stacked" class="gray-label item-input-label" 
+                [class.item-invalid]="issuePolicyForm.get('policyNumber').errors
+                && issuePolicyForm.get('policyNumber').touched">Policy Number</ion-label>
+                <ion-input class="item-input-field" formControlName="policyNumber"></ion-input>
+            </ion-item>
+            <div class="error validation-label" *ngIf="issuePolicyForm.get('policyNumber').getError('responseError') &&
+            issuePolicyForm.get('assignmentType').value == PolicyNumberAssignmentMethod.Custom">
+                {{assignmentErrorText}}
+            </div>
+            <div class="error validation-label" *ngIf="issuePolicyForm.get('assignmentType').value == PolicyNumberAssignmentMethod.Custom &&
+                    issuePolicyForm.get('policyNumber').invalid &&
+                    issuePolicyForm.get('policyNumber').getError('pattern')">
+                Policy numbers must contain only letters, numbers and the following special characters , . : ; - ( )
+            </div>
+            <div class="error validation-label" *ngIf="issuePolicyForm.get('assignmentType').value == PolicyNumberAssignmentMethod.Custom &&
+                    issuePolicyForm.get('policyNumber').invalid &&
+                    issuePolicyForm.get('policyNumber').dirty &&
+                !issuePolicyForm.get('policyNumber').getError('responseError') &&
+                !issuePolicyForm.get('policyNumber').getError('pattern')">
+                You must enter a policy number
+            </div>
+        </ion-list>
+    </form>
+</ion-content>
+
+<ng-template #detailHeader>
+    <ion-buttons slot="start" class="cancelButton">
+        <ion-button slot="icon-only" (click)="backToQuote()">
+            <ion-icon name="close"></ion-icon>
+        </ion-button>
+    </ion-buttons>
+    <ion-title>Issue Policy</ion-title>
+    <ion-buttons slot='end'>
+        <ng-container>
+            <ion-button (click)="issuePolicyNumber(issuePolicyForm.value)">
+                ISSUE
+            </ion-button>
+        </ng-container>
+    </ion-buttons>
+</ng-template>

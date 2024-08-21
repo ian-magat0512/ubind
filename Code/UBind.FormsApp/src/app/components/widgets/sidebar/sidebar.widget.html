@@ -1,0 +1,16 @@
+<div id="sidebar" [@actionsSlide]="transitionState" (@actionsSlide.done)="onCompletedTransition()">
+    <div id="sidebarHide" [@sidebarFade]="hideState">
+        <ng-container *ngFor="let aside of asides;trackBy:getUniqueIdentifier">
+            <ng-container *ngIf="aside.render">
+                <ng-container *ngIf="aside.type == 'calculation'">
+                    <calculation-widget>
+                    </calculation-widget>
+                </ng-container>
+                <ng-container *ngIf="aside.type == 'aside'">
+                    <aside-widget [definition]="aside">
+                    </aside-widget>
+                </ng-container>
+            </ng-container>
+        </ng-container>
+    </div>
+</div>

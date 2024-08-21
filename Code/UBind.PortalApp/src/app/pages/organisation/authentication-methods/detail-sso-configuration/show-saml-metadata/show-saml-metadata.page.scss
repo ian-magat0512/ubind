@@ -1,0 +1,15 @@
+:host {
+    ion-content {
+        overflow: auto !important;
+        --overflow: auto !important;
+
+        pre {
+            margin-top: 0;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            background-color: #2b2626;
+            color: rgb(75, 135, 196);
+            font-size: 15px;
+        }
+    }
+}

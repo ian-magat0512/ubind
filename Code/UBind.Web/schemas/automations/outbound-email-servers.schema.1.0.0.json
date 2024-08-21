@@ -1,0 +1,98 @@
+{   
+    "$id": "https://app.ubind.io/schemas/outbound-email-servers.schema.1.0.0.json",
+    "$schema": "http://json-schema.org/draft-07/schema#",
+    "title": "Outbound Email Servers",
+    "description": "For the definition of custom outbound email servers that can be used by automations when they send emails on behalf of clients.",
+    "type": "object",
+    "properties": {
+        "schemaVersion": {
+            "type": "string",
+            "description": "The version of the schema which this json structure must validate against.",
+            "enum": [ "1.0.0" ]
+        },
+        "outboundEmailServers": {
+            "type": "array",
+            "description": "An array of outbound email servers.",
+            "items": { "$ref": "#outboundEmailServer" },
+            "additionalItems": false
+        }
+    },
+    "required": [ "schemaVersion" ],
+    "additionalProperties": false,
+
+    "definitions": {
+        "outboundEmailServer": {
+            "$id": "#outboundEmailServer",
+            "description": "The settings and credentials needed to send emails using a remote server.",
+            "type": "object",
+            "properties": {
+                "name": {
+                    "$ref": "#name",
+                    "description": "A name for the email server."
+                },
+                "alias": {
+                    "$ref": "#alias",
+                    "description": "An alias for the email server"
+                },
+                "description": {
+                    "$ref": "#description",
+                    "description": "A description for the email server."
+                },
+
+                "protocol": {
+                    "type": "string",
+                    "description": "The protocol being used for connecting to the outgoing mail server. One of SMTP, ESMTP.",
+                    "enum": [ "SMTP", "ESMTP" ],
+                    "default": "ESMTP"
+                },
+                "encryptionMethod": {
+                    "type": "string",
+                    "description": "The encryption method used. If omitted, the default encryption method is 'TLS'.",
+                    "enum": [ "none", "SSL", "TLS" ],
+                    "default": "TLS"
+                },
+                "hostname": {
+                    "type": "string",
+                    "description": "The host that will be connected to."
+                },
+                "port": {
+                    "type": "integer",
+                    "description": "The port that will be connected to. If omitted, the default port will be based on the protocol and encryption method (25 for 'smtp/none', 995 for 'smtp/ssl', 587 for 'smtp/TLS')."
+                },
+                "username": {
+                    "type": "string",
+                    "description": "The username that will be used for authentication if applicable."
+                },
+                "password": {
+                    "type": "string",
+                    "description": "The password that will be used for authentication if applicable"
+                }
+            },
+            "required": [ "hostname" ],
+            "additionalProperties": false
+        },
+
+        "name": {
+            "$id": "#name",
+            "type": "string",
+            "description": "A display name for the object that will be used in the UI.",
+            "minLength": 2,
+            "pattern": "^([A-Za-z0-9 ]+)$"
+        },
+
+        "alias": {
+            "$id": "#alias",
+            "type": "string",
+            "description": "An unique ID for the object that is used to reference it and its output data in the automation data.",
+            "minLength": 2,
+            "pattern": "^([A-Za-z0-9]+)$"
+        },
+
+        "description": {
+            "$id": "#description",
+            "type": "string",
+            "description": "A description of an object that helps explain its purpose."
+        }
+
+    }
+}

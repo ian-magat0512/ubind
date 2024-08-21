@@ -1,0 +1,36 @@
+{
+  "name": "ubind-injection-app",
+  "version": "12.0.38",
+  "license": "UNLICENSED. Copyright (c) uBind, all rights reserved.",
+  "author": "uBind",
+  "description": "The uBind Injection App provides tools to inject uBind forms or portals into an existing website.",
+  "homepage": "https://ubind.insure/",
+  "scripts": {
+    "build": "node ./scripts/update-version.js && node ./scripts/delete-old-assets.js && webpack",
+    "build-release": "node ./scripts/update-version.js &&  node ./scripts/delete-old-assets.js && webpack",
+    "clean": "rimraf ./dist/**/*",
+    "watch": "node ./scripts/update-version.js &&  node ./scripts/delete-old-assets.js && webpack --watch",
+    "build-watch": "node ./scripts/update-version.js &&  node ./scripts/delete-old-assets.js && webpack --watch",
+    "lint": "eslint . --ext .ts"
+  },
+  "devDependencies": {
+    "@types/iframe-resizer": "^3.5.9",
+    "@types/node": "^20.4.9",
+    "@typescript-eslint/eslint-plugin": "^5.62.0",
+    "@typescript-eslint/parser": "^5.62.0",
+    "eslint": "^8.50.0",
+    "eslint-plugin-import": "^2.26.0",
+    "eslint-plugin-jsdoc": "^39.3.6",
+    "eslint-plugin-prefer-arrow": "^1.2.3",
+    "rimraf": "^3.0.2",
+    "source-map-loader": "^4.0.1",
+    "ts-loader": "^9.4.4",
+    "ts-node": "^10.9.1",
+    "typescript": "^5.1.6",
+    "webpack": "^5.88.2",
+    "webpack-cli": "^5.1.4"
+  },
+  "dependencies": {
+    "iframe-resizer": "^4.3.2"
+  }
+}
